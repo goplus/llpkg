@@ -5,9 +5,9 @@ import (
 	"os/exec"
 	"strings"
 
-	"github.com/goplus/llpkg/llpkg-tool/internal/cmdbuilder"
-	"github.com/goplus/llpkg/llpkg-tool/pkg/config"
-	"github.com/goplus/llpkg/llpkg-tool/pkg/installer"
+	"github.com/goplus/llpkg/tools/internal/cmdbuilder"
+	"github.com/goplus/llpkg/tools/pkg/config"
+	"github.com/goplus/llpkg/tools/pkg/installer"
 )
 
 const (

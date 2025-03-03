@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/goplus/llpkg/llpkg-tool/pkg/config"
+	"github.com/goplus/llpkg/tools/pkg/config"
 )
 
 func TestConanInstaller(t *testing.T) {
