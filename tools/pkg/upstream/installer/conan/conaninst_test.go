@@ -7,15 +7,15 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/goplus/llpkg/tools/pkg/config"
+	"github.com/goplus/llpkg/tools/pkg/upstream"
 )
 
 func TestConanInstaller(t *testing.T) {
-	c := &conanInstaller{
-		pkg: config.Package{
-			Name:    "cjson",
-			Version: "1.7.18",
-		},
+	c := &conanInstaller{}
+
+	pkg := upstream.Package{
+		Name:    "cjson",
+		Version: "1.7.18",
 	}
 
 	if name := c.Name(); name != "conan" {
@@ -27,27 +27,18 @@ func TestConanInstaller(t *testing.T) {
 		t.Errorf("Unexpected error when creating temp dir: %s", err)
 	}
 
-	if err := c.Install(tempDir); err != nil {
+	if err := c.Install(pkg, tempDir); err != nil {
 		t.Errorf("Install failed: %s", err)
 	}
 
-	if err := verify(c, tempDir); err != nil {
+	if err := verify(pkg, tempDir); err != nil {
 		t.Errorf("Verify failed: %s", err)
 	}
 }
 
-func verify(c *conanInstaller, installDir string) error {
-	err := verifyConanInstall(c, installDir)
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func verifyConanInstall(c *conanInstaller, installDir string) error {
+func verify(pkg upstream.Package, installDir string) error {
 	// 1. ensure .pc file exists
-	_, err := os.Stat(filepath.Join(installDir, c.pkg.Name+".pc"))
+	_, err := os.Stat(filepath.Join(installDir, pkg.Name+".pc"))
 	if err != nil {
 		return errors.New(".pc file does not exist: " + err.Error())
 	}
@@ -56,7 +47,7 @@ func verifyConanInstall(c *conanInstaller, installDir string) error {
 	os.Setenv("PKG_CONFIG_PATH", installDir)
 	defer os.Unsetenv("PKG_CONFIG_PATH")
 
-	buildCmd := exec.Command("pkg-config", "--cflags", c.pkg.Name)
+	buildCmd := exec.Command("pkg-config", "--cflags", pkg.Name)
 	out, err := buildCmd.CombinedOutput()
 	if err != nil {
 		return errors.New("pkg-config failed: " + err.Error() + " with output: " + string(out))

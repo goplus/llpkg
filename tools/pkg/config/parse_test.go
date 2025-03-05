@@ -1,32 +1,22 @@
 package config
 
 import (
-	"fmt"
-	"reflect"
+	"encoding/json"
 	"testing"
 )
 
-func printStruct(s interface{}, indent string) {
-	val := reflect.ValueOf(s)
-	typ := reflect.TypeOf(s)
-
-	for i := 0; i < val.NumField(); i++ {
-		fieldVal := val.Field(i)
-		fieldType := typ.Field(i)
-
-		if fieldVal.Kind() == reflect.Struct {
-			fmt.Printf("%s%s:\n", indent, fieldType.Name)
-			printStruct(fieldVal.Interface(), indent+"  ")
-		} else {
-			fmt.Printf("%s%s: %v\n", indent, fieldType.Name, fieldVal.Interface())
-		}
-	}
-}
+const structJson = `{"upstream":{"installer":{"name":"conan"},"package":{"name":"cjson","version":"1.7.18"}}}`
 
 func TestParseLLpkgConfig(t *testing.T) {
-	config, err := ParseLLpkgConfig("../../demo/llpkg.cfg")
+	config, err := ParseLLpkgConfig("../../_demo/llpkg.cfg")
 	if err != nil {
 		t.Errorf("Error parsing config file: %v", err)
 	}
-	printStruct(config, "")
+	json, err := json.Marshal(config)
+	if err != nil {
+		t.Errorf("Error marshaling config: %v", err)
+	}
+	if string(json) != structJson {
+		t.Errorf("Unexpected config: %s", string(json))
+	}
 }
