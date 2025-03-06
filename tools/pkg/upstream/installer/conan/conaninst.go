@@ -88,12 +88,3 @@ func (c *conanInstaller) Search(pkg upstream.Package) (string, error) {
 
 	return string(out), nil
 }
-
-func (c *conanInstaller) Validate(pkg upstream.Package) error {
-	_, err := c.Search(pkg)
-	if err != nil {
-		return fmt.Errorf("failed to search for package %s: %w", pkg.Name, err)
-	}
-
-	return nil
-}
