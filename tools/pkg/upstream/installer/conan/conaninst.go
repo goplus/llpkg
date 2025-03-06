@@ -58,8 +58,6 @@ func (c *conanInstaller) Install(pkg upstream.Package, dir string) error {
 
 	buildCmd := exec.Command(builder.Name(), append([]string{builder.Subcommand()}, builder.Args()...)...)
 
-	fmt.Println(buildCmd)
-
 	out, err := buildCmd.CombinedOutput()
 	if err != nil {
 		fmt.Println(string(out))

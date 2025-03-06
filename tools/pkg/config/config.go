@@ -1,5 +1,12 @@
 package config
 
+import (
+	"errors"
+
+	"github.com/goplus/llpkg/tools/pkg/upstream"
+	"github.com/goplus/llpkg/tools/pkg/upstream/installer/conan"
+)
+
 var ValidInstallers = []string{"conan"}
 
 type LLpkgConfig struct {
@@ -19,4 +26,16 @@ type InstallerConfig struct {
 type PackageConfig struct {
 	Name    string `json:"name"`
 	Version string `json:"version"`
+}
+
+func NewUpstreamFromConfig(upstreamConfig UpstreamConfig) (*upstream.Upstream, error) {
+	switch upstreamConfig.InstallerConfig.Name {
+	case "conan":
+		return upstream.NewUpstream(conan.NewConanInstaller(upstreamConfig.InstallerConfig.Config), upstream.Package{
+			Name:    upstreamConfig.PackageConfig.Name,
+			Version: upstreamConfig.PackageConfig.Version,
+		}), nil
+	default:
+		return nil, errors.New("unknown upstream installer: " + upstreamConfig.InstallerConfig.Name)
+	}
 }
