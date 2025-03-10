@@ -11,7 +11,7 @@ const Header = () => {
                 href="./llpkgstore.json"
                 target="_blank"
                 rel="noreferrer"
-                className="text-blue-500"
+                className="btn-a text-blue-500"
             >
                 Raw JSON
             </a>

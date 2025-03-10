@@ -17,11 +17,11 @@ const Title: React.FC<TitleProps> = ({ name, version, setVersion }) => {
         navigator.clipboard.writeText(`llgo get ${name}@${version}`);
     };
     return (
-        <div className="flex h-1/3 flex-col items-start gap-4 border-b border-gray-300 px-4 pb-4 sm:h-1/6 sm:flex-row">
+        <div className="flex h-1/3 flex-col items-start gap-4 border-b border-gray-300 px-4 pb-3 sm:h-1/6 sm:flex-row">
             <div className="flex flex-col text-left">
-                <h1 className="text-3xl font-bold">{name}</h1>
+                <h1 className="px-2 text-3xl font-bold">{name}</h1>
                 <a
-                    className="text-xs font-light text-gray-400"
+                    className="btn-button px-2 py-0.5 text-xs font-light text-gray-400 hover:text-gray-500"
                     href={`https://github.com/goplus/llpkg/${name}`}
                     target="_blank"
                     rel="noreferrer"
@@ -30,8 +30,8 @@ const Title: React.FC<TitleProps> = ({ name, version, setVersion }) => {
                 </a>
             </div>
             <div className="ml-auto">
-                <div className="flex flex-row overflow-hidden rounded-lg border border-gray-300 pr-2 pl-5">
-                    <p className="py-2 text-gray-700">
+                <div className="flex flex-row items-center overflow-hidden rounded-lg border border-gray-300">
+                    <p className="px-4 py-2 text-gray-700">
                         llgo get {name}@{version}
                     </p>
                     <CSSTransition
@@ -47,7 +47,7 @@ const Title: React.FC<TitleProps> = ({ name, version, setVersion }) => {
                         nodeRef={rollbackRef}
                     >
                         <button
-                            className="cursor-pointer pl-3 text-white opacity-0 transition duration-200 hover:scale-110 active:scale-90"
+                            className="btn-button mr-2 h-fit cursor-pointer p-1.5 text-white transition duration-200 hover:scale-110 active:scale-90"
                             onClick={() => setVersion('latest')}
                             ref={rollbackRef}
                         >
@@ -55,7 +55,7 @@ const Title: React.FC<TitleProps> = ({ name, version, setVersion }) => {
                         </button>
                     </CSSTransition>
                     <button
-                        className="cursor-pointer px-3 text-white transition duration-200 hover:scale-110 active:scale-90"
+                        className="btn-button mr-2 h-fit cursor-pointer p-1.5 text-white transition duration-200 hover:scale-110 active:scale-90"
                         onClick={copyVersionToClipboard}
                     >
                         <img src={clipboardImg} className="h-4 w-4" />
@@ -66,21 +66,17 @@ const Title: React.FC<TitleProps> = ({ name, version, setVersion }) => {
                         href={`https://github.com/goplus/llpkg/tree/main/${name}`}
                         target="_blank"
                         rel="noreferrer"
+                        className="btn-icon mx-0.5 inline-block"
                     >
-                        <img
-                            className="mx-1 inline-block h-4 w-4"
-                            src={githubImg}
-                        />
+                        <img className="mx-1 h-4 w-4" src={githubImg} />
                     </a>
                     <a
                         href={`https://conan.io/center/recipes/${name}`}
                         target="_blank"
                         rel="noreferrer"
+                        className="btn-icon mx-0.5 inline-block"
                     >
-                        <img
-                            className="mx-1 inline-block h-4 w-4"
-                            src={conanImg}
-                        />
+                        <img className="mx-1 h-4 w-4" src={conanImg} />
                     </a>
                 </div>
             </div>
