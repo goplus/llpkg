@@ -6,6 +6,7 @@ import { titleParser } from './tools/parser/parser';
 import { VersionData } from './tools/parser/types';
 import Pagination from './components/pagination';
 import './App.css';
+import { Tooltip } from 'react-tooltip';
 
 function App() {
     const [search, setSearch] = useState('');
@@ -26,6 +27,7 @@ function App() {
     }, [search]);
     return (
         <>
+            <Tooltip id="default-tooltip" />
             <Header />
             <Search
                 query={search}

@@ -47,7 +47,7 @@ const Title: React.FC<TitleProps> = ({ name, version, setVersion }) => {
                         nodeRef={rollbackRef}
                     >
                         <button
-                            className="btn-button mr-2 h-fit cursor-pointer p-1.5 text-white transition duration-200 hover:scale-110 active:scale-90"
+                            className="btn-button mr-2 h-fit cursor-pointer p-1.5 text-white opacity-0 transition duration-200 hover:scale-110 active:scale-90"
                             onClick={() => setVersion('latest')}
                             ref={rollbackRef}
                         >
