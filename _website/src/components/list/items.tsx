@@ -12,15 +12,17 @@ const Item: React.FC<ItemProps> = ({ name, data, setInfo, setModalOpen }) => {
     const remain = data.versions.length - 2;
     return (
         <div className="flex min-h-32 flex-row items-center gap-4 overflow-clip rounded-xl border border-gray-300 bg-white p-4">
-            <a
-                className="w-32 cursor-pointer text-2xl font-bold text-wrap text-gray-900 hover:underline"
-                onClick={() => {
-                    setInfo(name);
-                    setModalOpen(true);
-                }}
-            >
-                {name}
-            </a>
+            <div className="w-32">
+                <a
+                    className="btn-a cursor-pointer text-2xl font-bold text-wrap text-gray-900"
+                    onClick={() => {
+                        setInfo(name);
+                        setModalOpen(true);
+                    }}
+                >
+                    {name}
+                </a>
+            </div>
             <div className="w-96 text-left">
                 {data.versions
                     .filter((_, index) => {
@@ -48,7 +50,7 @@ const Item: React.FC<ItemProps> = ({ name, data, setInfo, setModalOpen }) => {
                             setInfo(name);
                             setModalOpen(true);
                         }}
-                        className="cursor-pointer text-sky-500 hover:underline"
+                        className="btn-a cursor-pointer text-sky-500"
                     >
                         And {remain} more...
                     </button>

@@ -76,7 +76,7 @@ const DetailModal: React.FC<DetailModalProps> = ({
                             </div>
                             <div className="mb-3 text-right">
                                 <button
-                                    className="cursor-pointer text-sm text-gray-500"
+                                    className="btn-a cursor-pointer text-sm text-gray-500"
                                     onClick={() => setDesc(!desc)}
                                 >
                                     <img
