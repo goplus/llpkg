@@ -17,7 +17,7 @@ const Title: React.FC<TitleProps> = ({ name, version, setVersion }) => {
         navigator.clipboard.writeText(`llgo get ${name}@${version}`);
     };
     return (
-        <div className="flex h-1/3 flex-col items-start gap-4 border-b border-gray-300 px-4 pb-3 sm:h-1/6 sm:flex-row">
+        <div className="flex flex-col items-start gap-4 border-b border-gray-300 px-4 pb-3 sm:h-1/6 sm:flex-row">
             <div className="flex flex-col text-left">
                 <h1 className="px-2 text-3xl font-bold">{name}</h1>
                 <a
@@ -29,7 +29,7 @@ const Title: React.FC<TitleProps> = ({ name, version, setVersion }) => {
                     github.com/goplus/llpkg/{name}
                 </a>
             </div>
-            <div className="ml-auto">
+            <div className="self-center sm:ml-auto">
                 <div className="flex flex-row items-center overflow-hidden rounded-lg border border-gray-300">
                     <p className="px-4 py-2 text-gray-700">
                         llgo get {name}@{version}
@@ -61,7 +61,7 @@ const Title: React.FC<TitleProps> = ({ name, version, setVersion }) => {
                         <img src={clipboardImg} className="h-4 w-4" />
                     </button>
                 </div>
-                <div className="mt-2 text-right">
+                <div className="mt-2 text-center sm:text-right">
                     <a
                         href={`https://github.com/goplus/llpkg/tree/main/${name}`}
                         target="_blank"

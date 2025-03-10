@@ -57,19 +57,19 @@ const DetailModal: React.FC<DetailModalProps> = ({
                     {searchResult ? (
                         <>
                             <div className="sticky top-1 mt-5 mb-1 flex flex-row justify-around text-base">
-                                <div className="mb-2 flex items-center gap-2 rounded-lg border border-gray-300 bg-white/70 px-2 backdrop-blur-lg">
+                                <div className="mb-2 flex w-full items-center gap-2 overflow-hidden rounded-lg border border-gray-300 bg-white/70 px-2 backdrop-blur-lg">
                                     <input
                                         onChange={(e) =>
                                             setOriginVersion(e.target.value)
                                         }
-                                        className="border-r border-gray-300 px-1 py-2 focus-visible:outline-0"
+                                        className="w-1/2 border-r border-gray-300 py-2 focus-visible:outline-0 sm:px-1"
                                         placeholder="Original version"
                                     />
                                     <input
                                         onChange={(e) =>
                                             setMappedVersion(e.target.value)
                                         }
-                                        className="px-1 py-2 focus-visible:outline-0"
+                                        className="w-1/2 py-2 focus-visible:outline-0 sm:px-1"
                                         placeholder="Mapped version"
                                     />
                                 </div>
