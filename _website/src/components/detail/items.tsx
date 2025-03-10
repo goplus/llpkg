@@ -8,11 +8,11 @@ interface VersionItemProps {
 const VersionItem: React.FC<VersionItemProps> = ({ ver, setVersion }) => {
     return (
         <div className="flex flex-row items-center gap-4 rounded-lg bg-gray-50 px-4 py-3">
-            <span className="min-w-16 text-left text-lg font-bold">
+            <span className="min-w-14 text-left text-lg font-bold sm:min-w-16">
                 {ver.c}
             </span>
             <div className="flex w-full flex-row gap-2 overflow-hidden">
-                <span className="flex w-full flex-row flex-nowrap gap-2 overflow-auto">
+                <span className="flex flex-row flex-wrap gap-2 overflow-auto sm:flex-nowrap">
                     {ver.go.map((ver, index) => (
                         <VersionTag
                             key={index}
@@ -21,7 +21,7 @@ const VersionItem: React.FC<VersionItemProps> = ({ ver, setVersion }) => {
                         />
                     ))}
                 </span>
-                <span className="ml-auto min-w-20 border-l border-gray-300 pl-2">
+                <span className="ml-auto self-center border-l border-gray-300 pl-2 sm:min-w-20">
                     <VersionTag
                         tag={ver.go[ver.go.length - 1]}
                         onClick={setVersion}
