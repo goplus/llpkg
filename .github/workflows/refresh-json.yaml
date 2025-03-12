@@ -1,0 +1,43 @@
+name: Copy versions.json to gh-pages
+
+on:
+    push:
+        branches:
+            - main
+        paths:
+            - 'public/versions.json'
+
+permissions:
+    contents: write
+
+jobs:
+    copy-file:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout main branch
+              uses: actions/checkout@v3
+              with:
+                  ref: main
+
+            - name: Copy versions.json to root
+              run: |
+                  cp public/versions.json .
+
+            - name: Checkout gh-pages branch
+              uses: actions/checkout@v3
+              with:
+                  ref: gh-pages
+                  path: gh-pages
+
+            - name: Move versions.json to gh-pages root
+              run: |
+                  mv versions.json gh-pages/
+
+            - name: Commit and push changes
+              working-directory: gh-pages
+              run: |
+                  git config --local user.email "action@github.com"
+                  git config --local user.name "GitHub Action"
+                  git add versions.json
+                  git commit -m "Update versions.json" || true
+                  git push
