@@ -1,11 +1,11 @@
-name: Copy versions.json to gh-pages
+name: Copy llpkgstore.json to gh-pages
 
 on:
     push:
         branches:
             - main
         paths:
-            - 'public/versions.json'
+            - '/_website/public/llpkgstore.json'
 
 permissions:
     contents: write
@@ -19,9 +19,9 @@ jobs:
               with:
                   ref: main
 
-            - name: Copy versions.json to root
+            - name: Copy llpkgstore.json to root
               run: |
-                  cp public/versions.json .
+                  cp _website/public/llpkgstore.json .
 
             - name: Checkout gh-pages branch
               uses: actions/checkout@v3
@@ -29,15 +29,15 @@ jobs:
                   ref: gh-pages
                   path: gh-pages
 
-            - name: Move versions.json to gh-pages root
+            - name: Move llpkgstore.json to gh-pages root
               run: |
-                  mv versions.json gh-pages/
+                  mv llpkgstore.json gh-pages/
 
             - name: Commit and push changes
               working-directory: gh-pages
               run: |
                   git config --local user.email "action@github.com"
                   git config --local user.name "GitHub Action"
-                  git add versions.json
-                  git commit -m "Update versions.json" || true
+                  git add llpkgstore.json
+                  git commit -m "Update llpkgstore.json" || true
                   git push

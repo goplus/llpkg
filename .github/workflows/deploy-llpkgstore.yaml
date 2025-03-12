@@ -1,11 +1,13 @@
-name: Redeploy
+name: Deploy llpkgstore to GitHub Pages
 
 on:
     push:
         branches: 'main'
+        paths:
+            - '/_website/**'
         paths-ignore:
             - 'README.md'
-            - 'public/versions.json'
+            - '/_website/public/llpkgstore.json'
 
 permissions:
     contents: write
@@ -29,12 +31,14 @@ jobs:
               uses: borales/actions-yarn@v4
               with:
                   cmd: install
+                  dir: '_website'
             - name: Build
               uses: borales/actions-yarn@v4
               with:
                   cmd: build
+                  dir: '_website'
             - name: Deploy
               uses: jamesives/github-pages-deploy-action@v4.2.2
               with:
                   branch: gh-pages
-                  folder: dist
+                  folder: _website/dist
