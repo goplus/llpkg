@@ -1,0 +1,40 @@
+name: Redeploy
+
+on:
+    push:
+        branches: 'main'
+        paths-ignore:
+            - 'README.md'
+            - 'public/versions.json'
+
+permissions:
+    contents: write
+
+jobs:
+    build-and-deploy:
+        runs-on: ubuntu-latest
+
+        strategy:
+            matrix:
+                node-version: [23.8.0]
+
+        steps:
+            - uses: actions/checkout@v3
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v3
+              with:
+                  node-version: ${{ matrix.node-version }}
+            - run: corepack enable
+            - name: Install Dependencies
+              uses: borales/actions-yarn@v4
+              with:
+                  cmd: install
+            - name: Build
+              uses: borales/actions-yarn@v4
+              with:
+                  cmd: build
+            - name: Deploy
+              uses: jamesives/github-pages-deploy-action@v4.2.2
+              with:
+                  branch: gh-pages
+                  folder: dist
