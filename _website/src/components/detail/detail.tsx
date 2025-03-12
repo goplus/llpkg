@@ -44,6 +44,7 @@ const DetailModal: React.FC<DetailModalProps> = ({
 
     useEffect(() => {
         setVersion('latest');
+        setItemOffset(0);
         setDesc(false);
     }, [name]);
     useEffect(() => {
