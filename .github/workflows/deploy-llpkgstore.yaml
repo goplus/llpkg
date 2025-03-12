@@ -4,10 +4,8 @@ on:
     push:
         branches: 'main'
         paths:
-            - '/_website/**'
-        paths-ignore:
-            - 'README.md'
-            - '/_website/public/llpkgstore.json'
+            - '/_website/src/**'
+            - '/_website/*'
 
 permissions:
     contents: write
