@@ -35,8 +35,10 @@ jobs:
               with:
                   cmd: build
                   dir: '_website'
-            - name: Deploy
-              uses: jamesives/github-pages-deploy-action@v4.2.2
+            - name: Upload artifact
+              uses: actions/upload-pages-artifact@v3
               with:
-                  branch: gh-pages
-                  folder: _website/dist
+                   path: '_website/dist'
+            - name: Deploy to GitHub Pages
+              id: deployment
+              uses: actions/deploy-pages@v4
