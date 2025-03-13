@@ -1,15 +1,16 @@
 import { setSearchParams } from '../utils/searchParams';
+import { pluralize } from '../utils/words';
 
 interface SearchProps {
-    dataNumber: number;
-    resultNumber: number;
+    totalPackages: number;
+    totalResults: number;
     query: string;
     setSearch: (search: string) => void;
 }
 
 const Search: React.FC<SearchProps> = ({
-    dataNumber,
-    resultNumber,
+    totalPackages,
+    totalResults,
     query,
     setSearch,
 }) => {
@@ -30,30 +31,30 @@ const Search: React.FC<SearchProps> = ({
             <p>
                 {query.trim() ? (
                     <>
-                        {resultNumber ? (
+                        {totalResults ? (
                             <span className="font-bold text-blue-700">
-                                {resultNumber}{' '}
+                                {totalResults}{' '}
                             </span>
                         ) : (
                             'No '
                         )}
-                        results found from
+                        {pluralize('result', totalResults)} found from
                         <span className="font-bold text-blue-700">
                             {' '}
-                            {dataNumber}{' '}
+                            {totalPackages}{' '}
                         </span>
-                        packages.
+                        {pluralize('package', totalPackages)}.
                     </>
                 ) : (
                     <>
-                        {dataNumber ? (
+                        {totalPackages ? (
                             <span className="font-bold text-blue-700">
-                                {dataNumber}{' '}
+                                {totalPackages}{' '}
                             </span>
                         ) : (
                             'No '
                         )}
-                        packages found.
+                        {pluralize('package', totalPackages)} found.
                     </>
                 )}
             </p>

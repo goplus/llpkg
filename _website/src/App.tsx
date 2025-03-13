@@ -38,8 +38,8 @@ function App() {
             <Search
                 query={search}
                 setSearch={setSearch}
-                dataNumber={data ? Object.keys(data).length : 0}
-                resultNumber={searchResult.totalCount}
+                totalPackages={data ? Object.keys(data).length : 0}
+                totalResults={searchResult.totalCount}
             />
             <List data={data} titles={searchResult.data} />
             <Pagination
