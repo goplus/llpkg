@@ -7,8 +7,9 @@ import { VersionData } from './utils/parser/types';
 import Pagination from './components/pagination';
 import { Tooltip } from 'react-tooltip';
 import { getVersionData } from './utils/getLLPkgstore';
-import './App.css';
 import { getSearchParams } from './utils/searchParams';
+import toast, { Toaster } from 'react-hot-toast';
+import './App.css';
 
 function App() {
     const [search, setSearch] = useState('');
@@ -21,9 +22,16 @@ function App() {
         [data, search, itemOffset],
     );
     useEffect(() => {
-        getVersionData().then((data) => {
-            setData(data);
-        });
+        getVersionData().then(
+            (data) => {
+                setData(data);
+            },
+            (error) => {
+                toast.error(error.message);
+            },
+        );
+    }, []);
+    useEffect(() => {
         if (searchQuery) {
             setSearch(searchQuery);
         }
@@ -34,6 +42,7 @@ function App() {
     return (
         <>
             <Tooltip id="default-tooltip" />
+            <Toaster />
             <Header />
             <Search
                 query={search}

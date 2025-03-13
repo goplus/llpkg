@@ -4,6 +4,7 @@ import conanImg from '../../assets/conan.svg';
 import rollbackImg from '../../assets/rollback.svg';
 import { CSSTransition } from 'react-transition-group';
 import { useRef } from 'react';
+import toast from 'react-hot-toast';
 
 interface TitleProps {
     name?: string;
@@ -14,7 +15,17 @@ interface TitleProps {
 const Title: React.FC<TitleProps> = ({ name, version, setVersion }) => {
     const rollbackRef = useRef<HTMLButtonElement>(null);
     const copyVersionToClipboard = () => {
-        navigator.clipboard.writeText(`llgo get ${name}@${version}`);
+        if (navigator.clipboard)
+            navigator.clipboard.writeText(`llgo get ${name}@${version}`).then(
+                () => {
+                    toast.success('Copied to clipboard');
+                },
+                () => {
+                    toast.error('Failed to copy to clipboard');
+                },
+            );
+        else toast.error('Failed to copy to clipboard');
+        
     };
     return (
         <div className="flex flex-col items-start gap-4 border-b border-gray-300 px-4 pb-3 sm:h-1/6 sm:flex-row">
