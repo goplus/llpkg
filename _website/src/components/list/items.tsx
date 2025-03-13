@@ -1,4 +1,5 @@
 import { VersionData } from '../../utils/parser/types';
+import { setSearchParams } from '../../utils/searchParams';
 
 interface ItemProps {
     name: string;
@@ -10,15 +11,17 @@ interface ItemProps {
 
 const Item: React.FC<ItemProps> = ({ name, data, setInfo, setModalOpen }) => {
     const remain = data.versions.length - 2;
+    const openModal = () => {
+        setInfo(name);
+        setSearchParams('pkg', name);
+        setModalOpen(true);
+    };
     return (
         <div className="flex min-h-32 flex-row items-center gap-4 overflow-clip rounded-xl border border-gray-300 bg-white p-4">
             <div className="w-1/3">
                 <a
                     className="btn-a cursor-pointer text-2xl font-bold text-wrap text-gray-900"
-                    onClick={() => {
-                        setInfo(name);
-                        setModalOpen(true);
-                    }}
+                    onClick={openModal}
                 >
                     {name}
                 </a>
@@ -59,11 +62,7 @@ const Item: React.FC<ItemProps> = ({ name, data, setInfo, setModalOpen }) => {
                     })}
                 {remain > 0 && (
                     <button
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            setInfo(name);
-                            setModalOpen(true);
-                        }}
+                        onClick={openModal}
                         className="btn-a cursor-pointer text-sky-500"
                     >
                         And {remain} more...

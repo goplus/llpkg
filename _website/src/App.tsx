@@ -8,11 +8,13 @@ import Pagination from './components/pagination';
 import { Tooltip } from 'react-tooltip';
 import { getVersionData } from './utils/getLLPkgstore';
 import './App.css';
+import { getSearchParams } from './utils/searchParams';
 
 function App() {
     const [search, setSearch] = useState('');
     const [data, setData] = useState<VersionData>();
     const [itemOffset, setItemOffset] = useState(0);
+    const searchQuery = getSearchParams('search');
     const pageSize = 4;
     const searchResult = useMemo(
         () => titleParser(data, search, itemOffset, pageSize),
@@ -22,7 +24,10 @@ function App() {
         getVersionData().then((data) => {
             setData(data);
         });
-    }, []);
+        if (searchQuery) {
+            setSearch(searchQuery);
+        }
+    }, [searchQuery]);
     useEffect(() => {
         setItemOffset(0);
     }, [search]);
