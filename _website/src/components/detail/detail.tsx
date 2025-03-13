@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
-import { VersionData } from '../../tools/parser/types';
-import { versionParser } from '../../tools/parser/parser';
+import { VersionData } from '../../utils/parser/types';
+import { versionParser } from '../../utils/parser/parser';
 import Modal from '../modal';
 import Title from './title';
 import VersionItem from './items';

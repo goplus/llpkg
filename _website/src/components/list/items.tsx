@@ -1,4 +1,4 @@
-import { VersionData } from '../../tools/parser/types';
+import { VersionData } from '../../utils/parser/types';
 
 interface ItemProps {
     name: string;

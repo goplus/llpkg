@@ -1,4 +1,4 @@
-import { VersionData } from '../../tools/parser/types';
+import { VersionData } from '../../utils/parser/types';
 
 interface VersionItemProps {
     ver: VersionData[string]['versions'][number];
