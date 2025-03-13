@@ -5,10 +5,10 @@ on:
         branches: 'main'
         paths:
             - '_website/**'
-            - '!_website/public/llpkgstore.json'
 
 permissions:
-    contents: write
+    pages: write
+    id-token: write
 
 jobs:
     build-and-deploy:
