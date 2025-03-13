@@ -7,9 +7,6 @@ on:
     types: [created]
 
 
-permissions:
-  pull-requests: read
-
 jobs:
   maintenance:
     runs-on: ubuntu-latest
@@ -28,7 +25,7 @@ jobs:
           go env -w GOPRIVATE=github.com/MeteorsLiu/llpkgstore
       - name: Set up Parser Tool
         run: |
-          go install -v github.com/MeteorsLiu/llpkgstore/cmd/llpkgstore@rebase
+          go install -v github.com/MeteorsLiu/llpkgstore/cmd/maintain@rebase
       - name: Run maintenance process
         run: |
-          llpkgstore maintain
+          maintain labelcreate
