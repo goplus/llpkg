@@ -6,7 +6,7 @@ import Pagination from '@/components/Pagination';
 import Search from '@/components/Search';
 import Header from '@/layout/Header';
 import { getVersionData } from '@/utils/getLLPkgstore';
-import { titleParser } from '@/utils/parser/parser';
+import { titleParser } from '@/utils/parser';
 import { VersionData } from '@/utils/parser/types';
 import { getSearchParams } from '@/utils/searchParams';
 import './App.css';

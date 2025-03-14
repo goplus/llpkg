@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import AscendingImg from '@/assets/sortAscending.svg';
 import DescendingImg from '@/assets/sortDescending.svg';
 import Pagination from '@/components/Pagination';
-import { versionParser } from '@/utils/parser/parser';
+import { versionParser } from '@/utils/parser';
 import { VersionData } from '@/utils/parser/types';
 import { setSearchParams } from '@/utils/searchParams';
 import Modal from '../Modal';
