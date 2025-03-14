@@ -1,5 +1,5 @@
-import { VersionData } from '../../utils/parser/types';
-import { setSearchParams } from '../../utils/searchParams';
+import { VersionData } from '@/utils/parser/types';
+import { setSearchParams } from '@/utils/searchParams';
 
 interface ItemProps {
     name: string;
