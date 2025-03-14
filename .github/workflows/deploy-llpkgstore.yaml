@@ -2,7 +2,7 @@ name: Deploy llpkgstore to GitHub Pages
 
 on:
     push:
-        branches: 'main'
+        branches: 'website'
         paths:
             - '_website/**'
 
