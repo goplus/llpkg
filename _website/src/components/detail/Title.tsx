@@ -1,7 +1,7 @@
-import clipboardImg from '../../assets/clipboard.svg';
-import githubImg from '../../assets/github.svg';
-import conanImg from '../../assets/conan.svg';
-import rollbackImg from '../../assets/rollback.svg';
+import clipboardImg from '@/assets/clipboard.svg';
+import githubImg from '@/assets/github.svg';
+import conanImg from '@/assets/conan.svg';
+import rollbackImg from '@/assets/rollback.svg';
 import { CSSTransition } from 'react-transition-group';
 import { useRef } from 'react';
 import toast from 'react-hot-toast';
@@ -21,11 +21,10 @@ const Title: React.FC<TitleProps> = ({ name, version, setVersion }) => {
                     toast.success('Copied to clipboard');
                 },
                 () => {
-                    toast.error('Failed to copy to clipboard');
+                    toast.error('Failed to copy');
                 },
             );
         else toast.error('Failed to copy to clipboard');
-        
     };
     return (
         <div className="flex flex-col items-start gap-4 border-b border-gray-300 px-4 pb-3 sm:h-1/6 sm:flex-row">

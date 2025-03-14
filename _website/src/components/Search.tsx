@@ -1,5 +1,5 @@
-import { setSearchParams } from '../utils/searchParams';
-import { pluralize } from '../utils/words';
+import { setSearchParams } from '@/utils/searchParams';
+import { pluralize } from '@/utils/words';
 
 interface SearchProps {
     totalPackages: number;

@@ -1,13 +1,13 @@
 import { useEffect, useMemo, useState } from 'react';
-import Header from './layout/header';
-import List from './components/list/list';
-import Search from './components/search';
-import { titleParser } from './utils/parser/parser';
-import { VersionData } from './utils/parser/types';
-import Pagination from './components/pagination';
+import Header from '@/layout/Header';
+import List from '@/components/List';
+import Search from '@/components/Search';
+import { titleParser } from '@/utils/parser/parser';
+import { VersionData } from '@/utils/parser/types';
+import Pagination from '@/components/Pagination';
 import { Tooltip } from 'react-tooltip';
-import { getVersionData } from './utils/getLLPkgstore';
-import { getSearchParams } from './utils/searchParams';
+import { getVersionData } from '@/utils/getLLPkgstore';
+import { getSearchParams } from '@/utils/searchParams';
 import toast, { Toaster } from 'react-hot-toast';
 import './App.css';
 

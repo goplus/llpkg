@@ -1,13 +1,13 @@
 import { useEffect, useMemo, useState } from 'react';
-import { VersionData } from '../../utils/parser/types';
-import { versionParser } from '../../utils/parser/parser';
-import Modal from '../modal';
-import Title from './title';
-import VersionItem from './items';
-import AscendingImg from '../../assets/sortAscending.svg';
-import DescendingImg from '../../assets/sortDescending.svg';
-import Pagination from '../pagination';
-import { setSearchParams } from '../../utils/searchParams';
+import { VersionData } from '@/utils/parser/types';
+import { versionParser } from '@/utils/parser/parser';
+import Modal from '../Modal';
+import Title from './Title';
+import VersionItem from './Items';
+import AscendingImg from '@/assets/sortAscending.svg';
+import DescendingImg from '@/assets/sortDescending.svg';
+import Pagination from '@/components/Pagination';
+import { setSearchParams } from '@/utils/searchParams';
 
 interface DetailModalProps {
     modalOpen: boolean;
@@ -48,9 +48,11 @@ const DetailModal: React.FC<DetailModalProps> = ({
         setDesc(false);
         setVersion('latest');
     }, [name]);
+
     useEffect(() => {
         setItemOffset(0);
     }, [originVersion, mappedVersion]);
+
     return (
         <Modal
             isOpen={modalOpen}
