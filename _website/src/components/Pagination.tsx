@@ -17,7 +17,6 @@ const Pagination: React.FC<PaginationProps> = ({
     className,
 }) => {
     const handlePageClick = (data: { selected: number }) => {
-        console.log(data.selected);
         setItemOffset(data.selected);
     };
     const pageCount = useMemo(() => {
