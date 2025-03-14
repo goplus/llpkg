@@ -1,13 +1,13 @@
 import { useEffect, useMemo, useState } from 'react';
-import { VersionData } from '@/utils/parser/types';
-import { versionParser } from '@/utils/parser/parser';
-import Modal from '../Modal';
-import Title from './Title';
-import VersionItem from './Items';
 import AscendingImg from '@/assets/sortAscending.svg';
 import DescendingImg from '@/assets/sortDescending.svg';
 import Pagination from '@/components/Pagination';
+import { versionParser } from '@/utils/parser/parser';
+import { VersionData } from '@/utils/parser/types';
 import { setSearchParams } from '@/utils/searchParams';
+import Modal from '../Modal';
+import Title from './Title';
+import VersionItem from './Items';
 
 interface DetailModalProps {
     modalOpen: boolean;

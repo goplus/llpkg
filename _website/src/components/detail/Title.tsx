@@ -1,10 +1,10 @@
-import clipboardImg from '@/assets/clipboard.svg';
-import githubImg from '@/assets/github.svg';
-import conanImg from '@/assets/conan.svg';
-import rollbackImg from '@/assets/rollback.svg';
-import { CSSTransition } from 'react-transition-group';
 import { useRef } from 'react';
 import toast from 'react-hot-toast';
+import { CSSTransition } from 'react-transition-group';
+import clipboardImg from '@/assets/clipboard.svg';
+import conanImg from '@/assets/conan.svg';
+import githubImg from '@/assets/github.svg';
+import rollbackImg from '@/assets/rollback.svg';
 
 interface TitleProps {
     name?: string;
