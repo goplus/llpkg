@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import Item from './Items';
-import { VersionData } from '@/utils/parser/types';
-import DetailModal from '../Detail';
-import { getSearchParams, setSearchParams } from '@/utils/searchParams';
 import toast from 'react-hot-toast';
+import { VersionData } from '@/utils/parser/types';
+import { getSearchParams, setSearchParams } from '@/utils/searchParams';
+import DetailModal from '../Detail';
+import Item from './Items';
 
 interface ListProps {
     data?: VersionData;
