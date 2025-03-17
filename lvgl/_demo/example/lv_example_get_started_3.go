@@ -76,7 +76,7 @@ func lv_example_get_started_3() {
 	core.LvObjAddStyle(btn2, &styleBtn, 0)
 	core.LvObjAddStyle(btn2, &styleButtonRed, 0)
 	core.LvObjAddStyle(btn2, &styleButtonPressed, core.LV_STATE_PRESSED)
-	//core.LvObjSetStyleRadius(btn2, core.LV_RADIUS_CIRCLE, 0) /*Add a local style too*/
+	core.LvObjSetStyleRadius(btn2, c.Int32T(core.LV_RADIUS_CIRCLE), 0) /*Add a local style too*/
 
 	label = widgets.LvLabelCreate(btn2)
 	widgets.LvLabelSetText(label, c.Str("Button 2"))

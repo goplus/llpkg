@@ -8,10 +8,9 @@ import (
 )
 
 //go:type C
-type lv_event_t struct {
+type LvEventT struct {
 	Unused [0]byte
 }
-type LvEventT lv_event_t
 
 // Event codes
 type LvEventCodeT uint32
@@ -102,19 +101,18 @@ const (
 )
 
 //go:type C
-type lv_event_dsc_t struct {
+type LvEventDscT struct {
 	Unused [0]byte
 }
-type LvEventDscT lv_event_dsc_t
 
 // llgo:type C
-type lv_event_list_t struct {
+type LvEventListT struct {
 	Unused [0]byte
 }
-type LvEventListT lv_event_list_t
 
 // Event callback function type
-//
+// Function types for callbacks
+// typedef void (*lv_event_cb_t)(lv_event_t * e);
 // llgo:type C
 type LvEventCbT func(e *LvEventT)
 
@@ -122,22 +120,22 @@ type LvEventCbT func(e *LvEventT)
 func LvEventSend(list *LvEventListT, e *LvEventT, preprocess bool) LvResultT
 
 //go:linkname LvEventAdd C.lv_event_add
-func LvEventAdd(list *LvEventListT, cb LvEventCbT, filter LvEventCodeT, user_data unsafe.Pointer) *lv_event_dsc_t
+func LvEventAdd(list *LvEventListT, cb LvEventCbT, filter LvEventCodeT, user_data *c.Void) *LvEventDscT
 
 //go:linkname LvEventRemoveDsc C.lv_event_remove_dsc
-func LvEventRemoveDsc(list *LvEventListT, dsc *lv_event_dsc_t) bool
+func LvEventRemoveDsc(list *LvEventListT, dsc *LvEventDscT) bool
 
 //go:linkname LvEventGetCount C.lv_event_get_count
 func LvEventGetCount(list *LvEventListT) uint32
 
 //go:linkname LvEventGetDsc C.lv_event_get_dsc
-func LvEventGetDsc(list *LvEventListT, index uint32) *lv_event_dsc_t
+func LvEventGetDsc(list *LvEventListT, index uint32) *LvEventDscT
 
 //go:linkname LvEventDscGetCb C.lv_event_dsc_get_cb
-func LvEventDscGetCb(dsc *lv_event_dsc_t) LvEventCbT
+func LvEventDscGetCb(dsc *LvEventDscT) LvEventCbT
 
 //go:linkname LvEventDscGetUserData C.lv_event_dsc_get_user_data
-func LvEventDscGetUserData(dsc *lv_event_dsc_t) unsafe.Pointer
+func LvEventDscGetUserData(dsc *LvEventDscT) unsafe.Pointer
 
 //go:linkname LvEventRemove C.lv_event_remove
 func LvEventRemove(list *LvEventListT, index uint32) bool

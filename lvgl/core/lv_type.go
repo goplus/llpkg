@@ -1,6 +1,7 @@
 package core
 
 import (
+	"fmt"
 	_ "unsafe"
 
 	"github.com/goplus/llgo/c"
@@ -49,7 +50,7 @@ const (
 	LV_OPA_MAX LvOpaT = 253
 )
 
-type LvRadiusT c.Int
+type LvRadiusT c.Int32T
 
 const (
 	LV_RADIUS_CIRCLE LvRadiusT = 0x7FFF
@@ -70,9 +71,68 @@ type LvColorFilterDscT struct {
 	Unused [0]byte
 }
 
+// **渐变描述结构 (lv_grad_dsc_t)**
+const (
+	LV_GRADIENT_MAX_STOPS = 2
+)
+
+// **渐变停止点 (lv_grad_stop_t)**
+//
+//llgo:type C
+type LvGradStopT struct {
+	Color LvColorT // 颜色
+	Opa   LvOpaT   // 透明度
+	Frac  uint8    // 停止点位置（0-255）
+}
+
+// **渐变方向枚举 (lv_grad_dir_t)**
+type LvGradDirT uint8
+
+const (
+	LV_GRAD_DIR_NONE    LvGradDirT = iota // 无渐变
+	LV_GRAD_DIR_VER                       // 垂直渐变
+	LV_GRAD_DIR_HOR                       // 水平渐变
+	LV_GRAD_DIR_LINEAR                    // 线性渐变
+	LV_GRAD_DIR_RADIAL                    // 放射渐变
+	LV_GRAD_DIR_CONICAL                   // 锥形渐变
+)
+
+// **渐变超出范围时的行为 (lv_grad_extend_t)**
+type LvGradExtendT uint8
+
+const (
+	LV_GRAD_EXTEND_PAD     LvGradExtendT = iota // 保持最后的颜色
+	LV_GRAD_EXTEND_REPEAT                       // 重复渐变模式
+	LV_GRAD_EXTEND_REFLECT                      // 反射渐变模式
+)
+
 //llgo:type C
 type LvGradDscT struct {
-	Unused [0]byte
+	Stops      [LV_GRADIENT_MAX_STOPS]LvGradStopT // 渐变停止点数组
+	StopsCount uint8                              // 渐变点数量
+	Flags      uint8                              // 低 4 位存储 dir，高 3 位存储 extend
+	//State      unsafe.Pointer                     // 指针，存储额外状态（如果有的话）
+}
+
+// **设置 dir（低 4 位）**
+func (d *LvGradDscT) SetDir(dir LvGradDirT) {
+	fmt.Println("Setting dir:", dir)
+	d.Flags = (d.Flags & 0xF0) | (uint8(dir) & 0x0F)
+}
+
+// **获取 dir（低 4 位）**
+func (d *LvGradDscT) GetDir() LvGradDirT {
+	return LvGradDirT(d.Flags & 0x0F)
+}
+
+// **设置 extend（高 3 位，5-7 位）**
+func (d *LvGradDscT) SetExtend(extend LvGradExtendT) {
+	d.Flags = (d.Flags & 0x8F) | ((uint8(extend) & 0x07) << 4)
+}
+
+// **获取 extend（高 3 位，5-7 位）**
+func (d *LvGradDscT) GetExtend() LvGradExtendT {
+	return LvGradExtendT((d.Flags >> 4) & 0x07)
 }
 
 //llgo:type C
@@ -155,7 +215,16 @@ type LvMatrixT struct {
 
 //llgo:type
 type LvStyleT struct {
-	Unused [0]byte
+	// 	Unused [0]byte
+
+	// 	#if LV_USE_ASSERT_STYLE
+	//     uint32_t sentinel;
+	// #endif
+
+	ValuesAndProps *c.Void
+
+	HasGroup c.Uint
+	PropCnt  c.Uint
 }
 
 type LvStyleStateCmpT c.Int
@@ -230,17 +299,6 @@ type LvColor16aT struct {
 	Luminance c.Uint
 	Alpha     c.Uint
 }
-
-type LvGradDirT c.Int
-
-const (
-	LV_GRAD_DIR_NONE    LvGradDirT = iota /**< No gradient (the `grad_color` property is ignored)*/
-	LV_GRAD_DIR_VER                       /**< Simple vertical (top to bottom) gradient*/
-	LV_GRAD_DIR_HOR                       /**< Simple horizontal (left to right) gradient*/
-	LV_GRAD_DIR_LINEAR                    /**< Linear gradient defined by start and end points. Can be at any angle.*/
-	LV_GRAD_DIR_RADIAL                    /**< Radial gradient defined by start and end circles*/
-	LV_GRAD_DIR_CONICAL                   /**< Conical gradient defined by center point, start and end angles*/
-)
 
 type LvBorderSideT c.Int
 
@@ -463,3 +521,45 @@ type LvThemeT struct {
 type LvTimerT struct {
 	Unused [0]byte
 }
+
+type LvGridAlignT c.Int
+
+const (
+	LV_GRID_ALIGN_START LvGridAlignT = iota
+	LV_GRID_ALIGN_CENTER
+	LV_GRID_ALIGN_END
+	LV_GRID_ALIGN_STRETCH
+	LV_GRID_ALIGN_SPACE_EVENLY
+	LV_GRID_ALIGN_SPACE_AROUND
+	LV_GRID_ALIGN_SPACE_BETWEEN
+)
+
+const (
+	LV_FLEX_COLUMN  = 1 << 0
+	LV_FLEX_WRAP    = 1 << 2
+	LV_FLEX_REVERSE = 1 << 3
+)
+
+type LvFlexAlignT c.Int
+
+const (
+	LV_FLEX_ALIGN_START LvFlexAlignT = iota
+	LV_FLEX_ALIGN_END
+	LV_FLEX_ALIGN_CENTER
+	LV_FLEX_ALIGN_SPACE_EVENLY
+	LV_FLEX_ALIGN_SPACE_AROUND
+	LV_FLEX_ALIGN_SPACE_BETWEEN
+)
+
+type LvFlexFlowT c.Int
+
+const (
+	LV_FLEX_FLOW_ROW                 LvFlexFlowT = 0x00
+	LV_FLEX_FLOW_COLUMN              LvFlexFlowT = LV_FLEX_COLUMN
+	LV_FLEX_FLOW_ROW_WRAP            LvFlexFlowT = LV_FLEX_FLOW_ROW | LV_FLEX_WRAP
+	LV_FLEX_FLOW_ROW_REVERSE         LvFlexFlowT = LV_FLEX_FLOW_ROW | LV_FLEX_REVERSE
+	LV_FLEX_FLOW_ROW_WRAP_REVERSE    LvFlexFlowT = LV_FLEX_FLOW_ROW | LV_FLEX_WRAP | LV_FLEX_REVERSE
+	LV_FLEX_FLOW_COLUMN_WRAP         LvFlexFlowT = LV_FLEX_FLOW_COLUMN | LV_FLEX_WRAP
+	LV_FLEX_FLOW_COLUMN_REVERSE      LvFlexFlowT = LV_FLEX_FLOW_COLUMN | LV_FLEX_REVERSE
+	LV_FLEX_FLOW_COLUMN_WRAP_REVERSE LvFlexFlowT = LV_FLEX_FLOW_COLUMN | LV_FLEX_WRAP | LV_FLEX_REVERSE
+)

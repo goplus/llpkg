@@ -20,8 +20,10 @@ func main() {
 	log.Println("disp", disp)
 
 	//lv_example_style_1()
+	lv_example_style_2()
 	//lv_example_get_started_2()
-	lv_example_get_started_3()
+	//lv_example_get_started_3()
+	//lv_example_get_started_4()
 	// Main event loop
 	for {
 		lvgl.LvTimerHandler()

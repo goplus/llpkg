@@ -20,22 +20,22 @@ func LvEventGetCurrentTargetObj(e *LvEventT) *LvObjT
 func LvEventGetTargetObj(e *LvEventT) *LvObjT
 
 //go:linkname LvObjAddEventCb C.lv_obj_add_event_cb
-func LvObjAddEventCb(obj *LvObjT, event_cb LvEventCbT, filter LvEventCodeT, user_data unsafe.Pointer) *lv_event_dsc_t
+func LvObjAddEventCb(obj *LvObjT, event_cb LvEventCbT, filter LvEventCodeT, user_data *c.Void) *LvEventDscT
 
 //go:linkname LvObjGetEventCount C.lv_obj_get_event_count
 func LvObjGetEventCount(obj *LvObjT) c.Uint
 
 //go:linkname LvObjGetEventDsc C.lv_obj_get_event_dsc
-func LvObjGetEventDsc(obj *LvObjT, index c.Uint) *lv_event_dsc_t
+func LvObjGetEventDsc(obj *LvObjT, index c.Uint) *LvEventDscT
 
 //go:linkname LvObjRemoveEvent C.lv_obj_remove_event
-func LvObjRemoveEvent(obj *LvObjT, index c.Uint) bool
+func LvObjRemoveEvent(obj *LvObjT, index c.Uint) c.Char
 
 //go:linkname LvObjRemoveEventCb C.lv_obj_remove_event_cb
-func LvObjRemoveEventCb(obj *LvObjT, event_cb LvEventCbT) bool
+func LvObjRemoveEventCb(obj *LvObjT, event_cb LvEventCbT) c.Char
 
 //go:linkname LvObjRemoveEventDsc C.lv_obj_remove_event_dsc
-func LvObjRemoveEventDsc(obj *LvObjT, dsc *LvEventDscT) bool
+func LvObjRemoveEventDsc(obj *LvObjT, dsc *LvEventDscT) c.Char
 
 //go:linkname LvObjRemoveEventCbWithUserData C.lv_obj_remove_event_cb_with_user_data
 func LvObjRemoveEventCbWithUserData(obj *LvObjT, event_cb LvEventCbT, user_data unsafe.Pointer) c.Uint
