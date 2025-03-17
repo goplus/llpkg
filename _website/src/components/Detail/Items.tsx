@@ -7,8 +7,8 @@ interface VersionItemProps {
 
 const VersionItem: React.FC<VersionItemProps> = ({ ver, setVersion }) => {
     return (
-        <div className="flex flex-row items-center gap-4 rounded-lg bg-gray-50 px-4 py-3">
-            <span className="min-w-14 overflow-auto text-left text-lg font-bold sm:min-w-16">
+        <div className="flex flex-col items-center gap-4 rounded-lg bg-gray-50 px-4 py-3 sm:flex-row">
+            <span className="overflow-auto text-left text-lg font-bold sm:min-w-16">
                 {ver.c}
             </span>
 
@@ -17,7 +17,7 @@ const VersionItem: React.FC<VersionItemProps> = ({ ver, setVersion }) => {
                     <VersionTag key={index} tag={ver} onClick={setVersion} />
                 ))}
             </span>
-            <span className="ml-auto self-center border-l border-gray-300 pl-2 sm:min-w-20">
+            <span className="ml-auto w-full self-center border-t border-gray-300 pt-2 pl-0 sm:w-auto sm:min-w-20 sm:border-t-0 sm:border-l sm:pl-2 md:pt-0">
                 <VersionTag
                     tag={ver.go[ver.go.length - 1]}
                     onClick={setVersion}

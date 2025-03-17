@@ -67,7 +67,7 @@ const DetailModal: React.FC<DetailModalProps> = ({
                     {searchResult ? (
                         <>
                             <div className="sticky top-1 mt-5 mb-1 flex flex-row justify-around text-base">
-                                <div className="mb-2 flex w-full items-center gap-2 overflow-hidden rounded-lg border border-gray-300 bg-white/70 px-2 backdrop-blur-lg sm:w-fit">
+                                <div className="mb-2 flex w-full items-center gap-2 overflow-hidden rounded-lg border border-gray-300 bg-white/70 px-2 backdrop-blur-xs sm:w-fit">
                                     <input
                                         onChange={(e) =>
                                             setOriginVersion(e.target.value)
