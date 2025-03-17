@@ -24,7 +24,7 @@ const Title: React.FC<TitleProps> = ({ name, version, setVersion }) => {
                     toast.error('Failed to copy');
                 },
             );
-        else toast.error('Failed to copy to clipboard');
+        else toast.error('Failed to copy');
     };
     return (
         <div className="flex flex-col items-start gap-4 border-b border-gray-300 px-4 pb-3 sm:h-1/6 sm:flex-row">
