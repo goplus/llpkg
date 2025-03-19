@@ -1,10 +1,10 @@
 # LLPkgStore Site
 This website provides the download service of `llpkgstore.json` for `llgo get`, and meanwhile provide service that users of llgo can look up for the version mapping of LLPkg.
 
-The `llpkgstore.json` is stored in `/_website/public`
+The `llpkgstore.json` is stored in `public` folder
 
 ## Installation
-To install the necessary dependencies using `corepack` and `yarn`, move to `/_website` and follow these steps:
+To install the necessary dependencies using `corepack` and `yarn`, please follow these steps:
 
 1. **Enable Corepack** (if not already enabled):
     ```sh
