@@ -3,8 +3,6 @@ name: Deploy llpkgstore to GitHub Pages
 on:
     push:
         branches: 'website'
-        paths:
-            - '_website/**'
 
 permissions:
     pages: write
@@ -29,16 +27,14 @@ jobs:
               uses: borales/actions-yarn@v4
               with:
                   cmd: install
-                  dir: '_website'
             - name: Build
               uses: borales/actions-yarn@v4
               with:
                   cmd: build
-                  dir: '_website'
             - name: Upload artifact
               uses: actions/upload-pages-artifact@v3
               with:
-                   path: '_website/dist'
+                   path: 'dist'
             - name: Deploy to GitHub Pages
               id: deployment
               uses: actions/deploy-pages@v4
