@@ -19,12 +19,12 @@ const Item: React.FC<ItemProps> = ({ name, data, setInfo, setModalOpen }) => {
     return (
         <div className="flex min-h-32 flex-row items-center gap-4 overflow-clip rounded-xl border border-gray-300 bg-white p-4">
             <div className="w-1/3">
-                <a
-                    className="btn-a cursor-pointer text-2xl font-bold text-wrap text-gray-900"
+                <button
+                    className="btn-a cursor-pointer text-2xl leading-9 font-bold text-wrap text-gray-900"
                     onClick={openModal}
                 >
                     {name}
-                </a>
+                </button>
             </div>
             <div className="w-2/3 text-left">
                 {data.versions
@@ -37,7 +37,7 @@ const Item: React.FC<ItemProps> = ({ name, data, setInfo, setModalOpen }) => {
                                 key={index}
                                 className="flex flex-row items-center gap-4 overflow-hidden text-nowrap overflow-ellipsis whitespace-nowrap"
                             >
-                                <span className="min-w-16 overflow-hidden text-left text-lg font-bold text-nowrap overflow-ellipsis whitespace-nowrap">
+                                <span className="min-w-16 overflow-hidden text-left text-lg leading-9 font-bold text-nowrap overflow-ellipsis whitespace-nowrap">
                                     <span
                                         data-tooltip-id="default-tooltip"
                                         data-tooltip-content={ver.c}
@@ -46,7 +46,7 @@ const Item: React.FC<ItemProps> = ({ name, data, setInfo, setModalOpen }) => {
                                         {ver.c}
                                     </span>
                                 </span>
-                                <span className="overflow-hidden text-nowrap overflow-ellipsis whitespace-nowrap">
+                                <span className="overflow-hidden leading-9 text-nowrap overflow-ellipsis whitespace-nowrap">
                                     <span
                                         data-tooltip-id="default-tooltip"
                                         data-tooltip-content={ver.go.join(
