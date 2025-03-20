@@ -27,7 +27,7 @@ const DetailModal: React.FC<DetailModalProps> = ({
     const [itemOffset, setItemOffset] = useState(0);
     const [desc, setDesc] = useState(false);
     const [version, setVersion] = useState('latest');
-    const pageSize = 5;
+    const pageSize = 10;
     const searchResult = useMemo(
         () =>
             data &&
@@ -112,7 +112,7 @@ const DetailModal: React.FC<DetailModalProps> = ({
                                 })}
                             </div>
                             <Pagination
-                                className="mt-3"
+                                className="mt-6"
                                 setItemOffset={setItemOffset}
                                 itemOffset={itemOffset}
                                 itemCount={searchResult.totalCount}

@@ -16,7 +16,7 @@ function App() {
     const [data, setData] = useState<VersionData>();
     const [itemOffset, setItemOffset] = useState(0);
     const searchQuery = getSearchParams('search');
-    const pageSize = 4;
+    const pageSize = 10;
     const searchResult = useMemo(
         () => titleParser(data, search, itemOffset, pageSize),
         [data, search, itemOffset],

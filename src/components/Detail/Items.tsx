@@ -7,7 +7,7 @@ interface VersionItemProps {
 
 const VersionItem: React.FC<VersionItemProps> = ({ ver, setVersion }) => {
     return (
-        <div className="flex flex-col items-center gap-4 rounded-lg bg-gray-50 px-4 py-3 sm:flex-row">
+        <div className="flex flex-col items-center gap-4 rounded-lg bg-gray-50 px-4 py-3 shadow-sm transition-shadow duration-300 hover:shadow-lg sm:flex-row">
             <span className="overflow-auto text-left text-lg font-bold sm:min-w-16">
                 {ver.c}
             </span>

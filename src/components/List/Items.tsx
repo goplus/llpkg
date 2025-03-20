@@ -17,7 +17,7 @@ const Item: React.FC<ItemProps> = ({ name, data, setInfo, setModalOpen }) => {
         setModalOpen(true);
     };
     return (
-        <div className="flex min-h-32 flex-row items-center gap-4 overflow-clip rounded-xl border border-gray-300 bg-white p-4">
+        <div className="ba flex min-h-32 flex-row items-center gap-4 overflow-clip rounded-xl border border-gray-300 bg-gray-50/60 p-4 shadow-md transition-all duration-300 hover:bg-white hover:shadow-xl">
             <div className="w-1/3">
                 <button
                     className="btn-a cursor-pointer text-2xl leading-9 font-bold text-wrap text-gray-900"
