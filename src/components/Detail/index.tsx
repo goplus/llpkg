@@ -5,6 +5,7 @@ import Pagination from '@/components/Pagination';
 import { versionParser } from '@/utils/parser';
 import { VersionData } from '@/utils/parser/types';
 import { setSearchParams } from '@/utils/searchParams';
+import { paginationSize } from '@/constant/pagination';
 import Modal from '../Modal';
 import Title from './Title';
 import VersionItem from './Items';
@@ -27,7 +28,7 @@ const DetailModal: React.FC<DetailModalProps> = ({
     const [itemOffset, setItemOffset] = useState(0);
     const [desc, setDesc] = useState(false);
     const [version, setVersion] = useState('latest');
-    const pageSize = 10;
+    const pageSize = paginationSize.version;
     const searchResult = useMemo(
         () =>
             data &&
@@ -40,6 +41,7 @@ const DetailModal: React.FC<DetailModalProps> = ({
                 pageSize,
                 desc,
             ),
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         [data, originVersion, mappedVersion, desc, name, itemOffset],
     );
 
@@ -100,7 +102,7 @@ const DetailModal: React.FC<DetailModalProps> = ({
                                     </span>
                                 </button>
                             </div>
-                            <div className="flex flex-col gap-2">
+                            <div className="flex flex-col gap-3">
                                 {searchResult.data.map((ver, index) => {
                                     return (
                                         <VersionItem

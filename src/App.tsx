@@ -9,6 +9,7 @@ import { getVersionData } from '@/utils/getLLPkgstore';
 import { titleParser } from '@/utils/parser';
 import { VersionData } from '@/utils/parser/types';
 import { getSearchParams } from '@/utils/searchParams';
+import { paginationSize } from '@/constant/pagination';
 import './App.css';
 
 function App() {
@@ -16,9 +17,10 @@ function App() {
     const [data, setData] = useState<VersionData>();
     const [itemOffset, setItemOffset] = useState(0);
     const searchQuery = getSearchParams('search');
-    const pageSize = 10;
+    const pageSize = paginationSize.pkg;
     const searchResult = useMemo(
         () => titleParser(data, search, itemOffset, pageSize),
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         [data, search, itemOffset],
     );
     useEffect(() => {

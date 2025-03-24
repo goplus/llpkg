@@ -5,6 +5,7 @@ import clipboardImg from '@/assets/clipboard.svg';
 import conanImg from '@/assets/conan.svg';
 import githubImg from '@/assets/github.svg';
 import rollbackImg from '@/assets/rollback.svg';
+import { urls } from '@/constant/urls';
 
 interface TitleProps {
     name?: string;
@@ -32,11 +33,11 @@ const Title: React.FC<TitleProps> = ({ name, version, setVersion }) => {
                 <h1 className="px-2 text-3xl font-bold">{name}</h1>
                 <a
                     className="btn-button px-2 py-0.5 text-xs font-light text-gray-400 hover:text-gray-500"
-                    href={`https://github.com/goplus/llpkg/${name}`}
+                    href={`${urls.llpkg}/${name}`}
                     target="_blank"
                     rel="noreferrer"
                 >
-                    github.com/goplus/llpkg/{name}
+                    {urls.llpkg.replace('https://', '')}/{name}
                 </a>
             </div>
             <div className="self-center sm:ml-auto">
@@ -73,7 +74,7 @@ const Title: React.FC<TitleProps> = ({ name, version, setVersion }) => {
                 </div>
                 <div className="mt-2 text-center sm:text-right">
                     <a
-                        href={`https://github.com/goplus/llpkg/tree/main/${name}`}
+                        href={`${urls.llpkg}/${name}`}
                         target="_blank"
                         rel="noreferrer"
                         className="btn-icon mx-0.5 inline-block"
@@ -81,7 +82,7 @@ const Title: React.FC<TitleProps> = ({ name, version, setVersion }) => {
                         <img className="mx-1 h-4 w-4" src={githubImg} />
                     </a>
                     <a
-                        href={`https://conan.io/center/recipes/${name}`}
+                        href={`${urls.conan}/${name}`}
                         target="_blank"
                         rel="noreferrer"
                         className="btn-icon mx-0.5 inline-block"
