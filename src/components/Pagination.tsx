@@ -7,6 +7,7 @@ interface PaginationProps {
     itemCount: number;
     pageSize: number;
     className?: string;
+    showOnOnePage?: boolean;
 }
 
 const Pagination: React.FC<PaginationProps> = ({
@@ -15,6 +16,7 @@ const Pagination: React.FC<PaginationProps> = ({
     itemCount,
     pageSize,
     className,
+    showOnOnePage = false,
 }) => {
     const handlePageClick = (data: { selected: number }) => {
         setItemOffset(data.selected);
@@ -23,7 +25,13 @@ const Pagination: React.FC<PaginationProps> = ({
         return itemCount ? Math.ceil(itemCount / pageSize) : 0;
     }, [pageSize, itemCount]);
     return (
-        <div className={['flex justify-center', className].join(' ')}>
+        <div
+            className={[
+                'flex justify-center',
+                pageCount == 1 && !showOnOnePage ? 'hidden' : '',
+                className,
+            ].join(' ')}
+        >
             <ReactPaginate
                 breakLabel="..."
                 activeLinkClassName="text-white bg-blue-400 hover:bg-blue-400 cursor-default border border-blue-300"
