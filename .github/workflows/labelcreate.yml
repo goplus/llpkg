@@ -31,6 +31,14 @@ jobs:
         run: |
           git fetch --all --tags --prune
 
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: "1.23"
+
+      - name: Set up Parser Tool
+        run: |
+          go install -v github.com/goplus/llpkgstore/cmd/maintain@latest
       - name: Copy llpkgstore.json to root
         continue-on-error: true
         run: |
@@ -38,17 +46,9 @@ jobs:
           ls .website .website/public
           cp .website/public/llpkgstore.json .main
           rm -rf .website
-
-      - name: Set up Go
-        uses: actions/setup-go@v4
-        with:
-          go-version: "1.23"
-      - name: Set up Parser Tool
-        run: |
-          go install -v github.com/goplus/llpkgstore/cmd/maintain@latest
       - name: Run maintenance process
         working-directory: .main
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           maintain labelcreate -l "${{ github.event.label.name }}"
