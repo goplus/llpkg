@@ -1,0 +1,19 @@
+@import 'tailwindcss';
+
+#root {
+    @apply bg-gradient-to-br from-blue-100 via-white to-purple-100;
+    text-align: center;
+    min-height: 100vh;
+}
+
+@utility btn-a {
+    @apply rounded-lg px-2 py-0.5 transition-all duration-300 hover:bg-gray-200/70 active:bg-gray-300/70;
+}
+
+@utility btn-button {
+    @apply rounded-lg transition-all duration-300 hover:bg-gray-200/70 active:bg-gray-300/70;
+}
+
+@utility btn-icon {
+    @apply rounded-lg p-1 align-middle transition-all duration-300 hover:bg-gray-200/70 active:bg-gray-300/70;
+}
