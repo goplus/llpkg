@@ -76,7 +76,7 @@ jobs:
           - macos-latest
           # amd64 linux
           - ubuntu-24.04
-          # ard64 linux
+          # arm64 linux
           - ubuntu-24.04-arm
         llvm: [18]
     runs-on: ${{matrix.os}}
