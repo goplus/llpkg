@@ -1,5 +1,12 @@
 import { VersionData } from './parser/types';
 
+class ContentError extends Error {
+    constructor(message: string) {
+        super(message);
+        this.name = 'ContentError';
+    }
+}
+
 export async function getVersionData(): Promise<VersionData> {
     try {
         const response = await fetch('./llpkgstore.json', {
@@ -8,10 +15,23 @@ export async function getVersionData(): Promise<VersionData> {
                 'Cache-Control': 'no-cache',
             },
         });
-        const data = await response.json();
-        return data;
+
+        if (response.headers.get('content-type') !== 'application/json') {
+            throw new ContentError('Invalid content type of llpkgstore.json');
+        }
+
+        try {
+            const data = await response.json();
+            return data;
+        } catch (e) {
+            if (e instanceof SyntaxError)
+                throw new ContentError('Invalid llpkgstore.json');
+            else throw new ContentError('Unknown error');
+        }
     } catch (error) {
-        console.error(error);
+        if (error instanceof ContentError) {
+            throw new Error(error.message);
+        }
         throw new Error('Failed to fetch data');
     }
 }
