@@ -1,8 +1,7 @@
 export interface VersionData {
-    [key: string]: {
+    [packageName: string]: {
         versions: {
-            c: string;
-            go: string[];
-        }[];
+            [version: string]: string[];
+        };
     };
 }

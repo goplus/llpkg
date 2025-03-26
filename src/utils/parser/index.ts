@@ -8,9 +8,12 @@ export const titleParser = (
 ): { data: string[]; totalCount: number } => {
     if (!data) return { data: [], totalCount: 0 };
     query = query?.trim();
-    const parsedData = Object.keys(data).filter((key) => {
-        return query ? key.includes(query) : true;
-    });
+
+    const parsedData = query
+        ? Object.keys(data).filter((key) => {
+              return key.includes(query);
+          })
+        : Object.keys(data);
 
     const startIndex = page * pageSize;
     const endIndex = startIndex + pageSize;
@@ -28,19 +31,25 @@ export const versionParser = (
     page: number = 0,
     pageSize: number = 10,
     descending: boolean = false,
-): { data: VersionData[string]['versions']; totalCount: number } => {
-    const filteredVersions = data.versions.filter((ver) => {
-        let flag = false;
-        if (queryMapped.trim())
-            ver.go.forEach((con) => {
-                if (con.includes(queryMapped.trim())) flag = true;
-            });
-        else flag = true;
-        return (
-            (queryOrigin.trim() ? ver.c.includes(queryOrigin.trim()) : true) &&
-            flag
-        );
-    });
+): { data: string[]; totalCount: number } => {
+    const versions = data.versions;
+    if (!versions) return { data: [], totalCount: 0 };
+    queryOrigin = queryOrigin?.trim();
+    queryMapped = queryMapped?.trim();
+
+    const filteredVersions =
+        queryOrigin || queryMapped
+            ? Object.keys(versions).filter((key) => {
+                  let result = queryOrigin ? key.includes(queryOrigin) : true;
+                  if (queryMapped) {
+                      const mappedVersions = versions[key];
+                      result = mappedVersions.some((ver) =>
+                          ver.includes(queryMapped),
+                      );
+                  }
+                  return result;
+              })
+            : Object.keys(versions);
 
     if (descending) {
         filteredVersions.reverse();
