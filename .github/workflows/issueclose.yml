@@ -1,0 +1,33 @@
+name: Clean unused branch
+
+
+on:
+  issues:
+    types: [closed]
+
+
+jobs:
+  clean-resource:
+    runs-on: ubuntu-latest
+    # I don't know why github action cointains returns false always when using labels.*.name
+    if: |
+      contains(github.event.issue.labels[0].name, 'branch:release-branch.')
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v4
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: "1.23"
+      - name: Skip Cache Parser Tool
+        run: |
+          go env -w GOPRIVATE=github.com/MeteorsLiu/llpkgstore
+      - name: Set up Parser Tool
+        run: |
+          go install -v github.com/MeteorsLiu/llpkgstore/cmd/maintain@gha-test
+      - name: Run cleaner process
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          maintain issueclose

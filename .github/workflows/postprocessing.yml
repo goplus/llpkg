@@ -1,0 +1,168 @@
+name: Post-processing
+
+
+# don't limit to main branch
+# consider maintenance branch
+on:
+  push:
+    branches:
+      - 'release-branch.**'
+      - main
+
+
+jobs:
+  post-processing:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: .main
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: "1.23"
+      - name: Skip Cache Parser Tool
+        run: |
+          go env -w GOPRIVATE=github.com/MeteorsLiu/llpkgstore
+      - name: Set up Parser Tool
+        run: |
+          go install -v github.com/MeteorsLiu/llpkgstore/cmd/llpkgstore@gha-test
+      - name: Checkout to website
+        uses: actions/checkout@v4
+        with:
+          ref: website
+          path: .website
+
+      - name: Copy llpkgstore.json to root
+        continue-on-error: true
+        run: |
+          # ignore error
+          ls .website .website/public
+          cp .website/public/llpkgstore.json .main
+          rm -rf .website
+
+      - name: Run post-processing process
+        working-directory: .main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          llpkgstore postprocessing
+
+      - name: Checkout website branch
+        uses: actions/checkout@v4
+        with:
+            ref: website
+            path: .website
+
+      - name: Move llpkgstore.json to website
+        run: |
+            mv .main/llpkgstore.json .website/public
+
+      - name: Commit and push changes
+        working-directory: .website
+        run: |
+            git config --local user.email "action@github.com"
+            git config --local user.name "GitHub Action"
+            git add public/llpkgstore.json
+            git commit -m "Update llpkgstore.json"
+            git push
+  release-binary-files:
+    strategy:
+      matrix:
+        os:
+          # amd64 darwin
+          - macos-13
+          # arm64 darwin
+          - macos-latest
+          # amd64 linux
+          - ubuntu-24.04
+          # ard64 linux
+          - ubuntu-24.04-arm
+        llvm: [18]
+    runs-on: ${{matrix.os}}
+    needs: [post-processing]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Check out LLGo
+        uses: actions/checkout@v4
+        with:
+          repository: 'goplus/llgo'
+          path: .llgo
+      - name: Check out LLCppg
+        uses: actions/checkout@v4
+        with:
+          repository: 'goplus/llcppg'
+          path: .llcppg
+          ref: 'v0.1.0'
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: "1.23"
+      - name: Skip Cache Parser Tool
+        run: |
+          go env -w GOPRIVATE=github.com/MeteorsLiu/llpkgstore
+      - name: Set up Parser Tool
+        run: |
+          go install -v github.com/MeteorsLiu/llpkgstore/cmd/llpkgstore@gha-test
+      - name: Install dependencies
+        if: startsWith(matrix.os, 'macos')
+        run: |
+          brew update
+          brew install llvm@${{matrix.llvm}} cmake conan cjson
+          echo "$(brew --prefix llvm@${{matrix.llvm}})/bin" >> $GITHUB_PATH
+
+      - name: Install dependencies
+        if: startsWith(matrix.os, 'ubuntu')
+        run: |
+          echo "deb http://apt.llvm.org/$(lsb_release -cs)/ llvm-toolchain-$(lsb_release -cs)-${{matrix.llvm}} main" | sudo tee /etc/apt/sources.list.d/llvm.list
+          wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
+          sudo apt-get update
+          sudo apt-get install -y llvm-${{matrix.llvm}}-dev clang-${{matrix.llvm}} cmake python3 python3-pip libunwind-dev libclang-${{matrix.llvm}}-dev lld-${{matrix.llvm}} pkg-config
+          echo "/usr/lib/llvm-${{matrix.llvm}}/bin" >> $GITHUB_PATH
+          python3 -m pip install conan
+      - name: Set up Conan
+        run: |
+          conan profile detect
+      - name: Run release process
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          llpkgstore release
+  rebuild-github-pages:
+    runs-on: ubuntu-latest
+    needs: [release-binary-files]
+    permissions:
+      pages: write
+      id-token: write
+    strategy:
+        matrix:
+            node-version: [23.8.0]
+    steps:
+      - name: Checkout to website
+        uses: actions/checkout@v4
+        with:
+          ref: website
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+            node-version: ${{ matrix.node-version }}
+      - run: corepack enable
+      - name: Install Dependencies
+        uses: borales/actions-yarn@v4
+        with:
+            cmd: install
+      - name: Build
+        uses: borales/actions-yarn@v4
+        with:
+            cmd: build
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+            path: 'dist'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

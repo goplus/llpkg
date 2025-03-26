@@ -1,0 +1,99 @@
+name: Verify Go Module
+
+
+# don't limit to main branch
+# consider maintenance branch
+on:
+  pull_request:
+    branches:
+      - 'release-branch.**'
+      - main
+
+
+jobs:
+  llcppg-verification:
+    name: Verify Go Module
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v4
+      - name: Check out LLGo
+        uses: actions/checkout@v4
+        with:
+          repository: 'goplus/llgo'
+          path: .llgo
+      - name: Check out LLCppg
+        uses: actions/checkout@v4
+        with:
+          repository: 'goplus/llcppg'
+          path: .llcppg
+          ref: 'v0.1.0'
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: "1.23"
+      - name: Skip Cache Parser Tool
+        run: |
+          go env -w GOPRIVATE=github.com/MeteorsLiu/llpkgstore
+      - name: Set up Parser Tool
+        run: |
+          go install -v github.com/MeteorsLiu/llpkgstore/cmd/llpkgstore@gha-test
+          go install -v github.com/MeteorsLiu/llpkgstore/cmd/demotest@gha-test
+      - name: Set up Conan
+        run: |
+          sudo apt-get install -y python3 python3-pip
+          python3 -m pip install conan
+          conan profile detect
+      - name: Setup LLGo
+        working-directory: .llgo
+        run: |
+          echo "deb http://apt.llvm.org/$(lsb_release -cs)/ llvm-toolchain-$(lsb_release -cs)-18 main" | sudo tee /etc/apt/sources.list.d/llvm.list
+          wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
+          sudo apt-get update
+          sudo apt-get install -y python3 python3-pip llvm-18-dev libuv1-dev clang-18 libunwind-dev libclang-18-dev lld-18 cmake pkg-config libgc-dev libssl-dev zlib1g-dev libffi-dev libcjson-dev
+          echo "/usr/lib/llvm-18/bin" >> $GITHUB_PATH
+          cd compiler
+          go install -v ./cmd/...
+          export LLGO_ROOT=$GITHUB_WORKSPACE/llgo
+          echo "LLGO_ROOT=$LLGO_ROOT" >> $GITHUB_ENV
+      - name: Setup LLCppg
+        working-directory: .llcppg
+        run: |
+          llgo install ./_xtool/llcppsymg
+          llgo install ./_xtool/llcppsigfetch
+          go install github.com/goplus/llcppg/cmd/llcppcfg@v0.1.0
+          go install github.com/goplus/llcppg/cmd/gogensig@v0.1.0
+          go install github.com/goplus/llcppg@v0.1.0
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v45
+
+      - name: Checkout to website
+        uses: actions/checkout@v4
+        with:
+          ref: website
+          path: .website
+
+      - name: Copy llpkgstore.json to root
+        continue-on-error: true
+        run: |
+          # ignore error
+          ls .website .website/public
+          cp .website/public/llpkgstore.json .
+          rm -rf .website
+
+      - name: Verfication
+        id: gen-go-module
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
+        run: |
+          llpkgstore verification
+
+      - name: Run Demotest process
+        env:
+          LLPKG_PATH: ${{ env.LLPKG_PATH }}
+        run: |
+          demotest run
