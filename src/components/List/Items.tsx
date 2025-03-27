@@ -57,7 +57,7 @@ const Item: React.FC<ItemProps> = ({ name, data, setInfo, setModalOpen }) => {
                     </a>
                 </div>
             </div>
-            <div>
+            <div className="w-full">
                 {versions.data.map((cver, index) => {
                     const gover = data.versions[cver];
                     return (
@@ -65,7 +65,7 @@ const Item: React.FC<ItemProps> = ({ name, data, setInfo, setModalOpen }) => {
                             key={index}
                             className="flex flex-row items-center gap-2 overflow-hidden text-nowrap overflow-ellipsis whitespace-nowrap"
                         >
-                            <span className="min-w-16 overflow-hidden text-left text-lg leading-9 font-bold text-nowrap overflow-ellipsis whitespace-nowrap">
+                            <span className="w-fit max-w-full min-w-16 overflow-hidden text-left text-lg leading-9 font-bold text-nowrap overflow-ellipsis whitespace-nowrap">
                                 <span
                                     data-tooltip-id="default-tooltip"
                                     data-tooltip-content={cver}
@@ -74,14 +74,13 @@ const Item: React.FC<ItemProps> = ({ name, data, setInfo, setModalOpen }) => {
                                     {cver}
                                 </span>
                             </span>
-                            <span className="overflow-hidden leading-9 text-nowrap overflow-ellipsis whitespace-nowrap">
-                                <span
-                                    data-tooltip-id="default-tooltip"
-                                    data-tooltip-content={gover.join(' / ')}
-                                    data-tooltip-place="top"
-                                >
-                                    {gover.join(' / ')}
-                                </span>
+                            <span
+                                className="w-fit max-w-full overflow-hidden leading-9 text-nowrap overflow-ellipsis whitespace-nowrap"
+                                data-tooltip-id="default-tooltip"
+                                data-tooltip-content={gover.join(' / ')}
+                                data-tooltip-place="top"
+                            >
+                                <span>{gover.join(' / ')}</span>
                             </span>
                         </div>
                     );
