@@ -1,4 +1,4 @@
-import { VersionData } from './parser/types';
+import { LLPkgStore } from './parser/types';
 
 class ContentError extends Error {
     constructor(message: string) {
@@ -7,12 +7,12 @@ class ContentError extends Error {
     }
 }
 
-export async function getVersionData(): Promise<VersionData> {
+export async function getVersionData(): Promise<LLPkgStore> {
     try {
         const response = await fetch('./llpkgstore.json', {
             method: 'GET',
             headers: {
-                'Cache-Control': 'no-cache',
+                'Cache-Control': 'no-cache, no-store, must-revalidate',
             },
         });
 

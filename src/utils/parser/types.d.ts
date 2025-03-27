@@ -1,7 +1,9 @@
-export interface VersionData {
+/** Structure of the package.json file */
+export interface LLPkgStore {
     [packageName: string]: {
         versions: {
-            [version: string]: string[];
+            /** C version: Go version[] */
+            [cVersion: string]: string[];
         };
     };
 }

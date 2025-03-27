@@ -3,9 +3,9 @@ import AscendingImg from '@/assets/sortAscending.svg';
 import DescendingImg from '@/assets/sortDescending.svg';
 import Pagination from '@/components/Pagination';
 import { versionParser } from '@/utils/parser';
-import { VersionData } from '@/utils/parser/types';
+import { LLPkgStore } from '@/utils/parser/types';
 import { setSearchParams } from '@/utils/searchParams';
-import { paginationSize } from '@/constant/pagination';
+import { paginationSize } from '@/config/pagination';
 import Modal from '../Modal';
 import Title from './Title';
 import VersionItem from './Items';
@@ -14,7 +14,7 @@ interface DetailModalProps {
     modalOpen: boolean;
     setModalOpen: (open: boolean) => void;
     name?: string;
-    data?: VersionData;
+    data?: LLPkgStore;
 }
 
 const DetailModal: React.FC<DetailModalProps> = ({

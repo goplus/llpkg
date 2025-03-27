@@ -1,14 +1,14 @@
 import { useMemo } from 'react';
-import { VersionData } from '@/utils/parser/types';
+import { LLPkgStore } from '@/utils/parser/types';
 import { setSearchParams } from '@/utils/searchParams';
 import conanImg from '@/assets/conan.svg';
 import githubImg from '@/assets/github.svg';
-import { urls } from '@/constant/urls';
+import { urls } from '@/config/urls';
 import { versionParser } from '@/utils/parser';
 
 interface ItemProps {
     name: string;
-    data: VersionData[string];
+    data: LLPkgStore[string];
     index: number;
     setInfo: (data: string) => void;
     setModalOpen: (open: boolean) => void;
