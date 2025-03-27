@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { VersionData } from '@/utils/parser/types';
+import { LLPkgStore } from '@/utils/parser/types';
 import { getSearchParams, setSearchParams } from '@/utils/searchParams';
 import DetailModal from '../Detail';
 import Item from './Items';
 
 interface ListProps {
-    data?: VersionData;
+    data?: LLPkgStore;
     titles: string[];
 }
 
@@ -19,7 +19,7 @@ const List: React.FC<ListProps> = ({ data, titles }) => {
             setDetailName(pkgQuery);
             setModalOpen(true);
         } else if (data && pkgQuery && !(pkgQuery in data)) {
-            toast.error(`Cannot find package named "${pkgQuery}"`);
+            toast.error(`Package "${pkgQuery}" from URL not found`);
             setSearchParams('pkg', '');
         }
     }, [pkgQuery, data]);

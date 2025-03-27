@@ -1,18 +1,23 @@
-import { VersionData } from '@/utils/parser/types';
+import { useMemo } from 'react';
+import { LLPkgStore } from '@/utils/parser/types';
 import { setSearchParams } from '@/utils/searchParams';
 import conanImg from '@/assets/conan.svg';
 import githubImg from '@/assets/github.svg';
-import { urls } from '@/constant/urls';
+import { urls } from '@/config/urls';
+import { versionParser } from '@/utils/parser';
 
 interface ItemProps {
     name: string;
-    data: VersionData[string];
+    data: LLPkgStore[string];
     index: number;
     setInfo: (data: string) => void;
     setModalOpen: (open: boolean) => void;
 }
 
 const Item: React.FC<ItemProps> = ({ name, data, setInfo, setModalOpen }) => {
+    const versions = useMemo(() => {
+        return versionParser(data, '', '', 0, 2);
+    }, [data]);
     const openModal = () => {
         setInfo(name);
         setSearchParams('pkg', name);
@@ -27,10 +32,13 @@ const Item: React.FC<ItemProps> = ({ name, data, setInfo, setModalOpen }) => {
                 <span className="w-full cursor-pointer text-2xl font-bold text-wrap text-gray-900">
                     {name}
                     <span className="ml-3 self-end text-sm font-normal text-gray-500">
-                        {data.versions.length} versions in total
+                        {versions.totalCount} versions in total
                     </span>
                 </span>
-                <div className="ml-auto hidden flex-row gap-2 sm:flex">
+                <div
+                    className="ml-auto hidden flex-row gap-2 sm:flex"
+                    onClick={(e) => e.stopPropagation()}
+                >
                     <a
                         href={`${urls.llpkg}/${name}`}
                         target="_blank"
@@ -49,40 +57,34 @@ const Item: React.FC<ItemProps> = ({ name, data, setInfo, setModalOpen }) => {
                     </a>
                 </div>
             </div>
-            <div>
-                {data.versions
-                    .filter((_, index) => {
-                        return index < 2;
-                    })
-                    .map((ver, index) => {
-                        return (
-                            <div
-                                key={index}
-                                className="flex flex-row items-center gap-2 overflow-hidden text-nowrap overflow-ellipsis whitespace-nowrap"
+            <div className="w-full">
+                {versions.data.map((cver, index) => {
+                    const gover = data.versions[cver];
+                    return (
+                        <div
+                            key={index}
+                            className="flex flex-row items-center gap-2 overflow-hidden text-nowrap overflow-ellipsis whitespace-nowrap"
+                        >
+                            <span className="w-fit max-w-full min-w-16 overflow-hidden text-left text-lg leading-9 font-bold text-nowrap overflow-ellipsis whitespace-nowrap">
+                                <span
+                                    data-tooltip-id="default-tooltip"
+                                    data-tooltip-content={cver}
+                                    data-tooltip-place="top"
+                                >
+                                    {cver}
+                                </span>
+                            </span>
+                            <span
+                                className="w-fit max-w-full overflow-hidden leading-9 text-nowrap overflow-ellipsis whitespace-nowrap"
+                                data-tooltip-id="default-tooltip"
+                                data-tooltip-content={gover.join(' / ')}
+                                data-tooltip-place="top"
                             >
-                                <span className="min-w-16 overflow-hidden text-left text-lg leading-9 font-bold text-nowrap overflow-ellipsis whitespace-nowrap">
-                                    <span
-                                        data-tooltip-id="default-tooltip"
-                                        data-tooltip-content={ver.c}
-                                        data-tooltip-place="top"
-                                    >
-                                        {ver.c}
-                                    </span>
-                                </span>
-                                <span className="overflow-hidden leading-9 text-nowrap overflow-ellipsis whitespace-nowrap">
-                                    <span
-                                        data-tooltip-id="default-tooltip"
-                                        data-tooltip-content={ver.go.join(
-                                            ' / ',
-                                        )}
-                                        data-tooltip-place="top"
-                                    >
-                                        {ver.go.join(' / ')}
-                                    </span>
-                                </span>
-                            </div>
-                        );
-                    })}
+                                <span>{gover.join(' / ')}</span>
+                            </span>
+                        </div>
+                    );
+                })}
             </div>
         </button>
     );

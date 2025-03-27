@@ -5,7 +5,7 @@ import clipboardImg from '@/assets/clipboard.svg';
 import conanImg from '@/assets/conan.svg';
 import githubImg from '@/assets/github.svg';
 import rollbackImg from '@/assets/rollback.svg';
-import { urls } from '@/constant/urls';
+import { urls } from '@/config/urls';
 
 interface TitleProps {
     name?: string;
