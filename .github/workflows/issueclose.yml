@@ -14,12 +14,12 @@ jobs:
       contains(github.event.issue.labels[0].name, 'branch:release-branch.')
     steps:
       - name: Checkout
-        id: checkout
         uses: actions/checkout@v4
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
-          go-version: "1.23"
+          go-version: "1.23.7"
+
       - name: Set up Parser Tool
         run: |
           go install -v github.com/goplus/llpkgstore/cmd/maintain@latest

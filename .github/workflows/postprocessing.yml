@@ -13,6 +13,7 @@ on:
 jobs:
   post-processing:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -23,7 +24,8 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
-          go-version: "1.23"
+          go-version: "1.23.7"
+
       - name: Set up Parser Tool
         run: |
           go install -v github.com/goplus/llpkgstore/cmd/llpkgstore@latest
@@ -70,13 +72,9 @@ jobs:
     strategy:
       matrix:
         os:
-          # amd64 darwin
           - macos-13
-          # arm64 darwin
           - macos-latest
-          # amd64 linux
           - ubuntu-24.04
-          # arm64 linux
           - ubuntu-24.04-arm
         llvm: [18]
     runs-on: ${{matrix.os}}
@@ -84,21 +82,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Check out LLGo
-        uses: actions/checkout@v4
-        with:
-          repository: 'goplus/llgo'
-          path: .llgo
-      - name: Check out LLCppg
-        uses: actions/checkout@v4
-        with:
-          repository: 'goplus/llcppg'
-          path: .llcppg
-          ref: 'v0.1.0'
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
-          go-version: "1.23"
+          go-version: "1.23.7"
+
       - name: Set up Parser Tool
         run: |
           go install -v github.com/goplus/llpkgstore/cmd/llpkgstore@latest
@@ -106,17 +94,13 @@ jobs:
         if: startsWith(matrix.os, 'macos')
         run: |
           brew update
-          brew install llvm@${{matrix.llvm}} cmake conan cjson
-          echo "$(brew --prefix llvm@${{matrix.llvm}})/bin" >> $GITHUB_PATH
+          brew install cmake conan cjson
 
       - name: Install dependencies
         if: startsWith(matrix.os, 'ubuntu')
         run: |
-          echo "deb http://apt.llvm.org/$(lsb_release -cs)/ llvm-toolchain-$(lsb_release -cs)-${{matrix.llvm}} main" | sudo tee /etc/apt/sources.list.d/llvm.list
-          wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
           sudo apt-get update
-          sudo apt-get install -y llvm-${{matrix.llvm}}-dev clang-${{matrix.llvm}} cmake python3 python3-pip libunwind-dev libclang-${{matrix.llvm}}-dev lld-${{matrix.llvm}} pkg-config
-          echo "/usr/lib/llvm-${{matrix.llvm}}/bin" >> $GITHUB_PATH
+          sudo apt-get install -y cmake python3 python3-pip pkg-config
           python3 -m pip install conan
       - name: Set up Conan
         run: |
@@ -126,37 +110,35 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           llpkgstore release
-  rebuild-github-pages:
+  build-and-upload:
     runs-on: ubuntu-latest
     needs: [release-binary-files]
-    permissions:
-      pages: write
-      id-token: write
-    strategy:
-        matrix:
-            node-version: [23.8.0]
     steps:
-      - name: Checkout to website
+      - name: Checkout code
         uses: actions/checkout@v4
         with:
           ref: website
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-            node-version: ${{ matrix.node-version }}
+          node-version: 23.8.0
       - run: corepack enable
       - name: Install Dependencies
         uses: borales/actions-yarn@v4
         with:
-            cmd: install
+          cmd: install
       - name: Build
         uses: borales/actions-yarn@v4
         with:
-            cmd: build
+          cmd: build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-            path: 'dist'
+          path: 'dist'
+  deploy:
+    needs: build-and-upload
+    runs-on: ubuntu-latest
+    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
