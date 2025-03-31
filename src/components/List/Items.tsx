@@ -16,7 +16,7 @@ interface ItemProps {
 
 const Item: React.FC<ItemProps> = ({ name, data, setInfo, setModalOpen }) => {
     const versions = useMemo(() => {
-        return versionParser(data, '', '', 0, 2);
+        return versionParser(data, '', '', 0, 2, true);
     }, [data]);
     const openModal = () => {
         setInfo(name);

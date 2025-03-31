@@ -49,9 +49,9 @@ export const versionParser = (
     page: number = 0,
     pageSize: number = 10,
     descending: boolean = false,
-): { data: string[]; totalCount: number } => {
+): { data: string[]; totalCount: number; latest: string } => {
     const versions = data.versions;
-    if (!versions) return { data: [], totalCount: 0 };
+    if (!versions) return { data: [], totalCount: 0, latest: '' };
     queryOrigin = queryOrigin?.trim();
     queryMapped = queryMapped?.trim();
 
@@ -80,9 +80,22 @@ export const versionParser = (
     const startIndex = page * pageSize;
     const endIndex = startIndex + pageSize;
 
+    let latestVersion = '';
+    if (filteredVersions.length > 0) {
+        const latestCVersionKey = descending
+            ? filteredVersions[0]
+            : filteredVersions[filteredVersions.length - 1];
+
+        const latestCVersions = data.versions[latestCVersionKey];
+        if (latestCVersions && latestCVersions.length > 0) {
+            latestVersion = latestCVersions[latestCVersions.length - 1];
+        }
+    }
+
     return {
         data: filteredVersions.slice(startIndex, endIndex),
         totalCount: filteredVersions.length,
+        latest: latestVersion,
     };
 };
 

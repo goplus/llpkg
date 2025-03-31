@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useMemo, useRef } from 'react';
 import toast from 'react-hot-toast';
 import { CSSTransition } from 'react-transition-group';
 import clipboardImg from '@/assets/clipboard.svg';
@@ -9,15 +9,28 @@ import { urls } from '@/config/urls';
 
 interface TitleProps {
     name?: string;
+    latestVersion?: string;
     version: string;
     setVersion: (tag: string) => void;
 }
 
-const Title: React.FC<TitleProps> = ({ name, version, setVersion }) => {
+const Title: React.FC<TitleProps> = ({
+    name,
+    version,
+    latestVersion,
+    setVersion,
+}) => {
     const rollbackRef = useRef<HTMLButtonElement>(null);
-    const copyVersionToClipboard = () => {
+    const majorVersion = useMemo(() => {
+        const currentVer = version === 'latest' ? latestVersion : version;
+        return parseInt(
+            currentVer?.replace(/[^0-9]/, '').split('.')[0] ?? '1',
+            10,
+        );
+    }, [version, latestVersion]);
+    const copyToClipboard = (text: string) => {
         if (navigator.clipboard)
-            navigator.clipboard.writeText(`llgo get ${name}@${version}`).then(
+            navigator.clipboard.writeText(text).then(
                 () => {
                     toast.success('Copied to clipboard');
                 },
@@ -31,14 +44,17 @@ const Title: React.FC<TitleProps> = ({ name, version, setVersion }) => {
         <div className="flex flex-col items-start gap-4 border-b border-gray-300 px-4 pb-3 sm:h-1/6 sm:flex-row">
             <div className="flex flex-col text-left">
                 <h1 className="px-2 text-3xl font-bold">{name}</h1>
-                <a
-                    className="btn-button px-2 py-0.5 text-xs font-light text-gray-400 hover:text-gray-500"
-                    href={`${urls.llpkg}/${name}`}
-                    target="_blank"
-                    rel="noreferrer"
+                <button
+                    className="btn-button cursor-pointer px-2 py-0.5 text-xs font-light text-gray-400 hover:text-gray-500"
+                    onClick={() =>
+                        copyToClipboard(
+                            `${urls.modulePath}/${name}${majorVersion > 1 ? `/v${majorVersion}` : ''}`,
+                        )
+                    }
                 >
-                    {urls.llpkg.replace('https://', '')}/{name}
-                </a>
+                    {urls.modulePath}/{name}
+                    {majorVersion > 1 ? `/v${majorVersion}` : ''}
+                </button>
             </div>
             <div className="self-center sm:ml-auto">
                 <div className="flex flex-row items-center overflow-hidden rounded-lg border border-gray-300">
@@ -67,7 +83,9 @@ const Title: React.FC<TitleProps> = ({ name, version, setVersion }) => {
                     </CSSTransition>
                     <button
                         className="btn-button mr-2 h-fit cursor-pointer p-1.5 text-white transition duration-200 hover:scale-110 active:scale-90"
-                        onClick={copyVersionToClipboard}
+                        onClick={() =>
+                            copyToClipboard(`llgo get ${name}@${version}`)
+                        }
                     >
                         <img src={clipboardImg} className="h-4 w-4" />
                     </button>
