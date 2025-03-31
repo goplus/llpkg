@@ -1,4 +1,7 @@
+const repo = 'github.com/goplus/llpkg';
+
 export const urls = {
-    llpkg: 'https://github.com/goplus/llpkg/tree/main',
+    llpkg: `https://${repo}/tree/main`,
+    modulePath: repo,
     conan: 'https://conan.io/center/recipes',
 };

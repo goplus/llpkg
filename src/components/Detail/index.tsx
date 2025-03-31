@@ -31,16 +31,16 @@ const DetailModal: React.FC<DetailModalProps> = ({
     const pageSize = paginationSize.version;
     const searchResult = useMemo(
         () =>
-            data &&
-            name &&
-            versionParser(
-                data[name],
-                originVersion,
-                mappedVersion,
-                itemOffset,
-                pageSize,
-                desc,
-            ),
+            data && name
+                ? versionParser(
+                      data[name],
+                      originVersion,
+                      mappedVersion,
+                      itemOffset,
+                      pageSize,
+                      desc,
+                  )
+                : { data: [], totalCount: 0, latest: '' },
         // eslint-disable-next-line react-hooks/exhaustive-deps
         [data, originVersion, mappedVersion, desc, name, itemOffset],
     );
@@ -64,7 +64,12 @@ const DetailModal: React.FC<DetailModalProps> = ({
             }}
         >
             <div className="flex h-full flex-col">
-                <Title name={name} version={version} setVersion={setVersion} />
+                <Title
+                    name={name}
+                    version={version}
+                    latestVersion={searchResult.latest}
+                    setVersion={setVersion}
+                />
                 <div className="relative h-full overflow-auto px-4 pb-3">
                     {data && name && searchResult ? (
                         <>

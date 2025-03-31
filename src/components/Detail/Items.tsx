@@ -20,12 +20,14 @@ const VersionItem: React.FC<VersionItemProps> = ({
                     <VersionTag key={index} tag={ver} onClick={setVersion} />
                 ))}
             </span>
-            <span className="ml-auto w-full self-center border-t border-gray-300 pt-2 pl-0 sm:w-auto sm:min-w-20 sm:border-t-0 sm:border-l sm:pl-2 md:pt-0">
-                <VersionTag
-                    tag={gover[gover.length - 1]}
-                    onClick={setVersion}
-                />
-            </span>
+            {gover.length > 0 && (
+                <span className="ml-auto w-full self-center border-t border-gray-300 pt-2 pl-0 sm:w-auto sm:min-w-20 sm:border-t-0 sm:border-l sm:pl-2 md:pt-0">
+                    <VersionTag
+                        tag={gover[gover.length - 1]}
+                        onClick={setVersion}
+                    />
+                </span>
+            )}
         </div>
     );
 };

@@ -1,17 +1,16 @@
-name: Deploy LLPkgStore to GitHub Pages
+name: Build and Deploy LLPkgStore artifact
 
 on:
   push:
-    branches: 'website'
+    branches: [website]
 
 permissions:
   pages: write
   id-token: write
 
 jobs:
-  build-and-deploy:
+  build-and-upload:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -31,7 +30,11 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-           path: 'dist'
+          path: 'dist'
+  deploy:
+    needs: build-and-upload
+    runs-on: ubuntu-latest
+    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

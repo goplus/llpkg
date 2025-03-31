@@ -16,7 +16,9 @@ export async function getVersionData(): Promise<LLPkgStore> {
             },
         });
 
-        if (response.headers.get('content-type') !== 'application/json') {
+        if (
+            !response.headers.get('content-type')?.includes('application/json')
+        ) {
             throw new ContentError('Invalid content type of llpkgstore.json');
         }
 
