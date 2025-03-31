@@ -14,7 +14,9 @@ jobs:
   llcppg-verification:
     name: Verify Go Module
     runs-on: ubuntu-24.04
-
+    strategy:
+      matrix:
+        llcppg: [v0.2.0]
     steps:
       - name: Checkout
         id: checkout
@@ -29,11 +31,12 @@ jobs:
         with:
           repository: 'goplus/llcppg'
           path: .llcppg
-          ref: 'v0.1.0'
+          ref: ${{matrix.llcppg}}
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
-          go-version: "1.23"
+          go-version: "1.23.7"
+
       - name: Set up Parser Tool
         run: |
           go install -v github.com/goplus/llpkgstore/cmd/llpkgstore@latest
@@ -60,9 +63,9 @@ jobs:
         run: |
           llgo install ./_xtool/llcppsymg
           llgo install ./_xtool/llcppsigfetch
-          go install github.com/goplus/llcppg/cmd/llcppcfg@v0.1.0
-          go install github.com/goplus/llcppg/cmd/gogensig@v0.1.0
-          go install github.com/goplus/llcppg@v0.1.0
+          go install github.com/goplus/llcppg/cmd/llcppcfg@${{matrix.llcppg}}
+          go install github.com/goplus/llcppg/cmd/gogensig@${{matrix.llcppg}}
+          go install github.com/goplus/llcppg@${{matrix.llcppg}}
       - name: Get changed files
         id: changed-files
         uses: tj-actions/changed-files@v45
@@ -82,7 +85,6 @@ jobs:
           rm -rf .website
 
       - name: Verfication
-        id: gen-go-module
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
