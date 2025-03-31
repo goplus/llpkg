@@ -12,7 +12,7 @@ jobs:
   maintenance:
     runs-on: ubuntu-latest
     if: |
-      contains(github.event.label.name, 'branch:release-branch.')
+      startsWith(github.event.label.name, 'branch:release-branch.')
     steps:
       - name: Checkout to website
         uses: actions/checkout@v4
