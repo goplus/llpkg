@@ -1,6 +1,5 @@
 name: Post-processing
 
-
 # don't limit to main branch
 # consider maintenance branch
 on:
@@ -8,6 +7,10 @@ on:
     branches:
       - 'release-branch.**'
       - main
+    paths-ignore:
+      - '.github/**'
+      - LICENSE
+      - README.md
 
 concurrency:
   group: ${{ github.head_ref || github.ref_name }}

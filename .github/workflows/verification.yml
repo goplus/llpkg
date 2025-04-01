@@ -1,6 +1,5 @@
 name: Verify Go Module
 
-
 # don't limit to main branch
 # consider maintenance branch
 on:
@@ -8,7 +7,10 @@ on:
     branches:
       - 'release-branch.**'
       - main
-
+    paths-ignore:
+      - '.github/**'
+      - LICENSE
+      - README.md
 
 jobs:
   llcppg-verification:
