@@ -89,8 +89,8 @@ type GzHeader GzHeaderS
 type GzHeaderp *GzHeader
 
 /* basic functions */
-//go:linkname ZlibVersion C.zlibVersion
-func ZlibVersion() *int8
+//go:linkname Version C.zlibVersion
+func Version() *int8
 
 /*
 ZEXTERN int ZEXPORT deflateInit(z_streamp strm, int level);
@@ -927,8 +927,8 @@ func InflateBackEnd(strm ZStreamp) c.Int
      inflateBackEnd() returns Z_OK on success, or Z_STREAM_ERROR if the stream
    state was inconsistent.
 */
-//go:linkname ZlibCompileFlags C.zlibCompileFlags
-func ZlibCompileFlags() ULong
+//go:linkname CompileFlags C.zlibCompileFlags
+func CompileFlags() ULong
 
 /*
      The following utility functions are implemented on top of the basic

@@ -317,9 +317,9 @@
 	}, {
 		"mangle":	"zlibCompileFlags",
 		"c++":	"zlibCompileFlags()",
-		"go":	"ZlibCompileFlags"
+		"go":	"CompileFlags"
 	}, {
 		"mangle":	"zlibVersion",
 		"c++":	"zlibVersion()",
-		"go":	"ZlibVersion"
+		"go":	"Version"
 	}]
