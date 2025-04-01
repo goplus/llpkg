@@ -9,22 +9,18 @@ on:
 jobs:
   clean-resource:
     runs-on: ubuntu-latest
-    # I don't know why github action contains returns false always when using labels.*.name
-    if: |
-      contains(github.event.issue.labels[0].name, 'branch:release-branch.')
+    # when issue has no label, it's safe to skip.
+    if: contains(github.event.issue.labels[0].name, 'branch:release-branch.')
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
-          go-version: "1.23.7"
-
-      - name: Set up Parser Tool
-        run: |
-          go install -v github.com/goplus/llpkgstore/cmd/maintain@latest
+          go-version: 1.23.x
+      - name: Set up Tool
+        run: go install -v github.com/goplus/llpkgstore/cmd/maintain@latest
       - name: Run cleaner process
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          maintain issueclose
+        run: maintain issueclose
