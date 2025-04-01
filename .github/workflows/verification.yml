@@ -19,7 +19,6 @@ jobs:
         llcppg: [v0.2.0]
     steps:
       - name: Checkout
-        id: checkout
         uses: actions/checkout@v4
       - name: Check out LLGo
         uses: actions/checkout@v4
@@ -35,9 +34,8 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
-          go-version: "1.23.7"
-
-      - name: Set up Parser Tool
+          go-version: 1.23.x
+      - name: Set up Tool
         run: |
           go install -v github.com/goplus/llpkgstore/cmd/llpkgstore@latest
           go install -v github.com/goplus/llpkgstore/cmd/demotest@latest
@@ -69,30 +67,23 @@ jobs:
       - name: Get changed files
         id: changed-files
         uses: tj-actions/changed-files@v45
-
       - name: Checkout to website
         uses: actions/checkout@v4
         with:
           ref: website
           path: .website
-
       - name: Copy llpkgstore.json to root
         continue-on-error: true
         run: |
-          # ignore error
           ls .website .website/public
           cp .website/public/llpkgstore.json .
           rm -rf .website
-
       - name: Verification
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
-        run: |
-          llpkgstore verification
-
-      - name: Run Demotest process
+        run: llpkgstore verification
+      - name: Run demotest process
         env:
           LLPKG_PATH: ${{ env.LLPKG_PATH }}
-        run: |
-          demotest run
+        run: demotest run
