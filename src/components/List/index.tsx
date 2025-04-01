@@ -19,7 +19,7 @@ const List: React.FC<ListProps> = ({ data, titles }) => {
             setDetailName(pkgQuery);
             setModalOpen(true);
         } else if (data && pkgQuery && !(pkgQuery in data)) {
-            toast.error(`Package "${pkgQuery}" from URL not found`);
+            toast.error(`Cannot find package "${pkgQuery}" specified in URL`);
             setSearchParams('pkg', '');
         }
     }, [pkgQuery, data]);
