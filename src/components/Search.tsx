@@ -16,7 +16,7 @@ const Search: React.FC<SearchProps> = ({
 }) => {
     return (
         <div className="flex w-full flex-col items-center p-6">
-            <div className="mx-2 my-4 flex w-full items-center gap-2 rounded-xl border border-gray-300 bg-white px-4 py-2 sm:mx-8 md:w-fit">
+            <div className="mx-2 my-4 flex w-full items-center gap-2 rounded-xl border border-gray-300 bg-white px-4 py-2 transition-all duration-300 hover:shadow-2xl has-focus:shadow-2xl sm:mx-8 md:w-fit">
                 <span className="text-xl font-bold select-none">📦</span>
                 <input
                     value={query}
@@ -24,7 +24,7 @@ const Search: React.FC<SearchProps> = ({
                         setSearch(e.target.value);
                         setSearchParams('search', e.target.value);
                     }}
-                    className="w-full focus-visible:outline-0 md:w-96"
+                    className="focus w-full focus-visible:outline-0 md:w-96"
                     placeholder="Search for a package"
                 />
             </div>
