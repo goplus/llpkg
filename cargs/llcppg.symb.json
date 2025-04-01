@@ -1,0 +1,53 @@
+[{
+		"mangle":	"cag_option_fetch",
+		"c++":	"cag_option_fetch(cag_option_context *)",
+		"go":	"(*CagOptionContext).CagOptionFetch"
+	}, {
+		"mangle":	"cag_option_get",
+		"c++":	"cag_option_get(const cag_option_context *)",
+		"go":	"(*CagOptionContext).CagOptionGet"
+	}, {
+		"mangle":	"cag_option_get_error_index",
+		"c++":	"cag_option_get_error_index(const cag_option_context *)",
+		"go":	"(*CagOptionContext).CagOptionGetErrorIndex"
+	}, {
+		"mangle":	"cag_option_get_error_letter",
+		"c++":	"cag_option_get_error_letter(const cag_option_context *)",
+		"go":	"(*CagOptionContext).CagOptionGetErrorLetter"
+	}, {
+		"mangle":	"cag_option_get_identifier",
+		"c++":	"cag_option_get_identifier(const cag_option_context *)",
+		"go":	"(*CagOptionContext).CagOptionGetIdentifier"
+	}, {
+		"mangle":	"cag_option_get_index",
+		"c++":	"cag_option_get_index(const cag_option_context *)",
+		"go":	"(*CagOptionContext).CagOptionGetIndex"
+	}, {
+		"mangle":	"cag_option_get_value",
+		"c++":	"cag_option_get_value(const cag_option_context *)",
+		"go":	"(*CagOptionContext).CagOptionGetValue"
+	}, {
+		"mangle":	"cag_option_init",
+		"c++":	"cag_option_init(cag_option_context *, const cag_option *, size_t, int, char **)",
+		"go":	"(*CagOptionContext).CagOptionInit"
+	}, {
+		"mangle":	"cag_option_prepare",
+		"c++":	"cag_option_prepare(cag_option_context *, const cag_option *, size_t, int, char **)",
+		"go":	"(*CagOptionContext).CagOptionPrepare"
+	}, {
+		"mangle":	"cag_option_print",
+		"c++":	"cag_option_print(const cag_option *, size_t, FILE *)",
+		"go":	"(*CagOption).CagOptionPrint"
+	}, {
+		"mangle":	"cag_option_print_error",
+		"c++":	"cag_option_print_error(const cag_option_context *, FILE *)",
+		"go":	"(*CagOptionContext).CagOptionPrintError"
+	}, {
+		"mangle":	"cag_option_printer",
+		"c++":	"cag_option_printer(const cag_option *, size_t, cag_printer, void *)",
+		"go":	"(*CagOption).CagOptionPrinter"
+	}, {
+		"mangle":	"cag_option_printer_error",
+		"c++":	"cag_option_printer_error(const cag_option_context *, cag_printer, void *)",
+		"go":	"(*CagOptionContext).CagOptionPrinterError"
+	}]
