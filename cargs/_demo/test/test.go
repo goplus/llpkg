@@ -10,7 +10,7 @@ import (
 
 func main() {
 	// Define command-line options
-	options := []cargs.CagOption{
+	options := []cargs.Option{
 		{
 			Identifier:    'h',
 			AccessLetters: C.Str("h"),
@@ -36,14 +36,14 @@ func main() {
 	}
 
 	// Initialize option context
-	var context cargs.CagOptionContext
-	context.CagOptionInit(&options[0], uintptr(len(options)), C.Int(len(args)), &argv[0])
+	var context cargs.OptionContext
+	context.OptionInit(&options[0], uintptr(len(options)), C.Int(len(args)), &argv[0])
 
 	// Process all options
 	identifierFound := false
-	for context.CagOptionFetch() {
+	for context.OptionFetch() {
 		identifierFound = true
-		identifier := context.CagOptionGetIdentifier()
+		identifier := context.OptionGetIdentifier()
 		switch identifier {
 		case 'h':
 			fmt.Println("Help: This is a simple command-line parser demo")

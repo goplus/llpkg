@@ -10,7 +10,7 @@ import (
  * program is run.
  */
 
-type CagOption struct {
+type Option struct {
 	Identifier    int8
 	AccessLetters *int8
 	AccessName    *int8
@@ -23,8 +23,8 @@ type CagOption struct {
  * state.
  */
 
-type CagOptionContext struct {
-	Options     *CagOption
+type OptionContext struct {
+	Options     *Option
 	OptionCount uintptr
 	Argc        c.Int
 	Argv        **int8
@@ -38,7 +38,7 @@ type CagOptionContext struct {
 }
 
 // llgo:type C
-type CagPrinter func(__llgo_arg_0 unsafe.Pointer, __llgo_arg_1 *int8, __llgo_va_list ...interface{}) c.Int
+type Printer func(__llgo_arg_0 unsafe.Pointer, __llgo_arg_1 *int8, __llgo_va_list ...interface{}) c.Int
 
 /**
  * @brief Prepare argument options context for parsing.
@@ -54,8 +54,8 @@ type CagPrinter func(__llgo_arg_0 unsafe.Pointer, __llgo_arg_1 *int8, __llgo_va_
  * @param argc The amount of arguments the user supplied in the main function.
  * @param argv A pointer to the arguments of the main function.
  */
-// llgo:link (*CagOptionContext).CagOptionInit C.cag_option_init
-func (recv_ *CagOptionContext) CagOptionInit(options *CagOption, option_count uintptr, argc c.Int, argv **int8) {
+// llgo:link (*OptionContext).OptionInit C.cag_option_init
+func (recv_ *OptionContext) OptionInit(options *Option, option_count uintptr, argc c.Int, argv **int8) {
 }
 
 /**
@@ -73,8 +73,8 @@ func (recv_ *CagOptionContext) CagOptionInit(options *CagOption, option_count ui
  * @return Returns true if there was another option or false if the end is
  * reached.
  */
-// llgo:link (*CagOptionContext).CagOptionFetch C.cag_option_fetch
-func (recv_ *CagOptionContext) CagOptionFetch() bool {
+// llgo:link (*OptionContext).OptionFetch C.cag_option_fetch
+func (recv_ *OptionContext) OptionFetch() bool {
 	return false
 }
 
@@ -87,8 +87,8 @@ func (recv_ *CagOptionContext) CagOptionFetch() bool {
  * @param context The context from which the option was fetched.
  * @return Returns the identifier of the option.
  */
-// llgo:link (*CagOptionContext).CagOptionGetIdentifier C.cag_option_get_identifier
-func (recv_ *CagOptionContext) CagOptionGetIdentifier() int8 {
+// llgo:link (*OptionContext).OptionGetIdentifier C.cag_option_get_identifier
+func (recv_ *OptionContext) OptionGetIdentifier() int8 {
 	return 0
 }
 
@@ -101,8 +101,8 @@ func (recv_ *CagOptionContext) CagOptionGetIdentifier() int8 {
  * @param context The context from which the option was fetched.
  * @return Returns a pointer to the value or NULL if there is no value.
  */
-// llgo:link (*CagOptionContext).CagOptionGetValue C.cag_option_get_value
-func (recv_ *CagOptionContext) CagOptionGetValue() *int8 {
+// llgo:link (*OptionContext).OptionGetValue C.cag_option_get_value
+func (recv_ *OptionContext) OptionGetValue() *int8 {
 	return nil
 }
 
@@ -117,8 +117,8 @@ func (recv_ *CagOptionContext) CagOptionGetValue() *int8 {
  * @param context The context from which the option was fetched.
  * @return Returns the current index of the context.
  */
-// llgo:link (*CagOptionContext).CagOptionGetIndex C.cag_option_get_index
-func (recv_ *CagOptionContext) CagOptionGetIndex() c.Int {
+// llgo:link (*OptionContext).OptionGetIndex C.cag_option_get_index
+func (recv_ *OptionContext) OptionGetIndex() c.Int {
 	return 0
 }
 
@@ -133,8 +133,8 @@ func (recv_ *CagOptionContext) CagOptionGetIndex() c.Int {
  * @param context Pointer to the context from which the option was fetched.
  * @return Returns the index of the invalid option, or -1 if it is not invalid.
  */
-// llgo:link (*CagOptionContext).CagOptionGetErrorIndex C.cag_option_get_error_index
-func (recv_ *CagOptionContext) CagOptionGetErrorIndex() c.Int {
+// llgo:link (*OptionContext).OptionGetErrorIndex C.cag_option_get_error_index
+func (recv_ *OptionContext) OptionGetErrorIndex() c.Int {
 	return 0
 }
 
@@ -148,8 +148,8 @@ func (recv_ *CagOptionContext) CagOptionGetErrorIndex() c.Int {
  * @param context Pointer to the context from which the option was fetched.
  * @return Returns the letter that was unknown, or 0 otherwise.
  */
-// llgo:link (*CagOptionContext).CagOptionGetErrorLetter C.cag_option_get_error_letter
-func (recv_ *CagOptionContext) CagOptionGetErrorLetter() int8 {
+// llgo:link (*OptionContext).OptionGetErrorLetter C.cag_option_get_error_letter
+func (recv_ *OptionContext) OptionGetErrorLetter() int8 {
 	return 0
 }
 
@@ -165,8 +165,8 @@ func (recv_ *CagOptionContext) CagOptionGetErrorLetter() int8 {
  * @param destination Pointer to the file stream where the error information
  * will be printed.
  */
-// llgo:link (*CagOptionContext).CagOptionPrintError C.cag_option_print_error
-func (recv_ *CagOptionContext) CagOptionPrintError(destination *c.FILE) {
+// llgo:link (*OptionContext).OptionPrintError C.cag_option_print_error
+func (recv_ *OptionContext) OptionPrintError(destination *c.FILE) {
 }
 
 /**
@@ -182,8 +182,8 @@ func (recv_ *CagOptionContext) CagOptionPrintError(destination *c.FILE) {
  * @param printer_ctx The parameter for printer callback. For example fprintf
  * could use parameter stderr.
  */
-// llgo:link (*CagOptionContext).CagOptionPrinterError C.cag_option_printer_error
-func (recv_ *CagOptionContext) CagOptionPrinterError(printer CagPrinter, printer_ctx unsafe.Pointer) {
+// llgo:link (*OptionContext).OptionPrinterError C.cag_option_printer_error
+func (recv_ *OptionContext) OptionPrinterError(printer Printer, printer_ctx unsafe.Pointer) {
 }
 
 /**
@@ -196,8 +196,8 @@ func (recv_ *CagOptionContext) CagOptionPrinterError(printer CagPrinter, printer
  * @param option_count The option count which will be printed.
  * @param destination The destination where the output will be printed.
  */
-// llgo:link (*CagOption).CagOptionPrint C.cag_option_print
-func (recv_ *CagOption) CagOptionPrint(option_count uintptr, destination *c.FILE) {
+// llgo:link (*Option).OptionPrint C.cag_option_print
+func (recv_ *Option) OptionPrint(option_count uintptr, destination *c.FILE) {
 }
 
 /**
@@ -214,15 +214,15 @@ func (recv_ *CagOption) CagOptionPrint(option_count uintptr, destination *c.FILE
  * @param printer_ctx The parameter for printer callback. For example fprintf
  * could use parameter stderr.
  */
-// llgo:link (*CagOption).CagOptionPrinter C.cag_option_printer
-func (recv_ *CagOption) CagOptionPrinter(option_count uintptr, printer CagPrinter, printer_ctx unsafe.Pointer) {
+// llgo:link (*Option).OptionPrinter C.cag_option_printer
+func (recv_ *Option) OptionPrinter(option_count uintptr, printer Printer, printer_ctx unsafe.Pointer) {
 }
 
-// llgo:link (*CagOptionContext).CagOptionPrepare C.cag_option_prepare
-func (recv_ *CagOptionContext) CagOptionPrepare(options *CagOption, option_count uintptr, argc c.Int, argv **int8) {
+// llgo:link (*OptionContext).OptionPrepare C.cag_option_prepare
+func (recv_ *OptionContext) OptionPrepare(options *Option, option_count uintptr, argc c.Int, argv **int8) {
 }
 
-// llgo:link (*CagOptionContext).CagOptionGet C.cag_option_get
-func (recv_ *CagOptionContext) CagOptionGet() int8 {
+// llgo:link (*OptionContext).OptionGet C.cag_option_get
+func (recv_ *OptionContext) OptionGet() int8 {
 	return 0
 }
