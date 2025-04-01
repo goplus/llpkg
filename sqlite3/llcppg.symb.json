@@ -1,0 +1,1113 @@
+[{
+		"mangle":	"sqlite3_aggregate_context",
+		"c++":	"sqlite3_aggregate_context(sqlite3_context *, int)",
+		"go":	"(*Context).AggregateContext"
+	}, {
+		"mangle":	"sqlite3_aggregate_count",
+		"c++":	"sqlite3_aggregate_count(sqlite3_context *)",
+		"go":	"(*Context).AggregateCount"
+	}, {
+		"mangle":	"sqlite3_auto_extension",
+		"c++":	"sqlite3_auto_extension(void (*)(void))",
+		"go":	"AutoExtension"
+	}, {
+		"mangle":	"sqlite3_autovacuum_pages",
+		"c++":	"sqlite3_autovacuum_pages(sqlite3 *, unsigned int (*)(void *, const char *, unsigned int, unsigned int, unsigned int), void *, void (*)(void *))",
+		"go":	"(*Sqlite3).AutovacuumPages"
+	}, {
+		"mangle":	"sqlite3_backup_finish",
+		"c++":	"sqlite3_backup_finish(sqlite3_backup *)",
+		"go":	"(*Backup).BackupFinish"
+	}, {
+		"mangle":	"sqlite3_backup_init",
+		"c++":	"sqlite3_backup_init(sqlite3 *, const char *, sqlite3 *, const char *)",
+		"go":	"(*Sqlite3).BackupInit"
+	}, {
+		"mangle":	"sqlite3_backup_pagecount",
+		"c++":	"sqlite3_backup_pagecount(sqlite3_backup *)",
+		"go":	"(*Backup).BackupPagecount"
+	}, {
+		"mangle":	"sqlite3_backup_remaining",
+		"c++":	"sqlite3_backup_remaining(sqlite3_backup *)",
+		"go":	"(*Backup).BackupRemaining"
+	}, {
+		"mangle":	"sqlite3_backup_step",
+		"c++":	"sqlite3_backup_step(sqlite3_backup *, int)",
+		"go":	"(*Backup).BackupStep"
+	}, {
+		"mangle":	"sqlite3_bind_blob",
+		"c++":	"sqlite3_bind_blob(sqlite3_stmt *, int, const void *, int, void (*)(void *))",
+		"go":	"(*Stmt).BindBlob"
+	}, {
+		"mangle":	"sqlite3_bind_blob64",
+		"c++":	"sqlite3_bind_blob64(sqlite3_stmt *, int, const void *, sqlite3_uint64, void (*)(void *))",
+		"go":	"(*Stmt).BindBlob64"
+	}, {
+		"mangle":	"sqlite3_bind_double",
+		"c++":	"sqlite3_bind_double(sqlite3_stmt *, int, double)",
+		"go":	"(*Stmt).BindDouble"
+	}, {
+		"mangle":	"sqlite3_bind_int",
+		"c++":	"sqlite3_bind_int(sqlite3_stmt *, int, int)",
+		"go":	"(*Stmt).BindInt"
+	}, {
+		"mangle":	"sqlite3_bind_int64",
+		"c++":	"sqlite3_bind_int64(sqlite3_stmt *, int, sqlite3_int64)",
+		"go":	"(*Stmt).BindInt64"
+	}, {
+		"mangle":	"sqlite3_bind_null",
+		"c++":	"sqlite3_bind_null(sqlite3_stmt *, int)",
+		"go":	"(*Stmt).BindNull"
+	}, {
+		"mangle":	"sqlite3_bind_parameter_count",
+		"c++":	"sqlite3_bind_parameter_count(sqlite3_stmt *)",
+		"go":	"(*Stmt).BindParameterCount"
+	}, {
+		"mangle":	"sqlite3_bind_parameter_index",
+		"c++":	"sqlite3_bind_parameter_index(sqlite3_stmt *, const char *)",
+		"go":	"(*Stmt).BindParameterIndex"
+	}, {
+		"mangle":	"sqlite3_bind_parameter_name",
+		"c++":	"sqlite3_bind_parameter_name(sqlite3_stmt *, int)",
+		"go":	"(*Stmt).BindParameterName"
+	}, {
+		"mangle":	"sqlite3_bind_pointer",
+		"c++":	"sqlite3_bind_pointer(sqlite3_stmt *, int, void *, const char *, void (*)(void *))",
+		"go":	"(*Stmt).BindPointer"
+	}, {
+		"mangle":	"sqlite3_bind_text",
+		"c++":	"sqlite3_bind_text(sqlite3_stmt *, int, const char *, int, void (*)(void *))",
+		"go":	"(*Stmt).BindText"
+	}, {
+		"mangle":	"sqlite3_bind_text16",
+		"c++":	"sqlite3_bind_text16(sqlite3_stmt *, int, const void *, int, void (*)(void *))",
+		"go":	"(*Stmt).BindText16"
+	}, {
+		"mangle":	"sqlite3_bind_text64",
+		"c++":	"sqlite3_bind_text64(sqlite3_stmt *, int, const char *, sqlite3_uint64, void (*)(void *), unsigned char)",
+		"go":	"(*Stmt).BindText64"
+	}, {
+		"mangle":	"sqlite3_bind_value",
+		"c++":	"sqlite3_bind_value(sqlite3_stmt *, int, const sqlite3_value *)",
+		"go":	"(*Stmt).BindValue"
+	}, {
+		"mangle":	"sqlite3_bind_zeroblob",
+		"c++":	"sqlite3_bind_zeroblob(sqlite3_stmt *, int, int)",
+		"go":	"(*Stmt).BindZeroblob"
+	}, {
+		"mangle":	"sqlite3_bind_zeroblob64",
+		"c++":	"sqlite3_bind_zeroblob64(sqlite3_stmt *, int, sqlite3_uint64)",
+		"go":	"(*Stmt).BindZeroblob64"
+	}, {
+		"mangle":	"sqlite3_blob_bytes",
+		"c++":	"sqlite3_blob_bytes(sqlite3_blob *)",
+		"go":	"(*Blob).BlobBytes"
+	}, {
+		"mangle":	"sqlite3_blob_close",
+		"c++":	"sqlite3_blob_close(sqlite3_blob *)",
+		"go":	"(*Blob).BlobClose"
+	}, {
+		"mangle":	"sqlite3_blob_open",
+		"c++":	"sqlite3_blob_open(sqlite3 *, const char *, const char *, const char *, sqlite3_int64, int, sqlite3_blob **)",
+		"go":	"(*Sqlite3).BlobOpen"
+	}, {
+		"mangle":	"sqlite3_blob_read",
+		"c++":	"sqlite3_blob_read(sqlite3_blob *, void *, int, int)",
+		"go":	"(*Blob).BlobRead"
+	}, {
+		"mangle":	"sqlite3_blob_reopen",
+		"c++":	"sqlite3_blob_reopen(sqlite3_blob *, sqlite3_int64)",
+		"go":	"(*Blob).BlobReopen"
+	}, {
+		"mangle":	"sqlite3_blob_write",
+		"c++":	"sqlite3_blob_write(sqlite3_blob *, const void *, int, int)",
+		"go":	"(*Blob).BlobWrite"
+	}, {
+		"mangle":	"sqlite3_busy_handler",
+		"c++":	"sqlite3_busy_handler(sqlite3 *, int (*)(void *, int), void *)",
+		"go":	"(*Sqlite3).BusyHandler"
+	}, {
+		"mangle":	"sqlite3_busy_timeout",
+		"c++":	"sqlite3_busy_timeout(sqlite3 *, int)",
+		"go":	"(*Sqlite3).BusyTimeout"
+	}, {
+		"mangle":	"sqlite3_cancel_auto_extension",
+		"c++":	"sqlite3_cancel_auto_extension(void (*)(void))",
+		"go":	"CancelAutoExtension"
+	}, {
+		"mangle":	"sqlite3_changes",
+		"c++":	"sqlite3_changes(sqlite3 *)",
+		"go":	"(*Sqlite3).Changes"
+	}, {
+		"mangle":	"sqlite3_changes64",
+		"c++":	"sqlite3_changes64(sqlite3 *)",
+		"go":	"(*Sqlite3).Changes64"
+	}, {
+		"mangle":	"sqlite3_clear_bindings",
+		"c++":	"sqlite3_clear_bindings(sqlite3_stmt *)",
+		"go":	"(*Stmt).ClearBindings"
+	}, {
+		"mangle":	"sqlite3_close",
+		"c++":	"sqlite3_close(sqlite3 *)",
+		"go":	"(*Sqlite3).Close"
+	}, {
+		"mangle":	"sqlite3_close_v2",
+		"c++":	"sqlite3_close_v2(sqlite3 *)",
+		"go":	"(*Sqlite3).CloseV2"
+	}, {
+		"mangle":	"sqlite3_collation_needed",
+		"c++":	"sqlite3_collation_needed(sqlite3 *, void *, void (*)(void *, sqlite3 *, int, const char *))",
+		"go":	"(*Sqlite3).CollationNeeded"
+	}, {
+		"mangle":	"sqlite3_collation_needed16",
+		"c++":	"sqlite3_collation_needed16(sqlite3 *, void *, void (*)(void *, sqlite3 *, int, const void *))",
+		"go":	"(*Sqlite3).CollationNeeded16"
+	}, {
+		"mangle":	"sqlite3_column_blob",
+		"c++":	"sqlite3_column_blob(sqlite3_stmt *, int)",
+		"go":	"(*Stmt).ColumnBlob"
+	}, {
+		"mangle":	"sqlite3_column_bytes",
+		"c++":	"sqlite3_column_bytes(sqlite3_stmt *, int)",
+		"go":	"(*Stmt).ColumnBytes"
+	}, {
+		"mangle":	"sqlite3_column_bytes16",
+		"c++":	"sqlite3_column_bytes16(sqlite3_stmt *, int)",
+		"go":	"(*Stmt).ColumnBytes16"
+	}, {
+		"mangle":	"sqlite3_column_count",
+		"c++":	"sqlite3_column_count(sqlite3_stmt *)",
+		"go":	"(*Stmt).ColumnCount"
+	}, {
+		"mangle":	"sqlite3_column_database_name",
+		"c++":	"sqlite3_column_database_name(sqlite3_stmt *, int)",
+		"go":	"(*Stmt).ColumnDatabaseName"
+	}, {
+		"mangle":	"sqlite3_column_database_name16",
+		"c++":	"sqlite3_column_database_name16(sqlite3_stmt *, int)",
+		"go":	"(*Stmt).ColumnDatabaseName16"
+	}, {
+		"mangle":	"sqlite3_column_decltype",
+		"c++":	"sqlite3_column_decltype(sqlite3_stmt *, int)",
+		"go":	"(*Stmt).ColumnDecltype"
+	}, {
+		"mangle":	"sqlite3_column_decltype16",
+		"c++":	"sqlite3_column_decltype16(sqlite3_stmt *, int)",
+		"go":	"(*Stmt).ColumnDecltype16"
+	}, {
+		"mangle":	"sqlite3_column_double",
+		"c++":	"sqlite3_column_double(sqlite3_stmt *, int)",
+		"go":	"(*Stmt).ColumnDouble"
+	}, {
+		"mangle":	"sqlite3_column_int",
+		"c++":	"sqlite3_column_int(sqlite3_stmt *, int)",
+		"go":	"(*Stmt).ColumnInt"
+	}, {
+		"mangle":	"sqlite3_column_int64",
+		"c++":	"sqlite3_column_int64(sqlite3_stmt *, int)",
+		"go":	"(*Stmt).ColumnInt64"
+	}, {
+		"mangle":	"sqlite3_column_name",
+		"c++":	"sqlite3_column_name(sqlite3_stmt *, int)",
+		"go":	"(*Stmt).ColumnName"
+	}, {
+		"mangle":	"sqlite3_column_name16",
+		"c++":	"sqlite3_column_name16(sqlite3_stmt *, int)",
+		"go":	"(*Stmt).ColumnName16"
+	}, {
+		"mangle":	"sqlite3_column_origin_name",
+		"c++":	"sqlite3_column_origin_name(sqlite3_stmt *, int)",
+		"go":	"(*Stmt).ColumnOriginName"
+	}, {
+		"mangle":	"sqlite3_column_origin_name16",
+		"c++":	"sqlite3_column_origin_name16(sqlite3_stmt *, int)",
+		"go":	"(*Stmt).ColumnOriginName16"
+	}, {
+		"mangle":	"sqlite3_column_table_name",
+		"c++":	"sqlite3_column_table_name(sqlite3_stmt *, int)",
+		"go":	"(*Stmt).ColumnTableName"
+	}, {
+		"mangle":	"sqlite3_column_table_name16",
+		"c++":	"sqlite3_column_table_name16(sqlite3_stmt *, int)",
+		"go":	"(*Stmt).ColumnTableName16"
+	}, {
+		"mangle":	"sqlite3_column_text",
+		"c++":	"sqlite3_column_text(sqlite3_stmt *, int)",
+		"go":	"(*Stmt).ColumnText"
+	}, {
+		"mangle":	"sqlite3_column_text16",
+		"c++":	"sqlite3_column_text16(sqlite3_stmt *, int)",
+		"go":	"(*Stmt).ColumnText16"
+	}, {
+		"mangle":	"sqlite3_column_type",
+		"c++":	"sqlite3_column_type(sqlite3_stmt *, int)",
+		"go":	"(*Stmt).ColumnType"
+	}, {
+		"mangle":	"sqlite3_column_value",
+		"c++":	"sqlite3_column_value(sqlite3_stmt *, int)",
+		"go":	"(*Stmt).ColumnValue"
+	}, {
+		"mangle":	"sqlite3_commit_hook",
+		"c++":	"sqlite3_commit_hook(sqlite3 *, int (*)(void *), void *)",
+		"go":	"(*Sqlite3).CommitHook"
+	}, {
+		"mangle":	"sqlite3_compileoption_get",
+		"c++":	"sqlite3_compileoption_get(int)",
+		"go":	"CompileoptionGet"
+	}, {
+		"mangle":	"sqlite3_compileoption_used",
+		"c++":	"sqlite3_compileoption_used(const char *)",
+		"go":	"CompileoptionUsed"
+	}, {
+		"mangle":	"sqlite3_complete",
+		"c++":	"sqlite3_complete(const char *)",
+		"go":	"Complete"
+	}, {
+		"mangle":	"sqlite3_complete16",
+		"c++":	"sqlite3_complete16(const void *)",
+		"go":	"Complete16"
+	}, {
+		"mangle":	"sqlite3_config",
+		"c++":	"sqlite3_config(int, ...)",
+		"go":	"Config"
+	}, {
+		"mangle":	"sqlite3_context_db_handle",
+		"c++":	"sqlite3_context_db_handle(sqlite3_context *)",
+		"go":	"(*Context).ContextDbHandle"
+	}, {
+		"mangle":	"sqlite3_create_collation",
+		"c++":	"sqlite3_create_collation(sqlite3 *, const char *, int, void *, int (*)(void *, int, const void *, int, const void *))",
+		"go":	"(*Sqlite3).CreateCollation"
+	}, {
+		"mangle":	"sqlite3_create_collation16",
+		"c++":	"sqlite3_create_collation16(sqlite3 *, const void *, int, void *, int (*)(void *, int, const void *, int, const void *))",
+		"go":	"(*Sqlite3).CreateCollation16"
+	}, {
+		"mangle":	"sqlite3_create_collation_v2",
+		"c++":	"sqlite3_create_collation_v2(sqlite3 *, const char *, int, void *, int (*)(void *, int, const void *, int, const void *), void (*)(void *))",
+		"go":	"(*Sqlite3).CreateCollationV2"
+	}, {
+		"mangle":	"sqlite3_create_filename",
+		"c++":	"sqlite3_create_filename(const char *, const char *, const char *, int, const char **)",
+		"go":	"CreateFilename"
+	}, {
+		"mangle":	"sqlite3_create_function",
+		"c++":	"sqlite3_create_function(sqlite3 *, const char *, int, int, void *, void (*)(sqlite3_context *, int, sqlite3_value **), void (*)(sqlite3_context *, int, sqlite3_value **), void (*)(sqlite3_context *))",
+		"go":	"(*Sqlite3).CreateFunction"
+	}, {
+		"mangle":	"sqlite3_create_function16",
+		"c++":	"sqlite3_create_function16(sqlite3 *, const void *, int, int, void *, void (*)(sqlite3_context *, int, sqlite3_value **), void (*)(sqlite3_context *, int, sqlite3_value **), void (*)(sqlite3_context *))",
+		"go":	"(*Sqlite3).CreateFunction16"
+	}, {
+		"mangle":	"sqlite3_create_function_v2",
+		"c++":	"sqlite3_create_function_v2(sqlite3 *, const char *, int, int, void *, void (*)(sqlite3_context *, int, sqlite3_value **), void (*)(sqlite3_context *, int, sqlite3_value **), void (*)(sqlite3_context *), void (*)(void *))",
+		"go":	"(*Sqlite3).CreateFunctionV2"
+	}, {
+		"mangle":	"sqlite3_create_module",
+		"c++":	"sqlite3_create_module(sqlite3 *, const char *, const sqlite3_module *, void *)",
+		"go":	"(*Sqlite3).CreateModule"
+	}, {
+		"mangle":	"sqlite3_create_module_v2",
+		"c++":	"sqlite3_create_module_v2(sqlite3 *, const char *, const sqlite3_module *, void *, void (*)(void *))",
+		"go":	"(*Sqlite3).CreateModuleV2"
+	}, {
+		"mangle":	"sqlite3_create_window_function",
+		"c++":	"sqlite3_create_window_function(sqlite3 *, const char *, int, int, void *, void (*)(sqlite3_context *, int, sqlite3_value **), void (*)(sqlite3_context *), void (*)(sqlite3_context *), void (*)(sqlite3_context *, int, sqlite3_value **), void (*)(void *))",
+		"go":	"(*Sqlite3).CreateWindowFunction"
+	}, {
+		"mangle":	"sqlite3_data_count",
+		"c++":	"sqlite3_data_count(sqlite3_stmt *)",
+		"go":	"(*Stmt).DataCount"
+	}, {
+		"mangle":	"sqlite3_database_file_object",
+		"c++":	"sqlite3_database_file_object(const char *)",
+		"go":	"DatabaseFileObject"
+	}, {
+		"mangle":	"sqlite3_db_cacheflush",
+		"c++":	"sqlite3_db_cacheflush(sqlite3 *)",
+		"go":	"(*Sqlite3).DbCacheflush"
+	}, {
+		"mangle":	"sqlite3_db_config",
+		"c++":	"sqlite3_db_config(sqlite3 *, int, ...)",
+		"go":	"(*Sqlite3).DbConfig"
+	}, {
+		"mangle":	"sqlite3_db_filename",
+		"c++":	"sqlite3_db_filename(sqlite3 *, const char *)",
+		"go":	"(*Sqlite3).DbFilename"
+	}, {
+		"mangle":	"sqlite3_db_handle",
+		"c++":	"sqlite3_db_handle(sqlite3_stmt *)",
+		"go":	"(*Stmt).DbHandle"
+	}, {
+		"mangle":	"sqlite3_db_mutex",
+		"c++":	"sqlite3_db_mutex(sqlite3 *)",
+		"go":	"(*Sqlite3).DbMutex"
+	}, {
+		"mangle":	"sqlite3_db_name",
+		"c++":	"sqlite3_db_name(sqlite3 *, int)",
+		"go":	"(*Sqlite3).DbName"
+	}, {
+		"mangle":	"sqlite3_db_readonly",
+		"c++":	"sqlite3_db_readonly(sqlite3 *, const char *)",
+		"go":	"(*Sqlite3).DbReadonly"
+	}, {
+		"mangle":	"sqlite3_db_release_memory",
+		"c++":	"sqlite3_db_release_memory(sqlite3 *)",
+		"go":	"(*Sqlite3).DbReleaseMemory"
+	}, {
+		"mangle":	"sqlite3_db_status",
+		"c++":	"sqlite3_db_status(sqlite3 *, int, int *, int *, int)",
+		"go":	"(*Sqlite3).DbStatus"
+	}, {
+		"mangle":	"sqlite3_declare_vtab",
+		"c++":	"sqlite3_declare_vtab(sqlite3 *, const char *)",
+		"go":	"(*Sqlite3).DeclareVtab"
+	}, {
+		"mangle":	"sqlite3_deserialize",
+		"c++":	"sqlite3_deserialize(sqlite3 *, const char *, unsigned char *, sqlite3_int64, sqlite3_int64, unsigned int)",
+		"go":	"(*Sqlite3).Deserialize"
+	}, {
+		"mangle":	"sqlite3_drop_modules",
+		"c++":	"sqlite3_drop_modules(sqlite3 *, const char **)",
+		"go":	"(*Sqlite3).DropModules"
+	}, {
+		"mangle":	"sqlite3_enable_load_extension",
+		"c++":	"sqlite3_enable_load_extension(sqlite3 *, int)",
+		"go":	"(*Sqlite3).EnableLoadExtension"
+	}, {
+		"mangle":	"sqlite3_enable_shared_cache",
+		"c++":	"sqlite3_enable_shared_cache(int)",
+		"go":	"EnableSharedCache"
+	}, {
+		"mangle":	"sqlite3_errcode",
+		"c++":	"sqlite3_errcode(sqlite3 *)",
+		"go":	"(*Sqlite3).Errcode"
+	}, {
+		"mangle":	"sqlite3_errmsg",
+		"c++":	"sqlite3_errmsg(sqlite3 *)",
+		"go":	"(*Sqlite3).Errmsg"
+	}, {
+		"mangle":	"sqlite3_errmsg16",
+		"c++":	"sqlite3_errmsg16(sqlite3 *)",
+		"go":	"(*Sqlite3).Errmsg16"
+	}, {
+		"mangle":	"sqlite3_error_offset",
+		"c++":	"sqlite3_error_offset(sqlite3 *)",
+		"go":	"(*Sqlite3).ErrorOffset"
+	}, {
+		"mangle":	"sqlite3_errstr",
+		"c++":	"sqlite3_errstr(int)",
+		"go":	"Errstr"
+	}, {
+		"mangle":	"sqlite3_exec",
+		"c++":	"sqlite3_exec(sqlite3 *, const char *, int (*)(void *, int, char **, char **), void *, char **)",
+		"go":	"(*Sqlite3).Exec"
+	}, {
+		"mangle":	"sqlite3_expanded_sql",
+		"c++":	"sqlite3_expanded_sql(sqlite3_stmt *)",
+		"go":	"(*Stmt).ExpandedSql"
+	}, {
+		"mangle":	"sqlite3_expired",
+		"c++":	"sqlite3_expired(sqlite3_stmt *)",
+		"go":	"(*Stmt).Expired"
+	}, {
+		"mangle":	"sqlite3_extended_errcode",
+		"c++":	"sqlite3_extended_errcode(sqlite3 *)",
+		"go":	"(*Sqlite3).ExtendedErrcode"
+	}, {
+		"mangle":	"sqlite3_extended_result_codes",
+		"c++":	"sqlite3_extended_result_codes(sqlite3 *, int)",
+		"go":	"(*Sqlite3).ExtendedResultCodes"
+	}, {
+		"mangle":	"sqlite3_file_control",
+		"c++":	"sqlite3_file_control(sqlite3 *, const char *, int, void *)",
+		"go":	"(*Sqlite3).FileControl"
+	}, {
+		"mangle":	"sqlite3_filename_database",
+		"c++":	"sqlite3_filename_database(sqlite3_filename)",
+		"go":	"FilenameDatabase"
+	}, {
+		"mangle":	"sqlite3_filename_journal",
+		"c++":	"sqlite3_filename_journal(sqlite3_filename)",
+		"go":	"FilenameJournal"
+	}, {
+		"mangle":	"sqlite3_filename_wal",
+		"c++":	"sqlite3_filename_wal(sqlite3_filename)",
+		"go":	"FilenameWal"
+	}, {
+		"mangle":	"sqlite3_finalize",
+		"c++":	"sqlite3_finalize(sqlite3_stmt *)",
+		"go":	"(*Stmt).Close"
+	}, {
+		"mangle":	"sqlite3_free",
+		"c++":	"sqlite3_free(void *)",
+		"go":	"Free"
+	}, {
+		"mangle":	"sqlite3_free_filename",
+		"c++":	"sqlite3_free_filename(sqlite3_filename)",
+		"go":	"FreeFilename"
+	}, {
+		"mangle":	"sqlite3_free_table",
+		"c++":	"sqlite3_free_table(char **)",
+		"go":	"FreeTable"
+	}, {
+		"mangle":	"sqlite3_get_autocommit",
+		"c++":	"sqlite3_get_autocommit(sqlite3 *)",
+		"go":	"(*Sqlite3).GetAutocommit"
+	}, {
+		"mangle":	"sqlite3_get_auxdata",
+		"c++":	"sqlite3_get_auxdata(sqlite3_context *, int)",
+		"go":	"(*Context).GetAuxdata"
+	}, {
+		"mangle":	"sqlite3_get_clientdata",
+		"c++":	"sqlite3_get_clientdata(sqlite3 *, const char *)",
+		"go":	"(*Sqlite3).GetClientdata"
+	}, {
+		"mangle":	"sqlite3_get_table",
+		"c++":	"sqlite3_get_table(sqlite3 *, const char *, char ***, int *, int *, char **)",
+		"go":	"(*Sqlite3).GetTable"
+	}, {
+		"mangle":	"sqlite3_global_recover",
+		"c++":	"sqlite3_global_recover()",
+		"go":	"GlobalRecover"
+	}, {
+		"mangle":	"sqlite3_hard_heap_limit64",
+		"c++":	"sqlite3_hard_heap_limit64(sqlite3_int64)",
+		"go":	"Int64.HardHeapLimit64"
+	}, {
+		"mangle":	"sqlite3_initialize",
+		"c++":	"sqlite3_initialize()",
+		"go":	"Initialize"
+	}, {
+		"mangle":	"sqlite3_interrupt",
+		"c++":	"sqlite3_interrupt(sqlite3 *)",
+		"go":	"(*Sqlite3).Interrupt"
+	}, {
+		"mangle":	"sqlite3_is_interrupted",
+		"c++":	"sqlite3_is_interrupted(sqlite3 *)",
+		"go":	"(*Sqlite3).IsInterrupted"
+	}, {
+		"mangle":	"sqlite3_keyword_check",
+		"c++":	"sqlite3_keyword_check(const char *, int)",
+		"go":	"KeywordCheck"
+	}, {
+		"mangle":	"sqlite3_keyword_count",
+		"c++":	"sqlite3_keyword_count()",
+		"go":	"KeywordCount"
+	}, {
+		"mangle":	"sqlite3_keyword_name",
+		"c++":	"sqlite3_keyword_name(int, const char **, int *)",
+		"go":	"KeywordName"
+	}, {
+		"mangle":	"sqlite3_last_insert_rowid",
+		"c++":	"sqlite3_last_insert_rowid(sqlite3 *)",
+		"go":	"(*Sqlite3).LastInsertRowid"
+	}, {
+		"mangle":	"sqlite3_libversion",
+		"c++":	"sqlite3_libversion()",
+		"go":	"Libversion"
+	}, {
+		"mangle":	"sqlite3_libversion_number",
+		"c++":	"sqlite3_libversion_number()",
+		"go":	"LibversionNumber"
+	}, {
+		"mangle":	"sqlite3_limit",
+		"c++":	"sqlite3_limit(sqlite3 *, int, int)",
+		"go":	"(*Sqlite3).Limit"
+	}, {
+		"mangle":	"sqlite3_load_extension",
+		"c++":	"sqlite3_load_extension(sqlite3 *, const char *, const char *, char **)",
+		"go":	"(*Sqlite3).LoadExtension"
+	}, {
+		"mangle":	"sqlite3_log",
+		"c++":	"sqlite3_log(int, const char *, ...)",
+		"go":	"Log"
+	}, {
+		"mangle":	"sqlite3_malloc",
+		"c++":	"sqlite3_malloc(int)",
+		"go":	"Malloc"
+	}, {
+		"mangle":	"sqlite3_malloc64",
+		"c++":	"sqlite3_malloc64(sqlite3_uint64)",
+		"go":	"Uint64.Malloc64"
+	}, {
+		"mangle":	"sqlite3_memory_alarm",
+		"c++":	"sqlite3_memory_alarm(void (*)(void *, sqlite3_int64, int), void *, sqlite3_int64)",
+		"go":	"MemoryAlarm"
+	}, {
+		"mangle":	"sqlite3_memory_highwater",
+		"c++":	"sqlite3_memory_highwater(int)",
+		"go":	"MemoryHighwater"
+	}, {
+		"mangle":	"sqlite3_memory_used",
+		"c++":	"sqlite3_memory_used()",
+		"go":	"MemoryUsed"
+	}, {
+		"mangle":	"sqlite3_mprintf",
+		"c++":	"sqlite3_mprintf(const char *, ...)",
+		"go":	"Mprintf"
+	}, {
+		"mangle":	"sqlite3_msize",
+		"c++":	"sqlite3_msize(void *)",
+		"go":	"Msize"
+	}, {
+		"mangle":	"sqlite3_mutex_alloc",
+		"c++":	"sqlite3_mutex_alloc(int)",
+		"go":	"MutexAlloc"
+	}, {
+		"mangle":	"sqlite3_mutex_enter",
+		"c++":	"sqlite3_mutex_enter(sqlite3_mutex *)",
+		"go":	"(*Mutex).MutexEnter"
+	}, {
+		"mangle":	"sqlite3_mutex_free",
+		"c++":	"sqlite3_mutex_free(sqlite3_mutex *)",
+		"go":	"(*Mutex).MutexFree"
+	}, {
+		"mangle":	"sqlite3_mutex_leave",
+		"c++":	"sqlite3_mutex_leave(sqlite3_mutex *)",
+		"go":	"(*Mutex).MutexLeave"
+	}, {
+		"mangle":	"sqlite3_mutex_try",
+		"c++":	"sqlite3_mutex_try(sqlite3_mutex *)",
+		"go":	"(*Mutex).MutexTry"
+	}, {
+		"mangle":	"sqlite3_next_stmt",
+		"c++":	"sqlite3_next_stmt(sqlite3 *, sqlite3_stmt *)",
+		"go":	"(*Sqlite3).NextStmt"
+	}, {
+		"mangle":	"sqlite3_open",
+		"c++":	"sqlite3_open(const char *, sqlite3 **)",
+		"go":	"DoOpen"
+	}, {
+		"mangle":	"sqlite3_open16",
+		"c++":	"sqlite3_open16(const void *, sqlite3 **)",
+		"go":	"DoOpen16"
+	}, {
+		"mangle":	"sqlite3_open_v2",
+		"c++":	"sqlite3_open_v2(const char *, sqlite3 **, int, const char *)",
+		"go":	"DoOpenV2"
+	}, {
+		"mangle":	"sqlite3_os_end",
+		"c++":	"sqlite3_os_end()",
+		"go":	"OsEnd"
+	}, {
+		"mangle":	"sqlite3_os_init",
+		"c++":	"sqlite3_os_init()",
+		"go":	"OsInit"
+	}, {
+		"mangle":	"sqlite3_overload_function",
+		"c++":	"sqlite3_overload_function(sqlite3 *, const char *, int)",
+		"go":	"(*Sqlite3).OverloadFunction"
+	}, {
+		"mangle":	"sqlite3_prepare",
+		"c++":	"sqlite3_prepare(sqlite3 *, const char *, int, sqlite3_stmt **, const char **)",
+		"go":	"(*Sqlite3).DoPrepare"
+	}, {
+		"mangle":	"sqlite3_prepare16",
+		"c++":	"sqlite3_prepare16(sqlite3 *, const void *, int, sqlite3_stmt **, const void **)",
+		"go":	"(*Sqlite3).DoPrepare16"
+	}, {
+		"mangle":	"sqlite3_prepare16_v2",
+		"c++":	"sqlite3_prepare16_v2(sqlite3 *, const void *, int, sqlite3_stmt **, const void **)",
+		"go":	"(*Sqlite3).DoPrepare16V2"
+	}, {
+		"mangle":	"sqlite3_prepare16_v3",
+		"c++":	"sqlite3_prepare16_v3(sqlite3 *, const void *, int, unsigned int, sqlite3_stmt **, const void **)",
+		"go":	"(*Sqlite3).DoPrepare16V3"
+	}, {
+		"mangle":	"sqlite3_prepare_v2",
+		"c++":	"sqlite3_prepare_v2(sqlite3 *, const char *, int, sqlite3_stmt **, const char **)",
+		"go":	"(*Sqlite3).DoPrepareV2"
+	}, {
+		"mangle":	"sqlite3_prepare_v3",
+		"c++":	"sqlite3_prepare_v3(sqlite3 *, const char *, int, unsigned int, sqlite3_stmt **, const char **)",
+		"go":	"(*Sqlite3).DoPrepareV3"
+	}, {
+		"mangle":	"sqlite3_profile",
+		"c++":	"sqlite3_profile(sqlite3 *, void (*)(void *, const char *, sqlite3_uint64), void *)",
+		"go":	"(*Sqlite3).Profile"
+	}, {
+		"mangle":	"sqlite3_progress_handler",
+		"c++":	"sqlite3_progress_handler(sqlite3 *, int, int (*)(void *), void *)",
+		"go":	"(*Sqlite3).ProgressHandler"
+	}, {
+		"mangle":	"sqlite3_randomness",
+		"c++":	"sqlite3_randomness(int, void *)",
+		"go":	"Randomness"
+	}, {
+		"mangle":	"sqlite3_realloc",
+		"c++":	"sqlite3_realloc(void *, int)",
+		"go":	"Realloc"
+	}, {
+		"mangle":	"sqlite3_realloc64",
+		"c++":	"sqlite3_realloc64(void *, sqlite3_uint64)",
+		"go":	"Realloc64"
+	}, {
+		"mangle":	"sqlite3_release_memory",
+		"c++":	"sqlite3_release_memory(int)",
+		"go":	"ReleaseMemory"
+	}, {
+		"mangle":	"sqlite3_reset",
+		"c++":	"sqlite3_reset(sqlite3_stmt *)",
+		"go":	"(*Stmt).Reset"
+	}, {
+		"mangle":	"sqlite3_reset_auto_extension",
+		"c++":	"sqlite3_reset_auto_extension()",
+		"go":	"ResetAutoExtension"
+	}, {
+		"mangle":	"sqlite3_result_blob",
+		"c++":	"sqlite3_result_blob(sqlite3_context *, const void *, int, void (*)(void *))",
+		"go":	"(*Context).ResultBlob"
+	}, {
+		"mangle":	"sqlite3_result_blob64",
+		"c++":	"sqlite3_result_blob64(sqlite3_context *, const void *, sqlite3_uint64, void (*)(void *))",
+		"go":	"(*Context).ResultBlob64"
+	}, {
+		"mangle":	"sqlite3_result_double",
+		"c++":	"sqlite3_result_double(sqlite3_context *, double)",
+		"go":	"(*Context).ResultDouble"
+	}, {
+		"mangle":	"sqlite3_result_error",
+		"c++":	"sqlite3_result_error(sqlite3_context *, const char *, int)",
+		"go":	"(*Context).ResultError"
+	}, {
+		"mangle":	"sqlite3_result_error16",
+		"c++":	"sqlite3_result_error16(sqlite3_context *, const void *, int)",
+		"go":	"(*Context).ResultError16"
+	}, {
+		"mangle":	"sqlite3_result_error_code",
+		"c++":	"sqlite3_result_error_code(sqlite3_context *, int)",
+		"go":	"(*Context).ResultErrorCode"
+	}, {
+		"mangle":	"sqlite3_result_error_nomem",
+		"c++":	"sqlite3_result_error_nomem(sqlite3_context *)",
+		"go":	"(*Context).ResultErrorNomem"
+	}, {
+		"mangle":	"sqlite3_result_error_toobig",
+		"c++":	"sqlite3_result_error_toobig(sqlite3_context *)",
+		"go":	"(*Context).ResultErrorToobig"
+	}, {
+		"mangle":	"sqlite3_result_int",
+		"c++":	"sqlite3_result_int(sqlite3_context *, int)",
+		"go":	"(*Context).ResultInt"
+	}, {
+		"mangle":	"sqlite3_result_int64",
+		"c++":	"sqlite3_result_int64(sqlite3_context *, sqlite3_int64)",
+		"go":	"(*Context).ResultInt64"
+	}, {
+		"mangle":	"sqlite3_result_null",
+		"c++":	"sqlite3_result_null(sqlite3_context *)",
+		"go":	"(*Context).ResultNull"
+	}, {
+		"mangle":	"sqlite3_result_pointer",
+		"c++":	"sqlite3_result_pointer(sqlite3_context *, void *, const char *, void (*)(void *))",
+		"go":	"(*Context).ResultPointer"
+	}, {
+		"mangle":	"sqlite3_result_subtype",
+		"c++":	"sqlite3_result_subtype(sqlite3_context *, unsigned int)",
+		"go":	"(*Context).ResultSubtype"
+	}, {
+		"mangle":	"sqlite3_result_text",
+		"c++":	"sqlite3_result_text(sqlite3_context *, const char *, int, void (*)(void *))",
+		"go":	"(*Context).ResultText"
+	}, {
+		"mangle":	"sqlite3_result_text16",
+		"c++":	"sqlite3_result_text16(sqlite3_context *, const void *, int, void (*)(void *))",
+		"go":	"(*Context).ResultText16"
+	}, {
+		"mangle":	"sqlite3_result_text16be",
+		"c++":	"sqlite3_result_text16be(sqlite3_context *, const void *, int, void (*)(void *))",
+		"go":	"(*Context).ResultText16be"
+	}, {
+		"mangle":	"sqlite3_result_text16le",
+		"c++":	"sqlite3_result_text16le(sqlite3_context *, const void *, int, void (*)(void *))",
+		"go":	"(*Context).ResultText16le"
+	}, {
+		"mangle":	"sqlite3_result_text64",
+		"c++":	"sqlite3_result_text64(sqlite3_context *, const char *, sqlite3_uint64, void (*)(void *), unsigned char)",
+		"go":	"(*Context).ResultText64"
+	}, {
+		"mangle":	"sqlite3_result_value",
+		"c++":	"sqlite3_result_value(sqlite3_context *, sqlite3_value *)",
+		"go":	"(*Context).ResultValue"
+	}, {
+		"mangle":	"sqlite3_result_zeroblob",
+		"c++":	"sqlite3_result_zeroblob(sqlite3_context *, int)",
+		"go":	"(*Context).ResultZeroblob"
+	}, {
+		"mangle":	"sqlite3_result_zeroblob64",
+		"c++":	"sqlite3_result_zeroblob64(sqlite3_context *, sqlite3_uint64)",
+		"go":	"(*Context).ResultZeroblob64"
+	}, {
+		"mangle":	"sqlite3_rollback_hook",
+		"c++":	"sqlite3_rollback_hook(sqlite3 *, void (*)(void *), void *)",
+		"go":	"(*Sqlite3).RollbackHook"
+	}, {
+		"mangle":	"sqlite3_rtree_geometry_callback",
+		"c++":	"sqlite3_rtree_geometry_callback(sqlite3 *, const char *, int (*)(sqlite3_rtree_geometry *, int, sqlite3_rtree_dbl *, int *), void *)",
+		"go":	"(*Sqlite3).RtreeGeometryCallback"
+	}, {
+		"mangle":	"sqlite3_rtree_query_callback",
+		"c++":	"sqlite3_rtree_query_callback(sqlite3 *, const char *, int (*)(sqlite3_rtree_query_info *), void *, void (*)(void *))",
+		"go":	"(*Sqlite3).RtreeQueryCallback"
+	}, {
+		"mangle":	"sqlite3_serialize",
+		"c++":	"sqlite3_serialize(sqlite3 *, const char *, sqlite3_int64 *, unsigned int)",
+		"go":	"(*Sqlite3).Serialize"
+	}, {
+		"mangle":	"sqlite3_set_authorizer",
+		"c++":	"sqlite3_set_authorizer(sqlite3 *, int (*)(void *, int, const char *, const char *, const char *, const char *), void *)",
+		"go":	"(*Sqlite3).SetAuthorizer"
+	}, {
+		"mangle":	"sqlite3_set_auxdata",
+		"c++":	"sqlite3_set_auxdata(sqlite3_context *, int, void *, void (*)(void *))",
+		"go":	"(*Context).SetAuxdata"
+	}, {
+		"mangle":	"sqlite3_set_clientdata",
+		"c++":	"sqlite3_set_clientdata(sqlite3 *, const char *, void *, void (*)(void *))",
+		"go":	"(*Sqlite3).SetClientdata"
+	}, {
+		"mangle":	"sqlite3_set_last_insert_rowid",
+		"c++":	"sqlite3_set_last_insert_rowid(sqlite3 *, sqlite3_int64)",
+		"go":	"(*Sqlite3).SetLastInsertRowid"
+	}, {
+		"mangle":	"sqlite3_shutdown",
+		"c++":	"sqlite3_shutdown()",
+		"go":	"Shutdown"
+	}, {
+		"mangle":	"sqlite3_sleep",
+		"c++":	"sqlite3_sleep(int)",
+		"go":	"Sleep"
+	}, {
+		"mangle":	"sqlite3_snprintf",
+		"c++":	"sqlite3_snprintf(int, char *, const char *, ...)",
+		"go":	"Snprintf"
+	}, {
+		"mangle":	"sqlite3_soft_heap_limit",
+		"c++":	"sqlite3_soft_heap_limit(int)",
+		"go":	"SoftHeapLimit"
+	}, {
+		"mangle":	"sqlite3_soft_heap_limit64",
+		"c++":	"sqlite3_soft_heap_limit64(sqlite3_int64)",
+		"go":	"Int64.SoftHeapLimit64"
+	}, {
+		"mangle":	"sqlite3_sourceid",
+		"c++":	"sqlite3_sourceid()",
+		"go":	"Sourceid"
+	}, {
+		"mangle":	"sqlite3_sql",
+		"c++":	"sqlite3_sql(sqlite3_stmt *)",
+		"go":	"(*Stmt).Sql"
+	}, {
+		"mangle":	"sqlite3_status",
+		"c++":	"sqlite3_status(int, int *, int *, int)",
+		"go":	"Status"
+	}, {
+		"mangle":	"sqlite3_status64",
+		"c++":	"sqlite3_status64(int, sqlite3_int64 *, sqlite3_int64 *, int)",
+		"go":	"Status64"
+	}, {
+		"mangle":	"sqlite3_step",
+		"c++":	"sqlite3_step(sqlite3_stmt *)",
+		"go":	"(*Stmt).Step"
+	}, {
+		"mangle":	"sqlite3_stmt_busy",
+		"c++":	"sqlite3_stmt_busy(sqlite3_stmt *)",
+		"go":	"(*Stmt).StmtBusy"
+	}, {
+		"mangle":	"sqlite3_stmt_explain",
+		"c++":	"sqlite3_stmt_explain(sqlite3_stmt *, int)",
+		"go":	"(*Stmt).StmtExplain"
+	}, {
+		"mangle":	"sqlite3_stmt_isexplain",
+		"c++":	"sqlite3_stmt_isexplain(sqlite3_stmt *)",
+		"go":	"(*Stmt).StmtIsexplain"
+	}, {
+		"mangle":	"sqlite3_stmt_readonly",
+		"c++":	"sqlite3_stmt_readonly(sqlite3_stmt *)",
+		"go":	"(*Stmt).StmtReadonly"
+	}, {
+		"mangle":	"sqlite3_stmt_status",
+		"c++":	"sqlite3_stmt_status(sqlite3_stmt *, int, int)",
+		"go":	"(*Stmt).StmtStatus"
+	}, {
+		"mangle":	"sqlite3_str_append",
+		"c++":	"sqlite3_str_append(sqlite3_str *, const char *, int)",
+		"go":	"(*Str).StrAppend"
+	}, {
+		"mangle":	"sqlite3_str_appendall",
+		"c++":	"sqlite3_str_appendall(sqlite3_str *, const char *)",
+		"go":	"(*Str).StrAppendall"
+	}, {
+		"mangle":	"sqlite3_str_appendchar",
+		"c++":	"sqlite3_str_appendchar(sqlite3_str *, int, char)",
+		"go":	"(*Str).StrAppendchar"
+	}, {
+		"mangle":	"sqlite3_str_appendf",
+		"c++":	"sqlite3_str_appendf(sqlite3_str *, const char *, ...)",
+		"go":	"(*Str).StrAppendf"
+	}, {
+		"mangle":	"sqlite3_str_errcode",
+		"c++":	"sqlite3_str_errcode(sqlite3_str *)",
+		"go":	"(*Str).StrErrcode"
+	}, {
+		"mangle":	"sqlite3_str_finish",
+		"c++":	"sqlite3_str_finish(sqlite3_str *)",
+		"go":	"(*Str).StrFinish"
+	}, {
+		"mangle":	"sqlite3_str_length",
+		"c++":	"sqlite3_str_length(sqlite3_str *)",
+		"go":	"(*Str).StrLength"
+	}, {
+		"mangle":	"sqlite3_str_new",
+		"c++":	"sqlite3_str_new(sqlite3 *)",
+		"go":	"(*Sqlite3).StrNew"
+	}, {
+		"mangle":	"sqlite3_str_reset",
+		"c++":	"sqlite3_str_reset(sqlite3_str *)",
+		"go":	"(*Str).StrReset"
+	}, {
+		"mangle":	"sqlite3_str_value",
+		"c++":	"sqlite3_str_value(sqlite3_str *)",
+		"go":	"(*Str).StrValue"
+	}, {
+		"mangle":	"sqlite3_str_vappendf",
+		"c++":	"sqlite3_str_vappendf(sqlite3_str *, const char *, int)",
+		"go":	"(*Str).StrVappendf"
+	}, {
+		"mangle":	"sqlite3_strglob",
+		"c++":	"sqlite3_strglob(const char *, const char *)",
+		"go":	"Strglob"
+	}, {
+		"mangle":	"sqlite3_stricmp",
+		"c++":	"sqlite3_stricmp(const char *, const char *)",
+		"go":	"Stricmp"
+	}, {
+		"mangle":	"sqlite3_strlike",
+		"c++":	"sqlite3_strlike(const char *, const char *, unsigned int)",
+		"go":	"Strlike"
+	}, {
+		"mangle":	"sqlite3_strnicmp",
+		"c++":	"sqlite3_strnicmp(const char *, const char *, int)",
+		"go":	"Strnicmp"
+	}, {
+		"mangle":	"sqlite3_system_errno",
+		"c++":	"sqlite3_system_errno(sqlite3 *)",
+		"go":	"(*Sqlite3).SystemErrno"
+	}, {
+		"mangle":	"sqlite3_table_column_metadata",
+		"c++":	"sqlite3_table_column_metadata(sqlite3 *, const char *, const char *, const char *, const char **, const char **, int *, int *, int *)",
+		"go":	"(*Sqlite3).TableColumnMetadata"
+	}, {
+		"mangle":	"sqlite3_test_control",
+		"c++":	"sqlite3_test_control(int, ...)",
+		"go":	"TestControl"
+	}, {
+		"mangle":	"sqlite3_thread_cleanup",
+		"c++":	"sqlite3_thread_cleanup()",
+		"go":	"ThreadCleanup"
+	}, {
+		"mangle":	"sqlite3_threadsafe",
+		"c++":	"sqlite3_threadsafe()",
+		"go":	"Threadsafe"
+	}, {
+		"mangle":	"sqlite3_total_changes",
+		"c++":	"sqlite3_total_changes(sqlite3 *)",
+		"go":	"(*Sqlite3).TotalChanges"
+	}, {
+		"mangle":	"sqlite3_total_changes64",
+		"c++":	"sqlite3_total_changes64(sqlite3 *)",
+		"go":	"(*Sqlite3).TotalChanges64"
+	}, {
+		"mangle":	"sqlite3_trace",
+		"c++":	"sqlite3_trace(sqlite3 *, void (*)(void *, const char *), void *)",
+		"go":	"(*Sqlite3).Trace"
+	}, {
+		"mangle":	"sqlite3_trace_v2",
+		"c++":	"sqlite3_trace_v2(sqlite3 *, unsigned int, int (*)(unsigned int, void *, void *, void *), void *)",
+		"go":	"(*Sqlite3).TraceV2"
+	}, {
+		"mangle":	"sqlite3_transfer_bindings",
+		"c++":	"sqlite3_transfer_bindings(sqlite3_stmt *, sqlite3_stmt *)",
+		"go":	"(*Stmt).TransferBindings"
+	}, {
+		"mangle":	"sqlite3_txn_state",
+		"c++":	"sqlite3_txn_state(sqlite3 *, const char *)",
+		"go":	"(*Sqlite3).TxnState"
+	}, {
+		"mangle":	"sqlite3_unlock_notify",
+		"c++":	"sqlite3_unlock_notify(sqlite3 *, void (*)(void **, int), void *)",
+		"go":	"(*Sqlite3).UnlockNotify"
+	}, {
+		"mangle":	"sqlite3_update_hook",
+		"c++":	"sqlite3_update_hook(sqlite3 *, void (*)(void *, int, const char *, const char *, sqlite3_int64), void *)",
+		"go":	"(*Sqlite3).UpdateHook"
+	}, {
+		"mangle":	"sqlite3_uri_boolean",
+		"c++":	"sqlite3_uri_boolean(sqlite3_filename, const char *, int)",
+		"go":	"UriBoolean"
+	}, {
+		"mangle":	"sqlite3_uri_int64",
+		"c++":	"sqlite3_uri_int64(sqlite3_filename, const char *, sqlite3_int64)",
+		"go":	"UriInt64"
+	}, {
+		"mangle":	"sqlite3_uri_key",
+		"c++":	"sqlite3_uri_key(sqlite3_filename, int)",
+		"go":	"UriKey"
+	}, {
+		"mangle":	"sqlite3_uri_parameter",
+		"c++":	"sqlite3_uri_parameter(sqlite3_filename, const char *)",
+		"go":	"UriParameter"
+	}, {
+		"mangle":	"sqlite3_user_data",
+		"c++":	"sqlite3_user_data(sqlite3_context *)",
+		"go":	"(*Context).UserData"
+	}, {
+		"mangle":	"sqlite3_value_blob",
+		"c++":	"sqlite3_value_blob(sqlite3_value *)",
+		"go":	"(*Value).ValueBlob"
+	}, {
+		"mangle":	"sqlite3_value_bytes",
+		"c++":	"sqlite3_value_bytes(sqlite3_value *)",
+		"go":	"(*Value).ValueBytes"
+	}, {
+		"mangle":	"sqlite3_value_bytes16",
+		"c++":	"sqlite3_value_bytes16(sqlite3_value *)",
+		"go":	"(*Value).ValueBytes16"
+	}, {
+		"mangle":	"sqlite3_value_double",
+		"c++":	"sqlite3_value_double(sqlite3_value *)",
+		"go":	"(*Value).ValueDouble"
+	}, {
+		"mangle":	"sqlite3_value_dup",
+		"c++":	"sqlite3_value_dup(const sqlite3_value *)",
+		"go":	"(*Value).ValueDup"
+	}, {
+		"mangle":	"sqlite3_value_encoding",
+		"c++":	"sqlite3_value_encoding(sqlite3_value *)",
+		"go":	"(*Value).ValueEncoding"
+	}, {
+		"mangle":	"sqlite3_value_free",
+		"c++":	"sqlite3_value_free(sqlite3_value *)",
+		"go":	"(*Value).ValueFree"
+	}, {
+		"mangle":	"sqlite3_value_frombind",
+		"c++":	"sqlite3_value_frombind(sqlite3_value *)",
+		"go":	"(*Value).ValueFrombind"
+	}, {
+		"mangle":	"sqlite3_value_int",
+		"c++":	"sqlite3_value_int(sqlite3_value *)",
+		"go":	"(*Value).ValueInt"
+	}, {
+		"mangle":	"sqlite3_value_int64",
+		"c++":	"sqlite3_value_int64(sqlite3_value *)",
+		"go":	"(*Value).ValueInt64"
+	}, {
+		"mangle":	"sqlite3_value_nochange",
+		"c++":	"sqlite3_value_nochange(sqlite3_value *)",
+		"go":	"(*Value).ValueNochange"
+	}, {
+		"mangle":	"sqlite3_value_numeric_type",
+		"c++":	"sqlite3_value_numeric_type(sqlite3_value *)",
+		"go":	"(*Value).ValueNumericType"
+	}, {
+		"mangle":	"sqlite3_value_pointer",
+		"c++":	"sqlite3_value_pointer(sqlite3_value *, const char *)",
+		"go":	"(*Value).ValuePointer"
+	}, {
+		"mangle":	"sqlite3_value_subtype",
+		"c++":	"sqlite3_value_subtype(sqlite3_value *)",
+		"go":	"(*Value).ValueSubtype"
+	}, {
+		"mangle":	"sqlite3_value_text",
+		"c++":	"sqlite3_value_text(sqlite3_value *)",
+		"go":	"(*Value).ValueText"
+	}, {
+		"mangle":	"sqlite3_value_text16",
+		"c++":	"sqlite3_value_text16(sqlite3_value *)",
+		"go":	"(*Value).ValueText16"
+	}, {
+		"mangle":	"sqlite3_value_text16be",
+		"c++":	"sqlite3_value_text16be(sqlite3_value *)",
+		"go":	"(*Value).ValueText16be"
+	}, {
+		"mangle":	"sqlite3_value_text16le",
+		"c++":	"sqlite3_value_text16le(sqlite3_value *)",
+		"go":	"(*Value).ValueText16le"
+	}, {
+		"mangle":	"sqlite3_value_type",
+		"c++":	"sqlite3_value_type(sqlite3_value *)",
+		"go":	"(*Value).ValueType"
+	}, {
+		"mangle":	"sqlite3_vfs_find",
+		"c++":	"sqlite3_vfs_find(const char *)",
+		"go":	"VfsFind"
+	}, {
+		"mangle":	"sqlite3_vfs_register",
+		"c++":	"sqlite3_vfs_register(sqlite3_vfs *, int)",
+		"go":	"(*Vfs).VfsRegister"
+	}, {
+		"mangle":	"sqlite3_vfs_unregister",
+		"c++":	"sqlite3_vfs_unregister(sqlite3_vfs *)",
+		"go":	"(*Vfs).VfsUnregister"
+	}, {
+		"mangle":	"sqlite3_vmprintf",
+		"c++":	"sqlite3_vmprintf(const char *, int)",
+		"go":	"Vmprintf"
+	}, {
+		"mangle":	"sqlite3_vsnprintf",
+		"c++":	"sqlite3_vsnprintf(int, char *, const char *, int)",
+		"go":	"Vsnprintf"
+	}, {
+		"mangle":	"sqlite3_vtab_collation",
+		"c++":	"sqlite3_vtab_collation(sqlite3_index_info *, int)",
+		"go":	"(*IndexInfo).VtabCollation"
+	}, {
+		"mangle":	"sqlite3_vtab_config",
+		"c++":	"sqlite3_vtab_config(sqlite3 *, int, ...)",
+		"go":	"(*Sqlite3).VtabConfig"
+	}, {
+		"mangle":	"sqlite3_vtab_distinct",
+		"c++":	"sqlite3_vtab_distinct(sqlite3_index_info *)",
+		"go":	"(*IndexInfo).VtabDistinct"
+	}, {
+		"mangle":	"sqlite3_vtab_in",
+		"c++":	"sqlite3_vtab_in(sqlite3_index_info *, int, int)",
+		"go":	"(*IndexInfo).VtabIn"
+	}, {
+		"mangle":	"sqlite3_vtab_in_first",
+		"c++":	"sqlite3_vtab_in_first(sqlite3_value *, sqlite3_value **)",
+		"go":	"(*Value).VtabInFirst"
+	}, {
+		"mangle":	"sqlite3_vtab_in_next",
+		"c++":	"sqlite3_vtab_in_next(sqlite3_value *, sqlite3_value **)",
+		"go":	"(*Value).VtabInNext"
+	}, {
+		"mangle":	"sqlite3_vtab_nochange",
+		"c++":	"sqlite3_vtab_nochange(sqlite3_context *)",
+		"go":	"(*Context).VtabNochange"
+	}, {
+		"mangle":	"sqlite3_vtab_on_conflict",
+		"c++":	"sqlite3_vtab_on_conflict(sqlite3 *)",
+		"go":	"(*Sqlite3).VtabOnConflict"
+	}, {
+		"mangle":	"sqlite3_vtab_rhs_value",
+		"c++":	"sqlite3_vtab_rhs_value(sqlite3_index_info *, int, sqlite3_value **)",
+		"go":	"(*IndexInfo).VtabRhsValue"
+	}, {
+		"mangle":	"sqlite3_wal_autocheckpoint",
+		"c++":	"sqlite3_wal_autocheckpoint(sqlite3 *, int)",
+		"go":	"(*Sqlite3).WalAutocheckpoint"
+	}, {
+		"mangle":	"sqlite3_wal_checkpoint",
+		"c++":	"sqlite3_wal_checkpoint(sqlite3 *, const char *)",
+		"go":	"(*Sqlite3).WalCheckpoint"
+	}, {
+		"mangle":	"sqlite3_wal_checkpoint_v2",
+		"c++":	"sqlite3_wal_checkpoint_v2(sqlite3 *, const char *, int, int *, int *)",
+		"go":	"(*Sqlite3).WalCheckpointV2"
+	}, {
+		"mangle":	"sqlite3_wal_hook",
+		"c++":	"sqlite3_wal_hook(sqlite3 *, int (*)(void *, sqlite3 *, const char *, int), void *)",
+		"go":	"(*Sqlite3).WalHook"
+	}]

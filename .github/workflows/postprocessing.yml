@@ -127,6 +127,9 @@ jobs:
   deploy:
     needs: build-and-upload
     runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
