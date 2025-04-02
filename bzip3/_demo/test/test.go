@@ -14,7 +14,7 @@ func main() {
 	outputSize := uintptr(len(output))
 
 	errCode := zip.Compress(1024*1024, &input[0], &output[0], uintptr(len(input)), &outputSize)
-	if errCode != zip.BZ3_OK {
+	if errCode != zip.OK {
 		fmt.Println("Compression failed with error code:", errCode)
 		return
 	}
@@ -23,7 +23,7 @@ func main() {
 	decompressed := make([]byte, len(input))
 	decompressedSize := uintptr(len(decompressed))
 	errCode = zip.Decompress(&output[0], &decompressed[0], outputSize, &decompressedSize)
-	if errCode != zip.BZ3_OK {
+	if errCode != zip.OK {
 		fmt.Println("Decompression failed with error code:", errCode)
 		return
 	}

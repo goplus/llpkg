@@ -5,7 +5,7 @@ import (
 	_ "unsafe"
 )
 
-const BZ3_OK = 0
+const OK = 0
 
 type State struct {
 	Unused [8]uint8
