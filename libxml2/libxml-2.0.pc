@@ -1,0 +1,12 @@
+prefix=/home/vscode/.conan2/p/b/libxmf1c2274a0e942/p
+libdir=${prefix}/lib
+includedir=${prefix}/include
+includedir1=${prefix}/include/libxml2
+bindir=${prefix}/bin
+
+Name: libxml-2.0
+Description: Conan package: libxml-2.0
+Version: 2.9.9
+Libs: -L"${libdir}" -lxml2 -lm -lpthread -ldl
+Cflags: -I"${includedir}" -I"${includedir1}"
+Requires: zlib
