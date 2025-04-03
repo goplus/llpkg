@@ -7,17 +7,17 @@ import (
 
 const LT_DLLOADER_H = 1
 
-type Loader unsafe.Pointer
+type Dlloader unsafe.Pointer
 type Module unsafe.Pointer
 type UserData unsafe.Pointer
 
 type Advise struct {
 	Unused [8]uint8
 }
-type Advise__1 *Advise
+type Dladvise *Advise
 
 // llgo:type C
-type ModuleOpen func(UserData, *int8, Advise__1) Module
+type ModuleOpen func(UserData, *int8, Dladvise) Module
 
 // llgo:type C
 type ModuleClose func(UserData, Module) c.Int
@@ -26,15 +26,15 @@ type ModuleClose func(UserData, Module) c.Int
 type FindSym func(UserData, Module, *int8) unsafe.Pointer
 
 // llgo:type C
-type LoaderInit func(UserData) c.Int
+type DlloaderInit func(UserData) c.Int
 
 // llgo:type C
-type LoaderExit func(UserData) c.Int
-type LoaderPriority c.Int
+type DlloaderExit func(UserData) c.Int
+type DlloaderPriority c.Int
 
 const (
-	LTDLLOADERPREPEND LoaderPriority = 0
-	LTDLLOADERAPPEND  LoaderPriority = 1
+	LTDLLOADERPREPEND DlloaderPriority = 0
+	LTDLLOADERAPPEND  DlloaderPriority = 1
 )
 
 /*
@@ -42,7 +42,7 @@ This structure defines a module loader, as populated by the get_vtable
 
 	entry point of each loader.
 */
-type Vtable struct {
+type Dlvtable struct {
 	Name         *int8
 	SymPrefix    *int8
 	ModuleOpen   *unsafe.Pointer
@@ -51,25 +51,25 @@ type Vtable struct {
 	DlloaderInit *unsafe.Pointer
 	DlloaderExit *unsafe.Pointer
 	DlloaderData UserData
-	Priority     LoaderPriority
+	Priority     DlloaderPriority
 }
 
-// llgo:link (*Vtable).LoaderAdd C.lt_dlloader_add
-func (recv_ *Vtable) LoaderAdd() c.Int {
+// llgo:link (*Dlvtable).DlloaderAdd C.lt_dlloader_add
+func (recv_ *Dlvtable) DlloaderAdd() c.Int {
 	return 0
 }
 
-//go:linkname LoaderNext C.lt_dlloader_next
-func LoaderNext(loader Loader) Loader
+//go:linkname DlloaderNext C.lt_dlloader_next
+func DlloaderNext(loader Dlloader) Dlloader
 
-//go:linkname LoaderRemove C.lt_dlloader_remove
-func LoaderRemove(name *int8) *Vtable
+//go:linkname DlloaderRemove C.lt_dlloader_remove
+func DlloaderRemove(name *int8) *Dlvtable
 
-//go:linkname LoaderFind C.lt_dlloader_find
-func LoaderFind(name *int8) *Vtable
+//go:linkname DlloaderFind C.lt_dlloader_find
+func DlloaderFind(name *int8) *Dlvtable
 
-//go:linkname LoaderGet C.lt_dlloader_get
-func LoaderGet(loader Loader) *Vtable
+//go:linkname DlloaderGet C.lt_dlloader_get
+func DlloaderGet(loader Dlloader) *Dlvtable
 
 // llgo:type C
-type GetVtable func(UserData) *Vtable
+type GetVtable func(UserData) *Dlvtable

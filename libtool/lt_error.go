@@ -31,8 +31,8 @@ const (
 )
 
 /* These functions are only useful from inside custom module loaders. */
-//go:linkname Adderror C.lt_dladderror
-func Adderror(diagnostic *int8) c.Int
+//go:linkname Dladderror C.lt_dladderror
+func Dladderror(diagnostic *int8) c.Int
 
-//go:linkname Seterror C.lt_dlseterror
-func Seterror(errorcode c.Int) c.Int
+//go:linkname Dlseterror C.lt_dlseterror
+func Dlseterror(errorcode c.Int) c.Int
