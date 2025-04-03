@@ -8,28 +8,28 @@ import (
 const LT_DLLOADER_H = 1
 
 type Loader unsafe.Pointer
-type LtModule unsafe.Pointer
-type LtUserData unsafe.Pointer
+type Module unsafe.Pointer
+type UserData unsafe.Pointer
 
-type LtAdvise struct {
+type Advise struct {
 	Unused [8]uint8
 }
-type Advise *LtAdvise
+type Advise__1 *Advise
 
 // llgo:type C
-type LtModuleOpen func(LtUserData, *int8, Advise) LtModule
+type ModuleOpen func(UserData, *int8, Advise__1) Module
 
 // llgo:type C
-type LtModuleClose func(LtUserData, LtModule) c.Int
+type ModuleClose func(UserData, Module) c.Int
 
 // llgo:type C
-type LtFindSym func(LtUserData, LtModule, *int8) unsafe.Pointer
+type FindSym func(UserData, Module, *int8) unsafe.Pointer
 
 // llgo:type C
-type LoaderInit func(LtUserData) c.Int
+type LoaderInit func(UserData) c.Int
 
 // llgo:type C
-type LoaderExit func(LtUserData) c.Int
+type LoaderExit func(UserData) c.Int
 type LoaderPriority c.Int
 
 const (
@@ -50,7 +50,7 @@ type Vtable struct {
 	FindSym      *unsafe.Pointer
 	DlloaderInit *unsafe.Pointer
 	DlloaderExit *unsafe.Pointer
-	DlloaderData LtUserData
+	DlloaderData UserData
 	Priority     LoaderPriority
 }
 
@@ -72,4 +72,4 @@ func LoaderFind(name *int8) *Vtable
 func LoaderGet(loader Loader) *Vtable
 
 // llgo:type C
-type LtGetVtable func(LtUserData) *Vtable
+type GetVtable func(UserData) *Vtable

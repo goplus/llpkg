@@ -7,10 +7,10 @@ import (
 
 const LTDL_H = 1
 
-type LtHandle struct {
+type Handle struct {
 	Unused [8]uint8
 }
-type Handle *LtHandle
+type Handle__1 *Handle
 
 /* Initialisation and finalisation functions for libltdl. */
 //go:linkname Init C.lt_dlinit
@@ -37,44 +37,44 @@ func Foreachfile(search_path *int8, func_ func(*int8, unsafe.Pointer) c.Int, dat
 
 /* User module loading advisors.  */
 //go:linkname AdviseInit C.lt_dladvise_init
-func AdviseInit(advise *Advise) c.Int
+func AdviseInit(advise *Advise__1) c.Int
 
 //go:linkname AdviseDestroy C.lt_dladvise_destroy
-func AdviseDestroy(advise *Advise) c.Int
+func AdviseDestroy(advise *Advise__1) c.Int
 
 //go:linkname AdviseExt C.lt_dladvise_ext
-func AdviseExt(advise *Advise) c.Int
+func AdviseExt(advise *Advise__1) c.Int
 
 //go:linkname AdviseResident C.lt_dladvise_resident
-func AdviseResident(advise *Advise) c.Int
+func AdviseResident(advise *Advise__1) c.Int
 
 //go:linkname AdviseLocal C.lt_dladvise_local
-func AdviseLocal(advise *Advise) c.Int
+func AdviseLocal(advise *Advise__1) c.Int
 
 //go:linkname AdviseGlobal C.lt_dladvise_global
-func AdviseGlobal(advise *Advise) c.Int
+func AdviseGlobal(advise *Advise__1) c.Int
 
 //go:linkname AdvisePreload C.lt_dladvise_preload
-func AdvisePreload(advise *Advise) c.Int
+func AdvisePreload(advise *Advise__1) c.Int
 
 /* Portable libltdl versions of the system dlopen() API. */
 //go:linkname Open C.lt_dlopen
-func Open(filename *int8) Handle
+func Open(filename *int8) Handle__1
 
 //go:linkname Openext C.lt_dlopenext
-func Openext(filename *int8) Handle
+func Openext(filename *int8) Handle__1
 
 //go:linkname Openadvise C.lt_dlopenadvise
-func Openadvise(filename *int8, advise Advise) Handle
+func Openadvise(filename *int8, advise Advise__1) Handle__1
 
 //go:linkname Sym C.lt_dlsym
-func Sym(handle Handle, name *int8) unsafe.Pointer
+func Sym(handle Handle__1, name *int8) unsafe.Pointer
 
 //go:linkname Error C.lt_dlerror
 func Error() *int8
 
 //go:linkname Close C.lt_dlclose
-func Close(handle Handle) c.Int
+func Close(handle Handle__1) c.Int
 
 /*
 A preopened symbol. Arrays of this type comprise the exported
@@ -87,7 +87,7 @@ type Symlist struct {
 }
 
 // llgo:type C
-type PreloadCallbackFunc func(Handle) c.Int
+type PreloadCallbackFunc func(Handle__1) c.Int
 
 // llgo:link (*Symlist).Preload C.lt_dlpreload
 func (recv_ *Symlist) Preload() c.Int {
@@ -105,7 +105,7 @@ func PreloadOpen(originator *int8, func_ PreloadCallbackFunc) c.Int
 type InterfaceId unsafe.Pointer
 
 // llgo:type C
-type HandleInterface func(Handle, *int8) c.Int
+type HandleInterface func(Handle__1, *int8) c.Int
 
 //go:linkname InterfaceRegister C.lt_dlinterface_register
 func InterfaceRegister(id_string *int8, iface HandleInterface) InterfaceId
@@ -114,10 +114,10 @@ func InterfaceRegister(id_string *int8, iface HandleInterface) InterfaceId
 func InterfaceFree(key InterfaceId)
 
 //go:linkname CallerSetData C.lt_dlcaller_set_data
-func CallerSetData(key InterfaceId, handle Handle, data unsafe.Pointer) unsafe.Pointer
+func CallerSetData(key InterfaceId, handle Handle__1, data unsafe.Pointer) unsafe.Pointer
 
 //go:linkname CallerGetData C.lt_dlcaller_get_data
-func CallerGetData(key InterfaceId, handle Handle) unsafe.Pointer
+func CallerGetData(key InterfaceId, handle Handle__1) unsafe.Pointer
 
 /* Read only information pertaining to a loaded module. */
 
@@ -131,20 +131,20 @@ type Info struct {
 }
 
 //go:linkname Getinfo C.lt_dlgetinfo
-func Getinfo(handle Handle) *Info
+func Getinfo(handle Handle__1) *Info
 
 //go:linkname HandleIterate C.lt_dlhandle_iterate
-func HandleIterate(iface InterfaceId, place Handle) Handle
+func HandleIterate(iface InterfaceId, place Handle__1) Handle__1
 
 //go:linkname HandleFetch C.lt_dlhandle_fetch
-func HandleFetch(iface InterfaceId, module_name *int8) Handle
+func HandleFetch(iface InterfaceId, module_name *int8) Handle__1
 
 //go:linkname HandleMap C.lt_dlhandle_map
-func HandleMap(iface InterfaceId, func_ func(Handle, unsafe.Pointer) c.Int, data unsafe.Pointer) c.Int
+func HandleMap(iface InterfaceId, func_ func(Handle__1, unsafe.Pointer) c.Int, data unsafe.Pointer) c.Int
 
 /* Deprecated module residency management API. */
 //go:linkname Makeresident C.lt_dlmakeresident
-func Makeresident(handle Handle) c.Int
+func Makeresident(handle Handle__1) c.Int
 
 //go:linkname Isresident C.lt_dlisresident
-func Isresident(handle Handle) c.Int
+func Isresident(handle Handle__1) c.Int

@@ -1,7 +1,7 @@
-lt__advise LtAdvise
-lt__handle LtHandle
-lt_dladvise Advise
-lt_dlhandle Handle
+lt__advise Advise
+lt__handle Handle
+lt_dladvise Advise__1
+lt_dlhandle Handle__1
 lt_dlhandle_interface HandleInterface
 lt_dlinfo Info
 lt_dlinterface_id InterfaceId
@@ -12,9 +12,9 @@ lt_dlloader_priority LoaderPriority
 lt_dlpreload_callback_func PreloadCallbackFunc
 lt_dlsymlist Symlist
 lt_dlvtable Vtable
-lt_find_sym LtFindSym
-lt_get_vtable LtGetVtable
-lt_module LtModule
-lt_module_close LtModuleClose
-lt_module_open LtModuleOpen
-lt_user_data LtUserData
+lt_find_sym FindSym
+lt_get_vtable GetVtable
+lt_module Module
+lt_module_close ModuleClose
+lt_module_open ModuleOpen
+lt_user_data UserData
