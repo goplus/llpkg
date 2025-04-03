@@ -19,7 +19,8 @@ jobs:
     runs-on: ubuntu-24.04
     strategy:
       matrix:
-        llcppg: [v0.2.0]
+        llgo: [v0.10.1]
+        llcppg: [v0.2.1]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -28,6 +29,7 @@ jobs:
         with:
           repository: 'goplus/llgo'
           path: .llgo
+          ref: ${{matrix.llgo}}
       - name: Check out LLCppg
         uses: actions/checkout@v4
         with:
