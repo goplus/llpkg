@@ -11,7 +11,6 @@ import (
 )
 
 func DecompressFile(inPath, outPath string) error {
-	// 打开输入文件 (只读)
 	inPathC := c.AllocaCStr(inPath)
 
 	inFile := c.Fopen(inPathC, c.Str("rb"))
@@ -20,7 +19,6 @@ func DecompressFile(inPath, outPath string) error {
 	}
 	defer c.Fclose(inFile)
 
-	// 打开输出文件 (只写)
 	outPathC := c.AllocaCStr(outPath)
 
 	outFile := c.Fopen(outPathC, c.Str("wb"))
@@ -29,7 +27,6 @@ func DecompressFile(inPath, outPath string) error {
 	}
 	defer c.Fclose(outFile)
 
-	// 创建 bzip2 解压流
 	var bzerr c.Int
 	bzfile := bzip2.BzReadOpen(&bzerr, inFile, 0, 0, nil, 0)
 	if bzfile == nil || bzerr != bzip2.BZ_OK {
@@ -40,9 +37,7 @@ func DecompressFile(inPath, outPath string) error {
 	for {
 		n := bzip2.BzRead(&bzerr, bzfile, unsafe.Pointer(&buf[0]), c.Int(len(buf)))
 		if bzerr == bzip2.BZ_STREAM_END {
-			// 表示解压结束
 			if n > 0 {
-				// 理论上不会有数据了，但如果有，就写一下
 				c.Fwrite(unsafe.Pointer(&buf[0]), 1, uintptr(n), outFile)
 			}
 			break
@@ -51,11 +46,9 @@ func DecompressFile(inPath, outPath string) error {
 		if bzerr != bzip2.BZ_OK && bzerr != bzip2.BZ_STREAM_END {
 			return fmt.Errorf("BzRead error, code=%d", bzerr)
 		}
-		// 写入解压后的数据
 		if n > 0 {
 			c.Fwrite(unsafe.Pointer(&buf[0]), 1, uintptr(n), outFile)
 		} else {
-			// 如果没有数据读出，就退出
 			break
 		}
 	}
