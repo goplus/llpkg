@@ -20,7 +20,7 @@ func LvEventGetCurrentTargetObj(e *LvEventT) *LvObjT
 func LvEventGetTargetObj(e *LvEventT) *LvObjT
 
 //go:linkname LvObjAddEventCb C.lv_obj_add_event_cb
-func LvObjAddEventCb(obj *LvObjT, event_cb LvEventCbT, filter LvEventCodeT, user_data *c.Void) *LvEventDscT
+func LvObjAddEventCb(obj *LvObjT, event_cb LvEventCbT, filter LvEventCodeT, user_data c.Pointer) *LvEventDscT
 
 //go:linkname LvObjGetEventCount C.lv_obj_get_event_count
 func LvObjGetEventCount(obj *LvObjT) c.Uint

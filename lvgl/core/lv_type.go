@@ -62,11 +62,6 @@ type LvStyleTransitionDscT struct {
 }
 
 //llgo:type C
-type LvAnimT struct {
-	Unused [0]byte
-}
-
-//llgo:type C
 type LvColorFilterDscT struct {
 	Unused [0]byte
 }
@@ -151,9 +146,7 @@ type LvObjClassT struct {
 }
 
 //llgo:type C
-type LvStateT struct {
-	Unused [0]byte
-}
+type LvStateT c.Uint16T
 
 //llgo:type C
 type LvGroupT struct {

@@ -26,11 +26,12 @@ func main() {
 	//lv_example_style_2() // 渐变 -- 有问题
 	//lv_example_style_3() // 边框
 	//lv_example_style_4() // 轮廓
-	lv_example_style_5() // 阴影
+	//lv_example_style_5() // 阴影
 	//lv_example_style_6() // 图片
-	//lv_example_get_started_2() // 按钮
+	lv_example_get_started_2() // 按钮
 	//lv_example_get_started_3() // 滑块
 	//lv_example_get_started_4() // 标签
+	//lv_example_anim_1() // 动画
 	// Main event loop
 	for {
 		lvgl.LvTimerHandler()
