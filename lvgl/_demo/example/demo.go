@@ -22,11 +22,15 @@ func main() {
 	sdl.LvSdlWindowSetTitle(disp, c.Str("Profile Page"))
 	log.Println("disp", disp)
 
-	//lv_example_style_1()
-	//lv_example_style_2()
-	lv_example_get_started_2()
-	//lv_example_get_started_3()
-	//lv_example_get_started_4()
+	//lv_example_style_1() // 背景
+	//lv_example_style_2() // 渐变 -- 有问题
+	//lv_example_style_3() // 边框
+	//lv_example_style_4() // 轮廓
+	lv_example_style_5() // 阴影
+	//lv_example_style_6() // 图片
+	//lv_example_get_started_2() // 按钮
+	//lv_example_get_started_3() // 滑块
+	//lv_example_get_started_4() // 标签
 	// Main event loop
 	for {
 		lvgl.LvTimerHandler()

@@ -472,11 +472,6 @@ const (
 )
 
 //llgo:type C
-type LvImageDscT struct {
-	Unused [0]byte
-}
-
-//llgo:type C
 type LvChartSeriesT struct {
 	Unused [0]byte
 }
