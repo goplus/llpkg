@@ -1,0 +1,49 @@
+[{
+		"mangle":	"bz3_bound",
+		"c++":	"bz3_bound(size_t)",
+		"go":	"Bound"
+	}, {
+		"mangle":	"bz3_compress",
+		"c++":	"bz3_compress(uint32_t, const uint8_t *, uint8_t *, size_t, size_t *)",
+		"go":	"Compress"
+	}, {
+		"mangle":	"bz3_decode_block",
+		"c++":	"bz3_decode_block(struct bz3_state *, uint8_t *, size_t, int32_t, int32_t)",
+		"go":	"(*Struct bz3State).DecodeBlock"
+	}, {
+		"mangle":	"bz3_decompress",
+		"c++":	"bz3_decompress(const uint8_t *, uint8_t *, size_t, size_t *)",
+		"go":	"Decompress"
+	}, {
+		"mangle":	"bz3_encode_block",
+		"c++":	"bz3_encode_block(struct bz3_state *, uint8_t *, int32_t)",
+		"go":	"(*Struct bz3State).EncodeBlock"
+	}, {
+		"mangle":	"bz3_free",
+		"c++":	"bz3_free(struct bz3_state *)",
+		"go":	"(*Struct bz3State).Free"
+	}, {
+		"mangle":	"bz3_last_error",
+		"c++":	"bz3_last_error(struct bz3_state *)",
+		"go":	"(*Struct bz3State).LastError"
+	}, {
+		"mangle":	"bz3_min_memory_needed",
+		"c++":	"bz3_min_memory_needed(int32_t)",
+		"go":	"MinMemoryNeeded"
+	}, {
+		"mangle":	"bz3_new",
+		"c++":	"bz3_new(int32_t)",
+		"go":	"New"
+	}, {
+		"mangle":	"bz3_orig_size_sufficient_for_decode",
+		"c++":	"bz3_orig_size_sufficient_for_decode(const uint8_t *, size_t, int32_t)",
+		"go":	"OrigSizeSufficientForDecode"
+	}, {
+		"mangle":	"bz3_strerror",
+		"c++":	"bz3_strerror(struct bz3_state *)",
+		"go":	"(*Struct bz3State).Strerror"
+	}, {
+		"mangle":	"bz3_version",
+		"c++":	"bz3_version()",
+		"go":	"Version"
+	}]

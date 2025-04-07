@@ -1,4 +1,4 @@
-module github.com/goplus/llpkg/cjson
+module github.com/goplus/llpkg/cargs
 
 go 1.20
 

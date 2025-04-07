@@ -1,0 +1,325 @@
+[{
+		"mangle":	"adler32",
+		"c++":	"adler32(uLong, const Bytef *, uInt)",
+		"go":	"ULong.Adler32"
+	}, {
+		"mangle":	"adler32_combine",
+		"c++":	"adler32_combine(uLong, uLong, off_t)",
+		"go":	"ULong.Adler32Combine"
+	}, {
+		"mangle":	"adler32_z",
+		"c++":	"adler32_z(uLong, const Bytef *, z_size_t)",
+		"go":	"ULong.Adler32Z"
+	}, {
+		"mangle":	"compress",
+		"c++":	"compress(Bytef *, uLongf *, const Bytef *, uLong)",
+		"go":	"Compress"
+	}, {
+		"mangle":	"compress2",
+		"c++":	"compress2(Bytef *, uLongf *, const Bytef *, uLong, int)",
+		"go":	"Compress2"
+	}, {
+		"mangle":	"compressBound",
+		"c++":	"compressBound(uLong)",
+		"go":	"CompressBound"
+	}, {
+		"mangle":	"crc32",
+		"c++":	"crc32(uLong, const Bytef *, uInt)",
+		"go":	"ULong.Crc32"
+	}, {
+		"mangle":	"crc32_combine",
+		"c++":	"crc32_combine(uLong, uLong, off_t)",
+		"go":	"ULong.Crc32Combine"
+	}, {
+		"mangle":	"crc32_combine_gen",
+		"c++":	"crc32_combine_gen(off_t)",
+		"go":	"Crc32CombineGen"
+	}, {
+		"mangle":	"crc32_combine_op",
+		"c++":	"crc32_combine_op(uLong, uLong, uLong)",
+		"go":	"ULong.Crc32CombineOp"
+	}, {
+		"mangle":	"crc32_z",
+		"c++":	"crc32_z(uLong, const Bytef *, z_size_t)",
+		"go":	"ULong.Crc32Z"
+	}, {
+		"mangle":	"deflate",
+		"c++":	"deflate(z_streamp, int)",
+		"go":	"Deflate"
+	}, {
+		"mangle":	"deflateBound",
+		"c++":	"deflateBound(z_streamp, uLong)",
+		"go":	"DeflateBound"
+	}, {
+		"mangle":	"deflateCopy",
+		"c++":	"deflateCopy(z_streamp, z_streamp)",
+		"go":	"DeflateCopy"
+	}, {
+		"mangle":	"deflateEnd",
+		"c++":	"deflateEnd(z_streamp)",
+		"go":	"DeflateEnd"
+	}, {
+		"mangle":	"deflateGetDictionary",
+		"c++":	"deflateGetDictionary(z_streamp, Bytef *, uInt *)",
+		"go":	"DeflateGetDictionary"
+	}, {
+		"mangle":	"deflateInit2_",
+		"c++":	"deflateInit2_(z_streamp, int, int, int, int, int, const char *, int)",
+		"go":	"DeflateInit2_"
+	}, {
+		"mangle":	"deflateInit_",
+		"c++":	"deflateInit_(z_streamp, int, const char *, int)",
+		"go":	"DeflateInit_"
+	}, {
+		"mangle":	"deflateParams",
+		"c++":	"deflateParams(z_streamp, int, int)",
+		"go":	"DeflateParams"
+	}, {
+		"mangle":	"deflatePending",
+		"c++":	"deflatePending(z_streamp, unsigned int *, int *)",
+		"go":	"DeflatePending"
+	}, {
+		"mangle":	"deflatePrime",
+		"c++":	"deflatePrime(z_streamp, int, int)",
+		"go":	"DeflatePrime"
+	}, {
+		"mangle":	"deflateReset",
+		"c++":	"deflateReset(z_streamp)",
+		"go":	"DeflateReset"
+	}, {
+		"mangle":	"deflateResetKeep",
+		"c++":	"deflateResetKeep(z_streamp)",
+		"go":	"DeflateResetKeep"
+	}, {
+		"mangle":	"deflateSetDictionary",
+		"c++":	"deflateSetDictionary(z_streamp, const Bytef *, uInt)",
+		"go":	"DeflateSetDictionary"
+	}, {
+		"mangle":	"deflateSetHeader",
+		"c++":	"deflateSetHeader(z_streamp, gz_headerp)",
+		"go":	"DeflateSetHeader"
+	}, {
+		"mangle":	"deflateTune",
+		"c++":	"deflateTune(z_streamp, int, int, int, int)",
+		"go":	"DeflateTune"
+	}, {
+		"mangle":	"get_crc_table",
+		"c++":	"get_crc_table()",
+		"go":	"GetCrcTable"
+	}, {
+		"mangle":	"gzbuffer",
+		"c++":	"gzbuffer(gzFile, unsigned int)",
+		"go":	"Gzbuffer"
+	}, {
+		"mangle":	"gzclearerr",
+		"c++":	"gzclearerr(gzFile)",
+		"go":	"Gzclearerr"
+	}, {
+		"mangle":	"gzclose",
+		"c++":	"gzclose(gzFile)",
+		"go":	"Gzclose"
+	}, {
+		"mangle":	"gzclose_r",
+		"c++":	"gzclose_r(gzFile)",
+		"go":	"GzcloseR"
+	}, {
+		"mangle":	"gzclose_w",
+		"c++":	"gzclose_w(gzFile)",
+		"go":	"GzcloseW"
+	}, {
+		"mangle":	"gzdirect",
+		"c++":	"gzdirect(gzFile)",
+		"go":	"Gzdirect"
+	}, {
+		"mangle":	"gzdopen",
+		"c++":	"gzdopen(int, const char *)",
+		"go":	"Gzdopen"
+	}, {
+		"mangle":	"gzeof",
+		"c++":	"gzeof(gzFile)",
+		"go":	"Gzeof"
+	}, {
+		"mangle":	"gzerror",
+		"c++":	"gzerror(gzFile, int *)",
+		"go":	"Gzerror"
+	}, {
+		"mangle":	"gzflush",
+		"c++":	"gzflush(gzFile, int)",
+		"go":	"Gzflush"
+	}, {
+		"mangle":	"gzfread",
+		"c++":	"gzfread(voidp, z_size_t, z_size_t, gzFile)",
+		"go":	"Gzfread"
+	}, {
+		"mangle":	"gzfwrite",
+		"c++":	"gzfwrite(voidpc, z_size_t, z_size_t, gzFile)",
+		"go":	"Gzfwrite"
+	}, {
+		"mangle":	"gzgetc",
+		"c++":	"gzgetc(gzFile)",
+		"go":	"Gzgetc"
+	}, {
+		"mangle":	"gzgetc_",
+		"c++":	"gzgetc_(gzFile)",
+		"go":	"Gzgetc_"
+	}, {
+		"mangle":	"gzgets",
+		"c++":	"gzgets(gzFile, char *, int)",
+		"go":	"Gzgets"
+	}, {
+		"mangle":	"gzoffset",
+		"c++":	"gzoffset(gzFile)",
+		"go":	"Gzoffset"
+	}, {
+		"mangle":	"gzopen",
+		"c++":	"gzopen(const char *, const char *)",
+		"go":	"Gzopen"
+	}, {
+		"mangle":	"gzprintf",
+		"c++":	"gzprintf(gzFile, const char *, ...)",
+		"go":	"Gzprintf"
+	}, {
+		"mangle":	"gzputc",
+		"c++":	"gzputc(gzFile, int)",
+		"go":	"Gzputc"
+	}, {
+		"mangle":	"gzputs",
+		"c++":	"gzputs(gzFile, const char *)",
+		"go":	"Gzputs"
+	}, {
+		"mangle":	"gzread",
+		"c++":	"gzread(gzFile, voidp, unsigned int)",
+		"go":	"Gzread"
+	}, {
+		"mangle":	"gzrewind",
+		"c++":	"gzrewind(gzFile)",
+		"go":	"Gzrewind"
+	}, {
+		"mangle":	"gzseek",
+		"c++":	"gzseek(gzFile, off_t, int)",
+		"go":	"Gzseek"
+	}, {
+		"mangle":	"gzsetparams",
+		"c++":	"gzsetparams(gzFile, int, int)",
+		"go":	"Gzsetparams"
+	}, {
+		"mangle":	"gztell",
+		"c++":	"gztell(gzFile)",
+		"go":	"Gztell"
+	}, {
+		"mangle":	"gzungetc",
+		"c++":	"gzungetc(int, gzFile)",
+		"go":	"Gzungetc"
+	}, {
+		"mangle":	"gzvprintf",
+		"c++":	"gzvprintf(gzFile, const char *, va_list)",
+		"go":	"Gzvprintf"
+	}, {
+		"mangle":	"gzwrite",
+		"c++":	"gzwrite(gzFile, voidpc, unsigned int)",
+		"go":	"Gzwrite"
+	}, {
+		"mangle":	"inflate",
+		"c++":	"inflate(z_streamp, int)",
+		"go":	"Inflate"
+	}, {
+		"mangle":	"inflateBack",
+		"c++":	"inflateBack(z_streamp, in_func, void *, out_func, void *)",
+		"go":	"InflateBack"
+	}, {
+		"mangle":	"inflateBackEnd",
+		"c++":	"inflateBackEnd(z_streamp)",
+		"go":	"InflateBackEnd"
+	}, {
+		"mangle":	"inflateBackInit_",
+		"c++":	"inflateBackInit_(z_streamp, int, unsigned char *, const char *, int)",
+		"go":	"InflateBackInit_"
+	}, {
+		"mangle":	"inflateCodesUsed",
+		"c++":	"inflateCodesUsed(z_streamp)",
+		"go":	"InflateCodesUsed"
+	}, {
+		"mangle":	"inflateCopy",
+		"c++":	"inflateCopy(z_streamp, z_streamp)",
+		"go":	"InflateCopy"
+	}, {
+		"mangle":	"inflateEnd",
+		"c++":	"inflateEnd(z_streamp)",
+		"go":	"InflateEnd"
+	}, {
+		"mangle":	"inflateGetDictionary",
+		"c++":	"inflateGetDictionary(z_streamp, Bytef *, uInt *)",
+		"go":	"InflateGetDictionary"
+	}, {
+		"mangle":	"inflateGetHeader",
+		"c++":	"inflateGetHeader(z_streamp, gz_headerp)",
+		"go":	"InflateGetHeader"
+	}, {
+		"mangle":	"inflateInit2_",
+		"c++":	"inflateInit2_(z_streamp, int, const char *, int)",
+		"go":	"InflateInit2_"
+	}, {
+		"mangle":	"inflateInit_",
+		"c++":	"inflateInit_(z_streamp, const char *, int)",
+		"go":	"InflateInit_"
+	}, {
+		"mangle":	"inflateMark",
+		"c++":	"inflateMark(z_streamp)",
+		"go":	"InflateMark"
+	}, {
+		"mangle":	"inflatePrime",
+		"c++":	"inflatePrime(z_streamp, int, int)",
+		"go":	"InflatePrime"
+	}, {
+		"mangle":	"inflateReset",
+		"c++":	"inflateReset(z_streamp)",
+		"go":	"InflateReset"
+	}, {
+		"mangle":	"inflateReset2",
+		"c++":	"inflateReset2(z_streamp, int)",
+		"go":	"InflateReset2"
+	}, {
+		"mangle":	"inflateResetKeep",
+		"c++":	"inflateResetKeep(z_streamp)",
+		"go":	"InflateResetKeep"
+	}, {
+		"mangle":	"inflateSetDictionary",
+		"c++":	"inflateSetDictionary(z_streamp, const Bytef *, uInt)",
+		"go":	"InflateSetDictionary"
+	}, {
+		"mangle":	"inflateSync",
+		"c++":	"inflateSync(z_streamp)",
+		"go":	"InflateSync"
+	}, {
+		"mangle":	"inflateSyncPoint",
+		"c++":	"inflateSyncPoint(z_streamp)",
+		"go":	"InflateSyncPoint"
+	}, {
+		"mangle":	"inflateUndermine",
+		"c++":	"inflateUndermine(z_streamp, int)",
+		"go":	"InflateUndermine"
+	}, {
+		"mangle":	"inflateValidate",
+		"c++":	"inflateValidate(z_streamp, int)",
+		"go":	"InflateValidate"
+	}, {
+		"mangle":	"uncompress",
+		"c++":	"uncompress(Bytef *, uLongf *, const Bytef *, uLong)",
+		"go":	"Uncompress"
+	}, {
+		"mangle":	"uncompress2",
+		"c++":	"uncompress2(Bytef *, uLongf *, const Bytef *, uLong *)",
+		"go":	"Uncompress2"
+	}, {
+		"mangle":	"zError",
+		"c++":	"zError(int)",
+		"go":	"ZError"
+	}, {
+		"mangle":	"zlibCompileFlags",
+		"c++":	"zlibCompileFlags()",
+		"go":	"CompileFlags"
+	}, {
+		"mangle":	"zlibVersion",
+		"c++":	"zlibVersion()",
+		"go":	"Version"
+	}]

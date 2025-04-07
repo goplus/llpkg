@@ -1,4 +1,4 @@
-module github.com/goplus/llpkg/cjson
+module github.com/goplus/llpkg/bzip3
 
 go 1.20
 
