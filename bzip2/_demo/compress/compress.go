@@ -26,7 +26,7 @@ func CompressFile(inPath, outPath string) error {
 
 	var bzerr c.Int
 	bzfile := bzip2.WriteOpen(&bzerr, outFile, 9, 0, 30)
-	if bzfile == nil || bzerr != bzip2.BZ_OK {
+	if bzfile == nil || bzerr != bzip2.OK {
 		return fmt.Errorf("BzWriteOpen error, code=%d", bzerr)
 	}
 
@@ -38,7 +38,7 @@ func CompressFile(inPath, outPath string) error {
 		}
 
 		bzip2.Write(&bzerr, bzfile, unsafe.Pointer(&buf[0]), c.Int(n))
-		if bzerr != bzip2.BZ_OK {
+		if bzerr != bzip2.OK {
 			return fmt.Errorf("BzWrite error, code=%d", bzerr)
 		}
 
@@ -48,7 +48,7 @@ func CompressFile(inPath, outPath string) error {
 	}
 
 	bzip2.WriteClose(&bzerr, bzfile, 0, nil, nil)
-	if bzerr != bzip2.BZ_OK {
+	if bzerr != bzip2.OK {
 		return fmt.Errorf("BzWriteClose error, code=%d", bzerr)
 	}
 

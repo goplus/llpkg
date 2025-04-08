@@ -5,15 +5,15 @@ import (
 	"unsafe"
 )
 
-const BZ_RUN = 0
-const BZ_FLUSH = 1
-const BZ_FINISH = 2
-const BZ_OK = 0
-const BZ_RUN_OK = 1
-const BZ_FLUSH_OK = 2
-const BZ_FINISH_OK = 3
-const BZ_STREAM_END = 4
-const BZ_MAX_UNUSED = 5000
+const RUN = 0
+const FLUSH = 1
+const FINISH = 2
+const OK = 0
+const RUN_OK = 1
+const FLUSH_OK = 2
+const FINISH_OK = 3
+const STREAM_END = 4
+const MAX_UNUSED = 5000
 
 type BzStream struct {
 	NextIn       *int8

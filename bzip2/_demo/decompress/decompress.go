@@ -29,21 +29,21 @@ func DecompressFile(inPath, outPath string) error {
 
 	var bzerr c.Int
 	bzfile := bzip2.ReadOpen(&bzerr, inFile, 0, 0, nil, 0)
-	if bzfile == nil || bzerr != bzip2.BZ_OK {
+	if bzfile == nil || bzerr != bzip2.OK {
 		return fmt.Errorf("BzReadOpen error, code=%d", bzerr)
 	}
 
 	buf := make([]byte, 4096)
 	for {
 		n := bzip2.Read(&bzerr, bzfile, unsafe.Pointer(&buf[0]), c.Int(len(buf)))
-		if bzerr == bzip2.BZ_STREAM_END {
+		if bzerr == bzip2.STREAM_END {
 			if n > 0 {
 				c.Fwrite(unsafe.Pointer(&buf[0]), 1, uintptr(n), outFile)
 			}
 			break
 		}
 
-		if bzerr != bzip2.BZ_OK && bzerr != bzip2.BZ_STREAM_END {
+		if bzerr != bzip2.OK && bzerr != bzip2.STREAM_END {
 			return fmt.Errorf("BzRead error, code=%d", bzerr)
 		}
 		if n > 0 {
@@ -54,7 +54,7 @@ func DecompressFile(inPath, outPath string) error {
 	}
 
 	bzip2.ReadClose(&bzerr, bzfile)
-	if bzerr != bzip2.BZ_OK {
+	if bzerr != bzip2.OK {
 		return fmt.Errorf("BzReadClose error, code=%d", bzerr)
 	}
 
