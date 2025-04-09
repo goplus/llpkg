@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	C "github.com/goplus/llgo/c"
+	C "github.com/goplus/lib/c"
 	"github.com/goplus/llpkg/cargs"
 )
 

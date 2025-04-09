@@ -1,8 +1,9 @@
 package cargs
 
 import (
-	"github.com/goplus/llgo/c"
 	"unsafe"
+
+	"github.com/goplus/lib/c"
 )
 
 /**

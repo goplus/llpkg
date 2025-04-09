@@ -5,7 +5,7 @@ import (
 
 	"github.com/goplus/llpkg/libxml2"
 
-	"github.com/goplus/llgo/c"
+	"github.com/goplus/lib/c"
 )
 
 func main() {

@@ -1,8 +1,9 @@
 package sqlite3
 
 import (
-	"github.com/goplus/llgo/c"
 	_ "unsafe"
+
+	"github.com/goplus/lib/c"
 )
 
 // llgo:type C

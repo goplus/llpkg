@@ -1,8 +1,9 @@
 package zlib
 
 import (
-	"github.com/goplus/llgo/c"
 	"unsafe"
+
+	"github.com/goplus/lib/c"
 )
 
 const MAX_MEM_LEVEL = 9

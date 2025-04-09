@@ -1,8 +1,9 @@
 package cjson
 
 import (
-	"github.com/goplus/llgo/c"
 	"unsafe"
+
+	"github.com/goplus/lib/c"
 )
 
 const VERSION_MAJOR = 1

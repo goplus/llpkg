@@ -6,7 +6,7 @@ import (
 	"os"
 	"unsafe"
 
-	"github.com/goplus/llgo/c"
+	"github.com/goplus/lib/c"
 	"github.com/goplus/llpkg/bzip2"
 )
 

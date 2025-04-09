@@ -1,9 +1,10 @@
 package libxslt
 
 import (
-	"github.com/goplus/llgo/c"
-	"github.com/goplus/llpkg/libxml2"
 	"unsafe"
+
+	"github.com/goplus/lib/c"
+	"github.com/goplus/llpkg/libxml2"
 )
 
 //go:linkname NewLocale C.xsltNewLocale

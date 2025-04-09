@@ -1,8 +1,9 @@
 package bzip3
 
 import (
-	"github.com/goplus/llgo/c"
 	_ "unsafe"
+
+	"github.com/goplus/lib/c"
 )
 
 const OK = 0

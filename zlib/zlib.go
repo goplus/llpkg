@@ -1,9 +1,10 @@
 package zlib
 
 import (
-	"github.com/goplus/llgo/c"
-	"github.com/goplus/llgo/c/os"
 	"unsafe"
+
+	"github.com/goplus/lib/c"
+	"github.com/goplus/lib/c/os"
 )
 
 const VERSION = "1.3.1"

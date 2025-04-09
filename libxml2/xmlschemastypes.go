@@ -1,8 +1,9 @@
 package libxml2
 
 import (
-	"github.com/goplus/llgo/c"
 	_ "unsafe"
+
+	"github.com/goplus/lib/c"
 )
 
 type SchemaWhitespaceValueType c.Int

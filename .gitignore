@@ -1,1 +1,3 @@
 *.pc
+*.work
+.DS_Store
