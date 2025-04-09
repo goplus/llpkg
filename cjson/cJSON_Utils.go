@@ -1,8 +1,9 @@
 package cjson
 
 import (
-	"github.com/goplus/llgo/c"
 	_ "unsafe"
+
+	"github.com/goplus/lib/c"
 )
 
 /* Implement RFC6901 (https://tools.ietf.org/html/rfc6901) JSON Pointer spec. */

@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-24.04
     strategy:
       matrix:
-        llgo: [v0.10.1]
+        llgo: [v0.11.0]
         llcppg: [v0.2.1]
     steps:
       - name: Checkout
@@ -52,18 +52,23 @@ jobs:
       - name: Setup LLGo
         working-directory: .llgo
         run: |
-          echo "deb http://apt.llvm.org/$(lsb_release -cs)/ llvm-toolchain-$(lsb_release -cs)-18 main" | sudo tee /etc/apt/sources.list.d/llvm.list
+          echo "deb http://apt.llvm.org/$(lsb_release -cs)/ llvm-toolchain-$(lsb_release -cs)-19 main" | sudo tee /etc/apt/sources.list.d/llvm.list
           wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
           sudo apt-get update
-          sudo apt-get install -y python3 python3-pip llvm-18-dev libuv1-dev clang-18 libunwind-dev libclang-18-dev lld-18 cmake pkg-config libgc-dev libssl-dev zlib1g-dev libffi-dev libcjson-dev
-          echo "/usr/lib/llvm-18/bin" >> $GITHUB_PATH
-          cd compiler
-          go install -v ./cmd/...
-          export LLGO_ROOT=$GITHUB_WORKSPACE/llgo
+          sudo apt-get install -y python3 python3-pip llvm-19-dev libuv1-dev clang-19 libunwind-dev libclang-19-dev lld-19 cmake pkg-config libgc-dev libssl-dev zlib1g-dev libffi-dev libcjson-dev
+          echo "/usr/lib/llvm-19/bin" >> $GITHUB_PATH
+          bash ./install.sh
+          echo $PWD
+          export LLGO_ROOT=$PWD
           echo "LLGO_ROOT=$LLGO_ROOT" >> $GITHUB_ENV
       - name: Setup LLCppg
         working-directory: .llcppg
         run: |
+          echo "Using LLGO_ROOT: $LLGO_ROOT"
+          echo $PWD
+          cd $PWD
+          go get github.com/goplus/lib/c
+          go mod tidy -e
           llgo install ./_xtool/llcppsymg
           llgo install ./_xtool/llcppsigfetch
           go install github.com/goplus/llcppg/cmd/llcppcfg@${{matrix.llcppg}}

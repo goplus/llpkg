@@ -3,8 +3,8 @@ package main
 import (
 	"github.com/goplus/llpkg/sqlite3"
 
-	"github.com/goplus/llgo/c"
-	"github.com/goplus/llgo/c/os"
+	"github.com/goplus/lib/c"
+	"github.com/goplus/lib/c/os"
 )
 
 func main() {
