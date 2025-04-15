@@ -58,6 +58,7 @@ jobs:
         with:
           name: ${{env.BIN_FILENAME}}
           path: ${{env.BIN_PATH}}
+          retention-days: 1
   post-processing:
     runs-on: ubuntu-latest
     needs: [release-binary-files]
