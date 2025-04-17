@@ -16,11 +16,17 @@ on:
 jobs:
   llcppg-verification:
     name: Verify Go Module
-    runs-on: ubuntu-24.04
     strategy:
       matrix:
+        os:
+          - macos-13
+          - macos-latest
+          - ubuntu-24.04
+          - ubuntu-24.04-arm
         llgo: [v0.10.1]
         llcppg: [v0.2.1]
+
+    runs-on: ${{matrix.os}}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -43,20 +49,27 @@ jobs:
       - name: Set up Tool
         run: |
           go install -v github.com/goplus/llpkgstore/cmd/llpkgstore@latest
-          go install -v github.com/goplus/llpkgstore/cmd/demotest@latest
+      - name: Install dependencies
+        if: startsWith(matrix.os, 'macos')
+        run: |
+          brew install llvm@18 bdw-gc openssl libffi libuv cmake cjson conan
+          brew link --force libffi
+          echo "$(brew --prefix llvm@18)/bin" >> $GITHUB_PATH
+      - name: Install dependencies
+        if: startsWith(matrix.os, 'ubuntu')
+        run: |
+          sudo apt-get update
+          echo "deb http://apt.llvm.org/$(lsb_release -cs)/ llvm-toolchain-$(lsb_release -cs)-18 main" | sudo tee /etc/apt/sources.list.d/llvm.list
+          wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
+          sudo apt-get install -y python3 libcjson-dev python3-pip llvm-18-dev libuv1-dev clang-18 libunwind-dev libclang-18-dev lld-18 cmake pkg-config libgc-dev libssl-dev zlib1g-dev libffi-dev libcjson-dev
+          echo "/usr/lib/llvm-18/bin" >> $GITHUB_PATH
+          python3 -m pip install conan
       - name: Set up Conan
         run: |
-          sudo apt-get install -y python3 python3-pip
-          python3 -m pip install conan
           conan profile detect
       - name: Setup LLGo
         working-directory: .llgo
         run: |
-          echo "deb http://apt.llvm.org/$(lsb_release -cs)/ llvm-toolchain-$(lsb_release -cs)-18 main" | sudo tee /etc/apt/sources.list.d/llvm.list
-          wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
-          sudo apt-get update
-          sudo apt-get install -y python3 python3-pip llvm-18-dev libuv1-dev clang-18 libunwind-dev libclang-18-dev lld-18 cmake pkg-config libgc-dev libssl-dev zlib1g-dev libffi-dev libcjson-dev
-          echo "/usr/lib/llvm-18/bin" >> $GITHUB_PATH
           cd compiler
           go install -v ./cmd/...
           export LLGO_ROOT=$GITHUB_WORKSPACE/llgo
@@ -83,7 +96,7 @@ jobs:
           ls .website .website/public
           cp .website/public/llpkgstore.json .
           rm -rf .website
-      - name: Verification
+      - name: Verification & Prebuilt
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
@@ -91,4 +104,4 @@ jobs:
       - name: Run demotest process
         env:
           LLPKG_PATH: ${{ env.LLPKG_PATH }}
-        run: demotest run
+        run: llpkgstore demotest
