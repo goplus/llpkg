@@ -1,8 +1,9 @@
 package libxml2
 
 import (
-	"github.com/goplus/llgo/c"
 	"unsafe"
+
+	"github.com/goplus/lib/c"
 )
 
 //go:linkname SAX2GetPublicId C.xmlSAX2GetPublicId
