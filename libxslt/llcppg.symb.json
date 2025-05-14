@@ -1,0 +1,917 @@
+[{
+		"mangle":	"xsltAddKey",
+		"c++":	"xsltAddKey(xsltStylesheetPtr, const xmlChar *, const xmlChar *, const xmlChar *, const xmlChar *, xmlNodePtr)",
+		"go":	"AddKey"
+	}, {
+		"mangle":	"xsltAddStackElemList",
+		"c++":	"xsltAddStackElemList(xsltTransformContextPtr, xsltStackElemPtr)",
+		"go":	"AddStackElemList"
+	}, {
+		"mangle":	"xsltAddTemplate",
+		"c++":	"xsltAddTemplate(xsltStylesheetPtr, xsltTemplatePtr, const xmlChar *, const xmlChar *)",
+		"go":	"AddTemplate"
+	}, {
+		"mangle":	"xsltAllocateExtra",
+		"c++":	"xsltAllocateExtra(xsltStylesheetPtr)",
+		"go":	"AllocateExtra"
+	}, {
+		"mangle":	"xsltAllocateExtraCtxt",
+		"c++":	"xsltAllocateExtraCtxt(xsltTransformContextPtr)",
+		"go":	"AllocateExtraCtxt"
+	}, {
+		"mangle":	"xsltApplyAttributeSet",
+		"c++":	"xsltApplyAttributeSet(xsltTransformContextPtr, xmlNodePtr, xmlNodePtr, const xmlChar *)",
+		"go":	"ApplyAttributeSet"
+	}, {
+		"mangle":	"xsltApplyImports",
+		"c++":	"xsltApplyImports(xsltTransformContextPtr, xmlNodePtr, xmlNodePtr, xsltElemPreCompPtr)",
+		"go":	"ApplyImports"
+	}, {
+		"mangle":	"xsltApplyOneTemplate",
+		"c++":	"xsltApplyOneTemplate(xsltTransformContextPtr, xmlNodePtr, xmlNodePtr, xsltTemplatePtr, xsltStackElemPtr)",
+		"go":	"ApplyOneTemplate"
+	}, {
+		"mangle":	"xsltApplyStripSpaces",
+		"c++":	"xsltApplyStripSpaces(xsltTransformContextPtr, xmlNodePtr)",
+		"go":	"ApplyStripSpaces"
+	}, {
+		"mangle":	"xsltApplyStylesheet",
+		"c++":	"xsltApplyStylesheet(xsltStylesheetPtr, xmlDocPtr, const char **)",
+		"go":	"ApplyStylesheet"
+	}, {
+		"mangle":	"xsltApplyStylesheetUser",
+		"c++":	"xsltApplyStylesheetUser(xsltStylesheetPtr, xmlDocPtr, const char **, const char *, FILE *, xsltTransformContextPtr)",
+		"go":	"ApplyStylesheetUser"
+	}, {
+		"mangle":	"xsltApplyTemplates",
+		"c++":	"xsltApplyTemplates(xsltTransformContextPtr, xmlNodePtr, xmlNodePtr, xsltElemPreCompPtr)",
+		"go":	"ApplyTemplates"
+	}, {
+		"mangle":	"xsltAttrListTemplateProcess",
+		"c++":	"xsltAttrListTemplateProcess(xsltTransformContextPtr, xmlNodePtr, xmlAttrPtr)",
+		"go":	"AttrListTemplateProcess"
+	}, {
+		"mangle":	"xsltAttrTemplateProcess",
+		"c++":	"xsltAttrTemplateProcess(xsltTransformContextPtr, xmlNodePtr, xmlAttrPtr)",
+		"go":	"AttrTemplateProcess"
+	}, {
+		"mangle":	"xsltAttrTemplateValueProcess",
+		"c++":	"xsltAttrTemplateValueProcess(xsltTransformContextPtr, const xmlChar *)",
+		"go":	"AttrTemplateValueProcess"
+	}, {
+		"mangle":	"xsltAttrTemplateValueProcessNode",
+		"c++":	"xsltAttrTemplateValueProcessNode(xsltTransformContextPtr, const xmlChar *, xmlNodePtr)",
+		"go":	"AttrTemplateValueProcessNode"
+	}, {
+		"mangle":	"xsltAttribute",
+		"c++":	"xsltAttribute(xsltTransformContextPtr, xmlNodePtr, xmlNodePtr, xsltElemPreCompPtr)",
+		"go":	"Attribute"
+	}, {
+		"mangle":	"xsltCallTemplate",
+		"c++":	"xsltCallTemplate(xsltTransformContextPtr, xmlNodePtr, xmlNodePtr, xsltElemPreCompPtr)",
+		"go":	"CallTemplate"
+	}, {
+		"mangle":	"xsltCheckExtPrefix",
+		"c++":	"xsltCheckExtPrefix(xsltStylesheetPtr, const xmlChar *)",
+		"go":	"CheckExtPrefix"
+	}, {
+		"mangle":	"xsltCheckExtURI",
+		"c++":	"xsltCheckExtURI(xsltStylesheetPtr, const xmlChar *)",
+		"go":	"CheckExtURI"
+	}, {
+		"mangle":	"xsltCheckRead",
+		"c++":	"xsltCheckRead(xsltSecurityPrefsPtr, xsltTransformContextPtr, const xmlChar *)",
+		"go":	"CheckRead"
+	}, {
+		"mangle":	"xsltCheckWrite",
+		"c++":	"xsltCheckWrite(xsltSecurityPrefsPtr, xsltTransformContextPtr, const xmlChar *)",
+		"go":	"CheckWrite"
+	}, {
+		"mangle":	"xsltChoose",
+		"c++":	"xsltChoose(xsltTransformContextPtr, xmlNodePtr, xmlNodePtr, xsltElemPreCompPtr)",
+		"go":	"Choose"
+	}, {
+		"mangle":	"xsltCleanupGlobals",
+		"c++":	"xsltCleanupGlobals()",
+		"go":	"CleanupGlobals"
+	}, {
+		"mangle":	"xsltCleanupTemplates",
+		"c++":	"xsltCleanupTemplates(xsltStylesheetPtr)",
+		"go":	"CleanupTemplates"
+	}, {
+		"mangle":	"xsltComment",
+		"c++":	"xsltComment(xsltTransformContextPtr, xmlNodePtr, xmlNodePtr, xsltElemPreCompPtr)",
+		"go":	"Comment"
+	}, {
+		"mangle":	"xsltCompMatchClearCache",
+		"c++":	"xsltCompMatchClearCache(xsltTransformContextPtr, xsltCompMatchPtr)",
+		"go":	"CompMatchClearCache"
+	}, {
+		"mangle":	"xsltCompileAttr",
+		"c++":	"xsltCompileAttr(xsltStylesheetPtr, xmlAttrPtr)",
+		"go":	"CompileAttr"
+	}, {
+		"mangle":	"xsltCompilePattern",
+		"c++":	"xsltCompilePattern(const xmlChar *, xmlDocPtr, xmlNodePtr, xsltStylesheetPtr, xsltTransformContextPtr)",
+		"go":	"CompilePattern"
+	}, {
+		"mangle":	"xsltComputeSortResult",
+		"c++":	"xsltComputeSortResult(xsltTransformContextPtr, xmlNodePtr)",
+		"go":	"ComputeSortResult"
+	}, {
+		"mangle":	"xsltCopy",
+		"c++":	"xsltCopy(xsltTransformContextPtr, xmlNodePtr, xmlNodePtr, xsltElemPreCompPtr)",
+		"go":	"Copy"
+	}, {
+		"mangle":	"xsltCopyNamespace",
+		"c++":	"xsltCopyNamespace(int, xmlNodePtr, xmlNsPtr)",
+		"go":	"CopyNamespace"
+	}, {
+		"mangle":	"xsltCopyNamespaceList",
+		"c++":	"xsltCopyNamespaceList(int, xmlNodePtr, xmlNsPtr)",
+		"go":	"CopyNamespaceList"
+	}, {
+		"mangle":	"xsltCopyOf",
+		"c++":	"xsltCopyOf(xsltTransformContextPtr, xmlNodePtr, xmlNodePtr, xsltElemPreCompPtr)",
+		"go":	"CopyOf"
+	}, {
+		"mangle":	"xsltCopyTextString",
+		"c++":	"xsltCopyTextString(xsltTransformContextPtr, xmlNodePtr, const xmlChar *, int)",
+		"go":	"CopyTextString"
+	}, {
+		"mangle":	"xsltCreateRVT",
+		"c++":	"xsltCreateRVT(xsltTransformContextPtr)",
+		"go":	"CreateRVT"
+	}, {
+		"mangle":	"xsltDebug",
+		"c++":	"xsltDebug(xsltTransformContextPtr, xmlNodePtr, xmlNodePtr, xsltElemPreCompPtr)",
+		"go":	"Debug"
+	}, {
+		"mangle":	"xsltDebugDumpExtensions",
+		"c++":	"xsltDebugDumpExtensions(FILE *)",
+		"go":	"DebugDumpExtensions"
+	}, {
+		"mangle":	"xsltDebugGetDefaultTrace",
+		"c++":	"xsltDebugGetDefaultTrace()",
+		"go":	"DebugGetDefaultTrace"
+	}, {
+		"mangle":	"xsltDebugSetDefaultTrace",
+		"c++":	"xsltDebugSetDefaultTrace(xsltDebugTraceCodes)",
+		"go":	"DebugTraceCodes.DebugSetDefaultTrace"
+	}, {
+		"mangle":	"xsltDecimalFormatGetByName",
+		"c++":	"xsltDecimalFormatGetByName(xsltStylesheetPtr, xmlChar *)",
+		"go":	"DecimalFormatGetByName"
+	}, {
+		"mangle":	"xsltDecimalFormatGetByQName",
+		"c++":	"xsltDecimalFormatGetByQName(xsltStylesheetPtr, const xmlChar *, const xmlChar *)",
+		"go":	"DecimalFormatGetByQName"
+	}, {
+		"mangle":	"xsltDefaultSortFunction",
+		"c++":	"xsltDefaultSortFunction(xsltTransformContextPtr, xmlNodePtr *, int)",
+		"go":	"DefaultSortFunction"
+	}, {
+		"mangle":	"xsltDoSortFunction",
+		"c++":	"xsltDoSortFunction(xsltTransformContextPtr, xmlNodePtr *, int)",
+		"go":	"DoSortFunction"
+	}, {
+		"mangle":	"xsltDocumentComp",
+		"c++":	"xsltDocumentComp(xsltStylesheetPtr, xmlNodePtr, xsltTransformFunction)",
+		"go":	"DocumentComp"
+	}, {
+		"mangle":	"xsltDocumentElem",
+		"c++":	"xsltDocumentElem(xsltTransformContextPtr, xmlNodePtr, xmlNodePtr, xsltElemPreCompPtr)",
+		"go":	"DocumentElem"
+	}, {
+		"mangle":	"xsltDocumentFunction",
+		"c++":	"xsltDocumentFunction(xmlXPathParserContextPtr, int)",
+		"go":	"DocumentFunction"
+	}, {
+		"mangle":	"xsltDocumentSortFunction",
+		"c++":	"xsltDocumentSortFunction(xmlNodeSetPtr)",
+		"go":	"DocumentSortFunction"
+	}, {
+		"mangle":	"xsltElement",
+		"c++":	"xsltElement(xsltTransformContextPtr, xmlNodePtr, xmlNodePtr, xsltElemPreCompPtr)",
+		"go":	"Element"
+	}, {
+		"mangle":	"xsltElementAvailableFunction",
+		"c++":	"xsltElementAvailableFunction(xmlXPathParserContextPtr, int)",
+		"go":	"ElementAvailableFunction"
+	}, {
+		"mangle":	"xsltEvalAVT",
+		"c++":	"xsltEvalAVT(xsltTransformContextPtr, void *, xmlNodePtr)",
+		"go":	"EvalAVT"
+	}, {
+		"mangle":	"xsltEvalAttrValueTemplate",
+		"c++":	"xsltEvalAttrValueTemplate(xsltTransformContextPtr, xmlNodePtr, const xmlChar *, const xmlChar *)",
+		"go":	"EvalAttrValueTemplate"
+	}, {
+		"mangle":	"xsltEvalGlobalVariables",
+		"c++":	"xsltEvalGlobalVariables(xsltTransformContextPtr)",
+		"go":	"EvalGlobalVariables"
+	}, {
+		"mangle":	"xsltEvalOneUserParam",
+		"c++":	"xsltEvalOneUserParam(xsltTransformContextPtr, const xmlChar *, const xmlChar *)",
+		"go":	"EvalOneUserParam"
+	}, {
+		"mangle":	"xsltEvalStaticAttrValueTemplate",
+		"c++":	"xsltEvalStaticAttrValueTemplate(xsltStylesheetPtr, xmlNodePtr, const xmlChar *, const xmlChar *, int *)",
+		"go":	"EvalStaticAttrValueTemplate"
+	}, {
+		"mangle":	"xsltEvalTemplateString",
+		"c++":	"xsltEvalTemplateString(xsltTransformContextPtr, xmlNodePtr, xmlNodePtr)",
+		"go":	"EvalTemplateString"
+	}, {
+		"mangle":	"xsltEvalUserParams",
+		"c++":	"xsltEvalUserParams(xsltTransformContextPtr, const char **)",
+		"go":	"EvalUserParams"
+	}, {
+		"mangle":	"xsltEvalXPathPredicate",
+		"c++":	"xsltEvalXPathPredicate(xsltTransformContextPtr, xmlXPathCompExprPtr, xmlNsPtr *, int)",
+		"go":	"EvalXPathPredicate"
+	}, {
+		"mangle":	"xsltEvalXPathString",
+		"c++":	"xsltEvalXPathString(xsltTransformContextPtr, xmlXPathCompExprPtr)",
+		"go":	"EvalXPathString"
+	}, {
+		"mangle":	"xsltEvalXPathStringNs",
+		"c++":	"xsltEvalXPathStringNs(xsltTransformContextPtr, xmlXPathCompExprPtr, int, xmlNsPtr *)",
+		"go":	"EvalXPathStringNs"
+	}, {
+		"mangle":	"xsltExtElementLookup",
+		"c++":	"xsltExtElementLookup(xsltTransformContextPtr, const xmlChar *, const xmlChar *)",
+		"go":	"ExtElementLookup"
+	}, {
+		"mangle":	"xsltExtModuleElementLookup",
+		"c++":	"xsltExtModuleElementLookup(const xmlChar *, const xmlChar *)",
+		"go":	"ExtModuleElementLookup"
+	}, {
+		"mangle":	"xsltExtModuleElementPreComputeLookup",
+		"c++":	"xsltExtModuleElementPreComputeLookup(const xmlChar *, const xmlChar *)",
+		"go":	"ExtModuleElementPreComputeLookup"
+	}, {
+		"mangle":	"xsltExtModuleFunctionLookup",
+		"c++":	"xsltExtModuleFunctionLookup(const xmlChar *, const xmlChar *)",
+		"go":	"ExtModuleFunctionLookup"
+	}, {
+		"mangle":	"xsltExtModuleTopLevelLookup",
+		"c++":	"xsltExtModuleTopLevelLookup(const xmlChar *, const xmlChar *)",
+		"go":	"ExtModuleTopLevelLookup"
+	}, {
+		"mangle":	"xsltExtensionInstructionResultFinalize",
+		"c++":	"xsltExtensionInstructionResultFinalize(xsltTransformContextPtr)",
+		"go":	"ExtensionInstructionResultFinalize"
+	}, {
+		"mangle":	"xsltExtensionInstructionResultRegister",
+		"c++":	"xsltExtensionInstructionResultRegister(xsltTransformContextPtr, xmlXPathObjectPtr)",
+		"go":	"ExtensionInstructionResultRegister"
+	}, {
+		"mangle":	"xsltFindDocument",
+		"c++":	"xsltFindDocument(xsltTransformContextPtr, xmlDocPtr)",
+		"go":	"FindDocument"
+	}, {
+		"mangle":	"xsltFindElemSpaceHandling",
+		"c++":	"xsltFindElemSpaceHandling(xsltTransformContextPtr, xmlNodePtr)",
+		"go":	"FindElemSpaceHandling"
+	}, {
+		"mangle":	"xsltFindTemplate",
+		"c++":	"xsltFindTemplate(xsltTransformContextPtr, const xmlChar *, const xmlChar *)",
+		"go":	"FindTemplate"
+	}, {
+		"mangle":	"xsltFlagRVTs",
+		"c++":	"xsltFlagRVTs(xsltTransformContextPtr, xmlXPathObjectPtr, int)",
+		"go":	"FlagRVTs"
+	}, {
+		"mangle":	"xsltForEach",
+		"c++":	"xsltForEach(xsltTransformContextPtr, xmlNodePtr, xmlNodePtr, xsltElemPreCompPtr)",
+		"go":	"ForEach"
+	}, {
+		"mangle":	"xsltFormatNumberConversion",
+		"c++":	"xsltFormatNumberConversion(xsltDecimalFormatPtr, xmlChar *, double, xmlChar **)",
+		"go":	"FormatNumberConversion"
+	}, {
+		"mangle":	"xsltFormatNumberFunction",
+		"c++":	"xsltFormatNumberFunction(xmlXPathParserContextPtr, int)",
+		"go":	"FormatNumberFunction"
+	}, {
+		"mangle":	"xsltFreeAVTList",
+		"c++":	"xsltFreeAVTList(void *)",
+		"go":	"FreeAVTList"
+	}, {
+		"mangle":	"xsltFreeAttributeSetsHashes",
+		"c++":	"xsltFreeAttributeSetsHashes(xsltStylesheetPtr)",
+		"go":	"FreeAttributeSetsHashes"
+	}, {
+		"mangle":	"xsltFreeCompMatchList",
+		"c++":	"xsltFreeCompMatchList(xsltCompMatchPtr)",
+		"go":	"FreeCompMatchList"
+	}, {
+		"mangle":	"xsltFreeCtxtExts",
+		"c++":	"xsltFreeCtxtExts(xsltTransformContextPtr)",
+		"go":	"FreeCtxtExts"
+	}, {
+		"mangle":	"xsltFreeDocumentKeys",
+		"c++":	"xsltFreeDocumentKeys(xsltDocumentPtr)",
+		"go":	"FreeDocumentKeys"
+	}, {
+		"mangle":	"xsltFreeDocuments",
+		"c++":	"xsltFreeDocuments(xsltTransformContextPtr)",
+		"go":	"FreeDocuments"
+	}, {
+		"mangle":	"xsltFreeExts",
+		"c++":	"xsltFreeExts(xsltStylesheetPtr)",
+		"go":	"FreeExts"
+	}, {
+		"mangle":	"xsltFreeGlobalVariables",
+		"c++":	"xsltFreeGlobalVariables(xsltTransformContextPtr)",
+		"go":	"FreeGlobalVariables"
+	}, {
+		"mangle":	"xsltFreeKeys",
+		"c++":	"xsltFreeKeys(xsltStylesheetPtr)",
+		"go":	"FreeKeys"
+	}, {
+		"mangle":	"xsltFreeLocale",
+		"c++":	"xsltFreeLocale(void *)",
+		"go":	"FreeLocale"
+	}, {
+		"mangle":	"xsltFreeLocales",
+		"c++":	"xsltFreeLocales()",
+		"go":	"FreeLocales"
+	}, {
+		"mangle":	"xsltFreeNamespaceAliasHashes",
+		"c++":	"xsltFreeNamespaceAliasHashes(int)",
+		"go":	"FreeNamespaceAliasHashes"
+	}, {
+		"mangle":	"xsltFreeRVTs",
+		"c++":	"xsltFreeRVTs(xsltTransformContextPtr)",
+		"go":	"FreeRVTs"
+	}, {
+		"mangle":	"xsltFreeSecurityPrefs",
+		"c++":	"xsltFreeSecurityPrefs(xsltSecurityPrefsPtr)",
+		"go":	"FreeSecurityPrefs"
+	}, {
+		"mangle":	"xsltFreeStackElemList",
+		"c++":	"xsltFreeStackElemList(xsltStackElemPtr)",
+		"go":	"FreeStackElemList"
+	}, {
+		"mangle":	"xsltFreeStyleDocuments",
+		"c++":	"xsltFreeStyleDocuments(xsltStylesheetPtr)",
+		"go":	"FreeStyleDocuments"
+	}, {
+		"mangle":	"xsltFreeStylePreComps",
+		"c++":	"xsltFreeStylePreComps(xsltStylesheetPtr)",
+		"go":	"FreeStylePreComps"
+	}, {
+		"mangle":	"xsltFreeStylesheet",
+		"c++":	"xsltFreeStylesheet(xsltStylesheetPtr)",
+		"go":	"FreeStylesheet"
+	}, {
+		"mangle":	"xsltFreeTemplateHashes",
+		"c++":	"xsltFreeTemplateHashes(xsltStylesheetPtr)",
+		"go":	"FreeTemplateHashes"
+	}, {
+		"mangle":	"xsltFreeTransformContext",
+		"c++":	"xsltFreeTransformContext(xsltTransformContextPtr)",
+		"go":	"FreeTransformContext"
+	}, {
+		"mangle":	"xsltFunctionAvailableFunction",
+		"c++":	"xsltFunctionAvailableFunction(xmlXPathParserContextPtr, int)",
+		"go":	"FunctionAvailableFunction"
+	}, {
+		"mangle":	"xsltFunctionNodeSet",
+		"c++":	"xsltFunctionNodeSet(xmlXPathParserContextPtr, int)",
+		"go":	"FunctionNodeSet"
+	}, {
+		"mangle":	"xsltGenerateIdFunction",
+		"c++":	"xsltGenerateIdFunction(xmlXPathParserContextPtr, int)",
+		"go":	"GenerateIdFunction"
+	}, {
+		"mangle":	"xsltGetCNsProp",
+		"c++":	"xsltGetCNsProp(xsltStylesheetPtr, xmlNodePtr, const xmlChar *, const xmlChar *)",
+		"go":	"GetCNsProp"
+	}, {
+		"mangle":	"xsltGetDebuggerStatus",
+		"c++":	"xsltGetDebuggerStatus()",
+		"go":	"GetDebuggerStatus"
+	}, {
+		"mangle":	"xsltGetDefaultSecurityPrefs",
+		"c++":	"xsltGetDefaultSecurityPrefs()",
+		"go":	"GetDefaultSecurityPrefs"
+	}, {
+		"mangle":	"xsltGetExtData",
+		"c++":	"xsltGetExtData(xsltTransformContextPtr, const xmlChar *)",
+		"go":	"GetExtData"
+	}, {
+		"mangle":	"xsltGetExtInfo",
+		"c++":	"xsltGetExtInfo(xsltStylesheetPtr, const xmlChar *)",
+		"go":	"GetExtInfo"
+	}, {
+		"mangle":	"xsltGetKey",
+		"c++":	"xsltGetKey(xsltTransformContextPtr, const xmlChar *, const xmlChar *, const xmlChar *)",
+		"go":	"GetKey"
+	}, {
+		"mangle":	"xsltGetNamespace",
+		"c++":	"xsltGetNamespace(int, xmlNodePtr, xmlNsPtr, xmlNodePtr)",
+		"go":	"GetNamespace"
+	}, {
+		"mangle":	"xsltGetNsProp",
+		"c++":	"xsltGetNsProp(xmlNodePtr, const xmlChar *, const xmlChar *)",
+		"go":	"GetNsProp"
+	}, {
+		"mangle":	"xsltGetPlainNamespace",
+		"c++":	"xsltGetPlainNamespace(int, xmlNodePtr, xmlNsPtr, xmlNodePtr)",
+		"go":	"GetPlainNamespace"
+	}, {
+		"mangle":	"xsltGetQNameURI",
+		"c++":	"xsltGetQNameURI(xmlNodePtr, xmlChar **)",
+		"go":	"GetQNameURI"
+	}, {
+		"mangle":	"xsltGetQNameURI2",
+		"c++":	"xsltGetQNameURI2(xsltStylesheetPtr, xmlNodePtr, const xmlChar **)",
+		"go":	"GetQNameURI2"
+	}, {
+		"mangle":	"xsltGetSecurityPrefs",
+		"c++":	"xsltGetSecurityPrefs(xsltSecurityPrefsPtr, xsltSecurityOption)",
+		"go":	"GetSecurityPrefs"
+	}, {
+		"mangle":	"xsltGetSpecialNamespace",
+		"c++":	"xsltGetSpecialNamespace(int, xmlNodePtr, const xmlChar *, const xmlChar *, xmlNodePtr)",
+		"go":	"GetSpecialNamespace"
+	}, {
+		"mangle":	"xsltGetTemplate",
+		"c++":	"xsltGetTemplate(xsltTransformContextPtr, xmlNodePtr, xsltStylesheetPtr)",
+		"go":	"GetTemplate"
+	}, {
+		"mangle":	"xsltGetUTF8Char",
+		"c++":	"xsltGetUTF8Char(const unsigned char *, int *)",
+		"go":	"GetUTF8Char"
+	}, {
+		"mangle":	"xsltGetXIncludeDefault",
+		"c++":	"xsltGetXIncludeDefault()",
+		"go":	"GetXIncludeDefault"
+	}, {
+		"mangle":	"xsltIf",
+		"c++":	"xsltIf(xsltTransformContextPtr, xmlNodePtr, xmlNodePtr, xsltElemPreCompPtr)",
+		"go":	"If"
+	}, {
+		"mangle":	"xsltInit",
+		"c++":	"xsltInit()",
+		"go":	"Init"
+	}, {
+		"mangle":	"xsltInitAllDocKeys",
+		"c++":	"xsltInitAllDocKeys(xsltTransformContextPtr)",
+		"go":	"InitAllDocKeys"
+	}, {
+		"mangle":	"xsltInitCtxtExts",
+		"c++":	"xsltInitCtxtExts(xsltTransformContextPtr)",
+		"go":	"InitCtxtExts"
+	}, {
+		"mangle":	"xsltInitCtxtKey",
+		"c++":	"xsltInitCtxtKey(xsltTransformContextPtr, xsltDocumentPtr, xsltKeyDefPtr)",
+		"go":	"InitCtxtKey"
+	}, {
+		"mangle":	"xsltInitCtxtKeys",
+		"c++":	"xsltInitCtxtKeys(xsltTransformContextPtr, xsltDocumentPtr)",
+		"go":	"InitCtxtKeys"
+	}, {
+		"mangle":	"xsltInitElemPreComp",
+		"c++":	"xsltInitElemPreComp(xsltElemPreCompPtr, xsltStylesheetPtr, xmlNodePtr, xsltTransformFunction, xsltElemPreCompDeallocator)",
+		"go":	"InitElemPreComp"
+	}, {
+		"mangle":	"xsltInitGlobals",
+		"c++":	"xsltInitGlobals()",
+		"go":	"InitGlobals"
+	}, {
+		"mangle":	"xsltIsBlank",
+		"c++":	"xsltIsBlank(xmlChar *)",
+		"go":	"IsBlank"
+	}, {
+		"mangle":	"xsltKeyFunction",
+		"c++":	"xsltKeyFunction(xmlXPathParserContextPtr, int)",
+		"go":	"KeyFunction"
+	}, {
+		"mangle":	"xsltLoadDocument",
+		"c++":	"xsltLoadDocument(xsltTransformContextPtr, const xmlChar *)",
+		"go":	"LoadDocument"
+	}, {
+		"mangle":	"xsltLoadStyleDocument",
+		"c++":	"xsltLoadStyleDocument(xsltStylesheetPtr, const xmlChar *)",
+		"go":	"LoadStyleDocument"
+	}, {
+		"mangle":	"xsltLoadStylesheetPI",
+		"c++":	"xsltLoadStylesheetPI(xmlDocPtr)",
+		"go":	"LoadStylesheetPI"
+	}, {
+		"mangle":	"xsltLocalVariablePop",
+		"c++":	"xsltLocalVariablePop(xsltTransformContextPtr, int, int)",
+		"go":	"LocalVariablePop"
+	}, {
+		"mangle":	"xsltLocalVariablePush",
+		"c++":	"xsltLocalVariablePush(xsltTransformContextPtr, xsltStackElemPtr, int)",
+		"go":	"LocalVariablePush"
+	}, {
+		"mangle":	"xsltLocaleStrcmp",
+		"c++":	"xsltLocaleStrcmp(void *, const xmlChar *, const xmlChar *)",
+		"go":	"LocaleStrcmp"
+	}, {
+		"mangle":	"xsltMessage",
+		"c++":	"xsltMessage(xsltTransformContextPtr, xmlNodePtr, xmlNodePtr)",
+		"go":	"Message"
+	}, {
+		"mangle":	"xsltNamespaceAlias",
+		"c++":	"xsltNamespaceAlias(int, xmlNodePtr)",
+		"go":	"NamespaceAlias"
+	}, {
+		"mangle":	"xsltNeedElemSpaceHandling",
+		"c++":	"xsltNeedElemSpaceHandling(xsltTransformContextPtr)",
+		"go":	"NeedElemSpaceHandling"
+	}, {
+		"mangle":	"xsltNewDocument",
+		"c++":	"xsltNewDocument(xsltTransformContextPtr, xmlDocPtr)",
+		"go":	"NewDocument"
+	}, {
+		"mangle":	"xsltNewElemPreComp",
+		"c++":	"xsltNewElemPreComp(xsltStylesheetPtr, xmlNodePtr, xsltTransformFunction)",
+		"go":	"NewElemPreComp"
+	}, {
+		"mangle":	"xsltNewLocale",
+		"c++":	"xsltNewLocale(const xmlChar *, int)",
+		"go":	"NewLocale"
+	}, {
+		"mangle":	"xsltNewSecurityPrefs",
+		"c++":	"xsltNewSecurityPrefs()",
+		"go":	"NewSecurityPrefs"
+	}, {
+		"mangle":	"xsltNewStyleDocument",
+		"c++":	"xsltNewStyleDocument(xsltStylesheetPtr, xmlDocPtr)",
+		"go":	"NewStyleDocument"
+	}, {
+		"mangle":	"xsltNewStylesheet",
+		"c++":	"xsltNewStylesheet()",
+		"go":	"NewStylesheet"
+	}, {
+		"mangle":	"xsltNewTransformContext",
+		"c++":	"xsltNewTransformContext(xsltStylesheetPtr, xmlDocPtr)",
+		"go":	"NewTransformContext"
+	}, {
+		"mangle":	"xsltNextImport",
+		"c++":	"xsltNextImport(xsltStylesheetPtr)",
+		"go":	"NextImport"
+	}, {
+		"mangle":	"xsltNormalizeCompSteps",
+		"c++":	"xsltNormalizeCompSteps(void *, void *, const xmlChar *)",
+		"go":	"NormalizeCompSteps"
+	}, {
+		"mangle":	"xsltNumber",
+		"c++":	"xsltNumber(xsltTransformContextPtr, xmlNodePtr, xmlNodePtr, xsltElemPreCompPtr)",
+		"go":	"Number"
+	}, {
+		"mangle":	"xsltNumberFormat",
+		"c++":	"xsltNumberFormat(xsltTransformContextPtr, xsltNumberDataPtr, xmlNodePtr)",
+		"go":	"NumberFormat"
+	}, {
+		"mangle":	"xsltParseGlobalParam",
+		"c++":	"xsltParseGlobalParam(xsltStylesheetPtr, xmlNodePtr)",
+		"go":	"ParseGlobalParam"
+	}, {
+		"mangle":	"xsltParseGlobalVariable",
+		"c++":	"xsltParseGlobalVariable(xsltStylesheetPtr, xmlNodePtr)",
+		"go":	"ParseGlobalVariable"
+	}, {
+		"mangle":	"xsltParseStylesheetAttributeSet",
+		"c++":	"xsltParseStylesheetAttributeSet(xsltStylesheetPtr, xmlNodePtr)",
+		"go":	"ParseStylesheetAttributeSet"
+	}, {
+		"mangle":	"xsltParseStylesheetCallerParam",
+		"c++":	"xsltParseStylesheetCallerParam(xsltTransformContextPtr, xmlNodePtr)",
+		"go":	"ParseStylesheetCallerParam"
+	}, {
+		"mangle":	"xsltParseStylesheetDoc",
+		"c++":	"xsltParseStylesheetDoc(xmlDocPtr)",
+		"go":	"ParseStylesheetDoc"
+	}, {
+		"mangle":	"xsltParseStylesheetFile",
+		"c++":	"xsltParseStylesheetFile(const xmlChar *)",
+		"go":	"ParseStylesheetFile"
+	}, {
+		"mangle":	"xsltParseStylesheetImport",
+		"c++":	"xsltParseStylesheetImport(xsltStylesheetPtr, xmlNodePtr)",
+		"go":	"ParseStylesheetImport"
+	}, {
+		"mangle":	"xsltParseStylesheetImportedDoc",
+		"c++":	"xsltParseStylesheetImportedDoc(xmlDocPtr, xsltStylesheetPtr)",
+		"go":	"ParseStylesheetImportedDoc"
+	}, {
+		"mangle":	"xsltParseStylesheetInclude",
+		"c++":	"xsltParseStylesheetInclude(xsltStylesheetPtr, xmlNodePtr)",
+		"go":	"ParseStylesheetInclude"
+	}, {
+		"mangle":	"xsltParseStylesheetOutput",
+		"c++":	"xsltParseStylesheetOutput(xsltStylesheetPtr, xmlNodePtr)",
+		"go":	"ParseStylesheetOutput"
+	}, {
+		"mangle":	"xsltParseStylesheetParam",
+		"c++":	"xsltParseStylesheetParam(xsltTransformContextPtr, xmlNodePtr)",
+		"go":	"ParseStylesheetParam"
+	}, {
+		"mangle":	"xsltParseStylesheetProcess",
+		"c++":	"xsltParseStylesheetProcess(xsltStylesheetPtr, xmlDocPtr)",
+		"go":	"ParseStylesheetProcess"
+	}, {
+		"mangle":	"xsltParseStylesheetUser",
+		"c++":	"xsltParseStylesheetUser(xsltStylesheetPtr, xmlDocPtr)",
+		"go":	"ParseStylesheetUser"
+	}, {
+		"mangle":	"xsltParseStylesheetVariable",
+		"c++":	"xsltParseStylesheetVariable(xsltTransformContextPtr, xmlNodePtr)",
+		"go":	"ParseStylesheetVariable"
+	}, {
+		"mangle":	"xsltParseTemplateContent",
+		"c++":	"xsltParseTemplateContent(xsltStylesheetPtr, xmlNodePtr)",
+		"go":	"ParseTemplateContent"
+	}, {
+		"mangle":	"xsltPreComputeExtModuleElement",
+		"c++":	"xsltPreComputeExtModuleElement(xsltStylesheetPtr, xmlNodePtr)",
+		"go":	"PreComputeExtModuleElement"
+	}, {
+		"mangle":	"xsltPrintErrorContext",
+		"c++":	"xsltPrintErrorContext(xsltTransformContextPtr, xsltStylesheetPtr, xmlNodePtr)",
+		"go":	"PrintErrorContext"
+	}, {
+		"mangle":	"xsltProcessOneNode",
+		"c++":	"xsltProcessOneNode(xsltTransformContextPtr, xmlNodePtr, xsltStackElemPtr)",
+		"go":	"ProcessOneNode"
+	}, {
+		"mangle":	"xsltProcessingInstruction",
+		"c++":	"xsltProcessingInstruction(xsltTransformContextPtr, xmlNodePtr, xmlNodePtr, xsltElemPreCompPtr)",
+		"go":	"ProcessingInstruction"
+	}, {
+		"mangle":	"xsltProfileStylesheet",
+		"c++":	"xsltProfileStylesheet(xsltStylesheetPtr, xmlDocPtr, const char **, FILE *)",
+		"go":	"ProfileStylesheet"
+	}, {
+		"mangle":	"xsltQuoteOneUserParam",
+		"c++":	"xsltQuoteOneUserParam(xsltTransformContextPtr, const xmlChar *, const xmlChar *)",
+		"go":	"QuoteOneUserParam"
+	}, {
+		"mangle":	"xsltQuoteUserParams",
+		"c++":	"xsltQuoteUserParams(xsltTransformContextPtr, const char **)",
+		"go":	"QuoteUserParams"
+	}, {
+		"mangle":	"xsltRegisterAllElement",
+		"c++":	"xsltRegisterAllElement(xsltTransformContextPtr)",
+		"go":	"RegisterAllElement"
+	}, {
+		"mangle":	"xsltRegisterAllExtras",
+		"c++":	"xsltRegisterAllExtras()",
+		"go":	"RegisterAllExtras"
+	}, {
+		"mangle":	"xsltRegisterAllFunctions",
+		"c++":	"xsltRegisterAllFunctions(xmlXPathContextPtr)",
+		"go":	"RegisterAllFunctions"
+	}, {
+		"mangle":	"xsltRegisterExtElement",
+		"c++":	"xsltRegisterExtElement(xsltTransformContextPtr, const xmlChar *, const xmlChar *, xsltTransformFunction)",
+		"go":	"RegisterExtElement"
+	}, {
+		"mangle":	"xsltRegisterExtFunction",
+		"c++":	"xsltRegisterExtFunction(xsltTransformContextPtr, const xmlChar *, const xmlChar *, xmlXPathFunction)",
+		"go":	"RegisterExtFunction"
+	}, {
+		"mangle":	"xsltRegisterExtModule",
+		"c++":	"xsltRegisterExtModule(const xmlChar *, xsltExtInitFunction, xsltExtShutdownFunction)",
+		"go":	"RegisterExtModule"
+	}, {
+		"mangle":	"xsltRegisterExtModuleElement",
+		"c++":	"xsltRegisterExtModuleElement(const xmlChar *, const xmlChar *, xsltPreComputeFunction, xsltTransformFunction)",
+		"go":	"RegisterExtModuleElement"
+	}, {
+		"mangle":	"xsltRegisterExtModuleFull",
+		"c++":	"xsltRegisterExtModuleFull(const xmlChar *, xsltExtInitFunction, xsltExtShutdownFunction, xsltStyleExtInitFunction, xsltStyleExtShutdownFunction)",
+		"go":	"RegisterExtModuleFull"
+	}, {
+		"mangle":	"xsltRegisterExtModuleFunction",
+		"c++":	"xsltRegisterExtModuleFunction(const xmlChar *, const xmlChar *, xmlXPathFunction)",
+		"go":	"RegisterExtModuleFunction"
+	}, {
+		"mangle":	"xsltRegisterExtModuleTopLevel",
+		"c++":	"xsltRegisterExtModuleTopLevel(const xmlChar *, const xmlChar *, xsltTopLevelFunction)",
+		"go":	"RegisterExtModuleTopLevel"
+	}, {
+		"mangle":	"xsltRegisterExtPrefix",
+		"c++":	"xsltRegisterExtPrefix(xsltStylesheetPtr, const xmlChar *, const xmlChar *)",
+		"go":	"RegisterExtPrefix"
+	}, {
+		"mangle":	"xsltRegisterExtras",
+		"c++":	"xsltRegisterExtras(xsltTransformContextPtr)",
+		"go":	"RegisterExtras"
+	}, {
+		"mangle":	"xsltRegisterLocalRVT",
+		"c++":	"xsltRegisterLocalRVT(xsltTransformContextPtr, xmlDocPtr)",
+		"go":	"RegisterLocalRVT"
+	}, {
+		"mangle":	"xsltRegisterPersistRVT",
+		"c++":	"xsltRegisterPersistRVT(xsltTransformContextPtr, xmlDocPtr)",
+		"go":	"RegisterPersistRVT"
+	}, {
+		"mangle":	"xsltRegisterTestModule",
+		"c++":	"xsltRegisterTestModule()",
+		"go":	"RegisterTestModule"
+	}, {
+		"mangle":	"xsltRegisterTmpRVT",
+		"c++":	"xsltRegisterTmpRVT(xsltTransformContextPtr, xmlDocPtr)",
+		"go":	"RegisterTmpRVT"
+	}, {
+		"mangle":	"xsltReleaseRVT",
+		"c++":	"xsltReleaseRVT(xsltTransformContextPtr, xmlDocPtr)",
+		"go":	"ReleaseRVT"
+	}, {
+		"mangle":	"xsltResolveStylesheetAttributeSet",
+		"c++":	"xsltResolveStylesheetAttributeSet(xsltStylesheetPtr)",
+		"go":	"ResolveStylesheetAttributeSet"
+	}, {
+		"mangle":	"xsltRunStylesheet",
+		"c++":	"xsltRunStylesheet(xsltStylesheetPtr, xmlDocPtr, const char **, const char *, xmlSAXHandlerPtr, xmlOutputBufferPtr)",
+		"go":	"RunStylesheet"
+	}, {
+		"mangle":	"xsltRunStylesheetUser",
+		"c++":	"xsltRunStylesheetUser(xsltStylesheetPtr, xmlDocPtr, const char **, const char *, xmlSAXHandlerPtr, xmlOutputBufferPtr, FILE *, xsltTransformContextPtr)",
+		"go":	"RunStylesheetUser"
+	}, {
+		"mangle":	"xsltSaveResultTo",
+		"c++":	"xsltSaveResultTo(xmlOutputBufferPtr, xmlDocPtr, xsltStylesheetPtr)",
+		"go":	"SaveResultTo"
+	}, {
+		"mangle":	"xsltSaveResultToFd",
+		"c++":	"xsltSaveResultToFd(int, xmlDocPtr, xsltStylesheetPtr)",
+		"go":	"SaveResultToFd"
+	}, {
+		"mangle":	"xsltSaveResultToFile",
+		"c++":	"xsltSaveResultToFile(FILE *, xmlDocPtr, xsltStylesheetPtr)",
+		"go":	"SaveResultToFile"
+	}, {
+		"mangle":	"xsltSaveResultToFilename",
+		"c++":	"xsltSaveResultToFilename(const char *, xmlDocPtr, xsltStylesheetPtr, int)",
+		"go":	"SaveResultToFilename"
+	}, {
+		"mangle":	"xsltSaveResultToString",
+		"c++":	"xsltSaveResultToString(xmlChar **, int *, xmlDocPtr, xsltStylesheetPtr)",
+		"go":	"SaveResultToString"
+	}, {
+		"mangle":	"xsltSecurityAllow",
+		"c++":	"xsltSecurityAllow(xsltSecurityPrefsPtr, xsltTransformContextPtr, const char *)",
+		"go":	"SecurityAllow"
+	}, {
+		"mangle":	"xsltSecurityForbid",
+		"c++":	"xsltSecurityForbid(xsltSecurityPrefsPtr, xsltTransformContextPtr, const char *)",
+		"go":	"SecurityForbid"
+	}, {
+		"mangle":	"xsltSetCtxtLocaleHandlers",
+		"c++":	"xsltSetCtxtLocaleHandlers(xsltTransformContextPtr, xsltNewLocaleFunc, xsltFreeLocaleFunc, xsltGenSortKeyFunc)",
+		"go":	"-"
+	}, {
+		"mangle":	"xsltSetCtxtParseOptions",
+		"c++":	"xsltSetCtxtParseOptions(xsltTransformContextPtr, int)",
+		"go":	"SetCtxtParseOptions"
+	}, {
+		"mangle":	"xsltSetCtxtSecurityPrefs",
+		"c++":	"xsltSetCtxtSecurityPrefs(xsltSecurityPrefsPtr, xsltTransformContextPtr)",
+		"go":	"SetCtxtSecurityPrefs"
+	}, {
+		"mangle":	"xsltSetCtxtSortFunc",
+		"c++":	"xsltSetCtxtSortFunc(xsltTransformContextPtr, xsltSortFunc)",
+		"go":	"SetCtxtSortFunc"
+	}, {
+		"mangle":	"xsltSetDefaultSecurityPrefs",
+		"c++":	"xsltSetDefaultSecurityPrefs(xsltSecurityPrefsPtr)",
+		"go":	"SetDefaultSecurityPrefs"
+	}, {
+		"mangle":	"xsltSetGenericDebugFunc",
+		"c++":	"xsltSetGenericDebugFunc(void *, xmlGenericErrorFunc)",
+		"go":	"SetGenericDebugFunc"
+	}, {
+		"mangle":	"xsltSetGenericErrorFunc",
+		"c++":	"xsltSetGenericErrorFunc(void *, xmlGenericErrorFunc)",
+		"go":	"SetGenericErrorFunc"
+	}, {
+		"mangle":	"xsltSetLoaderFunc",
+		"c++":	"xsltSetLoaderFunc(xsltDocLoaderFunc)",
+		"go":	"SetLoaderFunc"
+	}, {
+		"mangle":	"xsltSetSecurityPrefs",
+		"c++":	"xsltSetSecurityPrefs(xsltSecurityPrefsPtr, xsltSecurityOption, xsltSecurityCheck)",
+		"go":	"SetSecurityPrefs"
+	}, {
+		"mangle":	"xsltSetSortFunc",
+		"c++":	"xsltSetSortFunc(xsltSortFunc)",
+		"go":	"SetSortFunc"
+	}, {
+		"mangle":	"xsltSetTransformErrorFunc",
+		"c++":	"xsltSetTransformErrorFunc(xsltTransformContextPtr, void *, xmlGenericErrorFunc)",
+		"go":	"SetTransformErrorFunc"
+	}, {
+		"mangle":	"xsltSetXIncludeDefault",
+		"c++":	"xsltSetXIncludeDefault(int)",
+		"go":	"SetXIncludeDefault"
+	}, {
+		"mangle":	"xsltShutdownCtxtExts",
+		"c++":	"xsltShutdownCtxtExts(xsltTransformContextPtr)",
+		"go":	"ShutdownCtxtExts"
+	}, {
+		"mangle":	"xsltShutdownExts",
+		"c++":	"xsltShutdownExts(xsltStylesheetPtr)",
+		"go":	"ShutdownExts"
+	}, {
+		"mangle":	"xsltSort",
+		"c++":	"xsltSort(xsltTransformContextPtr, xmlNodePtr, xmlNodePtr, xsltElemPreCompPtr)",
+		"go":	"Sort"
+	}, {
+		"mangle":	"xsltSplitQName",
+		"c++":	"xsltSplitQName(xmlDictPtr, const xmlChar *, const xmlChar **)",
+		"go":	"SplitQName"
+	}, {
+		"mangle":	"xsltStrxfrm",
+		"c++":	"xsltStrxfrm(void *, const xmlChar *)",
+		"go":	"Strxfrm"
+	}, {
+		"mangle":	"xsltStyleGetExtData",
+		"c++":	"xsltStyleGetExtData(xsltStylesheetPtr, const xmlChar *)",
+		"go":	"StyleGetExtData"
+	}, {
+		"mangle":	"xsltStylePreCompute",
+		"c++":	"xsltStylePreCompute(xsltStylesheetPtr, xmlNodePtr)",
+		"go":	"StylePreCompute"
+	}, {
+		"mangle":	"xsltSystemPropertyFunction",
+		"c++":	"xsltSystemPropertyFunction(xmlXPathParserContextPtr, int)",
+		"go":	"SystemPropertyFunction"
+	}, {
+		"mangle":	"xsltTemplateProcess",
+		"c++":	"xsltTemplateProcess(xsltTransformContextPtr, xmlNodePtr)",
+		"go":	"TemplateProcess"
+	}, {
+		"mangle":	"xsltTestCompMatchList",
+		"c++":	"xsltTestCompMatchList(xsltTransformContextPtr, xmlNodePtr, xsltCompMatchPtr)",
+		"go":	"TestCompMatchList"
+	}, {
+		"mangle":	"xsltText",
+		"c++":	"xsltText(xsltTransformContextPtr, xmlNodePtr, xmlNodePtr, xsltElemPreCompPtr)",
+		"go":	"Text"
+	}, {
+		"mangle":	"xsltTransformError",
+		"c++":	"xsltTransformError(xsltTransformContextPtr, xsltStylesheetPtr, xmlNodePtr, const char *, ...)",
+		"go":	"TransformError"
+	}, {
+		"mangle":	"xsltUninit",
+		"c++":	"xsltUninit()",
+		"go":	"Uninit"
+	}, {
+		"mangle":	"xsltUnparsedEntityURIFunction",
+		"c++":	"xsltUnparsedEntityURIFunction(xmlXPathParserContextPtr, int)",
+		"go":	"UnparsedEntityURIFunction"
+	}, {
+		"mangle":	"xsltUnregisterExtModule",
+		"c++":	"xsltUnregisterExtModule(const xmlChar *)",
+		"go":	"UnregisterExtModule"
+	}, {
+		"mangle":	"xsltUnregisterExtModuleElement",
+		"c++":	"xsltUnregisterExtModuleElement(const xmlChar *, const xmlChar *)",
+		"go":	"UnregisterExtModuleElement"
+	}, {
+		"mangle":	"xsltUnregisterExtModuleFunction",
+		"c++":	"xsltUnregisterExtModuleFunction(const xmlChar *, const xmlChar *)",
+		"go":	"UnregisterExtModuleFunction"
+	}, {
+		"mangle":	"xsltUnregisterExtModuleTopLevel",
+		"c++":	"xsltUnregisterExtModuleTopLevel(const xmlChar *, const xmlChar *)",
+		"go":	"UnregisterExtModuleTopLevel"
+	}, {
+		"mangle":	"xsltValueOf",
+		"c++":	"xsltValueOf(xsltTransformContextPtr, xmlNodePtr, xmlNodePtr, xsltElemPreCompPtr)",
+		"go":	"ValueOf"
+	}, {
+		"mangle":	"xsltVariableLookup",
+		"c++":	"xsltVariableLookup(xsltTransformContextPtr, const xmlChar *, const xmlChar *)",
+		"go":	"VariableLookup"
+	}, {
+		"mangle":	"xsltXPathCompile",
+		"c++":	"xsltXPathCompile(xsltStylesheetPtr, const xmlChar *)",
+		"go":	"XPathCompile"
+	}, {
+		"mangle":	"xsltXPathCompileFlags",
+		"c++":	"xsltXPathCompileFlags(xsltStylesheetPtr, const xmlChar *, int)",
+		"go":	"XPathCompileFlags"
+	}, {
+		"mangle":	"xsltXPathFunctionLookup",
+		"c++":	"xsltXPathFunctionLookup(void *, const xmlChar *, const xmlChar *)",
+		"go":	"XPathFunctionLookup"
+	}, {
+		"mangle":	"xsltXPathGetTransformContext",
+		"c++":	"xsltXPathGetTransformContext(xmlXPathParserContextPtr)",
+		"go":	"XPathGetTransformContext"
+	}, {
+		"mangle":	"xsltXPathVariableLookup",
+		"c++":	"xsltXPathVariableLookup(void *, const xmlChar *, const xmlChar *)",
+		"go":	"XPathVariableLookup"
+	}]

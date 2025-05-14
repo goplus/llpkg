@@ -1,0 +1,97 @@
+[{
+		"mangle":	"BZ2_bzBuffToBuffCompress",
+		"c++":	"BZ2_bzBuffToBuffCompress(char *, unsigned int *, char *, unsigned int, int, int, int)",
+		"go":	"BuffToBuffCompress"
+	}, {
+		"mangle":	"BZ2_bzBuffToBuffDecompress",
+		"c++":	"BZ2_bzBuffToBuffDecompress(char *, unsigned int *, char *, unsigned int, int, int)",
+		"go":	"BuffToBuffDecompress"
+	}, {
+		"mangle":	"BZ2_bzCompress",
+		"c++":	"BZ2_bzCompress(bz_stream *, int)",
+		"go":	"(*BzStream).Compress"
+	}, {
+		"mangle":	"BZ2_bzCompressEnd",
+		"c++":	"BZ2_bzCompressEnd(bz_stream *)",
+		"go":	"(*BzStream).CompressEnd"
+	}, {
+		"mangle":	"BZ2_bzCompressInit",
+		"c++":	"BZ2_bzCompressInit(bz_stream *, int, int, int)",
+		"go":	"(*BzStream).CompressInit"
+	}, {
+		"mangle":	"BZ2_bzDecompress",
+		"c++":	"BZ2_bzDecompress(bz_stream *)",
+		"go":	"(*BzStream).Decompress"
+	}, {
+		"mangle":	"BZ2_bzDecompressEnd",
+		"c++":	"BZ2_bzDecompressEnd(bz_stream *)",
+		"go":	"(*BzStream).DecompressEnd"
+	}, {
+		"mangle":	"BZ2_bzDecompressInit",
+		"c++":	"BZ2_bzDecompressInit(bz_stream *, int, int)",
+		"go":	"(*BzStream).DecompressInit"
+	}, {
+		"mangle":	"BZ2_bzRead",
+		"c++":	"BZ2_bzRead(int *, BZFILE *, void *, int)",
+		"go":	"Read"
+	}, {
+		"mangle":	"BZ2_bzReadClose",
+		"c++":	"BZ2_bzReadClose(int *, BZFILE *)",
+		"go":	"ReadClose"
+	}, {
+		"mangle":	"BZ2_bzReadGetUnused",
+		"c++":	"BZ2_bzReadGetUnused(int *, BZFILE *, void **, int *)",
+		"go":	"ReadGetUnused"
+	}, {
+		"mangle":	"BZ2_bzReadOpen",
+		"c++":	"BZ2_bzReadOpen(int *, FILE *, int, int, void *, int)",
+		"go":	"ReadOpen"
+	}, {
+		"mangle":	"BZ2_bzWrite",
+		"c++":	"BZ2_bzWrite(int *, BZFILE *, void *, int)",
+		"go":	"Write"
+	}, {
+		"mangle":	"BZ2_bzWriteClose",
+		"c++":	"BZ2_bzWriteClose(int *, BZFILE *, int, unsigned int *, unsigned int *)",
+		"go":	"WriteClose"
+	}, {
+		"mangle":	"BZ2_bzWriteClose64",
+		"c++":	"BZ2_bzWriteClose64(int *, BZFILE *, int, unsigned int *, unsigned int *, unsigned int *, unsigned int *)",
+		"go":	"WriteClose64"
+	}, {
+		"mangle":	"BZ2_bzWriteOpen",
+		"c++":	"BZ2_bzWriteOpen(int *, FILE *, int, int, int)",
+		"go":	"WriteOpen"
+	}, {
+		"mangle":	"BZ2_bzclose",
+		"c++":	"BZ2_bzclose(BZFILE *)",
+		"go":	"(*BZFILE).Close"
+	}, {
+		"mangle":	"BZ2_bzdopen",
+		"c++":	"BZ2_bzdopen(int, const char *)",
+		"go":	"Dopen"
+	}, {
+		"mangle":	"BZ2_bzerror",
+		"c++":	"BZ2_bzerror(BZFILE *, int *)",
+		"go":	"(*BZFILE).Error"
+	}, {
+		"mangle":	"BZ2_bzflush",
+		"c++":	"BZ2_bzflush(BZFILE *)",
+		"go":	"(*BZFILE).Flush"
+	}, {
+		"mangle":	"BZ2_bzlibVersion",
+		"c++":	"BZ2_bzlibVersion()",
+		"go":	"LibVersion"
+	}, {
+		"mangle":	"BZ2_bzopen",
+		"c++":	"BZ2_bzopen(const char *, const char *)",
+		"go":	"Open"
+	}, {
+		"mangle":	"BZ2_bzread",
+		"c++":	"BZ2_bzread(BZFILE *, void *, int)",
+		"go":	"(*BZFILE).Read"
+	}, {
+		"mangle":	"BZ2_bzwrite",
+		"c++":	"BZ2_bzwrite(BZFILE *, void *, int)",
+		"go":	"(*BZFILE).Write"
+	}]

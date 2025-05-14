@@ -1,0 +1,53 @@
+[{
+		"mangle":	"cag_option_fetch",
+		"c++":	"cag_option_fetch(cag_option_context *)",
+		"go":	"(*OptionContext).OptionFetch"
+	}, {
+		"mangle":	"cag_option_get",
+		"c++":	"cag_option_get(const cag_option_context *)",
+		"go":	"(*OptionContext).OptionGet"
+	}, {
+		"mangle":	"cag_option_get_error_index",
+		"c++":	"cag_option_get_error_index(const cag_option_context *)",
+		"go":	"(*OptionContext).OptionGetErrorIndex"
+	}, {
+		"mangle":	"cag_option_get_error_letter",
+		"c++":	"cag_option_get_error_letter(const cag_option_context *)",
+		"go":	"(*OptionContext).OptionGetErrorLetter"
+	}, {
+		"mangle":	"cag_option_get_identifier",
+		"c++":	"cag_option_get_identifier(const cag_option_context *)",
+		"go":	"(*OptionContext).OptionGetIdentifier"
+	}, {
+		"mangle":	"cag_option_get_index",
+		"c++":	"cag_option_get_index(const cag_option_context *)",
+		"go":	"(*OptionContext).OptionGetIndex"
+	}, {
+		"mangle":	"cag_option_get_value",
+		"c++":	"cag_option_get_value(const cag_option_context *)",
+		"go":	"(*OptionContext).OptionGetValue"
+	}, {
+		"mangle":	"cag_option_init",
+		"c++":	"cag_option_init(cag_option_context *, const cag_option *, size_t, int, char **)",
+		"go":	"(*OptionContext).OptionInit"
+	}, {
+		"mangle":	"cag_option_prepare",
+		"c++":	"cag_option_prepare(cag_option_context *, const cag_option *, size_t, int, char **)",
+		"go":	"(*OptionContext).OptionPrepare"
+	}, {
+		"mangle":	"cag_option_print",
+		"c++":	"cag_option_print(const cag_option *, size_t, FILE *)",
+		"go":	"(*Option).OptionPrint"
+	}, {
+		"mangle":	"cag_option_print_error",
+		"c++":	"cag_option_print_error(const cag_option_context *, FILE *)",
+		"go":	"(*OptionContext).OptionPrintError"
+	}, {
+		"mangle":	"cag_option_printer",
+		"c++":	"cag_option_printer(const cag_option *, size_t, cag_printer, void *)",
+		"go":	"(*Option).OptionPrinter"
+	}, {
+		"mangle":	"cag_option_printer_error",
+		"c++":	"cag_option_printer_error(const cag_option_context *, cag_printer, void *)",
+		"go":	"(*OptionContext).OptionPrinterError"
+	}]
