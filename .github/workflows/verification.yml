@@ -24,7 +24,7 @@ jobs:
           - ubuntu-24.04
           - ubuntu-24.04-arm
         llgo: [v0.10.1]
-        llcppg: [v0.2.1]
+        llcppg: [v0.3.1]
 
     runs-on: ${{matrix.os}}
     steps:
