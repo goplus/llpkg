@@ -63,8 +63,8 @@ func (recv_ *JSON) Print() *c.Char {
 }
 
 /* Render a cJSON entity to text for transfer/storage without any formatting. */
-// llgo:link (*JSON).PrintUnformatted C.cJSON_PrintUnformatted
-func (recv_ *JSON) PrintUnformatted() *c.Char {
+// llgo:link (*JSON).CStr C.cJSON_PrintUnformatted
+func (recv_ *JSON) CStr() *c.Char {
 	return nil
 }
 
@@ -181,14 +181,14 @@ func (recv_ *JSON) IsRaw() Bool {
 }
 
 /* These calls create a cJSON item of the appropriate type. */
-//go:linkname CreateNull C.cJSON_CreateNull
-func CreateNull() *JSON
+//go:linkname Null C.cJSON_CreateNull
+func Null() *JSON
 
-//go:linkname CreateTrue C.cJSON_CreateTrue
-func CreateTrue() *JSON
+//go:linkname True C.cJSON_CreateTrue
+func True() *JSON
 
-//go:linkname CreateFalse C.cJSON_CreateFalse
-func CreateFalse() *JSON
+//go:linkname False C.cJSON_CreateFalse
+func False() *JSON
 
 // llgo:link Bool.CreateBool C.cJSON_CreateBool
 func (recv_ Bool) CreateBool() *JSON {
@@ -198,18 +198,18 @@ func (recv_ Bool) CreateBool() *JSON {
 //go:linkname Number C.cJSON_CreateNumber
 func Number(num c.Double) *JSON
 
-//go:linkname CreateString C.cJSON_CreateString
-func CreateString(string *c.Char) *JSON
+//go:linkname String C.cJSON_CreateString
+func String(string *c.Char) *JSON
 
 /* raw json */
 //go:linkname Raw C.cJSON_CreateRaw
 func Raw(raw *c.Char) *JSON
 
-//go:linkname CreateArray C.cJSON_CreateArray
-func CreateArray() *JSON
+//go:linkname Array C.cJSON_CreateArray
+func Array() *JSON
 
-//go:linkname CreateObject C.cJSON_CreateObject
-func CreateObject() *JSON
+//go:linkname Object C.cJSON_CreateObject
+func Object() *JSON
 
 /* Create a string where valuestring references a string so
  * it will not be freed by cJSON_Delete */
@@ -241,13 +241,13 @@ func DoubleArray(numbers *c.Double, count c.Int) *JSON
 func StringArray(strings **c.Char, count c.Int) *JSON
 
 /* Append item to the specified array/object. */
-// llgo:link (*JSON).AddItemToArray C.cJSON_AddItemToArray
-func (recv_ *JSON) AddItemToArray(item *JSON) Bool {
+// llgo:link (*JSON).AddItem C.cJSON_AddItemToArray
+func (recv_ *JSON) AddItem(item *JSON) Bool {
 	return 0
 }
 
-// llgo:link (*JSON).AddItemToObject C.cJSON_AddItemToObject
-func (recv_ *JSON) AddItemToObject(string *c.Char, item *JSON) Bool {
+// llgo:link (*JSON).SetItem C.cJSON_AddItemToObject
+func (recv_ *JSON) SetItem(string *c.Char, item *JSON) Bool {
 	return 0
 }
 
@@ -414,5 +414,5 @@ func (recv_ *JSON) SetValuestring(valuestring *c.Char) *c.Char {
 //go:linkname Malloc C.cJSON_malloc
 func Malloc(size c.SizeT) c.Pointer
 
-//go:linkname Free C.cJSON_free
-func Free(object c.Pointer)
+//go:linkname FreeCStr C.cJSON_free
+func FreeCStr(object c.Pointer)
