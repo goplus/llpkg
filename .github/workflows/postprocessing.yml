@@ -35,7 +35,7 @@ jobs:
         with:
           go-version: 1.23.x
       - name: Set up Tool
-        run: go install -v github.com/goplus/llpkgstore/cmd/llpkgstore@v0.0.0-20250415034939-e82a3f138946
+        run: go install -v github.com/goplus/llpkgstore/cmd/llpkgstore@latest
       - name: Install dependencies
         if: startsWith(matrix.os, 'macos')
         run: |
@@ -73,7 +73,7 @@ jobs:
         with:
           go-version: 1.23.x
       - name: Set up Tool
-        run: go install -v github.com/goplus/llpkgstore/cmd/llpkgstore@v0.0.0-20250415034939-e82a3f138946
+        run: go install -v github.com/goplus/llpkgstore/cmd/llpkgstore@latest
       - name: Checkout to website
         uses: actions/checkout@v4
         with:
