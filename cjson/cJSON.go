@@ -190,10 +190,8 @@ func True() *JSON
 //go:linkname False C.cJSON_CreateFalse
 func False() *JSON
 
-// llgo:link Bool.CreateBool C.cJSON_CreateBool
-func (recv_ Bool) CreateBool() *JSON {
-	return nil
-}
+//go:linkname CreateBool C.cJSON_CreateBool
+func CreateBool(boolean Bool) *JSON
 
 //go:linkname Number C.cJSON_CreateNumber
 func Number(num c.Double) *JSON
