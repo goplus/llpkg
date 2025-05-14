@@ -121,35 +121,35 @@
 	}, {
 		"mangle":	"cJSON_CreateArrayReference",
 		"c++":	"cJSON_CreateArrayReference(const cJSON *)",
-		"go":	"(*CJSON).CreateArrayRef"
+		"go":	"(*CJSON).CreateArrayReference"
 	}, {
 		"mangle":	"cJSON_CreateBool",
 		"c++":	"cJSON_CreateBool(cJSON_bool)",
-		"go":	"CreateBool"
+		"go":	"Bool.CreateBool"
 	}, {
 		"mangle":	"cJSON_CreateDoubleArray",
 		"c++":	"cJSON_CreateDoubleArray(const double *, int)",
-		"go":	"DoubleArray"
+		"go":	"CreateDoubleArray"
 	}, {
 		"mangle":	"cJSON_CreateFalse",
 		"c++":	"cJSON_CreateFalse()",
-		"go":	"False"
+		"go":	"CreateFalse"
 	}, {
 		"mangle":	"cJSON_CreateFloatArray",
 		"c++":	"cJSON_CreateFloatArray(const float *, int)",
-		"go":	"FloatArray"
+		"go":	"CreateFloatArray"
 	}, {
 		"mangle":	"cJSON_CreateIntArray",
 		"c++":	"cJSON_CreateIntArray(const int *, int)",
-		"go":	"IntArray"
+		"go":	"CreateIntArray"
 	}, {
 		"mangle":	"cJSON_CreateNull",
 		"c++":	"cJSON_CreateNull()",
-		"go":	"Null"
+		"go":	"CreateNull"
 	}, {
 		"mangle":	"cJSON_CreateNumber",
 		"c++":	"cJSON_CreateNumber(double)",
-		"go":	"Number"
+		"go":	"CreateNumber"
 	}, {
 		"mangle":	"cJSON_CreateObject",
 		"c++":	"cJSON_CreateObject()",
@@ -157,11 +157,11 @@
 	}, {
 		"mangle":	"cJSON_CreateObjectReference",
 		"c++":	"cJSON_CreateObjectReference(const cJSON *)",
-		"go":	"ObjectRef"
+		"go":	"(*CJSON).CreateObjectReference"
 	}, {
 		"mangle":	"cJSON_CreateRaw",
 		"c++":	"cJSON_CreateRaw(const char *)",
-		"go":	"Raw"
+		"go":	"CreateRaw"
 	}, {
 		"mangle":	"cJSON_CreateString",
 		"c++":	"cJSON_CreateString(const char *)",
@@ -169,15 +169,15 @@
 	}, {
 		"mangle":	"cJSON_CreateStringArray",
 		"c++":	"cJSON_CreateStringArray(const char *const *, int)",
-		"go":	"StringArray"
+		"go":	"CreateStringArray"
 	}, {
 		"mangle":	"cJSON_CreateStringReference",
 		"c++":	"cJSON_CreateStringReference(const char *)",
-		"go":	"StringRef"
+		"go":	"CreateStringReference"
 	}, {
 		"mangle":	"cJSON_CreateTrue",
 		"c++":	"cJSON_CreateTrue()",
-		"go":	"True"
+		"go":	"CreateTrue"
 	}, {
 		"mangle":	"cJSON_Delete",
 		"c++":	"cJSON_Delete(cJSON *)",
