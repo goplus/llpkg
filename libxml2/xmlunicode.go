@@ -1,7 +1,7 @@
 package libxml2
 
 import (
-	"github.com/goplus/llgo/c"
+	"github.com/goplus/lib/c"
 	_ "unsafe"
 )
 
@@ -390,7 +390,7 @@ func UCSIsYiSyllables(code c.Int) c.Int
 func UCSIsYijingHexagramSymbols(code c.Int) c.Int
 
 //go:linkname UCSIsBlock C.xmlUCSIsBlock
-func UCSIsBlock(code c.Int, block *int8) c.Int
+func UCSIsBlock(code c.Int, block *c.Char) c.Int
 
 //go:linkname UCSIsCatC C.xmlUCSIsCatC
 func UCSIsCatC(code c.Int) c.Int
@@ -501,4 +501,4 @@ func UCSIsCatZp(code c.Int) c.Int
 func UCSIsCatZs(code c.Int) c.Int
 
 //go:linkname UCSIsCat C.xmlUCSIsCat
-func UCSIsCat(code c.Int, cat *int8) c.Int
+func UCSIsCat(code c.Int, cat *c.Char) c.Int

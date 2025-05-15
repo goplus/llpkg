@@ -1,8 +1,8 @@
 package libxml2
 
 import (
-	"github.com/goplus/llgo/c"
-	"unsafe"
+	"github.com/goplus/lib/c"
+	_ "unsafe"
 )
 
 type X_xmlXIncludeCtxt struct {
@@ -21,10 +21,10 @@ func XIncludeProcess(doc DocPtr) c.Int
 func XIncludeProcessFlags(doc DocPtr, flags c.Int) c.Int
 
 //go:linkname XIncludeProcessFlagsData C.xmlXIncludeProcessFlagsData
-func XIncludeProcessFlagsData(doc DocPtr, flags c.Int, data unsafe.Pointer) c.Int
+func XIncludeProcessFlagsData(doc DocPtr, flags c.Int, data c.Pointer) c.Int
 
 //go:linkname XIncludeProcessTreeFlagsData C.xmlXIncludeProcessTreeFlagsData
-func XIncludeProcessTreeFlagsData(tree NodePtr, flags c.Int, data unsafe.Pointer) c.Int
+func XIncludeProcessTreeFlagsData(tree NodePtr, flags c.Int, data c.Pointer) c.Int
 
 //go:linkname XIncludeProcessTree C.xmlXIncludeProcessTree
 func XIncludeProcessTree(tree NodePtr) c.Int
@@ -42,7 +42,7 @@ func XIncludeNewContext(doc DocPtr) XIncludeCtxtPtr
 func XIncludeSetFlags(ctxt XIncludeCtxtPtr, flags c.Int) c.Int
 
 //go:linkname XIncludeSetErrorHandler C.xmlXIncludeSetErrorHandler
-func XIncludeSetErrorHandler(ctxt XIncludeCtxtPtr, handler StructuredErrorFunc, data unsafe.Pointer)
+func XIncludeSetErrorHandler(ctxt XIncludeCtxtPtr, handler StructuredErrorFunc, data c.Pointer)
 
 //go:linkname XIncludeGetLastError C.xmlXIncludeGetLastError
 func XIncludeGetLastError(ctxt XIncludeCtxtPtr) c.Int

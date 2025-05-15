@@ -1,8 +1,8 @@
 package libxml2
 
 import (
-	"github.com/goplus/llgo/c"
-	"unsafe"
+	"github.com/goplus/lib/c"
+	_ "unsafe"
 )
 
 type X_xmlRelaxNG struct {
@@ -12,10 +12,10 @@ type RelaxNG X_xmlRelaxNG
 type RelaxNGPtr *RelaxNG
 
 // llgo:type C
-type RelaxNGValidityErrorFunc func(__llgo_arg_0 unsafe.Pointer, __llgo_arg_1 *int8, __llgo_va_list ...interface{})
+type RelaxNGValidityErrorFunc func(__llgo_arg_0 c.Pointer, __llgo_arg_1 *c.Char, __llgo_va_list ...interface{})
 
 // llgo:type C
-type RelaxNGValidityWarningFunc func(__llgo_arg_0 unsafe.Pointer, __llgo_arg_1 *int8, __llgo_va_list ...interface{})
+type RelaxNGValidityWarningFunc func(__llgo_arg_0 c.Pointer, __llgo_arg_1 *c.Char, __llgo_va_list ...interface{})
 
 type X_xmlRelaxNGParserCtxt struct {
 	Unused [8]uint8
@@ -31,54 +31,54 @@ type RelaxNGValidCtxtPtr *RelaxNGValidCtxt
 type RelaxNGValidErr c.Int
 
 const (
-	RELAXNGOK              RelaxNGValidErr = 0
-	RELAXNGERRMEMORY       RelaxNGValidErr = 1
-	RELAXNGERRTYPE         RelaxNGValidErr = 2
-	RELAXNGERRTYPEVAL      RelaxNGValidErr = 3
-	RELAXNGERRDUPID        RelaxNGValidErr = 4
-	RELAXNGERRTYPECMP      RelaxNGValidErr = 5
-	RELAXNGERRNOSTATE      RelaxNGValidErr = 6
-	RELAXNGERRNODEFINE     RelaxNGValidErr = 7
-	RELAXNGERRLISTEXTRA    RelaxNGValidErr = 8
-	RELAXNGERRLISTEMPTY    RelaxNGValidErr = 9
-	RELAXNGERRINTERNODATA  RelaxNGValidErr = 10
-	RELAXNGERRINTERSEQ     RelaxNGValidErr = 11
-	RELAXNGERRINTEREXTRA   RelaxNGValidErr = 12
-	RELAXNGERRELEMNAME     RelaxNGValidErr = 13
-	RELAXNGERRATTRNAME     RelaxNGValidErr = 14
-	RELAXNGERRELEMNONS     RelaxNGValidErr = 15
-	RELAXNGERRATTRNONS     RelaxNGValidErr = 16
-	RELAXNGERRELEMWRONGNS  RelaxNGValidErr = 17
-	RELAXNGERRATTRWRONGNS  RelaxNGValidErr = 18
-	RELAXNGERRELEMEXTRANS  RelaxNGValidErr = 19
-	RELAXNGERRATTREXTRANS  RelaxNGValidErr = 20
-	RELAXNGERRELEMNOTEMPTY RelaxNGValidErr = 21
-	RELAXNGERRNOELEM       RelaxNGValidErr = 22
-	RELAXNGERRNOTELEM      RelaxNGValidErr = 23
-	RELAXNGERRATTRVALID    RelaxNGValidErr = 24
-	RELAXNGERRCONTENTVALID RelaxNGValidErr = 25
-	RELAXNGERREXTRACONTENT RelaxNGValidErr = 26
-	RELAXNGERRINVALIDATTR  RelaxNGValidErr = 27
-	RELAXNGERRDATAELEM     RelaxNGValidErr = 28
-	RELAXNGERRVALELEM      RelaxNGValidErr = 29
-	RELAXNGERRLISTELEM     RelaxNGValidErr = 30
-	RELAXNGERRDATATYPE     RelaxNGValidErr = 31
-	RELAXNGERRVALUE        RelaxNGValidErr = 32
-	RELAXNGERRLIST         RelaxNGValidErr = 33
-	RELAXNGERRNOGRAMMAR    RelaxNGValidErr = 34
-	RELAXNGERREXTRADATA    RelaxNGValidErr = 35
-	RELAXNGERRLACKDATA     RelaxNGValidErr = 36
-	RELAXNGERRINTERNAL     RelaxNGValidErr = 37
-	RELAXNGERRELEMWRONG    RelaxNGValidErr = 38
-	RELAXNGERRTEXTWRONG    RelaxNGValidErr = 39
+	RELAXNG_OK               RelaxNGValidErr = 0
+	RELAXNG_ERR_MEMORY       RelaxNGValidErr = 1
+	RELAXNG_ERR_TYPE         RelaxNGValidErr = 2
+	RELAXNG_ERR_TYPEVAL      RelaxNGValidErr = 3
+	RELAXNG_ERR_DUPID        RelaxNGValidErr = 4
+	RELAXNG_ERR_TYPECMP      RelaxNGValidErr = 5
+	RELAXNG_ERR_NOSTATE      RelaxNGValidErr = 6
+	RELAXNG_ERR_NODEFINE     RelaxNGValidErr = 7
+	RELAXNG_ERR_LISTEXTRA    RelaxNGValidErr = 8
+	RELAXNG_ERR_LISTEMPTY    RelaxNGValidErr = 9
+	RELAXNG_ERR_INTERNODATA  RelaxNGValidErr = 10
+	RELAXNG_ERR_INTERSEQ     RelaxNGValidErr = 11
+	RELAXNG_ERR_INTEREXTRA   RelaxNGValidErr = 12
+	RELAXNG_ERR_ELEMNAME     RelaxNGValidErr = 13
+	RELAXNG_ERR_ATTRNAME     RelaxNGValidErr = 14
+	RELAXNG_ERR_ELEMNONS     RelaxNGValidErr = 15
+	RELAXNG_ERR_ATTRNONS     RelaxNGValidErr = 16
+	RELAXNG_ERR_ELEMWRONGNS  RelaxNGValidErr = 17
+	RELAXNG_ERR_ATTRWRONGNS  RelaxNGValidErr = 18
+	RELAXNG_ERR_ELEMEXTRANS  RelaxNGValidErr = 19
+	RELAXNG_ERR_ATTREXTRANS  RelaxNGValidErr = 20
+	RELAXNG_ERR_ELEMNOTEMPTY RelaxNGValidErr = 21
+	RELAXNG_ERR_NOELEM       RelaxNGValidErr = 22
+	RELAXNG_ERR_NOTELEM      RelaxNGValidErr = 23
+	RELAXNG_ERR_ATTRVALID    RelaxNGValidErr = 24
+	RELAXNG_ERR_CONTENTVALID RelaxNGValidErr = 25
+	RELAXNG_ERR_EXTRACONTENT RelaxNGValidErr = 26
+	RELAXNG_ERR_INVALIDATTR  RelaxNGValidErr = 27
+	RELAXNG_ERR_DATAELEM     RelaxNGValidErr = 28
+	RELAXNG_ERR_VALELEM      RelaxNGValidErr = 29
+	RELAXNG_ERR_LISTELEM     RelaxNGValidErr = 30
+	RELAXNG_ERR_DATATYPE     RelaxNGValidErr = 31
+	RELAXNG_ERR_VALUE        RelaxNGValidErr = 32
+	RELAXNG_ERR_LIST         RelaxNGValidErr = 33
+	RELAXNG_ERR_NOGRAMMAR    RelaxNGValidErr = 34
+	RELAXNG_ERR_EXTRADATA    RelaxNGValidErr = 35
+	RELAXNG_ERR_LACKDATA     RelaxNGValidErr = 36
+	RELAXNG_ERR_INTERNAL     RelaxNGValidErr = 37
+	RELAXNG_ERR_ELEMWRONG    RelaxNGValidErr = 38
+	RELAXNG_ERR_TEXTWRONG    RelaxNGValidErr = 39
 )
 
 type RelaxNGParserFlag c.Int
 
 const (
-	RELAXNGPNONE    RelaxNGParserFlag = 0
-	RELAXNGPFREEDOC RelaxNGParserFlag = 1
-	RELAXNGPCRNG    RelaxNGParserFlag = 2
+	RELAXNGP_NONE     RelaxNGParserFlag = 0
+	RELAXNGP_FREE_DOC RelaxNGParserFlag = 1
+	RELAXNGP_CRNG     RelaxNGParserFlag = 2
 )
 
 //go:linkname RelaxNGInitTypes C.xmlRelaxNGInitTypes
@@ -91,10 +91,10 @@ func RelaxNGCleanupTypes()
  * Interfaces for parsing.
  */
 //go:linkname RelaxNGNewParserCtxt C.xmlRelaxNGNewParserCtxt
-func RelaxNGNewParserCtxt(URL *int8) RelaxNGParserCtxtPtr
+func RelaxNGNewParserCtxt(URL *c.Char) RelaxNGParserCtxtPtr
 
 //go:linkname RelaxNGNewMemParserCtxt C.xmlRelaxNGNewMemParserCtxt
-func RelaxNGNewMemParserCtxt(buffer *int8, size c.Int) RelaxNGParserCtxtPtr
+func RelaxNGNewMemParserCtxt(buffer *c.Char, size c.Int) RelaxNGParserCtxtPtr
 
 //go:linkname RelaxNGNewDocParserCtxt C.xmlRelaxNGNewDocParserCtxt
 func RelaxNGNewDocParserCtxt(doc DocPtr) RelaxNGParserCtxtPtr
@@ -106,13 +106,13 @@ func RelaxParserSetFlag(ctxt RelaxNGParserCtxtPtr, flag c.Int) c.Int
 func RelaxNGFreeParserCtxt(ctxt RelaxNGParserCtxtPtr)
 
 //go:linkname RelaxNGSetParserErrors C.xmlRelaxNGSetParserErrors
-func RelaxNGSetParserErrors(ctxt RelaxNGParserCtxtPtr, err RelaxNGValidityErrorFunc, warn RelaxNGValidityWarningFunc, ctx unsafe.Pointer)
+func RelaxNGSetParserErrors(ctxt RelaxNGParserCtxtPtr, err RelaxNGValidityErrorFunc, warn RelaxNGValidityWarningFunc, ctx c.Pointer)
 
 //go:linkname RelaxNGGetParserErrors C.xmlRelaxNGGetParserErrors
-func RelaxNGGetParserErrors(ctxt RelaxNGParserCtxtPtr, err RelaxNGValidityErrorFunc, warn RelaxNGValidityWarningFunc, ctx *unsafe.Pointer) c.Int
+func RelaxNGGetParserErrors(ctxt RelaxNGParserCtxtPtr, err RelaxNGValidityErrorFunc, warn RelaxNGValidityWarningFunc, ctx *c.Pointer) c.Int
 
 //go:linkname RelaxNGSetParserStructuredErrors C.xmlRelaxNGSetParserStructuredErrors
-func RelaxNGSetParserStructuredErrors(ctxt RelaxNGParserCtxtPtr, serror StructuredErrorFunc, ctx unsafe.Pointer)
+func RelaxNGSetParserStructuredErrors(ctxt RelaxNGParserCtxtPtr, serror StructuredErrorFunc, ctx c.Pointer)
 
 //go:linkname RelaxNGParse C.xmlRelaxNGParse
 func RelaxNGParse(ctxt RelaxNGParserCtxtPtr) RelaxNGPtr
@@ -130,13 +130,13 @@ func RelaxNGDumpTree(output *c.FILE, schema RelaxNGPtr)
  * Interfaces for validating
  */
 //go:linkname RelaxNGSetValidErrors C.xmlRelaxNGSetValidErrors
-func RelaxNGSetValidErrors(ctxt RelaxNGValidCtxtPtr, err RelaxNGValidityErrorFunc, warn RelaxNGValidityWarningFunc, ctx unsafe.Pointer)
+func RelaxNGSetValidErrors(ctxt RelaxNGValidCtxtPtr, err RelaxNGValidityErrorFunc, warn RelaxNGValidityWarningFunc, ctx c.Pointer)
 
 //go:linkname RelaxNGGetValidErrors C.xmlRelaxNGGetValidErrors
-func RelaxNGGetValidErrors(ctxt RelaxNGValidCtxtPtr, err RelaxNGValidityErrorFunc, warn RelaxNGValidityWarningFunc, ctx *unsafe.Pointer) c.Int
+func RelaxNGGetValidErrors(ctxt RelaxNGValidCtxtPtr, err RelaxNGValidityErrorFunc, warn RelaxNGValidityWarningFunc, ctx *c.Pointer) c.Int
 
 //go:linkname RelaxNGSetValidStructuredErrors C.xmlRelaxNGSetValidStructuredErrors
-func RelaxNGSetValidStructuredErrors(ctxt RelaxNGValidCtxtPtr, serror StructuredErrorFunc, ctx unsafe.Pointer)
+func RelaxNGSetValidStructuredErrors(ctxt RelaxNGValidCtxtPtr, serror StructuredErrorFunc, ctx c.Pointer)
 
 //go:linkname RelaxNGNewValidCtxt C.xmlRelaxNGNewValidCtxt
 func RelaxNGNewValidCtxt(schema RelaxNGPtr) RelaxNGValidCtxtPtr

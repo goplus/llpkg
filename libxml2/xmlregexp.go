@@ -1,8 +1,8 @@
 package libxml2
 
 import (
-	"github.com/goplus/llgo/c"
-	"unsafe"
+	"github.com/goplus/lib/c"
+	_ "unsafe"
 )
 
 type X_xmlRegexp struct {
@@ -38,22 +38,22 @@ func RegexpPrint(output *c.FILE, regexp RegexpPtr)
 func RegexpIsDeterminist(comp RegexpPtr) c.Int
 
 // llgo:type C
-type RegExecCallbacks func(RegExecCtxtPtr, *Char, unsafe.Pointer, unsafe.Pointer)
+type RegExecCallbacks func(RegExecCtxtPtr, *Char, c.Pointer, c.Pointer)
 
 /*
  * The progressive API
  */
 //go:linkname RegNewExecCtxt C.xmlRegNewExecCtxt
-func RegNewExecCtxt(comp RegexpPtr, callback RegExecCallbacks, data unsafe.Pointer) RegExecCtxtPtr
+func RegNewExecCtxt(comp RegexpPtr, callback RegExecCallbacks, data c.Pointer) RegExecCtxtPtr
 
 //go:linkname RegFreeExecCtxt C.xmlRegFreeExecCtxt
 func RegFreeExecCtxt(exec RegExecCtxtPtr)
 
 //go:linkname RegExecPushString C.xmlRegExecPushString
-func RegExecPushString(exec RegExecCtxtPtr, value *Char, data unsafe.Pointer) c.Int
+func RegExecPushString(exec RegExecCtxtPtr, value *Char, data c.Pointer) c.Int
 
 //go:linkname RegExecPushString2 C.xmlRegExecPushString2
-func RegExecPushString2(exec RegExecCtxtPtr, value *Char, value2 *Char, data unsafe.Pointer) c.Int
+func RegExecPushString2(exec RegExecCtxtPtr, value *Char, value2 *Char, data c.Pointer) c.Int
 
 //go:linkname RegExecNextValues C.xmlRegExecNextValues
 func RegExecNextValues(exec RegExecCtxtPtr, nbval *c.Int, nbneg *c.Int, values **Char, terminal *c.Int) c.Int

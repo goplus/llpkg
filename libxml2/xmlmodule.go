@@ -1,8 +1,8 @@
 package libxml2
 
 import (
-	"github.com/goplus/llgo/c"
-	"unsafe"
+	"github.com/goplus/lib/c"
+	_ "unsafe"
 )
 
 type X_xmlModule struct {
@@ -13,15 +13,15 @@ type ModulePtr *Module
 type ModuleOption c.Int
 
 const (
-	MODULELAZY  ModuleOption = 1
-	MODULELOCAL ModuleOption = 2
+	MODULE_LAZY  ModuleOption = 1
+	MODULE_LOCAL ModuleOption = 2
 )
 
 //go:linkname ModuleOpen C.xmlModuleOpen
-func ModuleOpen(filename *int8, options c.Int) ModulePtr
+func ModuleOpen(filename *c.Char, options c.Int) ModulePtr
 
 //go:linkname ModuleSymbol C.xmlModuleSymbol
-func ModuleSymbol(module ModulePtr, name *int8, result *unsafe.Pointer) c.Int
+func ModuleSymbol(module ModulePtr, name *c.Char, result *c.Pointer) c.Int
 
 //go:linkname ModuleClose C.xmlModuleClose
 func ModuleClose(module ModulePtr) c.Int

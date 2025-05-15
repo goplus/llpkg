@@ -1,19 +1,19 @@
 package libxml2
 
 import (
-	"github.com/goplus/llgo/c"
+	"github.com/goplus/lib/c"
 	_ "unsafe"
 )
 
 type EntityType c.Int
 
 const (
-	INTERNALGENERALENTITY         EntityType = 1
-	EXTERNALGENERALPARSEDENTITY   EntityType = 2
-	EXTERNALGENERALUNPARSEDENTITY EntityType = 3
-	INTERNALPARAMETERENTITY       EntityType = 4
-	EXTERNALPARAMETERENTITY       EntityType = 5
-	INTERNALPREDEFINEDENTITY      EntityType = 6
+	INTERNAL_GENERAL_ENTITY          EntityType = 1
+	EXTERNAL_GENERAL_PARSED_ENTITY   EntityType = 2
+	EXTERNAL_GENERAL_UNPARSED_ENTITY EntityType = 3
+	INTERNAL_PARAMETER_ENTITY        EntityType = 4
+	EXTERNAL_PARAMETER_ENTITY        EntityType = 5
+	INTERNAL_PREDEFINED_ENTITY       EntityType = 6
 )
 
 type EntitiesTable X_xmlHashTable

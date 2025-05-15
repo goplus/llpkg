@@ -1,8 +1,8 @@
 package libxml2
 
 import (
-	"github.com/goplus/llgo/c"
-	"unsafe"
+	"github.com/goplus/lib/c"
+	_ "unsafe"
 )
 
 type HtmlParserCtxt ParserCtxt
@@ -16,28 +16,28 @@ type HtmlDocPtr DocPtr
 type HtmlNodePtr NodePtr
 
 type X_htmlElemDesc struct {
-	Name          *int8
-	StartTag      int8
-	EndTag        int8
-	SaveEndTag    int8
-	Empty         int8
-	Depr          int8
-	Dtd           int8
-	Isinline      int8
-	Desc          *int8
-	Subelts       **int8
-	Defaultsubelt *int8
-	AttrsOpt      **int8
-	AttrsDepr     **int8
-	AttrsReq      **int8
+	Name          *c.Char
+	StartTag      c.Char
+	EndTag        c.Char
+	SaveEndTag    c.Char
+	Empty         c.Char
+	Depr          c.Char
+	Dtd           c.Char
+	Isinline      c.Char
+	Desc          *c.Char
+	Subelts       **c.Char
+	Defaultsubelt *c.Char
+	AttrsOpt      **c.Char
+	AttrsDepr     **c.Char
+	AttrsReq      **c.Char
 }
 type HtmlElemDesc X_htmlElemDesc
 type HtmlElemDescPtr *HtmlElemDesc
 
 type X_htmlEntityDesc struct {
 	Value c.Uint
-	Name  *int8
-	Desc  *int8
+	Name  *c.Char
+	Desc  *c.Char
 }
 type HtmlEntityDesc X_htmlEntityDesc
 type HtmlEntityDescPtr *HtmlEntityDesc
@@ -83,40 +83,40 @@ func HtmlParseElement(ctxt HtmlParserCtxtPtr)
 func HtmlNewParserCtxt() HtmlParserCtxtPtr
 
 // llgo:link (*HtmlSAXHandler).HtmlNewSAXParserCtxt C.htmlNewSAXParserCtxt
-func (recv_ *HtmlSAXHandler) HtmlNewSAXParserCtxt(userData unsafe.Pointer) HtmlParserCtxtPtr {
+func (recv_ *HtmlSAXHandler) HtmlNewSAXParserCtxt(userData c.Pointer) HtmlParserCtxtPtr {
 	return nil
 }
 
 //go:linkname HtmlCreateMemoryParserCtxt C.htmlCreateMemoryParserCtxt
-func HtmlCreateMemoryParserCtxt(buffer *int8, size c.Int) HtmlParserCtxtPtr
+func HtmlCreateMemoryParserCtxt(buffer *c.Char, size c.Int) HtmlParserCtxtPtr
 
 //go:linkname HtmlParseDocument C.htmlParseDocument
 func HtmlParseDocument(ctxt HtmlParserCtxtPtr) c.Int
 
 // llgo:link (*Char).HtmlSAXParseDoc C.htmlSAXParseDoc
-func (recv_ *Char) HtmlSAXParseDoc(encoding *int8, sax HtmlSAXHandlerPtr, userData unsafe.Pointer) HtmlDocPtr {
+func (recv_ *Char) HtmlSAXParseDoc(encoding *c.Char, sax HtmlSAXHandlerPtr, userData c.Pointer) HtmlDocPtr {
 	return nil
 }
 
 // llgo:link (*Char).HtmlParseDoc C.htmlParseDoc
-func (recv_ *Char) HtmlParseDoc(encoding *int8) HtmlDocPtr {
+func (recv_ *Char) HtmlParseDoc(encoding *c.Char) HtmlDocPtr {
 	return nil
 }
 
 //go:linkname HtmlCreateFileParserCtxt C.htmlCreateFileParserCtxt
-func HtmlCreateFileParserCtxt(filename *int8, encoding *int8) HtmlParserCtxtPtr
+func HtmlCreateFileParserCtxt(filename *c.Char, encoding *c.Char) HtmlParserCtxtPtr
 
 //go:linkname HtmlSAXParseFile C.htmlSAXParseFile
-func HtmlSAXParseFile(filename *int8, encoding *int8, sax HtmlSAXHandlerPtr, userData unsafe.Pointer) HtmlDocPtr
+func HtmlSAXParseFile(filename *c.Char, encoding *c.Char, sax HtmlSAXHandlerPtr, userData c.Pointer) HtmlDocPtr
 
 //go:linkname HtmlParseFile C.htmlParseFile
-func HtmlParseFile(filename *int8, encoding *int8) HtmlDocPtr
+func HtmlParseFile(filename *c.Char, encoding *c.Char) HtmlDocPtr
 
 //go:linkname UTF8ToHtml C.UTF8ToHtml
-func UTF8ToHtml(out *int8, outlen *c.Int, in *int8, inlen *c.Int) c.Int
+func UTF8ToHtml(out *c.Char, outlen *c.Int, in *c.Char, inlen *c.Int) c.Int
 
 //go:linkname HtmlEncodeEntities C.htmlEncodeEntities
-func HtmlEncodeEntities(out *int8, outlen *c.Int, in *int8, inlen *c.Int, quoteChar c.Int) c.Int
+func HtmlEncodeEntities(out *c.Char, outlen *c.Int, in *c.Char, inlen *c.Int, quoteChar c.Int) c.Int
 
 // llgo:link (*Char).HtmlIsScriptAttribute C.htmlIsScriptAttribute
 func (recv_ *Char) HtmlIsScriptAttribute() c.Int {
@@ -130,10 +130,10 @@ func HtmlHandleOmittedElem(val c.Int) c.Int
  * Interfaces for the Push mode.
  */
 //go:linkname HtmlCreatePushParserCtxt C.htmlCreatePushParserCtxt
-func HtmlCreatePushParserCtxt(sax HtmlSAXHandlerPtr, user_data unsafe.Pointer, chunk *int8, size c.Int, filename *int8, enc CharEncoding) HtmlParserCtxtPtr
+func HtmlCreatePushParserCtxt(sax HtmlSAXHandlerPtr, user_data c.Pointer, chunk *c.Char, size c.Int, filename *c.Char, enc CharEncoding) HtmlParserCtxtPtr
 
 //go:linkname HtmlParseChunk C.htmlParseChunk
-func HtmlParseChunk(ctxt HtmlParserCtxtPtr, chunk *int8, size c.Int, terminate c.Int) c.Int
+func HtmlParseChunk(ctxt HtmlParserCtxtPtr, chunk *c.Char, size c.Int, terminate c.Int) c.Int
 
 //go:linkname HtmlFreeParserCtxt C.htmlFreeParserCtxt
 func HtmlFreeParserCtxt(ctxt HtmlParserCtxtPtr)
@@ -141,16 +141,16 @@ func HtmlFreeParserCtxt(ctxt HtmlParserCtxtPtr)
 type HtmlParserOption c.Int
 
 const (
-	HTMLPARSERECOVER   HtmlParserOption = 1
-	HTMLPARSENODEFDTD  HtmlParserOption = 4
-	HTMLPARSENOERROR   HtmlParserOption = 32
-	HTMLPARSENOWARNING HtmlParserOption = 64
-	HTMLPARSEPEDANTIC  HtmlParserOption = 128
-	HTMLPARSENOBLANKS  HtmlParserOption = 256
-	HTMLPARSENONET     HtmlParserOption = 2048
-	HTMLPARSENOIMPLIED HtmlParserOption = 8192
-	HTMLPARSECOMPACT   HtmlParserOption = 65536
-	HTMLPARSEIGNOREENC HtmlParserOption = 2097152
+	HTML_PARSE_RECOVER    HtmlParserOption = 1
+	HTML_PARSE_NODEFDTD   HtmlParserOption = 4
+	HTML_PARSE_NOERROR    HtmlParserOption = 32
+	HTML_PARSE_NOWARNING  HtmlParserOption = 64
+	HTML_PARSE_PEDANTIC   HtmlParserOption = 128
+	HTML_PARSE_NOBLANKS   HtmlParserOption = 256
+	HTML_PARSE_NONET      HtmlParserOption = 2048
+	HTML_PARSE_NOIMPLIED  HtmlParserOption = 8192
+	HTML_PARSE_COMPACT    HtmlParserOption = 65536
+	HTML_PARSE_IGNORE_ENC HtmlParserOption = 2097152
 )
 
 //go:linkname HtmlCtxtReset C.htmlCtxtReset
@@ -160,48 +160,48 @@ func HtmlCtxtReset(ctxt HtmlParserCtxtPtr)
 func HtmlCtxtUseOptions(ctxt HtmlParserCtxtPtr, options c.Int) c.Int
 
 // llgo:link (*Char).HtmlReadDoc C.htmlReadDoc
-func (recv_ *Char) HtmlReadDoc(URL *int8, encoding *int8, options c.Int) HtmlDocPtr {
+func (recv_ *Char) HtmlReadDoc(URL *c.Char, encoding *c.Char, options c.Int) HtmlDocPtr {
 	return nil
 }
 
 //go:linkname HtmlReadFile C.htmlReadFile
-func HtmlReadFile(URL *int8, encoding *int8, options c.Int) HtmlDocPtr
+func HtmlReadFile(URL *c.Char, encoding *c.Char, options c.Int) HtmlDocPtr
 
 //go:linkname HtmlReadMemory C.htmlReadMemory
-func HtmlReadMemory(buffer *int8, size c.Int, URL *int8, encoding *int8, options c.Int) HtmlDocPtr
+func HtmlReadMemory(buffer *c.Char, size c.Int, URL *c.Char, encoding *c.Char, options c.Int) HtmlDocPtr
 
 //go:linkname HtmlReadFd C.htmlReadFd
-func HtmlReadFd(fd c.Int, URL *int8, encoding *int8, options c.Int) HtmlDocPtr
+func HtmlReadFd(fd c.Int, URL *c.Char, encoding *c.Char, options c.Int) HtmlDocPtr
 
 //go:linkname HtmlReadIO C.htmlReadIO
-func HtmlReadIO(ioread InputReadCallback, ioclose InputCloseCallback, ioctx unsafe.Pointer, URL *int8, encoding *int8, options c.Int) HtmlDocPtr
+func HtmlReadIO(ioread InputReadCallback, ioclose InputCloseCallback, ioctx c.Pointer, URL *c.Char, encoding *c.Char, options c.Int) HtmlDocPtr
 
 //go:linkname HtmlCtxtParseDocument C.htmlCtxtParseDocument
 func HtmlCtxtParseDocument(ctxt HtmlParserCtxtPtr, input ParserInputPtr) HtmlDocPtr
 
 //go:linkname HtmlCtxtReadDoc C.htmlCtxtReadDoc
-func HtmlCtxtReadDoc(ctxt ParserCtxtPtr, cur *Char, URL *int8, encoding *int8, options c.Int) HtmlDocPtr
+func HtmlCtxtReadDoc(ctxt ParserCtxtPtr, cur *Char, URL *c.Char, encoding *c.Char, options c.Int) HtmlDocPtr
 
 //go:linkname HtmlCtxtReadFile C.htmlCtxtReadFile
-func HtmlCtxtReadFile(ctxt ParserCtxtPtr, filename *int8, encoding *int8, options c.Int) HtmlDocPtr
+func HtmlCtxtReadFile(ctxt ParserCtxtPtr, filename *c.Char, encoding *c.Char, options c.Int) HtmlDocPtr
 
 //go:linkname HtmlCtxtReadMemory C.htmlCtxtReadMemory
-func HtmlCtxtReadMemory(ctxt ParserCtxtPtr, buffer *int8, size c.Int, URL *int8, encoding *int8, options c.Int) HtmlDocPtr
+func HtmlCtxtReadMemory(ctxt ParserCtxtPtr, buffer *c.Char, size c.Int, URL *c.Char, encoding *c.Char, options c.Int) HtmlDocPtr
 
 //go:linkname HtmlCtxtReadFd C.htmlCtxtReadFd
-func HtmlCtxtReadFd(ctxt ParserCtxtPtr, fd c.Int, URL *int8, encoding *int8, options c.Int) HtmlDocPtr
+func HtmlCtxtReadFd(ctxt ParserCtxtPtr, fd c.Int, URL *c.Char, encoding *c.Char, options c.Int) HtmlDocPtr
 
 //go:linkname HtmlCtxtReadIO C.htmlCtxtReadIO
-func HtmlCtxtReadIO(ctxt ParserCtxtPtr, ioread InputReadCallback, ioclose InputCloseCallback, ioctx unsafe.Pointer, URL *int8, encoding *int8, options c.Int) HtmlDocPtr
+func HtmlCtxtReadIO(ctxt ParserCtxtPtr, ioread InputReadCallback, ioclose InputCloseCallback, ioctx c.Pointer, URL *c.Char, encoding *c.Char, options c.Int) HtmlDocPtr
 
 type HtmlStatus c.Int
 
 const (
-	HTMLNA         HtmlStatus = 0
-	HTMLINVALID    HtmlStatus = 1
-	HTMLDEPRECATED HtmlStatus = 2
-	HTMLVALID      HtmlStatus = 4
-	HTMLREQUIRED   HtmlStatus = 12
+	HTML_NA         HtmlStatus = 0
+	HTML_INVALID    HtmlStatus = 1
+	HTML_DEPRECATED HtmlStatus = 2
+	HTML_VALID      HtmlStatus = 4
+	HTML_REQUIRED   HtmlStatus = 12
 )
 
 /* Using htmlElemDesc rather than name here, to emphasise the fact

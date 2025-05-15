@@ -1,60 +1,60 @@
 package libxml2
 
 import (
-	"github.com/goplus/llgo/c"
-	"unsafe"
+	"github.com/goplus/lib/c"
+	_ "unsafe"
 )
 
 type ParserSeverities c.Int
 
 const (
-	PARSERSEVERITYVALIDITYWARNING ParserSeverities = 1
-	PARSERSEVERITYVALIDITYERROR   ParserSeverities = 2
-	PARSERSEVERITYWARNING         ParserSeverities = 3
-	PARSERSEVERITYERROR           ParserSeverities = 4
+	PARSER_SEVERITY_VALIDITY_WARNING ParserSeverities = 1
+	PARSER_SEVERITY_VALIDITY_ERROR   ParserSeverities = 2
+	PARSER_SEVERITY_WARNING          ParserSeverities = 3
+	PARSER_SEVERITY_ERROR            ParserSeverities = 4
 )
 
 type TextReaderMode c.Int
 
 const (
-	TEXTREADERMODEINITIAL     TextReaderMode = 0
-	TEXTREADERMODEINTERACTIVE TextReaderMode = 1
-	TEXTREADERMODEERROR       TextReaderMode = 2
-	TEXTREADERMODEEOF         TextReaderMode = 3
-	TEXTREADERMODECLOSED      TextReaderMode = 4
-	TEXTREADERMODEREADING     TextReaderMode = 5
+	TEXTREADER_MODE_INITIAL     TextReaderMode = 0
+	TEXTREADER_MODE_INTERACTIVE TextReaderMode = 1
+	TEXTREADER_MODE_ERROR       TextReaderMode = 2
+	TEXTREADER_MODE_EOF         TextReaderMode = 3
+	TEXTREADER_MODE_CLOSED      TextReaderMode = 4
+	TEXTREADER_MODE_READING     TextReaderMode = 5
 )
 
 type ParserProperties c.Int
 
 const (
-	PARSERLOADDTD       ParserProperties = 1
-	PARSERDEFAULTATTRS  ParserProperties = 2
-	PARSERVALIDATE      ParserProperties = 3
-	PARSERSUBSTENTITIES ParserProperties = 4
+	PARSER_LOADDTD        ParserProperties = 1
+	PARSER_DEFAULTATTRS   ParserProperties = 2
+	PARSER_VALIDATE       ParserProperties = 3
+	PARSER_SUBST_ENTITIES ParserProperties = 4
 )
 
 type ReaderTypes c.Int
 
 const (
-	READERTYPENONE                  ReaderTypes = 0
-	READERTYPEELEMENT               ReaderTypes = 1
-	READERTYPEATTRIBUTE             ReaderTypes = 2
-	READERTYPETEXT                  ReaderTypes = 3
-	READERTYPECDATA                 ReaderTypes = 4
-	READERTYPEENTITYREFERENCE       ReaderTypes = 5
-	READERTYPEENTITY                ReaderTypes = 6
-	READERTYPEPROCESSINGINSTRUCTION ReaderTypes = 7
-	READERTYPECOMMENT               ReaderTypes = 8
-	READERTYPEDOCUMENT              ReaderTypes = 9
-	READERTYPEDOCUMENTTYPE          ReaderTypes = 10
-	READERTYPEDOCUMENTFRAGMENT      ReaderTypes = 11
-	READERTYPENOTATION              ReaderTypes = 12
-	READERTYPEWHITESPACE            ReaderTypes = 13
-	READERTYPESIGNIFICANTWHITESPACE ReaderTypes = 14
-	READERTYPEENDELEMENT            ReaderTypes = 15
-	READERTYPEENDENTITY             ReaderTypes = 16
-	READERTYPEXMLDECLARATION        ReaderTypes = 17
+	READER_TYPE_NONE                   ReaderTypes = 0
+	READER_TYPE_ELEMENT                ReaderTypes = 1
+	READER_TYPE_ATTRIBUTE              ReaderTypes = 2
+	READER_TYPE_TEXT                   ReaderTypes = 3
+	READER_TYPE_CDATA                  ReaderTypes = 4
+	READER_TYPE_ENTITY_REFERENCE       ReaderTypes = 5
+	READER_TYPE_ENTITY                 ReaderTypes = 6
+	READER_TYPE_PROCESSING_INSTRUCTION ReaderTypes = 7
+	READER_TYPE_COMMENT                ReaderTypes = 8
+	READER_TYPE_DOCUMENT               ReaderTypes = 9
+	READER_TYPE_DOCUMENT_TYPE          ReaderTypes = 10
+	READER_TYPE_DOCUMENT_FRAGMENT      ReaderTypes = 11
+	READER_TYPE_NOTATION               ReaderTypes = 12
+	READER_TYPE_WHITESPACE             ReaderTypes = 13
+	READER_TYPE_SIGNIFICANT_WHITESPACE ReaderTypes = 14
+	READER_TYPE_END_ELEMENT            ReaderTypes = 15
+	READER_TYPE_END_ENTITY             ReaderTypes = 16
+	READER_TYPE_XML_DECLARATION        ReaderTypes = 17
 )
 
 type X_xmlTextReader struct {
@@ -67,16 +67,16 @@ type TextReaderPtr *TextReader
  * Constructors & Destructor
  */
 //go:linkname NewTextReader C.xmlNewTextReader
-func NewTextReader(input ParserInputBufferPtr, URI *int8) TextReaderPtr
+func NewTextReader(input ParserInputBufferPtr, URI *c.Char) TextReaderPtr
 
 //go:linkname NewTextReaderFilename C.xmlNewTextReaderFilename
-func NewTextReaderFilename(URI *int8) TextReaderPtr
+func NewTextReaderFilename(URI *c.Char) TextReaderPtr
 
 //go:linkname FreeTextReader C.xmlFreeTextReader
 func FreeTextReader(reader TextReaderPtr)
 
 //go:linkname TextReaderSetup C.xmlTextReaderSetup
-func TextReaderSetup(reader TextReaderPtr, input ParserInputBufferPtr, URL *int8, encoding *int8, options c.Int) c.Int
+func TextReaderSetup(reader TextReaderPtr, input ParserInputBufferPtr, URL *c.Char, encoding *c.Char, options c.Int) c.Int
 
 //go:linkname TextReaderSetMaxAmplification C.xmlTextReaderSetMaxAmplification
 func TextReaderSetMaxAmplification(reader TextReaderPtr, maxAmpl c.Uint)
@@ -269,7 +269,7 @@ func TextReaderNextSibling(reader TextReaderPtr) c.Int
 func TextReaderIsValid(reader TextReaderPtr) c.Int
 
 //go:linkname TextReaderRelaxNGValidate C.xmlTextReaderRelaxNGValidate
-func TextReaderRelaxNGValidate(reader TextReaderPtr, rng *int8) c.Int
+func TextReaderRelaxNGValidate(reader TextReaderPtr, rng *c.Char) c.Int
 
 //go:linkname TextReaderRelaxNGValidateCtxt C.xmlTextReaderRelaxNGValidateCtxt
 func TextReaderRelaxNGValidateCtxt(reader TextReaderPtr, ctxt RelaxNGValidCtxtPtr, options c.Int) c.Int
@@ -278,7 +278,7 @@ func TextReaderRelaxNGValidateCtxt(reader TextReaderPtr, ctxt RelaxNGValidCtxtPt
 func TextReaderRelaxNGSetSchema(reader TextReaderPtr, schema RelaxNGPtr) c.Int
 
 //go:linkname TextReaderSchemaValidate C.xmlTextReaderSchemaValidate
-func TextReaderSchemaValidate(reader TextReaderPtr, xsd *int8) c.Int
+func TextReaderSchemaValidate(reader TextReaderPtr, xsd *c.Char) c.Int
 
 //go:linkname TextReaderSchemaValidateCtxt C.xmlTextReaderSchemaValidateCtxt
 func TextReaderSchemaValidateCtxt(reader TextReaderPtr, ctxt SchemaValidCtxtPtr, options c.Int) c.Int
@@ -305,44 +305,44 @@ func TextReaderByteConsumed(reader TextReaderPtr) c.Long
 func ReaderWalker(doc DocPtr) TextReaderPtr
 
 // llgo:link (*Char).ReaderForDoc C.xmlReaderForDoc
-func (recv_ *Char) ReaderForDoc(URL *int8, encoding *int8, options c.Int) TextReaderPtr {
+func (recv_ *Char) ReaderForDoc(URL *c.Char, encoding *c.Char, options c.Int) TextReaderPtr {
 	return nil
 }
 
 //go:linkname ReaderForFile C.xmlReaderForFile
-func ReaderForFile(filename *int8, encoding *int8, options c.Int) TextReaderPtr
+func ReaderForFile(filename *c.Char, encoding *c.Char, options c.Int) TextReaderPtr
 
 //go:linkname ReaderForMemory C.xmlReaderForMemory
-func ReaderForMemory(buffer *int8, size c.Int, URL *int8, encoding *int8, options c.Int) TextReaderPtr
+func ReaderForMemory(buffer *c.Char, size c.Int, URL *c.Char, encoding *c.Char, options c.Int) TextReaderPtr
 
 //go:linkname ReaderForFd C.xmlReaderForFd
-func ReaderForFd(fd c.Int, URL *int8, encoding *int8, options c.Int) TextReaderPtr
+func ReaderForFd(fd c.Int, URL *c.Char, encoding *c.Char, options c.Int) TextReaderPtr
 
 //go:linkname ReaderForIO C.xmlReaderForIO
-func ReaderForIO(ioread InputReadCallback, ioclose InputCloseCallback, ioctx unsafe.Pointer, URL *int8, encoding *int8, options c.Int) TextReaderPtr
+func ReaderForIO(ioread InputReadCallback, ioclose InputCloseCallback, ioctx c.Pointer, URL *c.Char, encoding *c.Char, options c.Int) TextReaderPtr
 
 //go:linkname ReaderNewWalker C.xmlReaderNewWalker
 func ReaderNewWalker(reader TextReaderPtr, doc DocPtr) c.Int
 
 //go:linkname ReaderNewDoc C.xmlReaderNewDoc
-func ReaderNewDoc(reader TextReaderPtr, cur *Char, URL *int8, encoding *int8, options c.Int) c.Int
+func ReaderNewDoc(reader TextReaderPtr, cur *Char, URL *c.Char, encoding *c.Char, options c.Int) c.Int
 
 //go:linkname ReaderNewFile C.xmlReaderNewFile
-func ReaderNewFile(reader TextReaderPtr, filename *int8, encoding *int8, options c.Int) c.Int
+func ReaderNewFile(reader TextReaderPtr, filename *c.Char, encoding *c.Char, options c.Int) c.Int
 
 //go:linkname ReaderNewMemory C.xmlReaderNewMemory
-func ReaderNewMemory(reader TextReaderPtr, buffer *int8, size c.Int, URL *int8, encoding *int8, options c.Int) c.Int
+func ReaderNewMemory(reader TextReaderPtr, buffer *c.Char, size c.Int, URL *c.Char, encoding *c.Char, options c.Int) c.Int
 
 //go:linkname ReaderNewFd C.xmlReaderNewFd
-func ReaderNewFd(reader TextReaderPtr, fd c.Int, URL *int8, encoding *int8, options c.Int) c.Int
+func ReaderNewFd(reader TextReaderPtr, fd c.Int, URL *c.Char, encoding *c.Char, options c.Int) c.Int
 
 //go:linkname ReaderNewIO C.xmlReaderNewIO
-func ReaderNewIO(reader TextReaderPtr, ioread InputReadCallback, ioclose InputCloseCallback, ioctx unsafe.Pointer, URL *int8, encoding *int8, options c.Int) c.Int
+func ReaderNewIO(reader TextReaderPtr, ioread InputReadCallback, ioclose InputCloseCallback, ioctx c.Pointer, URL *c.Char, encoding *c.Char, options c.Int) c.Int
 
-type TextReaderLocatorPtr unsafe.Pointer
+type TextReaderLocatorPtr c.Pointer
 
 // llgo:type C
-type TextReaderErrorFunc func(unsafe.Pointer, *int8, ParserSeverities, TextReaderLocatorPtr)
+type TextReaderErrorFunc func(c.Pointer, *c.Char, ParserSeverities, TextReaderLocatorPtr)
 
 //go:linkname TextReaderLocatorLineNumber C.xmlTextReaderLocatorLineNumber
 func TextReaderLocatorLineNumber(locator TextReaderLocatorPtr) c.Int
@@ -351,10 +351,10 @@ func TextReaderLocatorLineNumber(locator TextReaderLocatorPtr) c.Int
 func TextReaderLocatorBaseURI(locator TextReaderLocatorPtr) *Char
 
 //go:linkname TextReaderSetErrorHandler C.xmlTextReaderSetErrorHandler
-func TextReaderSetErrorHandler(reader TextReaderPtr, f TextReaderErrorFunc, arg unsafe.Pointer)
+func TextReaderSetErrorHandler(reader TextReaderPtr, f TextReaderErrorFunc, arg c.Pointer)
 
 //go:linkname TextReaderSetStructuredErrorHandler C.xmlTextReaderSetStructuredErrorHandler
-func TextReaderSetStructuredErrorHandler(reader TextReaderPtr, f StructuredErrorFunc, arg unsafe.Pointer)
+func TextReaderSetStructuredErrorHandler(reader TextReaderPtr, f StructuredErrorFunc, arg c.Pointer)
 
 //go:linkname TextReaderGetErrorHandler C.xmlTextReaderGetErrorHandler
-func TextReaderGetErrorHandler(reader TextReaderPtr, f TextReaderErrorFunc, arg *unsafe.Pointer)
+func TextReaderGetErrorHandler(reader TextReaderPtr, f TextReaderErrorFunc, arg *c.Pointer)

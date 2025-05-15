@@ -1,7 +1,7 @@
 package libxml2
 
 import (
-	"github.com/goplus/llgo/c"
+	"github.com/goplus/lib/c"
 	_ "unsafe"
 )
 
@@ -13,10 +13,10 @@ type PatternPtr *Pattern
 type PatternFlags c.Int
 
 const (
-	PATTERNDEFAULT PatternFlags = 0
-	PATTERNXPATH   PatternFlags = 1
-	PATTERNXSSEL   PatternFlags = 2
-	PATTERNXSFIELD PatternFlags = 4
+	PATTERN_DEFAULT PatternFlags = 0
+	PATTERN_XPATH   PatternFlags = 1
+	PATTERN_XSSEL   PatternFlags = 2
+	PATTERN_XSFIELD PatternFlags = 4
 )
 
 //go:linkname FreePattern C.xmlFreePattern

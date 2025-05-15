@@ -1,22 +1,22 @@
 package libxml2
 
 import (
-	"github.com/goplus/llgo/c"
+	"github.com/goplus/lib/c"
 	_ "unsafe"
 )
 
 type X_xmlURI struct {
-	Scheme    *int8
-	Opaque    *int8
-	Authority *int8
-	Server    *int8
-	User      *int8
+	Scheme    *c.Char
+	Opaque    *c.Char
+	Authority *c.Char
+	Server    *c.Char
+	User      *c.Char
 	Port      c.Int
-	Path      *int8
-	Query     *int8
-	Fragment  *int8
+	Path      *c.Char
+	Query     *c.Char
+	Fragment  *c.Char
 	Cleanup   c.Int
-	QueryRaw  *int8
+	QueryRaw  *c.Char
 }
 type URI X_xmlURI
 type URIPtr *URI
@@ -50,16 +50,16 @@ func (recv_ *Char) BuildRelativeURI(base *Char) *Char {
 }
 
 //go:linkname ParseURI C.xmlParseURI
-func ParseURI(str *int8) URIPtr
+func ParseURI(str *c.Char) URIPtr
 
 //go:linkname ParseURISafe C.xmlParseURISafe
-func ParseURISafe(str *int8, uri *URIPtr) c.Int
+func ParseURISafe(str *c.Char, uri *URIPtr) c.Int
 
 //go:linkname ParseURIRaw C.xmlParseURIRaw
-func ParseURIRaw(str *int8, raw c.Int) URIPtr
+func ParseURIRaw(str *c.Char, raw c.Int) URIPtr
 
 //go:linkname ParseURIReference C.xmlParseURIReference
-func ParseURIReference(uri URIPtr, str *int8) c.Int
+func ParseURIReference(uri URIPtr, str *c.Char) c.Int
 
 //go:linkname SaveUri C.xmlSaveUri
 func SaveUri(uri URIPtr) *Char
@@ -73,10 +73,10 @@ func (recv_ *Char) URIEscapeStr(list *Char) *Char {
 }
 
 //go:linkname URIUnescapeString C.xmlURIUnescapeString
-func URIUnescapeString(str *int8, len c.Int, target *int8) *int8
+func URIUnescapeString(str *c.Char, len c.Int, target *c.Char) *c.Char
 
 //go:linkname NormalizeURIPath C.xmlNormalizeURIPath
-func NormalizeURIPath(path *int8) c.Int
+func NormalizeURIPath(path *c.Char) c.Int
 
 // llgo:link (*Char).URIEscape C.xmlURIEscape
 func (recv_ *Char) URIEscape() *Char {

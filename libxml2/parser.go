@@ -1,8 +1,8 @@
 package libxml2
 
 import (
-	"github.com/goplus/llgo/c"
-	"unsafe"
+	"github.com/goplus/lib/c"
+	_ "unsafe"
 )
 
 const DEFAULT_VERSION = "1.0"
@@ -34,36 +34,36 @@ type ParserNodeInfoSeqPtr *ParserNodeInfoSeq
 type ParserInputState c.Int
 
 const (
-	PARSEREOF            ParserInputState = -1
-	PARSERSTART          ParserInputState = 0
-	PARSERMISC           ParserInputState = 1
-	PARSERPI             ParserInputState = 2
-	PARSERDTD            ParserInputState = 3
-	PARSERPROLOG         ParserInputState = 4
-	PARSERCOMMENT        ParserInputState = 5
-	PARSERSTARTTAG       ParserInputState = 6
-	PARSERCONTENT        ParserInputState = 7
-	PARSERCDATASECTION   ParserInputState = 8
-	PARSERENDTAG         ParserInputState = 9
-	PARSERENTITYDECL     ParserInputState = 10
-	PARSERENTITYVALUE    ParserInputState = 11
-	PARSERATTRIBUTEVALUE ParserInputState = 12
-	PARSERSYSTEMLITERAL  ParserInputState = 13
-	PARSEREPILOG         ParserInputState = 14
-	PARSERIGNORE         ParserInputState = 15
-	PARSERPUBLICLITERAL  ParserInputState = 16
-	PARSERXMLDECL        ParserInputState = 17
+	PARSER_EOF             ParserInputState = -1
+	PARSER_START           ParserInputState = 0
+	PARSER_MISC            ParserInputState = 1
+	PARSER_PI              ParserInputState = 2
+	PARSER_DTD             ParserInputState = 3
+	PARSER_PROLOG          ParserInputState = 4
+	PARSER_COMMENT         ParserInputState = 5
+	PARSER_START_TAG       ParserInputState = 6
+	PARSER_CONTENT         ParserInputState = 7
+	PARSER_CDATA_SECTION   ParserInputState = 8
+	PARSER_END_TAG         ParserInputState = 9
+	PARSER_ENTITY_DECL     ParserInputState = 10
+	PARSER_ENTITY_VALUE    ParserInputState = 11
+	PARSER_ATTRIBUTE_VALUE ParserInputState = 12
+	PARSER_SYSTEM_LITERAL  ParserInputState = 13
+	PARSER_EPILOG          ParserInputState = 14
+	PARSER_IGNORE          ParserInputState = 15
+	PARSER_PUBLIC_LITERAL  ParserInputState = 16
+	PARSER_XML_DECL        ParserInputState = 17
 )
 
 type ParserMode c.Int
 
 const (
-	PARSEUNKNOWN ParserMode = 0
-	PARSEDOM     ParserMode = 1
-	PARSESAX     ParserMode = 2
-	PARSEPUSHDOM ParserMode = 3
-	PARSEPUSHSAX ParserMode = 4
-	PARSEREADER  ParserMode = 5
+	PARSE_UNKNOWN  ParserMode = 0
+	PARSE_DOM      ParserMode = 1
+	PARSE_SAX      ParserMode = 2
+	PARSE_PUSH_DOM ParserMode = 3
+	PARSE_PUSH_SAX ParserMode = 4
+	PARSE_READER   ParserMode = 5
 )
 
 type X_xmlStartTag struct {
@@ -82,134 +82,134 @@ type X_xmlAttrHashBucket struct {
 type AttrHashBucket X_xmlAttrHashBucket
 
 // llgo:type C
-type ResolveEntitySAXFunc func(unsafe.Pointer, *Char, *Char) ParserInputPtr
+type ResolveEntitySAXFunc func(c.Pointer, *Char, *Char) ParserInputPtr
 
 // llgo:type C
-type InternalSubsetSAXFunc func(unsafe.Pointer, *Char, *Char, *Char)
+type InternalSubsetSAXFunc func(c.Pointer, *Char, *Char, *Char)
 
 // llgo:type C
-type ExternalSubsetSAXFunc func(unsafe.Pointer, *Char, *Char, *Char)
+type ExternalSubsetSAXFunc func(c.Pointer, *Char, *Char, *Char)
 
 // llgo:type C
-type GetEntitySAXFunc func(unsafe.Pointer, *Char) EntityPtr
+type GetEntitySAXFunc func(c.Pointer, *Char) EntityPtr
 
 // llgo:type C
-type GetParameterEntitySAXFunc func(unsafe.Pointer, *Char) EntityPtr
+type GetParameterEntitySAXFunc func(c.Pointer, *Char) EntityPtr
 
 // llgo:type C
-type EntityDeclSAXFunc func(unsafe.Pointer, *Char, c.Int, *Char, *Char, *Char)
+type EntityDeclSAXFunc func(c.Pointer, *Char, c.Int, *Char, *Char, *Char)
 
 // llgo:type C
-type NotationDeclSAXFunc func(unsafe.Pointer, *Char, *Char, *Char)
+type NotationDeclSAXFunc func(c.Pointer, *Char, *Char, *Char)
 
 // llgo:type C
-type AttributeDeclSAXFunc func(unsafe.Pointer, *Char, *Char, c.Int, c.Int, *Char, EnumerationPtr)
+type AttributeDeclSAXFunc func(c.Pointer, *Char, *Char, c.Int, c.Int, *Char, EnumerationPtr)
 
 // llgo:type C
-type ElementDeclSAXFunc func(unsafe.Pointer, *Char, c.Int, ElementContentPtr)
+type ElementDeclSAXFunc func(c.Pointer, *Char, c.Int, ElementContentPtr)
 
 // llgo:type C
-type UnparsedEntityDeclSAXFunc func(unsafe.Pointer, *Char, *Char, *Char, *Char)
+type UnparsedEntityDeclSAXFunc func(c.Pointer, *Char, *Char, *Char, *Char)
 
 // llgo:type C
-type SetDocumentLocatorSAXFunc func(unsafe.Pointer, SAXLocatorPtr)
+type SetDocumentLocatorSAXFunc func(c.Pointer, SAXLocatorPtr)
 
 // llgo:type C
-type StartDocumentSAXFunc func(unsafe.Pointer)
+type StartDocumentSAXFunc func(c.Pointer)
 
 // llgo:type C
-type EndDocumentSAXFunc func(unsafe.Pointer)
+type EndDocumentSAXFunc func(c.Pointer)
 
 // llgo:type C
-type StartElementSAXFunc func(unsafe.Pointer, *Char, **Char)
+type StartElementSAXFunc func(c.Pointer, *Char, **Char)
 
 // llgo:type C
-type EndElementSAXFunc func(unsafe.Pointer, *Char)
+type EndElementSAXFunc func(c.Pointer, *Char)
 
 // llgo:type C
-type AttributeSAXFunc func(unsafe.Pointer, *Char, *Char)
+type AttributeSAXFunc func(c.Pointer, *Char, *Char)
 
 // llgo:type C
-type ReferenceSAXFunc func(unsafe.Pointer, *Char)
+type ReferenceSAXFunc func(c.Pointer, *Char)
 
 // llgo:type C
-type CharactersSAXFunc func(unsafe.Pointer, *Char, c.Int)
+type CharactersSAXFunc func(c.Pointer, *Char, c.Int)
 
 // llgo:type C
-type IgnorableWhitespaceSAXFunc func(unsafe.Pointer, *Char, c.Int)
+type IgnorableWhitespaceSAXFunc func(c.Pointer, *Char, c.Int)
 
 // llgo:type C
-type ProcessingInstructionSAXFunc func(unsafe.Pointer, *Char, *Char)
+type ProcessingInstructionSAXFunc func(c.Pointer, *Char, *Char)
 
 // llgo:type C
-type CommentSAXFunc func(unsafe.Pointer, *Char)
+type CommentSAXFunc func(c.Pointer, *Char)
 
 // llgo:type C
-type CdataBlockSAXFunc func(unsafe.Pointer, *Char, c.Int)
+type CdataBlockSAXFunc func(c.Pointer, *Char, c.Int)
 
 // llgo:type C
-type WarningSAXFunc func(__llgo_arg_0 unsafe.Pointer, __llgo_arg_1 *int8, __llgo_va_list ...interface{})
+type WarningSAXFunc func(__llgo_arg_0 c.Pointer, __llgo_arg_1 *c.Char, __llgo_va_list ...interface{})
 
 // llgo:type C
-type ErrorSAXFunc func(__llgo_arg_0 unsafe.Pointer, __llgo_arg_1 *int8, __llgo_va_list ...interface{})
+type ErrorSAXFunc func(__llgo_arg_0 c.Pointer, __llgo_arg_1 *c.Char, __llgo_va_list ...interface{})
 
 // llgo:type C
-type FatalErrorSAXFunc func(__llgo_arg_0 unsafe.Pointer, __llgo_arg_1 *int8, __llgo_va_list ...interface{})
+type FatalErrorSAXFunc func(__llgo_arg_0 c.Pointer, __llgo_arg_1 *c.Char, __llgo_va_list ...interface{})
 
 // llgo:type C
-type IsStandaloneSAXFunc func(unsafe.Pointer) c.Int
+type IsStandaloneSAXFunc func(c.Pointer) c.Int
 
 // llgo:type C
-type HasInternalSubsetSAXFunc func(unsafe.Pointer) c.Int
+type HasInternalSubsetSAXFunc func(c.Pointer) c.Int
 
 // llgo:type C
-type HasExternalSubsetSAXFunc func(unsafe.Pointer) c.Int
+type HasExternalSubsetSAXFunc func(c.Pointer) c.Int
 
 // llgo:type C
-type StartElementNsSAX2Func func(unsafe.Pointer, *Char, *Char, *Char, c.Int, **Char, c.Int, c.Int, **Char)
+type StartElementNsSAX2Func func(c.Pointer, *Char, *Char, *Char, c.Int, **Char, c.Int, c.Int, **Char)
 
 // llgo:type C
-type EndElementNsSAX2Func func(unsafe.Pointer, *Char, *Char, *Char)
+type EndElementNsSAX2Func func(c.Pointer, *Char, *Char, *Char)
 
 type X_xmlSAXHandlerV1 struct {
-	InternalSubset        unsafe.Pointer
-	IsStandalone          unsafe.Pointer
-	HasInternalSubset     unsafe.Pointer
-	HasExternalSubset     unsafe.Pointer
-	ResolveEntity         unsafe.Pointer
-	GetEntity             unsafe.Pointer
-	EntityDecl            unsafe.Pointer
-	NotationDecl          unsafe.Pointer
-	AttributeDecl         unsafe.Pointer
-	ElementDecl           unsafe.Pointer
-	UnparsedEntityDecl    unsafe.Pointer
-	SetDocumentLocator    unsafe.Pointer
-	StartDocument         unsafe.Pointer
-	EndDocument           unsafe.Pointer
-	StartElement          unsafe.Pointer
-	EndElement            unsafe.Pointer
-	Reference             unsafe.Pointer
-	Characters            unsafe.Pointer
-	IgnorableWhitespace   unsafe.Pointer
-	ProcessingInstruction unsafe.Pointer
-	Comment               unsafe.Pointer
-	Warning               unsafe.Pointer
-	Error                 unsafe.Pointer
-	FatalError            unsafe.Pointer
-	GetParameterEntity    unsafe.Pointer
-	CdataBlock            unsafe.Pointer
-	ExternalSubset        unsafe.Pointer
+	InternalSubset        c.Pointer
+	IsStandalone          c.Pointer
+	HasInternalSubset     c.Pointer
+	HasExternalSubset     c.Pointer
+	ResolveEntity         c.Pointer
+	GetEntity             c.Pointer
+	EntityDecl            c.Pointer
+	NotationDecl          c.Pointer
+	AttributeDecl         c.Pointer
+	ElementDecl           c.Pointer
+	UnparsedEntityDecl    c.Pointer
+	SetDocumentLocator    c.Pointer
+	StartDocument         c.Pointer
+	EndDocument           c.Pointer
+	StartElement          c.Pointer
+	EndElement            c.Pointer
+	Reference             c.Pointer
+	Characters            c.Pointer
+	IgnorableWhitespace   c.Pointer
+	ProcessingInstruction c.Pointer
+	Comment               c.Pointer
+	Warning               c.Pointer
+	Error                 c.Pointer
+	FatalError            c.Pointer
+	GetParameterEntity    c.Pointer
+	CdataBlock            c.Pointer
+	ExternalSubset        c.Pointer
 	Initialized           c.Uint
 }
 type SAXHandlerV1 X_xmlSAXHandlerV1
 type SAXHandlerV1Ptr *SAXHandlerV1
 
 // llgo:type C
-type ExternalEntityLoader func(*int8, *int8, ParserCtxtPtr) ParserInputPtr
+type ExternalEntityLoader func(*c.Char, *c.Char, ParserCtxtPtr) ParserInputPtr
 
 /* backward compatibility */
 //go:linkname X__xmlParserVersion C.__xmlParserVersion
-func X__xmlParserVersion() **int8
+func X__xmlParserVersion() **c.Char
 
 //go:linkname X__oldXMLWDcompatibility C.__oldXMLWDcompatibility
 func X__oldXMLWDcompatibility() *c.Int
@@ -248,7 +248,7 @@ func X__xmlSubstituteEntitiesDefaultValue() *c.Int
 func X__xmlIndentTreeOutput() *c.Int
 
 //go:linkname X__xmlTreeIndentString C.__xmlTreeIndentString
-func X__xmlTreeIndentString() **int8
+func X__xmlTreeIndentString() **c.Char
 
 //go:linkname X__xmlSaveNoEmptyTags C.__xmlSaveNoEmptyTags
 func X__xmlSaveNoEmptyTags() *c.Int
@@ -286,10 +286,10 @@ func (recv_ *Char) ParseDoc() DocPtr {
 }
 
 //go:linkname ParseFile C.xmlParseFile
-func ParseFile(filename *int8) DocPtr
+func ParseFile(filename *c.Char) DocPtr
 
 //go:linkname ParseMemory C.xmlParseMemory
-func ParseMemory(buffer *int8, size c.Int) DocPtr
+func ParseMemory(buffer *c.Char, size c.Int) DocPtr
 
 //go:linkname SubstituteEntitiesDefault C.xmlSubstituteEntitiesDefault
 func SubstituteEntitiesDefault(val c.Int) c.Int
@@ -339,10 +339,10 @@ func (recv_ *Char) RecoverDoc() DocPtr {
 }
 
 //go:linkname RecoverMemory C.xmlRecoverMemory
-func RecoverMemory(buffer *int8, size c.Int) DocPtr
+func RecoverMemory(buffer *c.Char, size c.Int) DocPtr
 
 //go:linkname RecoverFile C.xmlRecoverFile
-func RecoverFile(filename *int8) DocPtr
+func RecoverFile(filename *c.Char) DocPtr
 
 /*
  * Less common routines and SAX interfaces
@@ -354,31 +354,31 @@ func ParseDocument(ctxt ParserCtxtPtr) c.Int
 func ParseExtParsedEnt(ctxt ParserCtxtPtr) c.Int
 
 //go:linkname SAXUserParseFile C.xmlSAXUserParseFile
-func SAXUserParseFile(sax SAXHandlerPtr, user_data unsafe.Pointer, filename *int8) c.Int
+func SAXUserParseFile(sax SAXHandlerPtr, user_data c.Pointer, filename *c.Char) c.Int
 
 //go:linkname SAXUserParseMemory C.xmlSAXUserParseMemory
-func SAXUserParseMemory(sax SAXHandlerPtr, user_data unsafe.Pointer, buffer *int8, size c.Int) c.Int
+func SAXUserParseMemory(sax SAXHandlerPtr, user_data c.Pointer, buffer *c.Char, size c.Int) c.Int
 
 //go:linkname SAXParseDoc C.xmlSAXParseDoc
 func SAXParseDoc(sax SAXHandlerPtr, cur *Char, recovery c.Int) DocPtr
 
 //go:linkname SAXParseMemory C.xmlSAXParseMemory
-func SAXParseMemory(sax SAXHandlerPtr, buffer *int8, size c.Int, recovery c.Int) DocPtr
+func SAXParseMemory(sax SAXHandlerPtr, buffer *c.Char, size c.Int, recovery c.Int) DocPtr
 
 //go:linkname SAXParseMemoryWithData C.xmlSAXParseMemoryWithData
-func SAXParseMemoryWithData(sax SAXHandlerPtr, buffer *int8, size c.Int, recovery c.Int, data unsafe.Pointer) DocPtr
+func SAXParseMemoryWithData(sax SAXHandlerPtr, buffer *c.Char, size c.Int, recovery c.Int, data c.Pointer) DocPtr
 
 //go:linkname SAXParseFile C.xmlSAXParseFile
-func SAXParseFile(sax SAXHandlerPtr, filename *int8, recovery c.Int) DocPtr
+func SAXParseFile(sax SAXHandlerPtr, filename *c.Char, recovery c.Int) DocPtr
 
 //go:linkname SAXParseFileWithData C.xmlSAXParseFileWithData
-func SAXParseFileWithData(sax SAXHandlerPtr, filename *int8, recovery c.Int, data unsafe.Pointer) DocPtr
+func SAXParseFileWithData(sax SAXHandlerPtr, filename *c.Char, recovery c.Int, data c.Pointer) DocPtr
 
 //go:linkname SAXParseEntity C.xmlSAXParseEntity
-func SAXParseEntity(sax SAXHandlerPtr, filename *int8) DocPtr
+func SAXParseEntity(sax SAXHandlerPtr, filename *c.Char) DocPtr
 
 //go:linkname ParseEntity C.xmlParseEntity
-func ParseEntity(filename *int8) DocPtr
+func ParseEntity(filename *c.Char) DocPtr
 
 //go:linkname SAXParseDTD C.xmlSAXParseDTD
 func SAXParseDTD(sax SAXHandlerPtr, ExternalID *Char, SystemID *Char) DtdPtr
@@ -392,16 +392,16 @@ func (recv_ *Char) ParseDTD(SystemID *Char) DtdPtr {
 func IOParseDTD(sax SAXHandlerPtr, input ParserInputBufferPtr, enc CharEncoding) DtdPtr
 
 //go:linkname ParseBalancedChunkMemory C.xmlParseBalancedChunkMemory
-func ParseBalancedChunkMemory(doc DocPtr, sax SAXHandlerPtr, user_data unsafe.Pointer, depth c.Int, string *Char, lst *NodePtr) c.Int
+func ParseBalancedChunkMemory(doc DocPtr, sax SAXHandlerPtr, user_data c.Pointer, depth c.Int, string *Char, lst *NodePtr) c.Int
 
 //go:linkname ParseInNodeContext C.xmlParseInNodeContext
-func ParseInNodeContext(node NodePtr, data *int8, datalen c.Int, options c.Int, lst *NodePtr) ParserErrors
+func ParseInNodeContext(node NodePtr, data *c.Char, datalen c.Int, options c.Int, lst *NodePtr) ParserErrors
 
 //go:linkname ParseBalancedChunkMemoryRecover C.xmlParseBalancedChunkMemoryRecover
-func ParseBalancedChunkMemoryRecover(doc DocPtr, sax SAXHandlerPtr, user_data unsafe.Pointer, depth c.Int, string *Char, lst *NodePtr, recover c.Int) c.Int
+func ParseBalancedChunkMemoryRecover(doc DocPtr, sax SAXHandlerPtr, user_data c.Pointer, depth c.Int, string *Char, lst *NodePtr, recover c.Int) c.Int
 
 //go:linkname ParseExternalEntity C.xmlParseExternalEntity
-func ParseExternalEntity(doc DocPtr, sax SAXHandlerPtr, user_data unsafe.Pointer, depth c.Int, URL *Char, ID *Char, lst *NodePtr) c.Int
+func ParseExternalEntity(doc DocPtr, sax SAXHandlerPtr, user_data c.Pointer, depth c.Int, URL *Char, ID *Char, lst *NodePtr) c.Int
 
 //go:linkname ParseCtxtExternalEntity C.xmlParseCtxtExternalEntity
 func ParseCtxtExternalEntity(ctx ParserCtxtPtr, URL *Char, ID *Char, lst *NodePtr) c.Int
@@ -413,7 +413,7 @@ func ParseCtxtExternalEntity(ctx ParserCtxtPtr, URL *Char, ID *Char, lst *NodePt
 func NewParserCtxt() ParserCtxtPtr
 
 // llgo:link (*SAXHandler).NewSAXParserCtxt C.xmlNewSAXParserCtxt
-func (recv_ *SAXHandler) NewSAXParserCtxt(userData unsafe.Pointer) ParserCtxtPtr {
+func (recv_ *SAXHandler) NewSAXParserCtxt(userData c.Pointer) ParserCtxtPtr {
 	return nil
 }
 
@@ -427,7 +427,7 @@ func ClearParserCtxt(ctxt ParserCtxtPtr)
 func FreeParserCtxt(ctxt ParserCtxtPtr)
 
 //go:linkname SetupParserForBuffer C.xmlSetupParserForBuffer
-func SetupParserForBuffer(ctxt ParserCtxtPtr, buffer *Char, filename *int8)
+func SetupParserForBuffer(ctxt ParserCtxtPtr, buffer *Char, filename *c.Char)
 
 // llgo:link (*Char).CreateDocParserCtxt C.xmlCreateDocParserCtxt
 func (recv_ *Char) CreateDocParserCtxt() ParserCtxtPtr {
@@ -438,28 +438,28 @@ func (recv_ *Char) CreateDocParserCtxt() ParserCtxtPtr {
  * Reading/setting optional parsing features.
  */
 //go:linkname GetFeaturesList C.xmlGetFeaturesList
-func GetFeaturesList(len *c.Int, result **int8) c.Int
+func GetFeaturesList(len *c.Int, result **c.Char) c.Int
 
 //go:linkname GetFeature C.xmlGetFeature
-func GetFeature(ctxt ParserCtxtPtr, name *int8, result unsafe.Pointer) c.Int
+func GetFeature(ctxt ParserCtxtPtr, name *c.Char, result c.Pointer) c.Int
 
 //go:linkname SetFeature C.xmlSetFeature
-func SetFeature(ctxt ParserCtxtPtr, name *int8, value unsafe.Pointer) c.Int
+func SetFeature(ctxt ParserCtxtPtr, name *c.Char, value c.Pointer) c.Int
 
 /*
  * Interfaces for the Push mode.
  */
 //go:linkname CreatePushParserCtxt C.xmlCreatePushParserCtxt
-func CreatePushParserCtxt(sax SAXHandlerPtr, user_data unsafe.Pointer, chunk *int8, size c.Int, filename *int8) ParserCtxtPtr
+func CreatePushParserCtxt(sax SAXHandlerPtr, user_data c.Pointer, chunk *c.Char, size c.Int, filename *c.Char) ParserCtxtPtr
 
 //go:linkname ParseChunk C.xmlParseChunk
-func ParseChunk(ctxt ParserCtxtPtr, chunk *int8, size c.Int, terminate c.Int) c.Int
+func ParseChunk(ctxt ParserCtxtPtr, chunk *c.Char, size c.Int, terminate c.Int) c.Int
 
 /*
  * Special I/O mode.
  */
 //go:linkname CreateIOParserCtxt C.xmlCreateIOParserCtxt
-func CreateIOParserCtxt(sax SAXHandlerPtr, user_data unsafe.Pointer, ioread InputReadCallback, ioclose InputCloseCallback, ioctx unsafe.Pointer, enc CharEncoding) ParserCtxtPtr
+func CreateIOParserCtxt(sax SAXHandlerPtr, user_data c.Pointer, ioread InputReadCallback, ioclose InputCloseCallback, ioctx c.Pointer, enc CharEncoding) ParserCtxtPtr
 
 //go:linkname NewIOInputStream C.xmlNewIOInputStream
 func NewIOInputStream(ctxt ParserCtxtPtr, input ParserInputBufferPtr, enc CharEncoding) ParserInputPtr
@@ -492,7 +492,7 @@ func SetExternalEntityLoader(f ExternalEntityLoader)
 func GetExternalEntityLoader() ExternalEntityLoader
 
 //go:linkname LoadExternalEntity C.xmlLoadExternalEntity
-func LoadExternalEntity(URL *int8, ID *int8, ctxt ParserCtxtPtr) ParserInputPtr
+func LoadExternalEntity(URL *c.Char, ID *c.Char, ctxt ParserCtxtPtr) ParserInputPtr
 
 /*
  * Index lookup, actually implemented in the encoding module
@@ -503,37 +503,37 @@ func ByteConsumed(ctxt ParserCtxtPtr) c.Long
 type ParserOption c.Int
 
 const (
-	PARSERECOVER    ParserOption = 1
-	PARSENOENT      ParserOption = 2
-	PARSEDTDLOAD    ParserOption = 4
-	PARSEDTDATTR    ParserOption = 8
-	PARSEDTDVALID   ParserOption = 16
-	PARSENOERROR    ParserOption = 32
-	PARSENOWARNING  ParserOption = 64
-	PARSEPEDANTIC   ParserOption = 128
-	PARSENOBLANKS   ParserOption = 256
-	PARSESAX1       ParserOption = 512
-	PARSEXINCLUDE   ParserOption = 1024
-	PARSENONET      ParserOption = 2048
-	PARSENODICT     ParserOption = 4096
-	PARSENSCLEAN    ParserOption = 8192
-	PARSENOCDATA    ParserOption = 16384
-	PARSENOXINCNODE ParserOption = 32768
-	PARSECOMPACT    ParserOption = 65536
-	PARSEOLD10      ParserOption = 131072
-	PARSENOBASEFIX  ParserOption = 262144
-	PARSEHUGE       ParserOption = 524288
-	PARSEOLDSAX     ParserOption = 1048576
-	PARSEIGNOREENC  ParserOption = 2097152
-	PARSEBIGLINES   ParserOption = 4194304
-	PARSENOXXE      ParserOption = 8388608
+	PARSE_RECOVER    ParserOption = 1
+	PARSE_NOENT      ParserOption = 2
+	PARSE_DTDLOAD    ParserOption = 4
+	PARSE_DTDATTR    ParserOption = 8
+	PARSE_DTDVALID   ParserOption = 16
+	PARSE_NOERROR    ParserOption = 32
+	PARSE_NOWARNING  ParserOption = 64
+	PARSE_PEDANTIC   ParserOption = 128
+	PARSE_NOBLANKS   ParserOption = 256
+	PARSE_SAX1       ParserOption = 512
+	PARSE_XINCLUDE   ParserOption = 1024
+	PARSE_NONET      ParserOption = 2048
+	PARSE_NODICT     ParserOption = 4096
+	PARSE_NSCLEAN    ParserOption = 8192
+	PARSE_NOCDATA    ParserOption = 16384
+	PARSE_NOXINCNODE ParserOption = 32768
+	PARSE_COMPACT    ParserOption = 65536
+	PARSE_OLD10      ParserOption = 131072
+	PARSE_NOBASEFIX  ParserOption = 262144
+	PARSE_HUGE       ParserOption = 524288
+	PARSE_OLDSAX     ParserOption = 1048576
+	PARSE_IGNORE_ENC ParserOption = 2097152
+	PARSE_BIG_LINES  ParserOption = 4194304
+	PARSE_NO_XXE     ParserOption = 8388608
 )
 
 //go:linkname CtxtReset C.xmlCtxtReset
 func CtxtReset(ctxt ParserCtxtPtr)
 
 //go:linkname CtxtResetPush C.xmlCtxtResetPush
-func CtxtResetPush(ctxt ParserCtxtPtr, chunk *int8, size c.Int, filename *int8, encoding *int8) c.Int
+func CtxtResetPush(ctxt ParserCtxtPtr, chunk *c.Char, size c.Int, filename *c.Char, encoding *c.Char) c.Int
 
 //go:linkname CtxtSetOptions C.xmlCtxtSetOptions
 func CtxtSetOptions(ctxt ParserCtxtPtr, options c.Int) c.Int
@@ -542,83 +542,83 @@ func CtxtSetOptions(ctxt ParserCtxtPtr, options c.Int) c.Int
 func CtxtUseOptions(ctxt ParserCtxtPtr, options c.Int) c.Int
 
 //go:linkname CtxtSetErrorHandler C.xmlCtxtSetErrorHandler
-func CtxtSetErrorHandler(ctxt ParserCtxtPtr, handler StructuredErrorFunc, data unsafe.Pointer)
+func CtxtSetErrorHandler(ctxt ParserCtxtPtr, handler StructuredErrorFunc, data c.Pointer)
 
 //go:linkname CtxtSetMaxAmplification C.xmlCtxtSetMaxAmplification
 func CtxtSetMaxAmplification(ctxt ParserCtxtPtr, maxAmpl c.Uint)
 
 // llgo:link (*Char).ReadDoc C.xmlReadDoc
-func (recv_ *Char) ReadDoc(URL *int8, encoding *int8, options c.Int) DocPtr {
+func (recv_ *Char) ReadDoc(URL *c.Char, encoding *c.Char, options c.Int) DocPtr {
 	return nil
 }
 
 //go:linkname ReadFile C.xmlReadFile
-func ReadFile(URL *int8, encoding *int8, options c.Int) DocPtr
+func ReadFile(URL *c.Char, encoding *c.Char, options c.Int) DocPtr
 
 //go:linkname ReadMemory C.xmlReadMemory
-func ReadMemory(buffer *int8, size c.Int, URL *int8, encoding *int8, options c.Int) DocPtr
+func ReadMemory(buffer *c.Char, size c.Int, URL *c.Char, encoding *c.Char, options c.Int) DocPtr
 
 //go:linkname ReadFd C.xmlReadFd
-func ReadFd(fd c.Int, URL *int8, encoding *int8, options c.Int) DocPtr
+func ReadFd(fd c.Int, URL *c.Char, encoding *c.Char, options c.Int) DocPtr
 
 //go:linkname ReadIO C.xmlReadIO
-func ReadIO(ioread InputReadCallback, ioclose InputCloseCallback, ioctx unsafe.Pointer, URL *int8, encoding *int8, options c.Int) DocPtr
+func ReadIO(ioread InputReadCallback, ioclose InputCloseCallback, ioctx c.Pointer, URL *c.Char, encoding *c.Char, options c.Int) DocPtr
 
 //go:linkname CtxtParseDocument C.xmlCtxtParseDocument
 func CtxtParseDocument(ctxt ParserCtxtPtr, input ParserInputPtr) DocPtr
 
 //go:linkname CtxtReadDoc C.xmlCtxtReadDoc
-func CtxtReadDoc(ctxt ParserCtxtPtr, cur *Char, URL *int8, encoding *int8, options c.Int) DocPtr
+func CtxtReadDoc(ctxt ParserCtxtPtr, cur *Char, URL *c.Char, encoding *c.Char, options c.Int) DocPtr
 
 //go:linkname CtxtReadFile C.xmlCtxtReadFile
-func CtxtReadFile(ctxt ParserCtxtPtr, filename *int8, encoding *int8, options c.Int) DocPtr
+func CtxtReadFile(ctxt ParserCtxtPtr, filename *c.Char, encoding *c.Char, options c.Int) DocPtr
 
 //go:linkname CtxtReadMemory C.xmlCtxtReadMemory
-func CtxtReadMemory(ctxt ParserCtxtPtr, buffer *int8, size c.Int, URL *int8, encoding *int8, options c.Int) DocPtr
+func CtxtReadMemory(ctxt ParserCtxtPtr, buffer *c.Char, size c.Int, URL *c.Char, encoding *c.Char, options c.Int) DocPtr
 
 //go:linkname CtxtReadFd C.xmlCtxtReadFd
-func CtxtReadFd(ctxt ParserCtxtPtr, fd c.Int, URL *int8, encoding *int8, options c.Int) DocPtr
+func CtxtReadFd(ctxt ParserCtxtPtr, fd c.Int, URL *c.Char, encoding *c.Char, options c.Int) DocPtr
 
 //go:linkname CtxtReadIO C.xmlCtxtReadIO
-func CtxtReadIO(ctxt ParserCtxtPtr, ioread InputReadCallback, ioclose InputCloseCallback, ioctx unsafe.Pointer, URL *int8, encoding *int8, options c.Int) DocPtr
+func CtxtReadIO(ctxt ParserCtxtPtr, ioread InputReadCallback, ioclose InputCloseCallback, ioctx c.Pointer, URL *c.Char, encoding *c.Char, options c.Int) DocPtr
 
 type Feature c.Int
 
 const (
-	WITHTHREAD     Feature = 1
-	WITHTREE       Feature = 2
-	WITHOUTPUT     Feature = 3
-	WITHPUSH       Feature = 4
-	WITHREADER     Feature = 5
-	WITHPATTERN    Feature = 6
-	WITHWRITER     Feature = 7
-	WITHSAX1       Feature = 8
-	WITHFTP        Feature = 9
-	WITHHTTP       Feature = 10
-	WITHVALID      Feature = 11
-	WITHHTML       Feature = 12
-	WITHLEGACY     Feature = 13
-	WITHC14N       Feature = 14
-	WITHCATALOG    Feature = 15
-	WITHXPATH      Feature = 16
-	WITHXPTR       Feature = 17
-	WITHXINCLUDE   Feature = 18
-	WITHICONV      Feature = 19
-	WITHISO8859X   Feature = 20
-	WITHUNICODE    Feature = 21
-	WITHREGEXP     Feature = 22
-	WITHAUTOMATA   Feature = 23
-	WITHEXPR       Feature = 24
-	WITHSCHEMAS    Feature = 25
-	WITHSCHEMATRON Feature = 26
-	WITHMODULES    Feature = 27
-	WITHDEBUG      Feature = 28
-	WITHDEBUGMEM   Feature = 29
-	WITHDEBUGRUN   Feature = 30
-	WITHZLIB       Feature = 31
-	WITHICU        Feature = 32
-	WITHLZMA       Feature = 33
-	WITHNONE       Feature = 99999
+	WITH_THREAD     Feature = 1
+	WITH_TREE       Feature = 2
+	WITH_OUTPUT     Feature = 3
+	WITH_PUSH       Feature = 4
+	WITH_READER     Feature = 5
+	WITH_PATTERN    Feature = 6
+	WITH_WRITER     Feature = 7
+	WITH_SAX1       Feature = 8
+	WITH_FTP        Feature = 9
+	WITH_HTTP       Feature = 10
+	WITH_VALID      Feature = 11
+	WITH_HTML       Feature = 12
+	WITH_LEGACY     Feature = 13
+	WITH_C14N       Feature = 14
+	WITH_CATALOG    Feature = 15
+	WITH_XPATH      Feature = 16
+	WITH_XPTR       Feature = 17
+	WITH_XINCLUDE   Feature = 18
+	WITH_ICONV      Feature = 19
+	WITH_ISO8859X   Feature = 20
+	WITH_UNICODE    Feature = 21
+	WITH_REGEXP     Feature = 22
+	WITH_AUTOMATA   Feature = 23
+	WITH_EXPR       Feature = 24
+	WITH_SCHEMAS    Feature = 25
+	WITH_SCHEMATRON Feature = 26
+	WITH_MODULES    Feature = 27
+	WITH_DEBUG      Feature = 28
+	WITH_DEBUG_MEM  Feature = 29
+	WITH_DEBUG_RUN  Feature = 30
+	WITH_ZLIB       Feature = 31
+	WITH_ICU        Feature = 32
+	WITH_LZMA       Feature = 33
+	WITH_NONE       Feature = 99999
 )
 
 // llgo:link Feature.HasFeature C.xmlHasFeature

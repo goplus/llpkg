@@ -1,39 +1,39 @@
 package libxml2
 
 import (
-	"github.com/goplus/llgo/c"
-	"unsafe"
+	"github.com/goplus/lib/c"
+	_ "unsafe"
 )
 
 // llgo:type C
-type InputMatchCallback func(*int8) c.Int
+type InputMatchCallback func(*c.Char) c.Int
 
 // llgo:type C
-type InputOpenCallback func(*int8) unsafe.Pointer
+type InputOpenCallback func(*c.Char) c.Pointer
 
 // llgo:type C
-type InputReadCallback func(unsafe.Pointer, *int8, c.Int) c.Int
+type InputReadCallback func(c.Pointer, *c.Char, c.Int) c.Int
 
 // llgo:type C
-type InputCloseCallback func(unsafe.Pointer) c.Int
+type InputCloseCallback func(c.Pointer) c.Int
 
 // llgo:type C
-type OutputMatchCallback func(*int8) c.Int
+type OutputMatchCallback func(*c.Char) c.Int
 
 // llgo:type C
-type OutputOpenCallback func(*int8) unsafe.Pointer
+type OutputOpenCallback func(*c.Char) c.Pointer
 
 // llgo:type C
-type OutputWriteCallback func(unsafe.Pointer, *int8, c.Int) c.Int
+type OutputWriteCallback func(c.Pointer, *c.Char, c.Int) c.Int
 
 // llgo:type C
-type OutputCloseCallback func(unsafe.Pointer) c.Int
+type OutputCloseCallback func(c.Pointer) c.Int
 
 // llgo:type C
-type ParserInputBufferCreateFilenameFunc func(*int8, CharEncoding) ParserInputBufferPtr
+type ParserInputBufferCreateFilenameFunc func(*c.Char, CharEncoding) ParserInputBufferPtr
 
 // llgo:type C
-type OutputBufferCreateFilenameFunc func(*int8, CharEncodingHandlerPtr, c.Int) OutputBufferPtr
+type OutputBufferCreateFilenameFunc func(*c.Char, CharEncodingHandlerPtr, c.Int) OutputBufferPtr
 
 //go:linkname X__xmlParserInputBufferCreateFilenameValue C.__xmlParserInputBufferCreateFilenameValue
 func X__xmlParserInputBufferCreateFilenameValue() ParserInputBufferCreateFilenameFunc
@@ -59,7 +59,7 @@ func (recv_ CharEncoding) AllocParserInputBuffer() ParserInputBufferPtr {
 }
 
 //go:linkname ParserInputBufferCreateFilename C.xmlParserInputBufferCreateFilename
-func ParserInputBufferCreateFilename(URI *int8, enc CharEncoding) ParserInputBufferPtr
+func ParserInputBufferCreateFilename(URI *c.Char, enc CharEncoding) ParserInputBufferPtr
 
 //go:linkname ParserInputBufferCreateFile C.xmlParserInputBufferCreateFile
 func ParserInputBufferCreateFile(file *c.FILE, enc CharEncoding) ParserInputBufferPtr
@@ -68,13 +68,13 @@ func ParserInputBufferCreateFile(file *c.FILE, enc CharEncoding) ParserInputBuff
 func ParserInputBufferCreateFd(fd c.Int, enc CharEncoding) ParserInputBufferPtr
 
 //go:linkname ParserInputBufferCreateMem C.xmlParserInputBufferCreateMem
-func ParserInputBufferCreateMem(mem *int8, size c.Int, enc CharEncoding) ParserInputBufferPtr
+func ParserInputBufferCreateMem(mem *c.Char, size c.Int, enc CharEncoding) ParserInputBufferPtr
 
 //go:linkname ParserInputBufferCreateStatic C.xmlParserInputBufferCreateStatic
-func ParserInputBufferCreateStatic(mem *int8, size c.Int, enc CharEncoding) ParserInputBufferPtr
+func ParserInputBufferCreateStatic(mem *c.Char, size c.Int, enc CharEncoding) ParserInputBufferPtr
 
 //go:linkname ParserInputBufferCreateIO C.xmlParserInputBufferCreateIO
-func ParserInputBufferCreateIO(ioread InputReadCallback, ioclose InputCloseCallback, ioctx unsafe.Pointer, enc CharEncoding) ParserInputBufferPtr
+func ParserInputBufferCreateIO(ioread InputReadCallback, ioclose InputCloseCallback, ioctx c.Pointer, enc CharEncoding) ParserInputBufferPtr
 
 //go:linkname ParserInputBufferRead C.xmlParserInputBufferRead
 func ParserInputBufferRead(in ParserInputBufferPtr, len c.Int) c.Int
@@ -83,19 +83,19 @@ func ParserInputBufferRead(in ParserInputBufferPtr, len c.Int) c.Int
 func ParserInputBufferGrow(in ParserInputBufferPtr, len c.Int) c.Int
 
 //go:linkname ParserInputBufferPush C.xmlParserInputBufferPush
-func ParserInputBufferPush(in ParserInputBufferPtr, len c.Int, buf *int8) c.Int
+func ParserInputBufferPush(in ParserInputBufferPtr, len c.Int, buf *c.Char) c.Int
 
 //go:linkname FreeParserInputBuffer C.xmlFreeParserInputBuffer
 func FreeParserInputBuffer(in ParserInputBufferPtr)
 
 //go:linkname ParserGetDirectory C.xmlParserGetDirectory
-func ParserGetDirectory(filename *int8) *int8
+func ParserGetDirectory(filename *c.Char) *c.Char
 
 //go:linkname RegisterInputCallbacks C.xmlRegisterInputCallbacks
 func RegisterInputCallbacks(matchFunc InputMatchCallback, openFunc InputOpenCallback, readFunc InputReadCallback, closeFunc InputCloseCallback) c.Int
 
 //go:linkname X__xmlParserInputBufferCreateFilename C.__xmlParserInputBufferCreateFilename
-func X__xmlParserInputBufferCreateFilename(URI *int8, enc CharEncoding) ParserInputBufferPtr
+func X__xmlParserInputBufferCreateFilename(URI *c.Char, enc CharEncoding) ParserInputBufferPtr
 
 /*
  * Interfaces for output
@@ -113,7 +113,7 @@ func RegisterDefaultOutputCallbacks()
 func AllocOutputBuffer(encoder CharEncodingHandlerPtr) OutputBufferPtr
 
 //go:linkname OutputBufferCreateFilename C.xmlOutputBufferCreateFilename
-func OutputBufferCreateFilename(URI *int8, encoder CharEncodingHandlerPtr, compression c.Int) OutputBufferPtr
+func OutputBufferCreateFilename(URI *c.Char, encoder CharEncodingHandlerPtr, compression c.Int) OutputBufferPtr
 
 //go:linkname OutputBufferCreateFile C.xmlOutputBufferCreateFile
 func OutputBufferCreateFile(file *c.FILE, encoder CharEncodingHandlerPtr) OutputBufferPtr
@@ -125,20 +125,20 @@ func OutputBufferCreateBuffer(buffer BufferPtr, encoder CharEncodingHandlerPtr) 
 func OutputBufferCreateFd(fd c.Int, encoder CharEncodingHandlerPtr) OutputBufferPtr
 
 //go:linkname OutputBufferCreateIO C.xmlOutputBufferCreateIO
-func OutputBufferCreateIO(iowrite OutputWriteCallback, ioclose OutputCloseCallback, ioctx unsafe.Pointer, encoder CharEncodingHandlerPtr) OutputBufferPtr
+func OutputBufferCreateIO(iowrite OutputWriteCallback, ioclose OutputCloseCallback, ioctx c.Pointer, encoder CharEncodingHandlerPtr) OutputBufferPtr
 
 /* Couple of APIs to get the output without digging into the buffers */
 //go:linkname OutputBufferGetContent C.xmlOutputBufferGetContent
 func OutputBufferGetContent(out OutputBufferPtr) *Char
 
 //go:linkname OutputBufferGetSize C.xmlOutputBufferGetSize
-func OutputBufferGetSize(out OutputBufferPtr) uintptr
+func OutputBufferGetSize(out OutputBufferPtr) c.SizeT
 
 //go:linkname OutputBufferWrite C.xmlOutputBufferWrite
-func OutputBufferWrite(out OutputBufferPtr, len c.Int, buf *int8) c.Int
+func OutputBufferWrite(out OutputBufferPtr, len c.Int, buf *c.Char) c.Int
 
 //go:linkname OutputBufferWriteString C.xmlOutputBufferWriteString
-func OutputBufferWriteString(out OutputBufferPtr, str *int8) c.Int
+func OutputBufferWriteString(out OutputBufferPtr, str *c.Char) c.Int
 
 //go:linkname OutputBufferWriteEscape C.xmlOutputBufferWriteEscape
 func OutputBufferWriteEscape(out OutputBufferPtr, str *Char, escaping CharEncodingOutputFunc) c.Int
@@ -153,7 +153,7 @@ func OutputBufferClose(out OutputBufferPtr) c.Int
 func RegisterOutputCallbacks(matchFunc OutputMatchCallback, openFunc OutputOpenCallback, writeFunc OutputWriteCallback, closeFunc OutputCloseCallback) c.Int
 
 //go:linkname X__xmlOutputBufferCreateFilename C.__xmlOutputBufferCreateFilename
-func X__xmlOutputBufferCreateFilename(URI *int8, encoder CharEncodingHandlerPtr, compression c.Int) OutputBufferPtr
+func X__xmlOutputBufferCreateFilename(URI *c.Char, encoder CharEncodingHandlerPtr, compression c.Int) OutputBufferPtr
 
 /*  This function only exists if HTTP support built into the library  */
 //go:linkname RegisterHTTPPostCallbacks C.xmlRegisterHTTPPostCallbacks
@@ -166,7 +166,7 @@ func CheckHTTPInput(ctxt ParserCtxtPtr, ret ParserInputPtr) ParserInputPtr
  * A predefined entity loader disabling network accesses
  */
 //go:linkname NoNetExternalEntityLoader C.xmlNoNetExternalEntityLoader
-func NoNetExternalEntityLoader(URL *int8, ID *int8, ctxt ParserCtxtPtr) ParserInputPtr
+func NoNetExternalEntityLoader(URL *c.Char, ID *c.Char, ctxt ParserCtxtPtr) ParserInputPtr
 
 // llgo:link (*Char).NormalizeWindowsPath C.xmlNormalizeWindowsPath
 func (recv_ *Char) NormalizeWindowsPath() *Char {
@@ -174,55 +174,55 @@ func (recv_ *Char) NormalizeWindowsPath() *Char {
 }
 
 //go:linkname CheckFilename C.xmlCheckFilename
-func CheckFilename(path *int8) c.Int
+func CheckFilename(path *c.Char) c.Int
 
 /**
  * Default 'file://' protocol callbacks
  */
 //go:linkname FileMatch C.xmlFileMatch
-func FileMatch(filename *int8) c.Int
+func FileMatch(filename *c.Char) c.Int
 
 //go:linkname FileOpen C.xmlFileOpen
-func FileOpen(filename *int8) unsafe.Pointer
+func FileOpen(filename *c.Char) c.Pointer
 
 //go:linkname FileRead C.xmlFileRead
-func FileRead(context unsafe.Pointer, buffer *int8, len c.Int) c.Int
+func FileRead(context c.Pointer, buffer *c.Char, len c.Int) c.Int
 
 //go:linkname FileClose C.xmlFileClose
-func FileClose(context unsafe.Pointer) c.Int
+func FileClose(context c.Pointer) c.Int
 
 /**
  * Default 'http://' protocol callbacks
  */
 //go:linkname IOHTTPMatch C.xmlIOHTTPMatch
-func IOHTTPMatch(filename *int8) c.Int
+func IOHTTPMatch(filename *c.Char) c.Int
 
 //go:linkname IOHTTPOpen C.xmlIOHTTPOpen
-func IOHTTPOpen(filename *int8) unsafe.Pointer
+func IOHTTPOpen(filename *c.Char) c.Pointer
 
 //go:linkname IOHTTPOpenW C.xmlIOHTTPOpenW
-func IOHTTPOpenW(post_uri *int8, compression c.Int) unsafe.Pointer
+func IOHTTPOpenW(post_uri *c.Char, compression c.Int) c.Pointer
 
 //go:linkname IOHTTPRead C.xmlIOHTTPRead
-func IOHTTPRead(context unsafe.Pointer, buffer *int8, len c.Int) c.Int
+func IOHTTPRead(context c.Pointer, buffer *c.Char, len c.Int) c.Int
 
 //go:linkname IOHTTPClose C.xmlIOHTTPClose
-func IOHTTPClose(context unsafe.Pointer) c.Int
+func IOHTTPClose(context c.Pointer) c.Int
 
 /**
  * Default 'ftp://' protocol callbacks
  */
 //go:linkname IOFTPMatch C.xmlIOFTPMatch
-func IOFTPMatch(filename *int8) c.Int
+func IOFTPMatch(filename *c.Char) c.Int
 
 //go:linkname IOFTPOpen C.xmlIOFTPOpen
-func IOFTPOpen(filename *int8) unsafe.Pointer
+func IOFTPOpen(filename *c.Char) c.Pointer
 
 //go:linkname IOFTPRead C.xmlIOFTPRead
-func IOFTPRead(context unsafe.Pointer, buffer *int8, len c.Int) c.Int
+func IOFTPRead(context c.Pointer, buffer *c.Char, len c.Int) c.Int
 
 //go:linkname IOFTPClose C.xmlIOFTPClose
-func IOFTPClose(context unsafe.Pointer) c.Int
+func IOFTPClose(context c.Pointer) c.Int
 
 //go:linkname ParserInputBufferCreateFilenameDefault C.xmlParserInputBufferCreateFilenameDefault
 func ParserInputBufferCreateFilenameDefault(func_ ParserInputBufferCreateFilenameFunc) ParserInputBufferCreateFilenameFunc
