@@ -1,0 +1,933 @@
+[{
+		"mangle":	"JS_AddIntrinsicBaseObjects",
+		"c++":	"JS_AddIntrinsicBaseObjects(JSContext *)",
+		"go":	"(*JSContext).JSAddIntrinsicBaseObjects"
+	}, {
+		"mangle":	"JS_AddIntrinsicBigDecimal",
+		"c++":	"JS_AddIntrinsicBigDecimal(JSContext *)",
+		"go":	"(*JSContext).JSAddIntrinsicBigDecimal"
+	}, {
+		"mangle":	"JS_AddIntrinsicBigFloat",
+		"c++":	"JS_AddIntrinsicBigFloat(JSContext *)",
+		"go":	"(*JSContext).JSAddIntrinsicBigFloat"
+	}, {
+		"mangle":	"JS_AddIntrinsicBigInt",
+		"c++":	"JS_AddIntrinsicBigInt(JSContext *)",
+		"go":	"(*JSContext).JSAddIntrinsicBigInt"
+	}, {
+		"mangle":	"JS_AddIntrinsicDate",
+		"c++":	"JS_AddIntrinsicDate(JSContext *)",
+		"go":	"(*JSContext).JSAddIntrinsicDate"
+	}, {
+		"mangle":	"JS_AddIntrinsicEval",
+		"c++":	"JS_AddIntrinsicEval(JSContext *)",
+		"go":	"(*JSContext).JSAddIntrinsicEval"
+	}, {
+		"mangle":	"JS_AddIntrinsicJSON",
+		"c++":	"JS_AddIntrinsicJSON(JSContext *)",
+		"go":	"(*JSContext).JSAddIntrinsicJSON"
+	}, {
+		"mangle":	"JS_AddIntrinsicMapSet",
+		"c++":	"JS_AddIntrinsicMapSet(JSContext *)",
+		"go":	"(*JSContext).JSAddIntrinsicMapSet"
+	}, {
+		"mangle":	"JS_AddIntrinsicOperators",
+		"c++":	"JS_AddIntrinsicOperators(JSContext *)",
+		"go":	"(*JSContext).JSAddIntrinsicOperators"
+	}, {
+		"mangle":	"JS_AddIntrinsicPromise",
+		"c++":	"JS_AddIntrinsicPromise(JSContext *)",
+		"go":	"(*JSContext).JSAddIntrinsicPromise"
+	}, {
+		"mangle":	"JS_AddIntrinsicProxy",
+		"c++":	"JS_AddIntrinsicProxy(JSContext *)",
+		"go":	"(*JSContext).JSAddIntrinsicProxy"
+	}, {
+		"mangle":	"JS_AddIntrinsicRegExp",
+		"c++":	"JS_AddIntrinsicRegExp(JSContext *)",
+		"go":	"(*JSContext).JSAddIntrinsicRegExp"
+	}, {
+		"mangle":	"JS_AddIntrinsicRegExpCompiler",
+		"c++":	"JS_AddIntrinsicRegExpCompiler(JSContext *)",
+		"go":	"(*JSContext).JSAddIntrinsicRegExpCompiler"
+	}, {
+		"mangle":	"JS_AddIntrinsicStringNormalize",
+		"c++":	"JS_AddIntrinsicStringNormalize(JSContext *)",
+		"go":	"(*JSContext).JSAddIntrinsicStringNormalize"
+	}, {
+		"mangle":	"JS_AddIntrinsicTypedArrays",
+		"c++":	"JS_AddIntrinsicTypedArrays(JSContext *)",
+		"go":	"(*JSContext).JSAddIntrinsicTypedArrays"
+	}, {
+		"mangle":	"JS_AddModuleExport",
+		"c++":	"JS_AddModuleExport(JSContext *, JSModuleDef *, const char *)",
+		"go":	"(*JSContext).JSAddModuleExport"
+	}, {
+		"mangle":	"JS_AddModuleExportList",
+		"c++":	"JS_AddModuleExportList(JSContext *, JSModuleDef *, const JSCFunctionListEntry *, int)",
+		"go":	"(*JSContext).JSAddModuleExportList"
+	}, {
+		"mangle":	"JS_AtomToCString",
+		"c++":	"JS_AtomToCString(JSContext *, JSAtom)",
+		"go":	"(*JSContext).JSAtomToCString"
+	}, {
+		"mangle":	"JS_AtomToString",
+		"c++":	"JS_AtomToString(JSContext *, JSAtom)",
+		"go":	"(*JSContext).JSAtomToString"
+	}, {
+		"mangle":	"JS_AtomToValue",
+		"c++":	"JS_AtomToValue(JSContext *, JSAtom)",
+		"go":	"(*JSContext).JSAtomToValue"
+	}, {
+		"mangle":	"JS_Call",
+		"c++":	"JS_Call(JSContext *, JSValue, JSValue, int, JSValue *)",
+		"go":	"(*JSContext).JSCall"
+	}, {
+		"mangle":	"JS_CallConstructor",
+		"c++":	"JS_CallConstructor(JSContext *, JSValue, int, JSValue *)",
+		"go":	"(*JSContext).JSCallConstructor"
+	}, {
+		"mangle":	"JS_CallConstructor2",
+		"c++":	"JS_CallConstructor2(JSContext *, JSValue, JSValue, int, JSValue *)",
+		"go":	"(*JSContext).JSCallConstructor2"
+	}, {
+		"mangle":	"JS_ComputeMemoryUsage",
+		"c++":	"JS_ComputeMemoryUsage(JSRuntime *, JSMemoryUsage *)",
+		"go":	"(*JSRuntime).JSComputeMemoryUsage"
+	}, {
+		"mangle":	"JS_DefineProperty",
+		"c++":	"JS_DefineProperty(JSContext *, JSValue, JSAtom, JSValue, JSValue, JSValue, int)",
+		"go":	"(*JSContext).JSDefineProperty"
+	}, {
+		"mangle":	"JS_DefinePropertyGetSet",
+		"c++":	"JS_DefinePropertyGetSet(JSContext *, JSValue, JSAtom, JSValue, JSValue, int)",
+		"go":	"(*JSContext).JSDefinePropertyGetSet"
+	}, {
+		"mangle":	"JS_DefinePropertyValue",
+		"c++":	"JS_DefinePropertyValue(JSContext *, JSValue, JSAtom, JSValue, int)",
+		"go":	"(*JSContext).JSDefinePropertyValue"
+	}, {
+		"mangle":	"JS_DefinePropertyValueStr",
+		"c++":	"JS_DefinePropertyValueStr(JSContext *, JSValue, const char *, JSValue, int)",
+		"go":	"(*JSContext).JSDefinePropertyValueStr"
+	}, {
+		"mangle":	"JS_DefinePropertyValueUint32",
+		"c++":	"JS_DefinePropertyValueUint32(JSContext *, JSValue, uint32_t, JSValue, int)",
+		"go":	"(*JSContext).JSDefinePropertyValueUint32"
+	}, {
+		"mangle":	"JS_DeleteProperty",
+		"c++":	"JS_DeleteProperty(JSContext *, JSValue, JSAtom, int)",
+		"go":	"(*JSContext).JSDeleteProperty"
+	}, {
+		"mangle":	"JS_DetachArrayBuffer",
+		"c++":	"JS_DetachArrayBuffer(JSContext *, JSValue)",
+		"go":	"(*JSContext).JSDetachArrayBuffer"
+	}, {
+		"mangle":	"JS_DetectModule",
+		"c++":	"JS_DetectModule(const char *, size_t)",
+		"go":	"JSDetectModule"
+	}, {
+		"mangle":	"JS_DumpMemoryUsage",
+		"c++":	"JS_DumpMemoryUsage(FILE *, const JSMemoryUsage *, JSRuntime *)",
+		"go":	"JSDumpMemoryUsage"
+	}, {
+		"mangle":	"JS_DupAtom",
+		"c++":	"JS_DupAtom(JSContext *, JSAtom)",
+		"go":	"(*JSContext).JSDupAtom"
+	}, {
+		"mangle":	"JS_DupContext",
+		"c++":	"JS_DupContext(JSContext *)",
+		"go":	"(*JSContext).JSDupContext"
+	}, {
+		"mangle":	"JS_EnableBignumExt",
+		"c++":	"JS_EnableBignumExt(JSContext *, int)",
+		"go":	"(*JSContext).JSEnableBignumExt"
+	}, {
+		"mangle":	"JS_EnqueueJob",
+		"c++":	"JS_EnqueueJob(JSContext *, JSJobFunc *, int, JSValue *)",
+		"go":	"(*JSContext).JSEnqueueJob"
+	}, {
+		"mangle":	"JS_Eval",
+		"c++":	"JS_Eval(JSContext *, const char *, size_t, const char *, int)",
+		"go":	"(*JSContext).JSEval"
+	}, {
+		"mangle":	"JS_EvalFunction",
+		"c++":	"JS_EvalFunction(JSContext *, JSValue)",
+		"go":	"(*JSContext).JSEvalFunction"
+	}, {
+		"mangle":	"JS_EvalThis",
+		"c++":	"JS_EvalThis(JSContext *, JSValue, const char *, size_t, const char *, int)",
+		"go":	"(*JSContext).JSEvalThis"
+	}, {
+		"mangle":	"JS_ExecutePendingJob",
+		"c++":	"JS_ExecutePendingJob(JSRuntime *, JSContext **)",
+		"go":	"(*JSRuntime).JSExecutePendingJob"
+	}, {
+		"mangle":	"JS_FreeAtom",
+		"c++":	"JS_FreeAtom(JSContext *, JSAtom)",
+		"go":	"(*JSContext).JSFreeAtom"
+	}, {
+		"mangle":	"JS_FreeAtomRT",
+		"c++":	"JS_FreeAtomRT(JSRuntime *, JSAtom)",
+		"go":	"(*JSRuntime).JSFreeAtomRT"
+	}, {
+		"mangle":	"JS_FreeCString",
+		"c++":	"JS_FreeCString(JSContext *, const char *)",
+		"go":	"(*JSContext).JSFreeCString"
+	}, {
+		"mangle":	"JS_FreeContext",
+		"c++":	"JS_FreeContext(JSContext *)",
+		"go":	"(*JSContext).JSFreeContext"
+	}, {
+		"mangle":	"JS_FreeRuntime",
+		"c++":	"JS_FreeRuntime(JSRuntime *)",
+		"go":	"(*JSRuntime).JSFreeRuntime"
+	}, {
+		"mangle":	"JS_GetArrayBuffer",
+		"c++":	"JS_GetArrayBuffer(JSContext *, size_t *, JSValue)",
+		"go":	"(*JSContext).JSGetArrayBuffer"
+	}, {
+		"mangle":	"JS_GetClassProto",
+		"c++":	"JS_GetClassProto(JSContext *, JSClassID)",
+		"go":	"(*JSContext).JSGetClassProto"
+	}, {
+		"mangle":	"JS_GetContextOpaque",
+		"c++":	"JS_GetContextOpaque(JSContext *)",
+		"go":	"(*JSContext).JSGetContextOpaque"
+	}, {
+		"mangle":	"JS_GetException",
+		"c++":	"JS_GetException(JSContext *)",
+		"go":	"(*JSContext).JSGetException"
+	}, {
+		"mangle":	"JS_GetGlobalObject",
+		"c++":	"JS_GetGlobalObject(JSContext *)",
+		"go":	"(*JSContext).JSGetGlobalObject"
+	}, {
+		"mangle":	"JS_GetImportMeta",
+		"c++":	"JS_GetImportMeta(JSContext *, JSModuleDef *)",
+		"go":	"(*JSContext).JSGetImportMeta"
+	}, {
+		"mangle":	"JS_GetModuleName",
+		"c++":	"JS_GetModuleName(JSContext *, JSModuleDef *)",
+		"go":	"(*JSContext).JSGetModuleName"
+	}, {
+		"mangle":	"JS_GetOpaque",
+		"c++":	"JS_GetOpaque(JSValue, JSClassID)",
+		"go":	"JSValue.JSGetOpaque"
+	}, {
+		"mangle":	"JS_GetOpaque2",
+		"c++":	"JS_GetOpaque2(JSContext *, JSValue, JSClassID)",
+		"go":	"(*JSContext).JSGetOpaque2"
+	}, {
+		"mangle":	"JS_GetOwnProperty",
+		"c++":	"JS_GetOwnProperty(JSContext *, JSPropertyDescriptor *, JSValue, JSAtom)",
+		"go":	"(*JSContext).JSGetOwnProperty"
+	}, {
+		"mangle":	"JS_GetOwnPropertyNames",
+		"c++":	"JS_GetOwnPropertyNames(JSContext *, JSPropertyEnum **, uint32_t *, JSValue, int)",
+		"go":	"(*JSContext).JSGetOwnPropertyNames"
+	}, {
+		"mangle":	"JS_GetPropertyInternal",
+		"c++":	"JS_GetPropertyInternal(JSContext *, JSValue, JSAtom, JSValue, int)",
+		"go":	"(*JSContext).JSGetPropertyInternal"
+	}, {
+		"mangle":	"JS_GetPropertyStr",
+		"c++":	"JS_GetPropertyStr(JSContext *, JSValue, const char *)",
+		"go":	"(*JSContext).JSGetPropertyStr"
+	}, {
+		"mangle":	"JS_GetPropertyUint32",
+		"c++":	"JS_GetPropertyUint32(JSContext *, JSValue, uint32_t)",
+		"go":	"(*JSContext).JSGetPropertyUint32"
+	}, {
+		"mangle":	"JS_GetPrototype",
+		"c++":	"JS_GetPrototype(JSContext *, JSValue)",
+		"go":	"(*JSContext).JSGetPrototype"
+	}, {
+		"mangle":	"JS_GetRuntime",
+		"c++":	"JS_GetRuntime(JSContext *)",
+		"go":	"(*JSContext).JSGetRuntime"
+	}, {
+		"mangle":	"JS_GetRuntimeOpaque",
+		"c++":	"JS_GetRuntimeOpaque(JSRuntime *)",
+		"go":	"(*JSRuntime).JSGetRuntimeOpaque"
+	}, {
+		"mangle":	"JS_GetScriptOrModuleName",
+		"c++":	"JS_GetScriptOrModuleName(JSContext *, int)",
+		"go":	"(*JSContext).JSGetScriptOrModuleName"
+	}, {
+		"mangle":	"JS_GetTypedArrayBuffer",
+		"c++":	"JS_GetTypedArrayBuffer(JSContext *, JSValue, size_t *, size_t *, size_t *)",
+		"go":	"(*JSContext).JSGetTypedArrayBuffer"
+	}, {
+		"mangle":	"JS_HasProperty",
+		"c++":	"JS_HasProperty(JSContext *, JSValue, JSAtom)",
+		"go":	"(*JSContext).JSHasProperty"
+	}, {
+		"mangle":	"JS_Invoke",
+		"c++":	"JS_Invoke(JSContext *, JSValue, JSAtom, int, JSValue *)",
+		"go":	"(*JSContext).JSInvoke"
+	}, {
+		"mangle":	"JS_IsArray",
+		"c++":	"JS_IsArray(JSContext *, JSValue)",
+		"go":	"(*JSContext).JSIsArray"
+	}, {
+		"mangle":	"JS_IsConstructor",
+		"c++":	"JS_IsConstructor(JSContext *, JSValue)",
+		"go":	"(*JSContext).JSIsConstructor"
+	}, {
+		"mangle":	"JS_IsError",
+		"c++":	"JS_IsError(JSContext *, JSValue)",
+		"go":	"(*JSContext).JSIsError"
+	}, {
+		"mangle":	"JS_IsExtensible",
+		"c++":	"JS_IsExtensible(JSContext *, JSValue)",
+		"go":	"(*JSContext).JSIsExtensible"
+	}, {
+		"mangle":	"JS_IsFunction",
+		"c++":	"JS_IsFunction(JSContext *, JSValue)",
+		"go":	"(*JSContext).JSIsFunction"
+	}, {
+		"mangle":	"JS_IsInstanceOf",
+		"c++":	"JS_IsInstanceOf(JSContext *, JSValue, JSValue)",
+		"go":	"(*JSContext).JSIsInstanceOf"
+	}, {
+		"mangle":	"JS_IsJobPending",
+		"c++":	"JS_IsJobPending(JSRuntime *)",
+		"go":	"(*JSRuntime).JSIsJobPending"
+	}, {
+		"mangle":	"JS_IsLiveObject",
+		"c++":	"JS_IsLiveObject(JSRuntime *, JSValue)",
+		"go":	"(*JSRuntime).JSIsLiveObject"
+	}, {
+		"mangle":	"JS_IsRegisteredClass",
+		"c++":	"JS_IsRegisteredClass(JSRuntime *, JSClassID)",
+		"go":	"(*JSRuntime).JSIsRegisteredClass"
+	}, {
+		"mangle":	"JS_JSONStringify",
+		"c++":	"JS_JSONStringify(JSContext *, JSValue, JSValue, JSValue)",
+		"go":	"(*JSContext).JSJSONStringify"
+	}, {
+		"mangle":	"JS_LoadModule",
+		"c++":	"JS_LoadModule(JSContext *, const char *, const char *)",
+		"go":	"(*JSContext).JSLoadModule"
+	}, {
+		"mangle":	"JS_MarkValue",
+		"c++":	"JS_MarkValue(JSRuntime *, JSValue, JS_MarkFunc *)",
+		"go":	"(*JSRuntime).JSMarkValue"
+	}, {
+		"mangle":	"JS_NewArray",
+		"c++":	"JS_NewArray(JSContext *)",
+		"go":	"(*JSContext).JSNewArray"
+	}, {
+		"mangle":	"JS_NewArrayBuffer",
+		"c++":	"JS_NewArrayBuffer(JSContext *, uint8_t *, size_t, JSFreeArrayBufferDataFunc *, void *, int)",
+		"go":	"(*JSContext).JSNewArrayBuffer"
+	}, {
+		"mangle":	"JS_NewArrayBufferCopy",
+		"c++":	"JS_NewArrayBufferCopy(JSContext *, const uint8_t *, size_t)",
+		"go":	"(*JSContext).JSNewArrayBufferCopy"
+	}, {
+		"mangle":	"JS_NewAtom",
+		"c++":	"JS_NewAtom(JSContext *, const char *)",
+		"go":	"(*JSContext).JSNewAtom"
+	}, {
+		"mangle":	"JS_NewAtomLen",
+		"c++":	"JS_NewAtomLen(JSContext *, const char *, size_t)",
+		"go":	"(*JSContext).JSNewAtomLen"
+	}, {
+		"mangle":	"JS_NewAtomString",
+		"c++":	"JS_NewAtomString(JSContext *, const char *)",
+		"go":	"(*JSContext).JSNewAtomString"
+	}, {
+		"mangle":	"JS_NewAtomUInt32",
+		"c++":	"JS_NewAtomUInt32(JSContext *, uint32_t)",
+		"go":	"(*JSContext).JSNewAtomUInt32"
+	}, {
+		"mangle":	"JS_NewBigInt64",
+		"c++":	"JS_NewBigInt64(JSContext *, int64_t)",
+		"go":	"(*JSContext).JSNewBigInt64"
+	}, {
+		"mangle":	"JS_NewBigUint64",
+		"c++":	"JS_NewBigUint64(JSContext *, uint64_t)",
+		"go":	"(*JSContext).JSNewBigUint64"
+	}, {
+		"mangle":	"JS_NewCFunction2",
+		"c++":	"JS_NewCFunction2(JSContext *, JSCFunction *, const char *, int, JSCFunctionEnum, int)",
+		"go":	"(*JSContext).JSNewCFunction2"
+	}, {
+		"mangle":	"JS_NewCFunctionData",
+		"c++":	"JS_NewCFunctionData(JSContext *, JSCFunctionData *, int, int, int, JSValue *)",
+		"go":	"(*JSContext).JSNewCFunctionData"
+	}, {
+		"mangle":	"JS_NewCModule",
+		"c++":	"JS_NewCModule(JSContext *, const char *, JSModuleInitFunc *)",
+		"go":	"(*JSContext).JSNewCModule"
+	}, {
+		"mangle":	"JS_NewClass",
+		"c++":	"JS_NewClass(JSRuntime *, JSClassID, const JSClassDef *)",
+		"go":	"(*JSRuntime).JSNewClass"
+	}, {
+		"mangle":	"JS_NewClassID",
+		"c++":	"JS_NewClassID(JSClassID *)",
+		"go":	"(*JSClassID).JSNewClassID"
+	}, {
+		"mangle":	"JS_NewContext",
+		"c++":	"JS_NewContext(JSRuntime *)",
+		"go":	"(*JSRuntime).JSNewContext"
+	}, {
+		"mangle":	"JS_NewContextRaw",
+		"c++":	"JS_NewContextRaw(JSRuntime *)",
+		"go":	"(*JSRuntime).JSNewContextRaw"
+	}, {
+		"mangle":	"JS_NewError",
+		"c++":	"JS_NewError(JSContext *)",
+		"go":	"(*JSContext).JSNewError"
+	}, {
+		"mangle":	"JS_NewObject",
+		"c++":	"JS_NewObject(JSContext *)",
+		"go":	"(*JSContext).JSNewObject"
+	}, {
+		"mangle":	"JS_NewObjectClass",
+		"c++":	"JS_NewObjectClass(JSContext *, int)",
+		"go":	"(*JSContext).JSNewObjectClass"
+	}, {
+		"mangle":	"JS_NewObjectProto",
+		"c++":	"JS_NewObjectProto(JSContext *, JSValue)",
+		"go":	"(*JSContext).JSNewObjectProto"
+	}, {
+		"mangle":	"JS_NewObjectProtoClass",
+		"c++":	"JS_NewObjectProtoClass(JSContext *, JSValue, JSClassID)",
+		"go":	"(*JSContext).JSNewObjectProtoClass"
+	}, {
+		"mangle":	"JS_NewPromiseCapability",
+		"c++":	"JS_NewPromiseCapability(JSContext *, JSValue *)",
+		"go":	"(*JSContext).JSNewPromiseCapability"
+	}, {
+		"mangle":	"JS_NewRuntime",
+		"c++":	"JS_NewRuntime()",
+		"go":	"JSNewRuntime"
+	}, {
+		"mangle":	"JS_NewRuntime2",
+		"c++":	"JS_NewRuntime2(const JSMallocFunctions *, void *)",
+		"go":	"(*JSMallocFunctions).JSNewRuntime2"
+	}, {
+		"mangle":	"JS_NewString",
+		"c++":	"JS_NewString(JSContext *, const char *)",
+		"go":	"(*JSContext).JSNewString"
+	}, {
+		"mangle":	"JS_NewStringLen",
+		"c++":	"JS_NewStringLen(JSContext *, const char *, size_t)",
+		"go":	"(*JSContext).JSNewStringLen"
+	}, {
+		"mangle":	"JS_ParseJSON",
+		"c++":	"JS_ParseJSON(JSContext *, const char *, size_t, const char *)",
+		"go":	"(*JSContext).JSParseJSON"
+	}, {
+		"mangle":	"JS_ParseJSON2",
+		"c++":	"JS_ParseJSON2(JSContext *, const char *, size_t, const char *, int)",
+		"go":	"(*JSContext).JSParseJSON2"
+	}, {
+		"mangle":	"JS_PreventExtensions",
+		"c++":	"JS_PreventExtensions(JSContext *, JSValue)",
+		"go":	"(*JSContext).JSPreventExtensions"
+	}, {
+		"mangle":	"JS_PromiseResult",
+		"c++":	"JS_PromiseResult(JSContext *, JSValue)",
+		"go":	"(*JSContext).JSPromiseResult"
+	}, {
+		"mangle":	"JS_PromiseState",
+		"c++":	"JS_PromiseState(JSContext *, JSValue)",
+		"go":	"(*JSContext).JSPromiseState"
+	}, {
+		"mangle":	"JS_ReadObject",
+		"c++":	"JS_ReadObject(JSContext *, const uint8_t *, size_t, int)",
+		"go":	"(*JSContext).JSReadObject"
+	}, {
+		"mangle":	"JS_ResetUncatchableError",
+		"c++":	"JS_ResetUncatchableError(JSContext *)",
+		"go":	"(*JSContext).JSResetUncatchableError"
+	}, {
+		"mangle":	"JS_ResolveModule",
+		"c++":	"JS_ResolveModule(JSContext *, JSValue)",
+		"go":	"(*JSContext).JSResolveModule"
+	}, {
+		"mangle":	"JS_RunGC",
+		"c++":	"JS_RunGC(JSRuntime *)",
+		"go":	"(*JSRuntime).JSRunGC"
+	}, {
+		"mangle":	"JS_SetCanBlock",
+		"c++":	"JS_SetCanBlock(JSRuntime *, int)",
+		"go":	"(*JSRuntime).JSSetCanBlock"
+	}, {
+		"mangle":	"JS_SetClassProto",
+		"c++":	"JS_SetClassProto(JSContext *, JSClassID, JSValue)",
+		"go":	"(*JSContext).JSSetClassProto"
+	}, {
+		"mangle":	"JS_SetConstructor",
+		"c++":	"JS_SetConstructor(JSContext *, JSValue, JSValue)",
+		"go":	"(*JSContext).JSSetConstructor"
+	}, {
+		"mangle":	"JS_SetConstructorBit",
+		"c++":	"JS_SetConstructorBit(JSContext *, JSValue, int)",
+		"go":	"(*JSContext).JSSetConstructorBit"
+	}, {
+		"mangle":	"JS_SetContextOpaque",
+		"c++":	"JS_SetContextOpaque(JSContext *, void *)",
+		"go":	"(*JSContext).JSSetContextOpaque"
+	}, {
+		"mangle":	"JS_SetGCThreshold",
+		"c++":	"JS_SetGCThreshold(JSRuntime *, size_t)",
+		"go":	"(*JSRuntime).JSSetGCThreshold"
+	}, {
+		"mangle":	"JS_SetHostPromiseRejectionTracker",
+		"c++":	"JS_SetHostPromiseRejectionTracker(JSRuntime *, JSHostPromiseRejectionTracker *, void *)",
+		"go":	"(*JSRuntime).JSSetHostPromiseRejectionTracker"
+	}, {
+		"mangle":	"JS_SetInterruptHandler",
+		"c++":	"JS_SetInterruptHandler(JSRuntime *, JSInterruptHandler *, void *)",
+		"go":	"(*JSRuntime).JSSetInterruptHandler"
+	}, {
+		"mangle":	"JS_SetIsHTMLDDA",
+		"c++":	"JS_SetIsHTMLDDA(JSContext *, JSValue)",
+		"go":	"(*JSContext).JSSetIsHTMLDDA"
+	}, {
+		"mangle":	"JS_SetMaxStackSize",
+		"c++":	"JS_SetMaxStackSize(JSRuntime *, size_t)",
+		"go":	"(*JSRuntime).JSSetMaxStackSize"
+	}, {
+		"mangle":	"JS_SetMemoryLimit",
+		"c++":	"JS_SetMemoryLimit(JSRuntime *, size_t)",
+		"go":	"(*JSRuntime).JSSetMemoryLimit"
+	}, {
+		"mangle":	"JS_SetModuleExport",
+		"c++":	"JS_SetModuleExport(JSContext *, JSModuleDef *, const char *, JSValue)",
+		"go":	"(*JSContext).JSSetModuleExport"
+	}, {
+		"mangle":	"JS_SetModuleExportList",
+		"c++":	"JS_SetModuleExportList(JSContext *, JSModuleDef *, const JSCFunctionListEntry *, int)",
+		"go":	"(*JSContext).JSSetModuleExportList"
+	}, {
+		"mangle":	"JS_SetModuleLoaderFunc",
+		"c++":	"JS_SetModuleLoaderFunc(JSRuntime *, JSModuleNormalizeFunc *, JSModuleLoaderFunc *, void *)",
+		"go":	"(*JSRuntime).JSSetModuleLoaderFunc"
+	}, {
+		"mangle":	"JS_SetOpaque",
+		"c++":	"JS_SetOpaque(JSValue, void *)",
+		"go":	"JSValue.JSSetOpaque"
+	}, {
+		"mangle":	"JS_SetPropertyFunctionList",
+		"c++":	"JS_SetPropertyFunctionList(JSContext *, JSValue, const JSCFunctionListEntry *, int)",
+		"go":	"(*JSContext).JSSetPropertyFunctionList"
+	}, {
+		"mangle":	"JS_SetPropertyInt64",
+		"c++":	"JS_SetPropertyInt64(JSContext *, JSValue, int64_t, JSValue)",
+		"go":	"(*JSContext).JSSetPropertyInt64"
+	}, {
+		"mangle":	"JS_SetPropertyInternal",
+		"c++":	"JS_SetPropertyInternal(JSContext *, JSValue, JSAtom, JSValue, JSValue, int)",
+		"go":	"(*JSContext).JSSetPropertyInternal"
+	}, {
+		"mangle":	"JS_SetPropertyStr",
+		"c++":	"JS_SetPropertyStr(JSContext *, JSValue, const char *, JSValue)",
+		"go":	"(*JSContext).JSSetPropertyStr"
+	}, {
+		"mangle":	"JS_SetPropertyUint32",
+		"c++":	"JS_SetPropertyUint32(JSContext *, JSValue, uint32_t, JSValue)",
+		"go":	"(*JSContext).JSSetPropertyUint32"
+	}, {
+		"mangle":	"JS_SetPrototype",
+		"c++":	"JS_SetPrototype(JSContext *, JSValue, JSValue)",
+		"go":	"(*JSContext).JSSetPrototype"
+	}, {
+		"mangle":	"JS_SetRuntimeInfo",
+		"c++":	"JS_SetRuntimeInfo(JSRuntime *, const char *)",
+		"go":	"(*JSRuntime).JSSetRuntimeInfo"
+	}, {
+		"mangle":	"JS_SetRuntimeOpaque",
+		"c++":	"JS_SetRuntimeOpaque(JSRuntime *, void *)",
+		"go":	"(*JSRuntime).JSSetRuntimeOpaque"
+	}, {
+		"mangle":	"JS_SetSharedArrayBufferFunctions",
+		"c++":	"JS_SetSharedArrayBufferFunctions(JSRuntime *, const JSSharedArrayBufferFunctions *)",
+		"go":	"(*JSRuntime).JSSetSharedArrayBufferFunctions"
+	}, {
+		"mangle":	"JS_Throw",
+		"c++":	"JS_Throw(JSContext *, JSValue)",
+		"go":	"(*JSContext).JSThrow"
+	}, {
+		"mangle":	"JS_ThrowInternalError",
+		"c++":	"JS_ThrowInternalError(JSContext *, const char *, ...)",
+		"go":	"(*JSContext).JSThrowInternalError"
+	}, {
+		"mangle":	"JS_ThrowOutOfMemory",
+		"c++":	"JS_ThrowOutOfMemory(JSContext *)",
+		"go":	"(*JSContext).JSThrowOutOfMemory"
+	}, {
+		"mangle":	"JS_ThrowRangeError",
+		"c++":	"JS_ThrowRangeError(JSContext *, const char *, ...)",
+		"go":	"(*JSContext).JSThrowRangeError"
+	}, {
+		"mangle":	"JS_ThrowReferenceError",
+		"c++":	"JS_ThrowReferenceError(JSContext *, const char *, ...)",
+		"go":	"(*JSContext).JSThrowReferenceError"
+	}, {
+		"mangle":	"JS_ThrowSyntaxError",
+		"c++":	"JS_ThrowSyntaxError(JSContext *, const char *, ...)",
+		"go":	"(*JSContext).JSThrowSyntaxError"
+	}, {
+		"mangle":	"JS_ThrowTypeError",
+		"c++":	"JS_ThrowTypeError(JSContext *, const char *, ...)",
+		"go":	"(*JSContext).JSThrowTypeError"
+	}, {
+		"mangle":	"JS_ToBigInt64",
+		"c++":	"JS_ToBigInt64(JSContext *, int64_t *, JSValue)",
+		"go":	"(*JSContext).JSToBigInt64"
+	}, {
+		"mangle":	"JS_ToBool",
+		"c++":	"JS_ToBool(JSContext *, JSValue)",
+		"go":	"(*JSContext).JSToBool"
+	}, {
+		"mangle":	"JS_ToCStringLen2",
+		"c++":	"JS_ToCStringLen2(JSContext *, size_t *, JSValue, int)",
+		"go":	"(*JSContext).JSToCStringLen2"
+	}, {
+		"mangle":	"JS_ToFloat64",
+		"c++":	"JS_ToFloat64(JSContext *, double *, JSValue)",
+		"go":	"(*JSContext).JSToFloat64"
+	}, {
+		"mangle":	"JS_ToIndex",
+		"c++":	"JS_ToIndex(JSContext *, uint64_t *, JSValue)",
+		"go":	"(*JSContext).JSToIndex"
+	}, {
+		"mangle":	"JS_ToInt32",
+		"c++":	"JS_ToInt32(JSContext *, int32_t *, JSValue)",
+		"go":	"(*JSContext).JSToInt32"
+	}, {
+		"mangle":	"JS_ToInt64",
+		"c++":	"JS_ToInt64(JSContext *, int64_t *, JSValue)",
+		"go":	"(*JSContext).JSToInt64"
+	}, {
+		"mangle":	"JS_ToInt64Ext",
+		"c++":	"JS_ToInt64Ext(JSContext *, int64_t *, JSValue)",
+		"go":	"(*JSContext).JSToInt64Ext"
+	}, {
+		"mangle":	"JS_ToPropertyKey",
+		"c++":	"JS_ToPropertyKey(JSContext *, JSValue)",
+		"go":	"(*JSContext).JSToPropertyKey"
+	}, {
+		"mangle":	"JS_ToString",
+		"c++":	"JS_ToString(JSContext *, JSValue)",
+		"go":	"(*JSContext).JSToString"
+	}, {
+		"mangle":	"JS_UpdateStackTop",
+		"c++":	"JS_UpdateStackTop(JSRuntime *)",
+		"go":	"(*JSRuntime).JSUpdateStackTop"
+	}, {
+		"mangle":	"JS_ValueToAtom",
+		"c++":	"JS_ValueToAtom(JSContext *, JSValue)",
+		"go":	"(*JSContext).JSValueToAtom"
+	}, {
+		"mangle":	"JS_WriteObject",
+		"c++":	"JS_WriteObject(JSContext *, size_t *, JSValue, int)",
+		"go":	"(*JSContext).JSWriteObject"
+	}, {
+		"mangle":	"JS_WriteObject2",
+		"c++":	"JS_WriteObject2(JSContext *, size_t *, JSValue, int, uint8_t ***, size_t *)",
+		"go":	"(*JSContext).JSWriteObject2"
+	}, {
+		"mangle":	"__JS_FreeValue",
+		"c++":	"__JS_FreeValue(JSContext *, JSValue)",
+		"go":	"(*JSContext).X__JSFreeValue"
+	}, {
+		"mangle":	"__JS_FreeValueRT",
+		"c++":	"__JS_FreeValueRT(JSRuntime *, JSValue)",
+		"go":	"(*JSRuntime).X__JSFreeValueRT"
+	}, {
+		"mangle":	"cr_copy",
+		"c++":	"cr_copy(CharRange *, const CharRange *)",
+		"go":	"(*CharRange).CrCopy"
+	}, {
+		"mangle":	"cr_free",
+		"c++":	"cr_free(CharRange *)",
+		"go":	"(*CharRange).CrFree"
+	}, {
+		"mangle":	"cr_init",
+		"c++":	"cr_init(CharRange *, void *, void *(*)(void *, void *, size_t))",
+		"go":	"(*CharRange).CrInit"
+	}, {
+		"mangle":	"cr_invert",
+		"c++":	"cr_invert(CharRange *)",
+		"go":	"(*CharRange).CrInvert"
+	}, {
+		"mangle":	"cr_op",
+		"c++":	"cr_op(CharRange *, const uint32_t *, int, const uint32_t *, int, int)",
+		"go":	"(*CharRange).CrOp"
+	}, {
+		"mangle":	"cr_realloc",
+		"c++":	"cr_realloc(CharRange *, int)",
+		"go":	"(*CharRange).CrRealloc"
+	}, {
+		"mangle":	"cr_regexp_canonicalize",
+		"c++":	"cr_regexp_canonicalize(CharRange *, int)",
+		"go":	"(*CharRange).CrRegexpCanonicalize"
+	}, {
+		"mangle":	"cr_union1",
+		"c++":	"cr_union1(CharRange *, const uint32_t *, int)",
+		"go":	"(*CharRange).CrUnion1"
+	}, {
+		"mangle":	"dbuf_free",
+		"c++":	"dbuf_free(DynBuf *)",
+		"go":	"(*DynBuf).DbufFree"
+	}, {
+		"mangle":	"dbuf_init",
+		"c++":	"dbuf_init(DynBuf *)",
+		"go":	"(*DynBuf).DbufInit"
+	}, {
+		"mangle":	"dbuf_init2",
+		"c++":	"dbuf_init2(DynBuf *, void *, DynBufReallocFunc *)",
+		"go":	"(*DynBuf).DbufInit2"
+	}, {
+		"mangle":	"dbuf_printf",
+		"c++":	"dbuf_printf(DynBuf *, const char *, ...)",
+		"go":	"(*DynBuf).DbufPrintf"
+	}, {
+		"mangle":	"dbuf_put",
+		"c++":	"dbuf_put(DynBuf *, const uint8_t *, size_t)",
+		"go":	"(*DynBuf).DbufPut"
+	}, {
+		"mangle":	"dbuf_put_self",
+		"c++":	"dbuf_put_self(DynBuf *, size_t, size_t)",
+		"go":	"(*DynBuf).DbufPutSelf"
+	}, {
+		"mangle":	"dbuf_putc",
+		"c++":	"dbuf_putc(DynBuf *, uint8_t)",
+		"go":	"(*DynBuf).DbufPutc"
+	}, {
+		"mangle":	"dbuf_putstr",
+		"c++":	"dbuf_putstr(DynBuf *, const char *)",
+		"go":	"(*DynBuf).DbufPutstr"
+	}, {
+		"mangle":	"dbuf_realloc",
+		"c++":	"dbuf_realloc(DynBuf *, size_t)",
+		"go":	"(*DynBuf).DbufRealloc"
+	}, {
+		"mangle":	"dbuf_write",
+		"c++":	"dbuf_write(DynBuf *, size_t, const uint8_t *, size_t)",
+		"go":	"(*DynBuf).DbufWrite"
+	}, {
+		"mangle":	"has_suffix",
+		"c++":	"has_suffix(const char *, const char *)",
+		"go":	"HasSuffix"
+	}, {
+		"mangle":	"js_free",
+		"c++":	"js_free(JSContext *, void *)",
+		"go":	"(*JSContext).JsFree"
+	}, {
+		"mangle":	"js_free_rt",
+		"c++":	"js_free_rt(JSRuntime *, void *)",
+		"go":	"(*JSRuntime).JsFreeRt"
+	}, {
+		"mangle":	"js_init_module_os",
+		"c++":	"js_init_module_os(JSContext *, const char *)",
+		"go":	"(*JSContext).JsInitModuleOs"
+	}, {
+		"mangle":	"js_init_module_std",
+		"c++":	"js_init_module_std(JSContext *, const char *)",
+		"go":	"(*JSContext).JsInitModuleStd"
+	}, {
+		"mangle":	"js_load_file",
+		"c++":	"js_load_file(JSContext *, size_t *, const char *)",
+		"go":	"(*JSContext).JsLoadFile"
+	}, {
+		"mangle":	"js_malloc",
+		"c++":	"js_malloc(JSContext *, size_t)",
+		"go":	"(*JSContext).JsMalloc"
+	}, {
+		"mangle":	"js_malloc_rt",
+		"c++":	"js_malloc_rt(JSRuntime *, size_t)",
+		"go":	"(*JSRuntime).JsMallocRt"
+	}, {
+		"mangle":	"js_malloc_usable_size",
+		"c++":	"js_malloc_usable_size(JSContext *, const void *)",
+		"go":	"(*JSContext).JsMallocUsableSize"
+	}, {
+		"mangle":	"js_malloc_usable_size_rt",
+		"c++":	"js_malloc_usable_size_rt(JSRuntime *, const void *)",
+		"go":	"(*JSRuntime).JsMallocUsableSizeRt"
+	}, {
+		"mangle":	"js_mallocz",
+		"c++":	"js_mallocz(JSContext *, size_t)",
+		"go":	"(*JSContext).JsMallocz"
+	}, {
+		"mangle":	"js_mallocz_rt",
+		"c++":	"js_mallocz_rt(JSRuntime *, size_t)",
+		"go":	"(*JSRuntime).JsMalloczRt"
+	}, {
+		"mangle":	"js_module_loader",
+		"c++":	"js_module_loader(JSContext *, const char *, void *)",
+		"go":	"(*JSContext).JsModuleLoader"
+	}, {
+		"mangle":	"js_module_set_import_meta",
+		"c++":	"js_module_set_import_meta(JSContext *, JSValue, int, int)",
+		"go":	"(*JSContext).JsModuleSetImportMeta"
+	}, {
+		"mangle":	"js_realloc",
+		"c++":	"js_realloc(JSContext *, void *, size_t)",
+		"go":	"(*JSContext).JsRealloc"
+	}, {
+		"mangle":	"js_realloc2",
+		"c++":	"js_realloc2(JSContext *, void *, size_t, size_t *)",
+		"go":	"(*JSContext).JsRealloc2"
+	}, {
+		"mangle":	"js_realloc_rt",
+		"c++":	"js_realloc_rt(JSRuntime *, void *, size_t)",
+		"go":	"(*JSRuntime).JsReallocRt"
+	}, {
+		"mangle":	"js_std_add_helpers",
+		"c++":	"js_std_add_helpers(JSContext *, int, char **)",
+		"go":	"(*JSContext).JsStdAddHelpers"
+	}, {
+		"mangle":	"js_std_dump_error",
+		"c++":	"js_std_dump_error(JSContext *)",
+		"go":	"(*JSContext).JsStdDumpError"
+	}, {
+		"mangle":	"js_std_eval_binary",
+		"c++":	"js_std_eval_binary(JSContext *, const uint8_t *, size_t, int)",
+		"go":	"(*JSContext).JsStdEvalBinary"
+	}, {
+		"mangle":	"js_std_free_handlers",
+		"c++":	"js_std_free_handlers(JSRuntime *)",
+		"go":	"(*JSRuntime).JsStdFreeHandlers"
+	}, {
+		"mangle":	"js_std_init_handlers",
+		"c++":	"js_std_init_handlers(JSRuntime *)",
+		"go":	"(*JSRuntime).JsStdInitHandlers"
+	}, {
+		"mangle":	"js_std_loop",
+		"c++":	"js_std_loop(JSContext *)",
+		"go":	"(*JSContext).JsStdLoop"
+	}, {
+		"mangle":	"js_std_promise_rejection_tracker",
+		"c++":	"js_std_promise_rejection_tracker(JSContext *, JSValue, JSValue, int, void *)",
+		"go":	"(*JSContext).JsStdPromiseRejectionTracker"
+	}, {
+		"mangle":	"js_std_set_worker_new_context_func",
+		"c++":	"js_std_set_worker_new_context_func(JSContext *(*)(JSRuntime *))",
+		"go":	"JsStdSetWorkerNewContextFunc"
+	}, {
+		"mangle":	"js_strdup",
+		"c++":	"js_strdup(JSContext *, const char *)",
+		"go":	"(*JSContext).JsStrdup"
+	}, {
+		"mangle":	"js_string_codePointRange",
+		"c++":	"js_string_codePointRange(JSContext *, JSValue, int, JSValue *)",
+		"go":	"(*JSContext).JsStringCodePointRange"
+	}, {
+		"mangle":	"js_strndup",
+		"c++":	"js_strndup(JSContext *, const char *, size_t)",
+		"go":	"(*JSContext).JsStrndup"
+	}, {
+		"mangle":	"lre_canonicalize",
+		"c++":	"lre_canonicalize(uint32_t, int)",
+		"go":	"LreCanonicalize"
+	}, {
+		"mangle":	"lre_case_conv",
+		"c++":	"lre_case_conv(uint32_t *, uint32_t, int)",
+		"go":	"LreCaseConv"
+	}, {
+		"mangle":	"lre_check_stack_overflow",
+		"c++":	"lre_check_stack_overflow(void *, size_t)",
+		"go":	"LreCheckStackOverflow"
+	}, {
+		"mangle":	"lre_compile",
+		"c++":	"lre_compile(int *, char *, int, const char *, size_t, int, void *)",
+		"go":	"LreCompile"
+	}, {
+		"mangle":	"lre_exec",
+		"c++":	"lre_exec(uint8_t **, const uint8_t *, const uint8_t *, int, int, int, void *)",
+		"go":	"LreExec"
+	}, {
+		"mangle":	"lre_get_capture_count",
+		"c++":	"lre_get_capture_count(const uint8_t *)",
+		"go":	"LreGetCaptureCount"
+	}, {
+		"mangle":	"lre_get_flags",
+		"c++":	"lre_get_flags(const uint8_t *)",
+		"go":	"LreGetFlags"
+	}, {
+		"mangle":	"lre_get_groupnames",
+		"c++":	"lre_get_groupnames(const uint8_t *)",
+		"go":	"LreGetGroupnames"
+	}, {
+		"mangle":	"lre_is_case_ignorable",
+		"c++":	"lre_is_case_ignorable(uint32_t)",
+		"go":	"LreIsCaseIgnorable"
+	}, {
+		"mangle":	"lre_is_cased",
+		"c++":	"lre_is_cased(uint32_t)",
+		"go":	"LreIsCased"
+	}, {
+		"mangle":	"lre_is_id_continue",
+		"c++":	"lre_is_id_continue(uint32_t)",
+		"go":	"LreIsIdContinue"
+	}, {
+		"mangle":	"lre_is_id_start",
+		"c++":	"lre_is_id_start(uint32_t)",
+		"go":	"LreIsIdStart"
+	}, {
+		"mangle":	"lre_is_space",
+		"c++":	"lre_is_space(int)",
+		"go":	"LreIsSpace"
+	}, {
+		"mangle":	"lre_js_is_ident_next",
+		"c++":	"lre_js_is_ident_next(int)",
+		"go":	"LreJsIsIdentNext"
+	}, {
+		"mangle":	"lre_parse_escape",
+		"c++":	"lre_parse_escape(const uint8_t **, int)",
+		"go":	"LreParseEscape"
+	}, {
+		"mangle":	"lre_realloc",
+		"c++":	"lre_realloc(void *, void *, size_t)",
+		"go":	"LreRealloc"
+	}, {
+		"mangle":	"pstrcat",
+		"c++":	"pstrcat(char *, int, const char *)",
+		"go":	"Pstrcat"
+	}, {
+		"mangle":	"pstrcpy",
+		"c++":	"pstrcpy(char *, int, const char *)",
+		"go":	"Pstrcpy"
+	}, {
+		"mangle":	"rqsort",
+		"c++":	"rqsort(void *, size_t, size_t, int (*)(const void *, const void *, void *), void *)",
+		"go":	"Rqsort"
+	}, {
+		"mangle":	"strstart",
+		"c++":	"strstart(const char *, const char *, const char **)",
+		"go":	"Strstart"
+	}, {
+		"mangle":	"unicode_from_utf8",
+		"c++":	"unicode_from_utf8(const uint8_t *, int, const uint8_t **)",
+		"go":	"UnicodeFromUtf8"
+	}, {
+		"mangle":	"unicode_general_category",
+		"c++":	"unicode_general_category(CharRange *, const char *)",
+		"go":	"(*CharRange).UnicodeGeneralCategory"
+	}, {
+		"mangle":	"unicode_normalize",
+		"c++":	"unicode_normalize(uint32_t **, const uint32_t *, int, UnicodeNormalizationEnum, void *, void *(*)(void *, void *, size_t))",
+		"go":	"UnicodeNormalize"
+	}, {
+		"mangle":	"unicode_prop",
+		"c++":	"unicode_prop(CharRange *, const char *)",
+		"go":	"(*CharRange).UnicodeProp"
+	}, {
+		"mangle":	"unicode_script",
+		"c++":	"unicode_script(CharRange *, const char *, int)",
+		"go":	"(*CharRange).UnicodeScript"
+	}, {
+		"mangle":	"unicode_to_utf8",
+		"c++":	"unicode_to_utf8(uint8_t *, unsigned int)",
+		"go":	"UnicodeToUtf8"
+	}]
