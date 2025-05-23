@@ -1,8 +1,8 @@
 package sqlite3
 
 import (
-	"github.com/goplus/llgo/c"
-	"unsafe"
+	"github.com/goplus/lib/c"
+	_ "unsafe"
 )
 
 const VERSION = "3.49.1"
@@ -408,10 +408,10 @@ const FTS5_TOKENIZE_AUX = 0x0008
 const FTS5_TOKEN_COLOCATED = 0x0001
 
 //go:linkname Libversion C.sqlite3_libversion
-func Libversion() *int8
+func Libversion() *c.Char
 
 //go:linkname Sourceid C.sqlite3_sourceid
-func Sourceid() *int8
+func Sourceid() *c.Char
 
 //go:linkname LibversionNumber C.sqlite3_libversion_number
 func LibversionNumber() c.Int
@@ -439,10 +439,10 @@ func LibversionNumber() c.Int
 ** [sqlite_compileoption_get()] and the [compile_options pragma].
  */
 //go:linkname CompileoptionUsed C.sqlite3_compileoption_used
-func CompileoptionUsed(zOptName *int8) c.Int
+func CompileoptionUsed(zOptName *c.Char) c.Int
 
 //go:linkname CompileoptionGet C.sqlite3_compileoption_get
-func CompileoptionGet(N c.Int) *int8
+func CompileoptionGet(N c.Int) *c.Char
 
 /*
 ** CAPI3REF: Test To See If The Library Is Threadsafe
@@ -540,7 +540,7 @@ func (recv_ *Sqlite3) CloseV2() c.Int {
 }
 
 // llgo:type C
-type Callback func(unsafe.Pointer, c.Int, **int8, **int8) c.Int
+type Callback func(c.Pointer, c.Int, **c.Char, **c.Char) c.Int
 
 /*
 ** CAPI3REF: One-Step Query Execution Interface
@@ -607,7 +607,7 @@ type Callback func(unsafe.Pointer, c.Int, **int8, **int8) c.Int
 ** </ul>
  */
 // llgo:link (*Sqlite3).Exec C.sqlite3_exec
-func (recv_ *Sqlite3) Exec(sql *int8, callback func(unsafe.Pointer, c.Int, **int8, **int8) c.Int, __llgo_arg_2 unsafe.Pointer, errmsg **int8) c.Int {
+func (recv_ *Sqlite3) Exec(sql *c.Char, callback func(c.Pointer, c.Int, **c.Char, **c.Char) c.Int, __llgo_arg_2 c.Pointer, errmsg **c.Char) c.Int {
 	return 0
 }
 
@@ -617,24 +617,24 @@ type File struct {
 
 type IoMethods struct {
 	IVersion               c.Int
-	XClose                 unsafe.Pointer
-	XRead                  unsafe.Pointer
-	XWrite                 unsafe.Pointer
-	XTruncate              unsafe.Pointer
-	XSync                  unsafe.Pointer
-	XFileSize              unsafe.Pointer
-	XLock                  unsafe.Pointer
-	XUnlock                unsafe.Pointer
-	XCheckReservedLock     unsafe.Pointer
-	XFileControl           unsafe.Pointer
-	XSectorSize            unsafe.Pointer
-	XDeviceCharacteristics unsafe.Pointer
-	XShmMap                unsafe.Pointer
-	XShmLock               unsafe.Pointer
-	XShmBarrier            unsafe.Pointer
-	XShmUnmap              unsafe.Pointer
-	XFetch                 unsafe.Pointer
-	XUnfetch               unsafe.Pointer
+	XClose                 c.Pointer
+	XRead                  c.Pointer
+	XWrite                 c.Pointer
+	XTruncate              c.Pointer
+	XSync                  c.Pointer
+	XFileSize              c.Pointer
+	XLock                  c.Pointer
+	XUnlock                c.Pointer
+	XCheckReservedLock     c.Pointer
+	XFileControl           c.Pointer
+	XSectorSize            c.Pointer
+	XDeviceCharacteristics c.Pointer
+	XShmMap                c.Pointer
+	XShmLock               c.Pointer
+	XShmBarrier            c.Pointer
+	XShmUnmap              c.Pointer
+	XFetch                 c.Pointer
+	XUnfetch               c.Pointer
 }
 
 type Mutex struct {
@@ -642,302 +642,302 @@ type Mutex struct {
 }
 
 type ApiRoutines struct {
-	AggregateContext     unsafe.Pointer
-	AggregateCount       unsafe.Pointer
-	BindBlob             unsafe.Pointer
-	BindDouble           unsafe.Pointer
-	BindInt              unsafe.Pointer
-	BindInt64            unsafe.Pointer
-	BindNull             unsafe.Pointer
-	BindParameterCount   unsafe.Pointer
-	BindParameterIndex   unsafe.Pointer
-	BindParameterName    unsafe.Pointer
-	BindText             unsafe.Pointer
-	BindText16           unsafe.Pointer
-	BindValue            unsafe.Pointer
-	BusyHandler          unsafe.Pointer
-	BusyTimeout          unsafe.Pointer
-	Changes              unsafe.Pointer
-	Close                unsafe.Pointer
-	CollationNeeded      unsafe.Pointer
-	CollationNeeded16    unsafe.Pointer
-	ColumnBlob           unsafe.Pointer
-	ColumnBytes          unsafe.Pointer
-	ColumnBytes16        unsafe.Pointer
-	ColumnCount          unsafe.Pointer
-	ColumnDatabaseName   unsafe.Pointer
-	ColumnDatabaseName16 unsafe.Pointer
-	ColumnDecltype       unsafe.Pointer
-	ColumnDecltype16     unsafe.Pointer
-	ColumnDouble         unsafe.Pointer
-	ColumnInt            unsafe.Pointer
-	ColumnInt64          unsafe.Pointer
-	ColumnName           unsafe.Pointer
-	ColumnName16         unsafe.Pointer
-	ColumnOriginName     unsafe.Pointer
-	ColumnOriginName16   unsafe.Pointer
-	ColumnTableName      unsafe.Pointer
-	ColumnTableName16    unsafe.Pointer
-	ColumnText           unsafe.Pointer
-	ColumnText16         unsafe.Pointer
-	ColumnType           unsafe.Pointer
-	ColumnValue          unsafe.Pointer
-	CommitHook           unsafe.Pointer
-	Complete             unsafe.Pointer
-	Complete16           unsafe.Pointer
-	CreateCollation      unsafe.Pointer
-	CreateCollation16    unsafe.Pointer
-	CreateFunction       unsafe.Pointer
-	CreateFunction16     unsafe.Pointer
-	CreateModule         unsafe.Pointer
-	DataCount            unsafe.Pointer
-	DbHandle             unsafe.Pointer
-	DeclareVtab          unsafe.Pointer
-	EnableSharedCache    unsafe.Pointer
-	Errcode              unsafe.Pointer
-	Errmsg               unsafe.Pointer
-	Errmsg16             unsafe.Pointer
-	Exec                 unsafe.Pointer
-	Expired              unsafe.Pointer
-	Finalize             unsafe.Pointer
-	Free                 unsafe.Pointer
-	FreeTable            unsafe.Pointer
-	GetAutocommit        unsafe.Pointer
-	GetAuxdata           unsafe.Pointer
-	GetTable             unsafe.Pointer
-	GlobalRecover        unsafe.Pointer
-	Interruptx           unsafe.Pointer
-	LastInsertRowid      unsafe.Pointer
-	Libversion           unsafe.Pointer
-	LibversionNumber     unsafe.Pointer
-	Malloc               unsafe.Pointer
-	Mprintf              unsafe.Pointer
-	Open                 unsafe.Pointer
-	Open16               unsafe.Pointer
-	Prepare              unsafe.Pointer
-	Prepare16            unsafe.Pointer
-	Profile              unsafe.Pointer
-	ProgressHandler      unsafe.Pointer
-	Realloc              unsafe.Pointer
-	Reset                unsafe.Pointer
-	ResultBlob           unsafe.Pointer
-	ResultDouble         unsafe.Pointer
-	ResultError          unsafe.Pointer
-	ResultError16        unsafe.Pointer
-	ResultInt            unsafe.Pointer
-	ResultInt64          unsafe.Pointer
-	ResultNull           unsafe.Pointer
-	ResultText           unsafe.Pointer
-	ResultText16         unsafe.Pointer
-	ResultText16be       unsafe.Pointer
-	ResultText16le       unsafe.Pointer
-	ResultValue          unsafe.Pointer
-	RollbackHook         unsafe.Pointer
-	SetAuthorizer        unsafe.Pointer
-	SetAuxdata           unsafe.Pointer
-	Xsnprintf            unsafe.Pointer
-	Step                 unsafe.Pointer
-	TableColumnMetadata  unsafe.Pointer
-	ThreadCleanup        unsafe.Pointer
-	TotalChanges         unsafe.Pointer
-	Trace                unsafe.Pointer
-	TransferBindings     unsafe.Pointer
-	UpdateHook           unsafe.Pointer
-	UserData             unsafe.Pointer
-	ValueBlob            unsafe.Pointer
-	ValueBytes           unsafe.Pointer
-	ValueBytes16         unsafe.Pointer
-	ValueDouble          unsafe.Pointer
-	ValueInt             unsafe.Pointer
-	ValueInt64           unsafe.Pointer
-	ValueNumericType     unsafe.Pointer
-	ValueText            unsafe.Pointer
-	ValueText16          unsafe.Pointer
-	ValueText16be        unsafe.Pointer
-	ValueText16le        unsafe.Pointer
-	ValueType            unsafe.Pointer
-	Vmprintf             unsafe.Pointer
-	OverloadFunction     unsafe.Pointer
-	PrepareV2            unsafe.Pointer
-	Prepare16V2          unsafe.Pointer
-	ClearBindings        unsafe.Pointer
-	CreateModuleV2       unsafe.Pointer
-	BindZeroblob         unsafe.Pointer
-	BlobBytes            unsafe.Pointer
-	BlobClose            unsafe.Pointer
-	BlobOpen             unsafe.Pointer
-	BlobRead             unsafe.Pointer
-	BlobWrite            unsafe.Pointer
-	CreateCollationV2    unsafe.Pointer
-	FileControl          unsafe.Pointer
-	MemoryHighwater      unsafe.Pointer
-	MemoryUsed           unsafe.Pointer
-	MutexAlloc           unsafe.Pointer
-	MutexEnter           unsafe.Pointer
-	MutexFree            unsafe.Pointer
-	MutexLeave           unsafe.Pointer
-	MutexTry             unsafe.Pointer
-	OpenV2               unsafe.Pointer
-	ReleaseMemory        unsafe.Pointer
-	ResultErrorNomem     unsafe.Pointer
-	ResultErrorToobig    unsafe.Pointer
-	Sleep                unsafe.Pointer
-	SoftHeapLimit        unsafe.Pointer
-	VfsFind              unsafe.Pointer
-	VfsRegister          unsafe.Pointer
-	VfsUnregister        unsafe.Pointer
-	Xthreadsafe          unsafe.Pointer
-	ResultZeroblob       unsafe.Pointer
-	ResultErrorCode      unsafe.Pointer
-	TestControl          unsafe.Pointer
-	Randomness           unsafe.Pointer
-	ContextDbHandle      unsafe.Pointer
-	ExtendedResultCodes  unsafe.Pointer
-	Limit                unsafe.Pointer
-	NextStmt             unsafe.Pointer
-	Sql                  unsafe.Pointer
-	Status               unsafe.Pointer
-	BackupFinish         unsafe.Pointer
-	BackupInit           unsafe.Pointer
-	BackupPagecount      unsafe.Pointer
-	BackupRemaining      unsafe.Pointer
-	BackupStep           unsafe.Pointer
-	CompileoptionGet     unsafe.Pointer
-	CompileoptionUsed    unsafe.Pointer
-	CreateFunctionV2     unsafe.Pointer
-	DbConfig             unsafe.Pointer
-	DbMutex              unsafe.Pointer
-	DbStatus             unsafe.Pointer
-	ExtendedErrcode      unsafe.Pointer
-	Log                  unsafe.Pointer
-	SoftHeapLimit64      unsafe.Pointer
-	Sourceid             unsafe.Pointer
-	StmtStatus           unsafe.Pointer
-	Strnicmp             unsafe.Pointer
-	UnlockNotify         unsafe.Pointer
-	WalAutocheckpoint    unsafe.Pointer
-	WalCheckpoint        unsafe.Pointer
-	WalHook              unsafe.Pointer
-	BlobReopen           unsafe.Pointer
-	VtabConfig           unsafe.Pointer
-	VtabOnConflict       unsafe.Pointer
-	CloseV2              unsafe.Pointer
-	DbFilename           unsafe.Pointer
-	DbReadonly           unsafe.Pointer
-	DbReleaseMemory      unsafe.Pointer
-	Errstr               unsafe.Pointer
-	StmtBusy             unsafe.Pointer
-	StmtReadonly         unsafe.Pointer
-	Stricmp              unsafe.Pointer
-	UriBoolean           unsafe.Pointer
-	UriInt64             unsafe.Pointer
-	UriParameter         unsafe.Pointer
-	Xvsnprintf           unsafe.Pointer
-	WalCheckpointV2      unsafe.Pointer
-	AutoExtension        unsafe.Pointer
-	BindBlob64           unsafe.Pointer
-	BindText64           unsafe.Pointer
-	CancelAutoExtension  unsafe.Pointer
-	LoadExtension        unsafe.Pointer
-	Malloc64             unsafe.Pointer
-	Msize                unsafe.Pointer
-	Realloc64            unsafe.Pointer
-	ResetAutoExtension   unsafe.Pointer
-	ResultBlob64         unsafe.Pointer
-	ResultText64         unsafe.Pointer
-	Strglob              unsafe.Pointer
-	ValueDup             unsafe.Pointer
-	ValueFree            unsafe.Pointer
-	ResultZeroblob64     unsafe.Pointer
-	BindZeroblob64       unsafe.Pointer
-	ValueSubtype         unsafe.Pointer
-	ResultSubtype        unsafe.Pointer
-	Status64             unsafe.Pointer
-	Strlike              unsafe.Pointer
-	DbCacheflush         unsafe.Pointer
-	SystemErrno          unsafe.Pointer
-	TraceV2              unsafe.Pointer
-	ExpandedSql          unsafe.Pointer
-	SetLastInsertRowid   unsafe.Pointer
-	PrepareV3            unsafe.Pointer
-	Prepare16V3          unsafe.Pointer
-	BindPointer          unsafe.Pointer
-	ResultPointer        unsafe.Pointer
-	ValuePointer         unsafe.Pointer
-	VtabNochange         unsafe.Pointer
-	ValueNochange        unsafe.Pointer
-	VtabCollation        unsafe.Pointer
-	KeywordCount         unsafe.Pointer
-	KeywordName          unsafe.Pointer
-	KeywordCheck         unsafe.Pointer
-	StrNew               unsafe.Pointer
-	StrFinish            unsafe.Pointer
-	StrAppendf           unsafe.Pointer
-	StrVappendf          unsafe.Pointer
-	StrAppend            unsafe.Pointer
-	StrAppendall         unsafe.Pointer
-	StrAppendchar        unsafe.Pointer
-	StrReset             unsafe.Pointer
-	StrErrcode           unsafe.Pointer
-	StrLength            unsafe.Pointer
-	StrValue             unsafe.Pointer
-	CreateWindowFunction unsafe.Pointer
-	NormalizedSql        unsafe.Pointer
-	StmtIsexplain        unsafe.Pointer
-	ValueFrombind        unsafe.Pointer
-	DropModules          unsafe.Pointer
-	HardHeapLimit64      unsafe.Pointer
-	UriKey               unsafe.Pointer
-	FilenameDatabase     unsafe.Pointer
-	FilenameJournal      unsafe.Pointer
-	FilenameWal          unsafe.Pointer
-	CreateFilename       unsafe.Pointer
-	FreeFilename         unsafe.Pointer
-	DatabaseFileObject   unsafe.Pointer
-	TxnState             unsafe.Pointer
-	Changes64            unsafe.Pointer
-	TotalChanges64       unsafe.Pointer
-	AutovacuumPages      unsafe.Pointer
-	ErrorOffset          unsafe.Pointer
-	VtabRhsValue         unsafe.Pointer
-	VtabDistinct         unsafe.Pointer
-	VtabIn               unsafe.Pointer
-	VtabInFirst          unsafe.Pointer
-	VtabInNext           unsafe.Pointer
-	Deserialize          unsafe.Pointer
-	Serialize            unsafe.Pointer
-	DbName               unsafe.Pointer
-	ValueEncoding        unsafe.Pointer
-	IsInterrupted        unsafe.Pointer
-	StmtExplain          unsafe.Pointer
-	GetClientdata        unsafe.Pointer
-	SetClientdata        unsafe.Pointer
+	AggregateContext     c.Pointer
+	AggregateCount       c.Pointer
+	BindBlob             c.Pointer
+	BindDouble           c.Pointer
+	BindInt              c.Pointer
+	BindInt64            c.Pointer
+	BindNull             c.Pointer
+	BindParameterCount   c.Pointer
+	BindParameterIndex   c.Pointer
+	BindParameterName    c.Pointer
+	BindText             c.Pointer
+	BindText16           c.Pointer
+	BindValue            c.Pointer
+	BusyHandler          c.Pointer
+	BusyTimeout          c.Pointer
+	Changes              c.Pointer
+	Close                c.Pointer
+	CollationNeeded      c.Pointer
+	CollationNeeded16    c.Pointer
+	ColumnBlob           c.Pointer
+	ColumnBytes          c.Pointer
+	ColumnBytes16        c.Pointer
+	ColumnCount          c.Pointer
+	ColumnDatabaseName   c.Pointer
+	ColumnDatabaseName16 c.Pointer
+	ColumnDecltype       c.Pointer
+	ColumnDecltype16     c.Pointer
+	ColumnDouble         c.Pointer
+	ColumnInt            c.Pointer
+	ColumnInt64          c.Pointer
+	ColumnName           c.Pointer
+	ColumnName16         c.Pointer
+	ColumnOriginName     c.Pointer
+	ColumnOriginName16   c.Pointer
+	ColumnTableName      c.Pointer
+	ColumnTableName16    c.Pointer
+	ColumnText           c.Pointer
+	ColumnText16         c.Pointer
+	ColumnType           c.Pointer
+	ColumnValue          c.Pointer
+	CommitHook           c.Pointer
+	Complete             c.Pointer
+	Complete16           c.Pointer
+	CreateCollation      c.Pointer
+	CreateCollation16    c.Pointer
+	CreateFunction       c.Pointer
+	CreateFunction16     c.Pointer
+	CreateModule         c.Pointer
+	DataCount            c.Pointer
+	DbHandle             c.Pointer
+	DeclareVtab          c.Pointer
+	EnableSharedCache    c.Pointer
+	Errcode              c.Pointer
+	Errmsg               c.Pointer
+	Errmsg16             c.Pointer
+	Exec                 c.Pointer
+	Expired              c.Pointer
+	Finalize             c.Pointer
+	Free                 c.Pointer
+	FreeTable            c.Pointer
+	GetAutocommit        c.Pointer
+	GetAuxdata           c.Pointer
+	GetTable             c.Pointer
+	GlobalRecover        c.Pointer
+	Interruptx           c.Pointer
+	LastInsertRowid      c.Pointer
+	Libversion           c.Pointer
+	LibversionNumber     c.Pointer
+	Malloc               c.Pointer
+	Mprintf              c.Pointer
+	Open                 c.Pointer
+	Open16               c.Pointer
+	Prepare              c.Pointer
+	Prepare16            c.Pointer
+	Profile              c.Pointer
+	ProgressHandler      c.Pointer
+	Realloc              c.Pointer
+	Reset                c.Pointer
+	ResultBlob           c.Pointer
+	ResultDouble         c.Pointer
+	ResultError          c.Pointer
+	ResultError16        c.Pointer
+	ResultInt            c.Pointer
+	ResultInt64          c.Pointer
+	ResultNull           c.Pointer
+	ResultText           c.Pointer
+	ResultText16         c.Pointer
+	ResultText16be       c.Pointer
+	ResultText16le       c.Pointer
+	ResultValue          c.Pointer
+	RollbackHook         c.Pointer
+	SetAuthorizer        c.Pointer
+	SetAuxdata           c.Pointer
+	Xsnprintf            c.Pointer
+	Step                 c.Pointer
+	TableColumnMetadata  c.Pointer
+	ThreadCleanup        c.Pointer
+	TotalChanges         c.Pointer
+	Trace                c.Pointer
+	TransferBindings     c.Pointer
+	UpdateHook           c.Pointer
+	UserData             c.Pointer
+	ValueBlob            c.Pointer
+	ValueBytes           c.Pointer
+	ValueBytes16         c.Pointer
+	ValueDouble          c.Pointer
+	ValueInt             c.Pointer
+	ValueInt64           c.Pointer
+	ValueNumericType     c.Pointer
+	ValueText            c.Pointer
+	ValueText16          c.Pointer
+	ValueText16be        c.Pointer
+	ValueText16le        c.Pointer
+	ValueType            c.Pointer
+	Vmprintf             c.Pointer
+	OverloadFunction     c.Pointer
+	PrepareV2            c.Pointer
+	Prepare16V2          c.Pointer
+	ClearBindings        c.Pointer
+	CreateModuleV2       c.Pointer
+	BindZeroblob         c.Pointer
+	BlobBytes            c.Pointer
+	BlobClose            c.Pointer
+	BlobOpen             c.Pointer
+	BlobRead             c.Pointer
+	BlobWrite            c.Pointer
+	CreateCollationV2    c.Pointer
+	FileControl          c.Pointer
+	MemoryHighwater      c.Pointer
+	MemoryUsed           c.Pointer
+	MutexAlloc           c.Pointer
+	MutexEnter           c.Pointer
+	MutexFree            c.Pointer
+	MutexLeave           c.Pointer
+	MutexTry             c.Pointer
+	OpenV2               c.Pointer
+	ReleaseMemory        c.Pointer
+	ResultErrorNomem     c.Pointer
+	ResultErrorToobig    c.Pointer
+	Sleep                c.Pointer
+	SoftHeapLimit        c.Pointer
+	VfsFind              c.Pointer
+	VfsRegister          c.Pointer
+	VfsUnregister        c.Pointer
+	Xthreadsafe          c.Pointer
+	ResultZeroblob       c.Pointer
+	ResultErrorCode      c.Pointer
+	TestControl          c.Pointer
+	Randomness           c.Pointer
+	ContextDbHandle      c.Pointer
+	ExtendedResultCodes  c.Pointer
+	Limit                c.Pointer
+	NextStmt             c.Pointer
+	Sql                  c.Pointer
+	Status               c.Pointer
+	BackupFinish         c.Pointer
+	BackupInit           c.Pointer
+	BackupPagecount      c.Pointer
+	BackupRemaining      c.Pointer
+	BackupStep           c.Pointer
+	CompileoptionGet     c.Pointer
+	CompileoptionUsed    c.Pointer
+	CreateFunctionV2     c.Pointer
+	DbConfig             c.Pointer
+	DbMutex              c.Pointer
+	DbStatus             c.Pointer
+	ExtendedErrcode      c.Pointer
+	Log                  c.Pointer
+	SoftHeapLimit64      c.Pointer
+	Sourceid             c.Pointer
+	StmtStatus           c.Pointer
+	Strnicmp             c.Pointer
+	UnlockNotify         c.Pointer
+	WalAutocheckpoint    c.Pointer
+	WalCheckpoint        c.Pointer
+	WalHook              c.Pointer
+	BlobReopen           c.Pointer
+	VtabConfig           c.Pointer
+	VtabOnConflict       c.Pointer
+	CloseV2              c.Pointer
+	DbFilename           c.Pointer
+	DbReadonly           c.Pointer
+	DbReleaseMemory      c.Pointer
+	Errstr               c.Pointer
+	StmtBusy             c.Pointer
+	StmtReadonly         c.Pointer
+	Stricmp              c.Pointer
+	UriBoolean           c.Pointer
+	UriInt64             c.Pointer
+	UriParameter         c.Pointer
+	Xvsnprintf           c.Pointer
+	WalCheckpointV2      c.Pointer
+	AutoExtension        c.Pointer
+	BindBlob64           c.Pointer
+	BindText64           c.Pointer
+	CancelAutoExtension  c.Pointer
+	LoadExtension        c.Pointer
+	Malloc64             c.Pointer
+	Msize                c.Pointer
+	Realloc64            c.Pointer
+	ResetAutoExtension   c.Pointer
+	ResultBlob64         c.Pointer
+	ResultText64         c.Pointer
+	Strglob              c.Pointer
+	ValueDup             c.Pointer
+	ValueFree            c.Pointer
+	ResultZeroblob64     c.Pointer
+	BindZeroblob64       c.Pointer
+	ValueSubtype         c.Pointer
+	ResultSubtype        c.Pointer
+	Status64             c.Pointer
+	Strlike              c.Pointer
+	DbCacheflush         c.Pointer
+	SystemErrno          c.Pointer
+	TraceV2              c.Pointer
+	ExpandedSql          c.Pointer
+	SetLastInsertRowid   c.Pointer
+	PrepareV3            c.Pointer
+	Prepare16V3          c.Pointer
+	BindPointer          c.Pointer
+	ResultPointer        c.Pointer
+	ValuePointer         c.Pointer
+	VtabNochange         c.Pointer
+	ValueNochange        c.Pointer
+	VtabCollation        c.Pointer
+	KeywordCount         c.Pointer
+	KeywordName          c.Pointer
+	KeywordCheck         c.Pointer
+	StrNew               c.Pointer
+	StrFinish            c.Pointer
+	StrAppendf           c.Pointer
+	StrVappendf          c.Pointer
+	StrAppend            c.Pointer
+	StrAppendall         c.Pointer
+	StrAppendchar        c.Pointer
+	StrReset             c.Pointer
+	StrErrcode           c.Pointer
+	StrLength            c.Pointer
+	StrValue             c.Pointer
+	CreateWindowFunction c.Pointer
+	NormalizedSql        c.Pointer
+	StmtIsexplain        c.Pointer
+	ValueFrombind        c.Pointer
+	DropModules          c.Pointer
+	HardHeapLimit64      c.Pointer
+	UriKey               c.Pointer
+	FilenameDatabase     c.Pointer
+	FilenameJournal      c.Pointer
+	FilenameWal          c.Pointer
+	CreateFilename       c.Pointer
+	FreeFilename         c.Pointer
+	DatabaseFileObject   c.Pointer
+	TxnState             c.Pointer
+	Changes64            c.Pointer
+	TotalChanges64       c.Pointer
+	AutovacuumPages      c.Pointer
+	ErrorOffset          c.Pointer
+	VtabRhsValue         c.Pointer
+	VtabDistinct         c.Pointer
+	VtabIn               c.Pointer
+	VtabInFirst          c.Pointer
+	VtabInNext           c.Pointer
+	Deserialize          c.Pointer
+	Serialize            c.Pointer
+	DbName               c.Pointer
+	ValueEncoding        c.Pointer
+	IsInterrupted        c.Pointer
+	StmtExplain          c.Pointer
+	GetClientdata        c.Pointer
+	SetClientdata        c.Pointer
 }
-type Filename *int8
+type Filename *c.Char
 
 type Vfs struct {
 	IVersion          c.Int
 	SzOsFile          c.Int
 	MxPathname        c.Int
 	PNext             *Vfs
-	ZName             *int8
-	PAppData          unsafe.Pointer
-	XOpen             unsafe.Pointer
-	XDelete           unsafe.Pointer
-	XAccess           unsafe.Pointer
-	XFullPathname     unsafe.Pointer
-	XDlOpen           unsafe.Pointer
-	XDlError          unsafe.Pointer
-	XDlSym            unsafe.Pointer
-	XDlClose          unsafe.Pointer
-	XRandomness       unsafe.Pointer
-	XSleep            unsafe.Pointer
-	XCurrentTime      unsafe.Pointer
-	XGetLastError     unsafe.Pointer
-	XCurrentTimeInt64 unsafe.Pointer
-	XSetSystemCall    unsafe.Pointer
-	XGetSystemCall    unsafe.Pointer
-	XNextSystemCall   unsafe.Pointer
+	ZName             *c.Char
+	PAppData          c.Pointer
+	XOpen             c.Pointer
+	XDelete           c.Pointer
+	XAccess           c.Pointer
+	XFullPathname     c.Pointer
+	XDlOpen           c.Pointer
+	XDlError          c.Pointer
+	XDlSym            c.Pointer
+	XDlClose          c.Pointer
+	XRandomness       c.Pointer
+	XSleep            c.Pointer
+	XCurrentTime      c.Pointer
+	XGetLastError     c.Pointer
+	XCurrentTimeInt64 c.Pointer
+	XSetSystemCall    c.Pointer
+	XGetSystemCall    c.Pointer
+	XNextSystemCall   c.Pointer
 }
 
 // llgo:type C
@@ -1090,14 +1090,14 @@ func (recv_ *Sqlite3) DbConfig(op c.Int, __llgo_va_list ...interface{}) c.Int {
 }
 
 type MemMethods struct {
-	XMalloc   unsafe.Pointer
-	XFree     unsafe.Pointer
-	XRealloc  unsafe.Pointer
-	XSize     unsafe.Pointer
-	XRoundup  unsafe.Pointer
-	XInit     unsafe.Pointer
-	XShutdown unsafe.Pointer
-	PAppData  unsafe.Pointer
+	XMalloc   c.Pointer
+	XFree     c.Pointer
+	XRealloc  c.Pointer
+	XSize     c.Pointer
+	XRoundup  c.Pointer
+	XInit     c.Pointer
+	XShutdown c.Pointer
+	PAppData  c.Pointer
 }
 
 /*
@@ -1394,10 +1394,10 @@ func (recv_ *Sqlite3) IsInterrupted() c.Int {
 ** UTF-16 string in native byte order.
  */
 //go:linkname Complete C.sqlite3_complete
-func Complete(sql *int8) c.Int
+func Complete(sql *c.Char) c.Int
 
 //go:linkname Complete16 C.sqlite3_complete16
-func Complete16(sql unsafe.Pointer) c.Int
+func Complete16(sql c.Pointer) c.Int
 
 /*
 ** CAPI3REF: Register A Callback To Handle SQLITE_BUSY Errors
@@ -1459,7 +1459,7 @@ func Complete16(sql unsafe.Pointer) c.Int
 ** or [prepared statement] that invoked the busy handler.
  */
 // llgo:link (*Sqlite3).BusyHandler C.sqlite3_busy_handler
-func (recv_ *Sqlite3) BusyHandler(func(unsafe.Pointer, c.Int) c.Int, unsafe.Pointer) c.Int {
+func (recv_ *Sqlite3) BusyHandler(func(c.Pointer, c.Int) c.Int, c.Pointer) c.Int {
 	return 0
 }
 
@@ -1563,12 +1563,12 @@ func (recv_ *Sqlite3) BusyTimeout(ms c.Int) c.Int {
 ** [sqlite3_errmsg()].
  */
 // llgo:link (*Sqlite3).GetTable C.sqlite3_get_table
-func (recv_ *Sqlite3) GetTable(zSql *int8, pazResult ***int8, pnRow *c.Int, pnColumn *c.Int, pzErrmsg **int8) c.Int {
+func (recv_ *Sqlite3) GetTable(zSql *c.Char, pazResult ***c.Char, pnRow *c.Int, pnColumn *c.Int, pzErrmsg **c.Char) c.Int {
 	return 0
 }
 
 //go:linkname FreeTable C.sqlite3_free_table
-func FreeTable(result **int8)
+func FreeTable(result **c.Char)
 
 /*
 ** CAPI3REF: Formatted String Printing Functions
@@ -1611,16 +1611,16 @@ func FreeTable(result **int8)
 ** See also:  [built-in printf()], [printf() SQL function]
  */
 //go:linkname Mprintf C.sqlite3_mprintf
-func Mprintf(__llgo_arg_0 *int8, __llgo_va_list ...interface{}) *int8
+func Mprintf(__llgo_arg_0 *c.Char, __llgo_va_list ...interface{}) *c.Char
 
 //go:linkname Vmprintf C.sqlite3_vmprintf
-func Vmprintf(*int8, unsafe.Pointer) *int8
+func Vmprintf(*c.Char, c.VaList) *c.Char
 
 //go:linkname Snprintf C.sqlite3_snprintf
-func Snprintf(__llgo_arg_0 c.Int, __llgo_arg_1 *int8, __llgo_arg_2 *int8, __llgo_va_list ...interface{}) *int8
+func Snprintf(__llgo_arg_0 c.Int, __llgo_arg_1 *c.Char, __llgo_arg_2 *c.Char, __llgo_va_list ...interface{}) *c.Char
 
 //go:linkname Vsnprintf C.sqlite3_vsnprintf
-func Vsnprintf(c.Int, *int8, *int8, unsafe.Pointer) *int8
+func Vsnprintf(c.Int, *c.Char, *c.Char, c.VaList) *c.Char
 
 /*
 ** CAPI3REF: Memory Allocation Subsystem
@@ -1698,24 +1698,24 @@ func Vsnprintf(c.Int, *int8, *int8, unsafe.Pointer) *int8
 ** [sqlite3_free()] or [sqlite3_realloc()].
  */
 //go:linkname Malloc C.sqlite3_malloc
-func Malloc(c.Int) unsafe.Pointer
+func Malloc(c.Int) c.Pointer
 
 // llgo:link Uint64.Malloc64 C.sqlite3_malloc64
-func (recv_ Uint64) Malloc64() unsafe.Pointer {
+func (recv_ Uint64) Malloc64() c.Pointer {
 	return nil
 }
 
 //go:linkname Realloc C.sqlite3_realloc
-func Realloc(unsafe.Pointer, c.Int) unsafe.Pointer
+func Realloc(c.Pointer, c.Int) c.Pointer
 
 //go:linkname Realloc64 C.sqlite3_realloc64
-func Realloc64(unsafe.Pointer, Uint64) unsafe.Pointer
+func Realloc64(c.Pointer, Uint64) c.Pointer
 
 //go:linkname Free C.sqlite3_free
-func Free(unsafe.Pointer)
+func Free(c.Pointer)
 
 //go:linkname Msize C.sqlite3_msize
-func Msize(unsafe.Pointer) Uint64
+func Msize(c.Pointer) Uint64
 
 /*
 ** CAPI3REF: Memory Allocator Statistics
@@ -1768,7 +1768,7 @@ func MemoryHighwater(resetFlag c.Int) Int64
 ** method.
  */
 //go:linkname Randomness C.sqlite3_randomness
-func Randomness(N c.Int, P unsafe.Pointer)
+func Randomness(N c.Int, P c.Pointer)
 
 /*
 ** CAPI3REF: Compile-Time Authorization Callbacks
@@ -1860,7 +1860,7 @@ func Randomness(N c.Int, P unsafe.Pointer)
 ** sqlite3_prepare_v2() to reprepare a statement after a schema change.
  */
 // llgo:link (*Sqlite3).SetAuthorizer C.sqlite3_set_authorizer
-func (recv_ *Sqlite3) SetAuthorizer(xAuth func(unsafe.Pointer, c.Int, *int8, *int8, *int8, *int8) c.Int, pUserData unsafe.Pointer) c.Int {
+func (recv_ *Sqlite3) SetAuthorizer(xAuth func(c.Pointer, c.Int, *c.Char, *c.Char, *c.Char, *c.Char) c.Int, pUserData c.Pointer) c.Int {
 	return 0
 }
 
@@ -1897,12 +1897,12 @@ func (recv_ *Sqlite3) SetAuthorizer(xAuth func(unsafe.Pointer, c.Int, *int8, *in
 ** profile callback.
  */
 // llgo:link (*Sqlite3).Trace C.sqlite3_trace
-func (recv_ *Sqlite3) Trace(xTrace func(unsafe.Pointer, *int8), __llgo_arg_1 unsafe.Pointer) unsafe.Pointer {
+func (recv_ *Sqlite3) Trace(xTrace func(c.Pointer, *c.Char), __llgo_arg_1 c.Pointer) c.Pointer {
 	return nil
 }
 
 // llgo:link (*Sqlite3).Profile C.sqlite3_profile
-func (recv_ *Sqlite3) Profile(xProfile func(unsafe.Pointer, *int8, Uint64), __llgo_arg_1 unsafe.Pointer) unsafe.Pointer {
+func (recv_ *Sqlite3) Profile(xProfile func(c.Pointer, *c.Char, Uint64), __llgo_arg_1 c.Pointer) c.Pointer {
 	return nil
 }
 
@@ -1938,7 +1938,7 @@ func (recv_ *Sqlite3) Profile(xProfile func(unsafe.Pointer, *int8, Uint64), __ll
 ** are deprecated.
  */
 // llgo:link (*Sqlite3).TraceV2 C.sqlite3_trace_v2
-func (recv_ *Sqlite3) TraceV2(uMask c.Uint, xCallback func(c.Uint, unsafe.Pointer, unsafe.Pointer, unsafe.Pointer) c.Int, pCtx unsafe.Pointer) c.Int {
+func (recv_ *Sqlite3) TraceV2(uMask c.Uint, xCallback func(c.Uint, c.Pointer, c.Pointer, c.Pointer) c.Int, pCtx c.Pointer) c.Int {
 	return 0
 }
 
@@ -1982,7 +1982,7 @@ func (recv_ *Sqlite3) TraceV2(uMask c.Uint, xCallback func(c.Uint, unsafe.Pointe
 ** code for complex queries.
  */
 // llgo:link (*Sqlite3).ProgressHandler C.sqlite3_progress_handler
-func (recv_ *Sqlite3) ProgressHandler(c.Int, func(unsafe.Pointer) c.Int, unsafe.Pointer) {
+func (recv_ *Sqlite3) ProgressHandler(c.Int, func(c.Pointer) c.Int, c.Pointer) {
 }
 
 /*
@@ -2264,13 +2264,13 @@ func (recv_ *Sqlite3) ProgressHandler(c.Int, func(unsafe.Pointer) c.Int, unsafe.
 ** See also: [sqlite3_temp_directory]
  */
 //go:linkname DoOpen C.sqlite3_open
-func DoOpen(filename *int8, ppDb **Sqlite3) c.Int
+func DoOpen(filename *c.Char, ppDb **Sqlite3) c.Int
 
 //go:linkname DoOpen16 C.sqlite3_open16
-func DoOpen16(filename unsafe.Pointer, ppDb **Sqlite3) c.Int
+func DoOpen16(filename c.Pointer, ppDb **Sqlite3) c.Int
 
 //go:linkname DoOpenV2 C.sqlite3_open_v2
-func DoOpenV2(filename *int8, ppDb **Sqlite3, flags c.Int, zVfs *int8) c.Int
+func DoOpenV2(filename *c.Char, ppDb **Sqlite3, flags c.Int, zVfs *c.Char) c.Int
 
 /*
 ** CAPI3REF: Obtain Values For URI Parameters
@@ -2339,16 +2339,16 @@ func DoOpenV2(filename *int8, ppDb **Sqlite3, flags c.Int, zVfs *int8) c.Int
 ** See the [URI filename] documentation for additional information.
  */
 //go:linkname UriParameter C.sqlite3_uri_parameter
-func UriParameter(z Filename, zParam *int8) *int8
+func UriParameter(z Filename, zParam *c.Char) *c.Char
 
 //go:linkname UriBoolean C.sqlite3_uri_boolean
-func UriBoolean(z Filename, zParam *int8, bDefault c.Int) c.Int
+func UriBoolean(z Filename, zParam *c.Char, bDefault c.Int) c.Int
 
 //go:linkname UriInt64 C.sqlite3_uri_int64
-func UriInt64(Filename, *int8, Int64) Int64
+func UriInt64(Filename, *c.Char, Int64) Int64
 
 //go:linkname UriKey C.sqlite3_uri_key
-func UriKey(z Filename, N c.Int) *int8
+func UriKey(z Filename, N c.Int) *c.Char
 
 /*
 ** CAPI3REF:  Translate filenames
@@ -2378,13 +2378,13 @@ func UriKey(z Filename, N c.Int) *int8
 ** undefined and is likely a memory access violation.
  */
 //go:linkname FilenameDatabase C.sqlite3_filename_database
-func FilenameDatabase(Filename) *int8
+func FilenameDatabase(Filename) *c.Char
 
 //go:linkname FilenameJournal C.sqlite3_filename_journal
-func FilenameJournal(Filename) *int8
+func FilenameJournal(Filename) *c.Char
 
 //go:linkname FilenameWal C.sqlite3_filename_wal
-func FilenameWal(Filename) *int8
+func FilenameWal(Filename) *c.Char
 
 /*
 ** CAPI3REF:  Database File Corresponding To A Journal
@@ -2404,7 +2404,7 @@ func FilenameWal(Filename) *int8
 ** behavior.
  */
 //go:linkname DatabaseFileObject C.sqlite3_database_file_object
-func DatabaseFileObject(*int8) *File
+func DatabaseFileObject(*c.Char) *File
 
 /*
 ** CAPI3REF: Create and Destroy VFS Filenames
@@ -2452,7 +2452,7 @@ func DatabaseFileObject(*int8) *File
 ** invoked prior to calling sqlite3_free_filename(Y).
  */
 //go:linkname CreateFilename C.sqlite3_create_filename
-func CreateFilename(zDatabase *int8, zJournal *int8, zWal *int8, nParam c.Int, azParam **int8) Filename
+func CreateFilename(zDatabase *c.Char, zJournal *c.Char, zWal *c.Char, nParam c.Int, azParam **c.Char) Filename
 
 //go:linkname FreeFilename C.sqlite3_free_filename
 func FreeFilename(Filename)
@@ -2531,17 +2531,17 @@ func (recv_ *Sqlite3) ExtendedErrcode() c.Int {
 }
 
 // llgo:link (*Sqlite3).Errmsg C.sqlite3_errmsg
-func (recv_ *Sqlite3) Errmsg() *int8 {
+func (recv_ *Sqlite3) Errmsg() *c.Char {
 	return nil
 }
 
 // llgo:link (*Sqlite3).Errmsg16 C.sqlite3_errmsg16
-func (recv_ *Sqlite3) Errmsg16() unsafe.Pointer {
+func (recv_ *Sqlite3) Errmsg16() c.Pointer {
 	return nil
 }
 
 //go:linkname Errstr C.sqlite3_errstr
-func Errstr(c.Int) *int8
+func Errstr(c.Int) *c.Char
 
 // llgo:link (*Sqlite3).ErrorOffset C.sqlite3_error_offset
 func (recv_ *Sqlite3) ErrorOffset() c.Int {
@@ -2702,32 +2702,32 @@ func (recv_ *Sqlite3) Limit(id c.Int, newVal c.Int) c.Int {
 ** sqlite3_prepare_v3() with a zero prepFlags parameter.
  */
 // llgo:link (*Sqlite3).DoPrepare C.sqlite3_prepare
-func (recv_ *Sqlite3) DoPrepare(zSql *int8, nByte c.Int, ppStmt **Stmt, pzTail **int8) c.Int {
+func (recv_ *Sqlite3) DoPrepare(zSql *c.Char, nByte c.Int, ppStmt **Stmt, pzTail **c.Char) c.Int {
 	return 0
 }
 
 // llgo:link (*Sqlite3).DoPrepareV2 C.sqlite3_prepare_v2
-func (recv_ *Sqlite3) DoPrepareV2(zSql *int8, nByte c.Int, ppStmt **Stmt, pzTail **int8) c.Int {
+func (recv_ *Sqlite3) DoPrepareV2(zSql *c.Char, nByte c.Int, ppStmt **Stmt, pzTail **c.Char) c.Int {
 	return 0
 }
 
 // llgo:link (*Sqlite3).DoPrepareV3 C.sqlite3_prepare_v3
-func (recv_ *Sqlite3) DoPrepareV3(zSql *int8, nByte c.Int, prepFlags c.Uint, ppStmt **Stmt, pzTail **int8) c.Int {
+func (recv_ *Sqlite3) DoPrepareV3(zSql *c.Char, nByte c.Int, prepFlags c.Uint, ppStmt **Stmt, pzTail **c.Char) c.Int {
 	return 0
 }
 
 // llgo:link (*Sqlite3).DoPrepare16 C.sqlite3_prepare16
-func (recv_ *Sqlite3) DoPrepare16(zSql unsafe.Pointer, nByte c.Int, ppStmt **Stmt, pzTail *unsafe.Pointer) c.Int {
+func (recv_ *Sqlite3) DoPrepare16(zSql c.Pointer, nByte c.Int, ppStmt **Stmt, pzTail *c.Pointer) c.Int {
 	return 0
 }
 
 // llgo:link (*Sqlite3).DoPrepare16V2 C.sqlite3_prepare16_v2
-func (recv_ *Sqlite3) DoPrepare16V2(zSql unsafe.Pointer, nByte c.Int, ppStmt **Stmt, pzTail *unsafe.Pointer) c.Int {
+func (recv_ *Sqlite3) DoPrepare16V2(zSql c.Pointer, nByte c.Int, ppStmt **Stmt, pzTail *c.Pointer) c.Int {
 	return 0
 }
 
 // llgo:link (*Sqlite3).DoPrepare16V3 C.sqlite3_prepare16_v3
-func (recv_ *Sqlite3) DoPrepare16V3(zSql unsafe.Pointer, nByte c.Int, prepFlags c.Uint, ppStmt **Stmt, pzTail *unsafe.Pointer) c.Int {
+func (recv_ *Sqlite3) DoPrepare16V3(zSql c.Pointer, nByte c.Int, prepFlags c.Uint, ppStmt **Stmt, pzTail *c.Pointer) c.Int {
 	return 0
 }
 
@@ -2773,12 +2773,12 @@ func (recv_ *Sqlite3) DoPrepare16V3(zSql unsafe.Pointer, nByte c.Int, prepFlags 
 ** the [SQLITE_ENABLE_NORMALIZE] compile-time option is defined.
  */
 // llgo:link (*Stmt).Sql C.sqlite3_sql
-func (recv_ *Stmt) Sql() *int8 {
+func (recv_ *Stmt) Sql() *c.Char {
 	return nil
 }
 
 // llgo:link (*Stmt).ExpandedSql C.sqlite3_expanded_sql
-func (recv_ *Stmt) ExpandedSql() *int8 {
+func (recv_ *Stmt) ExpandedSql() *c.Char {
 	return nil
 }
 
@@ -3060,17 +3060,17 @@ type Context struct {
 ** [sqlite3_bind_parameter_name()], and [sqlite3_bind_parameter_index()].
  */
 // llgo:link (*Stmt).BindBlob C.sqlite3_bind_blob
-func (recv_ *Stmt) BindBlob(__llgo_arg_0 c.Int, __llgo_arg_1 unsafe.Pointer, n c.Int, __llgo_arg_3 func(unsafe.Pointer)) c.Int {
+func (recv_ *Stmt) BindBlob(__llgo_arg_0 c.Int, __llgo_arg_1 c.Pointer, n c.Int, __llgo_arg_3 func(c.Pointer)) c.Int {
 	return 0
 }
 
 // llgo:link (*Stmt).BindBlob64 C.sqlite3_bind_blob64
-func (recv_ *Stmt) BindBlob64(c.Int, unsafe.Pointer, Uint64, func(unsafe.Pointer)) c.Int {
+func (recv_ *Stmt) BindBlob64(c.Int, c.Pointer, Uint64, func(c.Pointer)) c.Int {
 	return 0
 }
 
 // llgo:link (*Stmt).BindDouble C.sqlite3_bind_double
-func (recv_ *Stmt) BindDouble(c.Int, float64) c.Int {
+func (recv_ *Stmt) BindDouble(c.Int, c.Double) c.Int {
 	return 0
 }
 
@@ -3090,17 +3090,17 @@ func (recv_ *Stmt) BindNull(c.Int) c.Int {
 }
 
 // llgo:link (*Stmt).BindText C.sqlite3_bind_text
-func (recv_ *Stmt) BindText(c.Int, *int8, c.Int, func(unsafe.Pointer)) c.Int {
+func (recv_ *Stmt) BindText(c.Int, *c.Char, c.Int, func(c.Pointer)) c.Int {
 	return 0
 }
 
 // llgo:link (*Stmt).BindText16 C.sqlite3_bind_text16
-func (recv_ *Stmt) BindText16(c.Int, unsafe.Pointer, c.Int, func(unsafe.Pointer)) c.Int {
+func (recv_ *Stmt) BindText16(c.Int, c.Pointer, c.Int, func(c.Pointer)) c.Int {
 	return 0
 }
 
 // llgo:link (*Stmt).BindText64 C.sqlite3_bind_text64
-func (recv_ *Stmt) BindText64(__llgo_arg_0 c.Int, __llgo_arg_1 *int8, __llgo_arg_2 Uint64, __llgo_arg_3 func(unsafe.Pointer), encoding int8) c.Int {
+func (recv_ *Stmt) BindText64(__llgo_arg_0 c.Int, __llgo_arg_1 *c.Char, __llgo_arg_2 Uint64, __llgo_arg_3 func(c.Pointer), encoding c.Char) c.Int {
 	return 0
 }
 
@@ -3110,7 +3110,7 @@ func (recv_ *Stmt) BindValue(c.Int, *Value) c.Int {
 }
 
 // llgo:link (*Stmt).BindPointer C.sqlite3_bind_pointer
-func (recv_ *Stmt) BindPointer(c.Int, unsafe.Pointer, *int8, func(unsafe.Pointer)) c.Int {
+func (recv_ *Stmt) BindPointer(c.Int, c.Pointer, *c.Char, func(c.Pointer)) c.Int {
 	return 0
 }
 
@@ -3175,7 +3175,7 @@ func (recv_ *Stmt) BindParameterCount() c.Int {
 ** [sqlite3_bind_parameter_index()].
  */
 // llgo:link (*Stmt).BindParameterName C.sqlite3_bind_parameter_name
-func (recv_ *Stmt) BindParameterName(c.Int) *int8 {
+func (recv_ *Stmt) BindParameterName(c.Int) *c.Char {
 	return nil
 }
 
@@ -3196,7 +3196,7 @@ func (recv_ *Stmt) BindParameterName(c.Int) *int8 {
 ** [sqlite3_bind_parameter_name()].
  */
 // llgo:link (*Stmt).BindParameterIndex C.sqlite3_bind_parameter_index
-func (recv_ *Stmt) BindParameterIndex(zName *int8) c.Int {
+func (recv_ *Stmt) BindParameterIndex(zName *c.Char) c.Int {
 	return 0
 }
 
@@ -3260,12 +3260,12 @@ func (recv_ *Stmt) ColumnCount() c.Int {
 ** one release of SQLite to the next.
  */
 // llgo:link (*Stmt).ColumnName C.sqlite3_column_name
-func (recv_ *Stmt) ColumnName(N c.Int) *int8 {
+func (recv_ *Stmt) ColumnName(N c.Int) *c.Char {
 	return nil
 }
 
 // llgo:link (*Stmt).ColumnName16 C.sqlite3_column_name16
-func (recv_ *Stmt) ColumnName16(N c.Int) unsafe.Pointer {
+func (recv_ *Stmt) ColumnName16(N c.Int) c.Pointer {
 	return nil
 }
 
@@ -3312,32 +3312,32 @@ func (recv_ *Stmt) ColumnName16(N c.Int) unsafe.Pointer {
 ** at the same time then the results are undefined.
  */
 // llgo:link (*Stmt).ColumnDatabaseName C.sqlite3_column_database_name
-func (recv_ *Stmt) ColumnDatabaseName(c.Int) *int8 {
+func (recv_ *Stmt) ColumnDatabaseName(c.Int) *c.Char {
 	return nil
 }
 
 // llgo:link (*Stmt).ColumnDatabaseName16 C.sqlite3_column_database_name16
-func (recv_ *Stmt) ColumnDatabaseName16(c.Int) unsafe.Pointer {
+func (recv_ *Stmt) ColumnDatabaseName16(c.Int) c.Pointer {
 	return nil
 }
 
 // llgo:link (*Stmt).ColumnTableName C.sqlite3_column_table_name
-func (recv_ *Stmt) ColumnTableName(c.Int) *int8 {
+func (recv_ *Stmt) ColumnTableName(c.Int) *c.Char {
 	return nil
 }
 
 // llgo:link (*Stmt).ColumnTableName16 C.sqlite3_column_table_name16
-func (recv_ *Stmt) ColumnTableName16(c.Int) unsafe.Pointer {
+func (recv_ *Stmt) ColumnTableName16(c.Int) c.Pointer {
 	return nil
 }
 
 // llgo:link (*Stmt).ColumnOriginName C.sqlite3_column_origin_name
-func (recv_ *Stmt) ColumnOriginName(c.Int) *int8 {
+func (recv_ *Stmt) ColumnOriginName(c.Int) *c.Char {
 	return nil
 }
 
 // llgo:link (*Stmt).ColumnOriginName16 C.sqlite3_column_origin_name16
-func (recv_ *Stmt) ColumnOriginName16(c.Int) unsafe.Pointer {
+func (recv_ *Stmt) ColumnOriginName16(c.Int) c.Pointer {
 	return nil
 }
 
@@ -3372,12 +3372,12 @@ func (recv_ *Stmt) ColumnOriginName16(c.Int) unsafe.Pointer {
 ** used to hold those values.
  */
 // llgo:link (*Stmt).ColumnDecltype C.sqlite3_column_decltype
-func (recv_ *Stmt) ColumnDecltype(c.Int) *int8 {
+func (recv_ *Stmt) ColumnDecltype(c.Int) *c.Char {
 	return nil
 }
 
 // llgo:link (*Stmt).ColumnDecltype16 C.sqlite3_column_decltype16
-func (recv_ *Stmt) ColumnDecltype16(c.Int) unsafe.Pointer {
+func (recv_ *Stmt) ColumnDecltype16(c.Int) c.Pointer {
 	return nil
 }
 
@@ -3706,12 +3706,12 @@ func (recv_ *Stmt) DataCount() c.Int {
 ** other SQLite interface is called on the same [database connection].
  */
 // llgo:link (*Stmt).ColumnBlob C.sqlite3_column_blob
-func (recv_ *Stmt) ColumnBlob(iCol c.Int) unsafe.Pointer {
+func (recv_ *Stmt) ColumnBlob(iCol c.Int) c.Pointer {
 	return nil
 }
 
 // llgo:link (*Stmt).ColumnDouble C.sqlite3_column_double
-func (recv_ *Stmt) ColumnDouble(iCol c.Int) float64 {
+func (recv_ *Stmt) ColumnDouble(iCol c.Int) c.Double {
 	return 0
 }
 
@@ -3726,12 +3726,12 @@ func (recv_ *Stmt) ColumnInt64(iCol c.Int) Int64 {
 }
 
 // llgo:link (*Stmt).ColumnText C.sqlite3_column_text
-func (recv_ *Stmt) ColumnText(iCol c.Int) *int8 {
+func (recv_ *Stmt) ColumnText(iCol c.Int) *c.Char {
 	return nil
 }
 
 // llgo:link (*Stmt).ColumnText16 C.sqlite3_column_text16
-func (recv_ *Stmt) ColumnText16(iCol c.Int) unsafe.Pointer {
+func (recv_ *Stmt) ColumnText16(iCol c.Int) c.Pointer {
 	return nil
 }
 
@@ -3952,22 +3952,22 @@ func (recv_ *Stmt) Reset() c.Int {
 ** statement in which the function is running.
  */
 // llgo:link (*Sqlite3).CreateFunction C.sqlite3_create_function
-func (recv_ *Sqlite3) CreateFunction(zFunctionName *int8, nArg c.Int, eTextRep c.Int, pApp unsafe.Pointer, xFunc func(*Context, c.Int, **Value), xStep func(*Context, c.Int, **Value), xFinal func(*Context)) c.Int {
+func (recv_ *Sqlite3) CreateFunction(zFunctionName *c.Char, nArg c.Int, eTextRep c.Int, pApp c.Pointer, xFunc func(*Context, c.Int, **Value), xStep func(*Context, c.Int, **Value), xFinal func(*Context)) c.Int {
 	return 0
 }
 
 // llgo:link (*Sqlite3).CreateFunction16 C.sqlite3_create_function16
-func (recv_ *Sqlite3) CreateFunction16(zFunctionName unsafe.Pointer, nArg c.Int, eTextRep c.Int, pApp unsafe.Pointer, xFunc func(*Context, c.Int, **Value), xStep func(*Context, c.Int, **Value), xFinal func(*Context)) c.Int {
+func (recv_ *Sqlite3) CreateFunction16(zFunctionName c.Pointer, nArg c.Int, eTextRep c.Int, pApp c.Pointer, xFunc func(*Context, c.Int, **Value), xStep func(*Context, c.Int, **Value), xFinal func(*Context)) c.Int {
 	return 0
 }
 
 // llgo:link (*Sqlite3).CreateFunctionV2 C.sqlite3_create_function_v2
-func (recv_ *Sqlite3) CreateFunctionV2(zFunctionName *int8, nArg c.Int, eTextRep c.Int, pApp unsafe.Pointer, xFunc func(*Context, c.Int, **Value), xStep func(*Context, c.Int, **Value), xFinal func(*Context), xDestroy func(unsafe.Pointer)) c.Int {
+func (recv_ *Sqlite3) CreateFunctionV2(zFunctionName *c.Char, nArg c.Int, eTextRep c.Int, pApp c.Pointer, xFunc func(*Context, c.Int, **Value), xStep func(*Context, c.Int, **Value), xFinal func(*Context), xDestroy func(c.Pointer)) c.Int {
 	return 0
 }
 
 // llgo:link (*Sqlite3).CreateWindowFunction C.sqlite3_create_window_function
-func (recv_ *Sqlite3) CreateWindowFunction(zFunctionName *int8, nArg c.Int, eTextRep c.Int, pApp unsafe.Pointer, xStep func(*Context, c.Int, **Value), xFinal func(*Context), xValue func(*Context), xInverse func(*Context, c.Int, **Value), xDestroy func(unsafe.Pointer)) c.Int {
+func (recv_ *Sqlite3) CreateWindowFunction(zFunctionName *c.Char, nArg c.Int, eTextRep c.Int, pApp c.Pointer, xStep func(*Context, c.Int, **Value), xFinal func(*Context), xValue func(*Context), xInverse func(*Context, c.Int, **Value), xDestroy func(c.Pointer)) c.Int {
 	return 0
 }
 
@@ -4003,7 +4003,7 @@ func GlobalRecover() c.Int
 func ThreadCleanup()
 
 //go:linkname MemoryAlarm C.sqlite3_memory_alarm
-func MemoryAlarm(func(unsafe.Pointer, Int64, c.Int), unsafe.Pointer, Int64) c.Int
+func MemoryAlarm(func(c.Pointer, Int64, c.Int), c.Pointer, Int64) c.Int
 
 /*
 ** CAPI3REF: Obtaining SQL Values
@@ -4134,12 +4134,12 @@ func MemoryAlarm(func(unsafe.Pointer, Int64, c.Int), unsafe.Pointer, Int64) c.In
 ** other SQLite interface is called on the same [database connection].
  */
 // llgo:link (*Value).ValueBlob C.sqlite3_value_blob
-func (recv_ *Value) ValueBlob() unsafe.Pointer {
+func (recv_ *Value) ValueBlob() c.Pointer {
 	return nil
 }
 
 // llgo:link (*Value).ValueDouble C.sqlite3_value_double
-func (recv_ *Value) ValueDouble() float64 {
+func (recv_ *Value) ValueDouble() c.Double {
 	return 0
 }
 
@@ -4154,27 +4154,27 @@ func (recv_ *Value) ValueInt64() Int64 {
 }
 
 // llgo:link (*Value).ValuePointer C.sqlite3_value_pointer
-func (recv_ *Value) ValuePointer(*int8) unsafe.Pointer {
+func (recv_ *Value) ValuePointer(*c.Char) c.Pointer {
 	return nil
 }
 
 // llgo:link (*Value).ValueText C.sqlite3_value_text
-func (recv_ *Value) ValueText() *int8 {
+func (recv_ *Value) ValueText() *c.Char {
 	return nil
 }
 
 // llgo:link (*Value).ValueText16 C.sqlite3_value_text16
-func (recv_ *Value) ValueText16() unsafe.Pointer {
+func (recv_ *Value) ValueText16() c.Pointer {
 	return nil
 }
 
 // llgo:link (*Value).ValueText16le C.sqlite3_value_text16le
-func (recv_ *Value) ValueText16le() unsafe.Pointer {
+func (recv_ *Value) ValueText16le() c.Pointer {
 	return nil
 }
 
 // llgo:link (*Value).ValueText16be C.sqlite3_value_text16be
-func (recv_ *Value) ValueText16be() unsafe.Pointer {
+func (recv_ *Value) ValueText16be() c.Pointer {
 	return nil
 }
 
@@ -4322,7 +4322,7 @@ func (recv_ *Value) ValueFree() {
 ** the aggregate SQL function is running.
  */
 // llgo:link (*Context).AggregateContext C.sqlite3_aggregate_context
-func (recv_ *Context) AggregateContext(nBytes c.Int) unsafe.Pointer {
+func (recv_ *Context) AggregateContext(nBytes c.Int) c.Pointer {
 	return nil
 }
 
@@ -4340,7 +4340,7 @@ func (recv_ *Context) AggregateContext(nBytes c.Int) unsafe.Pointer {
 ** the application-defined function is running.
  */
 // llgo:link (*Context).UserData C.sqlite3_user_data
-func (recv_ *Context) UserData() unsafe.Pointer {
+func (recv_ *Context) UserData() c.Pointer {
 	return nil
 }
 
@@ -4427,12 +4427,12 @@ func (recv_ *Context) ContextDbHandle() *Sqlite3 {
 ** See also: [sqlite3_get_clientdata()] and [sqlite3_set_clientdata()].
  */
 // llgo:link (*Context).GetAuxdata C.sqlite3_get_auxdata
-func (recv_ *Context) GetAuxdata(N c.Int) unsafe.Pointer {
+func (recv_ *Context) GetAuxdata(N c.Int) c.Pointer {
 	return nil
 }
 
 // llgo:link (*Context).SetAuxdata C.sqlite3_set_auxdata
-func (recv_ *Context) SetAuxdata(N c.Int, __llgo_arg_1 unsafe.Pointer, __llgo_arg_2 func(unsafe.Pointer)) {
+func (recv_ *Context) SetAuxdata(N c.Int, __llgo_arg_1 c.Pointer, __llgo_arg_2 func(c.Pointer)) {
 }
 
 /*
@@ -4489,17 +4489,17 @@ func (recv_ *Context) SetAuxdata(N c.Int, __llgo_arg_1 unsafe.Pointer, __llgo_ar
 ** See also: [sqlite3_set_auxdata()] and [sqlite3_get_auxdata()].
  */
 // llgo:link (*Sqlite3).GetClientdata C.sqlite3_get_clientdata
-func (recv_ *Sqlite3) GetClientdata(*int8) unsafe.Pointer {
+func (recv_ *Sqlite3) GetClientdata(*c.Char) c.Pointer {
 	return nil
 }
 
 // llgo:link (*Sqlite3).SetClientdata C.sqlite3_set_clientdata
-func (recv_ *Sqlite3) SetClientdata(*int8, unsafe.Pointer, func(unsafe.Pointer)) c.Int {
+func (recv_ *Sqlite3) SetClientdata(*c.Char, c.Pointer, func(c.Pointer)) c.Int {
 	return 0
 }
 
 // llgo:type C
-type DestructorType func(unsafe.Pointer)
+type DestructorType func(c.Pointer)
 
 /*
 ** CAPI3REF: Setting The Result Of An SQL Function
@@ -4649,23 +4649,23 @@ type DestructorType func(unsafe.Pointer)
 ** the [sqlite3_context] pointer, the results are undefined.
  */
 // llgo:link (*Context).ResultBlob C.sqlite3_result_blob
-func (recv_ *Context) ResultBlob(unsafe.Pointer, c.Int, func(unsafe.Pointer)) {
+func (recv_ *Context) ResultBlob(c.Pointer, c.Int, func(c.Pointer)) {
 }
 
 // llgo:link (*Context).ResultBlob64 C.sqlite3_result_blob64
-func (recv_ *Context) ResultBlob64(unsafe.Pointer, Uint64, func(unsafe.Pointer)) {
+func (recv_ *Context) ResultBlob64(c.Pointer, Uint64, func(c.Pointer)) {
 }
 
 // llgo:link (*Context).ResultDouble C.sqlite3_result_double
-func (recv_ *Context) ResultDouble(float64) {
+func (recv_ *Context) ResultDouble(c.Double) {
 }
 
 // llgo:link (*Context).ResultError C.sqlite3_result_error
-func (recv_ *Context) ResultError(*int8, c.Int) {
+func (recv_ *Context) ResultError(*c.Char, c.Int) {
 }
 
 // llgo:link (*Context).ResultError16 C.sqlite3_result_error16
-func (recv_ *Context) ResultError16(unsafe.Pointer, c.Int) {
+func (recv_ *Context) ResultError16(c.Pointer, c.Int) {
 }
 
 // llgo:link (*Context).ResultErrorToobig C.sqlite3_result_error_toobig
@@ -4693,23 +4693,23 @@ func (recv_ *Context) ResultNull() {
 }
 
 // llgo:link (*Context).ResultText C.sqlite3_result_text
-func (recv_ *Context) ResultText(*int8, c.Int, func(unsafe.Pointer)) {
+func (recv_ *Context) ResultText(*c.Char, c.Int, func(c.Pointer)) {
 }
 
 // llgo:link (*Context).ResultText64 C.sqlite3_result_text64
-func (recv_ *Context) ResultText64(__llgo_arg_0 *int8, __llgo_arg_1 Uint64, __llgo_arg_2 func(unsafe.Pointer), encoding int8) {
+func (recv_ *Context) ResultText64(__llgo_arg_0 *c.Char, __llgo_arg_1 Uint64, __llgo_arg_2 func(c.Pointer), encoding c.Char) {
 }
 
 // llgo:link (*Context).ResultText16 C.sqlite3_result_text16
-func (recv_ *Context) ResultText16(unsafe.Pointer, c.Int, func(unsafe.Pointer)) {
+func (recv_ *Context) ResultText16(c.Pointer, c.Int, func(c.Pointer)) {
 }
 
 // llgo:link (*Context).ResultText16le C.sqlite3_result_text16le
-func (recv_ *Context) ResultText16le(unsafe.Pointer, c.Int, func(unsafe.Pointer)) {
+func (recv_ *Context) ResultText16le(c.Pointer, c.Int, func(c.Pointer)) {
 }
 
 // llgo:link (*Context).ResultText16be C.sqlite3_result_text16be
-func (recv_ *Context) ResultText16be(unsafe.Pointer, c.Int, func(unsafe.Pointer)) {
+func (recv_ *Context) ResultText16be(c.Pointer, c.Int, func(c.Pointer)) {
 }
 
 // llgo:link (*Context).ResultValue C.sqlite3_result_value
@@ -4717,7 +4717,7 @@ func (recv_ *Context) ResultValue(*Value) {
 }
 
 // llgo:link (*Context).ResultPointer C.sqlite3_result_pointer
-func (recv_ *Context) ResultPointer(unsafe.Pointer, *int8, func(unsafe.Pointer)) {
+func (recv_ *Context) ResultPointer(c.Pointer, *c.Char, func(c.Pointer)) {
 }
 
 // llgo:link (*Context).ResultZeroblob C.sqlite3_result_zeroblob
@@ -4841,17 +4841,17 @@ func (recv_ *Context) ResultSubtype(c.Uint) {
 ** See also:  [sqlite3_collation_needed()] and [sqlite3_collation_needed16()].
  */
 // llgo:link (*Sqlite3).CreateCollation C.sqlite3_create_collation
-func (recv_ *Sqlite3) CreateCollation(zName *int8, eTextRep c.Int, pArg unsafe.Pointer, xCompare func(unsafe.Pointer, c.Int, unsafe.Pointer, c.Int, unsafe.Pointer) c.Int) c.Int {
+func (recv_ *Sqlite3) CreateCollation(zName *c.Char, eTextRep c.Int, pArg c.Pointer, xCompare func(c.Pointer, c.Int, c.Pointer, c.Int, c.Pointer) c.Int) c.Int {
 	return 0
 }
 
 // llgo:link (*Sqlite3).CreateCollationV2 C.sqlite3_create_collation_v2
-func (recv_ *Sqlite3) CreateCollationV2(zName *int8, eTextRep c.Int, pArg unsafe.Pointer, xCompare func(unsafe.Pointer, c.Int, unsafe.Pointer, c.Int, unsafe.Pointer) c.Int, xDestroy func(unsafe.Pointer)) c.Int {
+func (recv_ *Sqlite3) CreateCollationV2(zName *c.Char, eTextRep c.Int, pArg c.Pointer, xCompare func(c.Pointer, c.Int, c.Pointer, c.Int, c.Pointer) c.Int, xDestroy func(c.Pointer)) c.Int {
 	return 0
 }
 
 // llgo:link (*Sqlite3).CreateCollation16 C.sqlite3_create_collation16
-func (recv_ *Sqlite3) CreateCollation16(zName unsafe.Pointer, eTextRep c.Int, pArg unsafe.Pointer, xCompare func(unsafe.Pointer, c.Int, unsafe.Pointer, c.Int, unsafe.Pointer) c.Int) c.Int {
+func (recv_ *Sqlite3) CreateCollation16(zName c.Pointer, eTextRep c.Int, pArg c.Pointer, xCompare func(c.Pointer, c.Int, c.Pointer, c.Int, c.Pointer) c.Int) c.Int {
 	return 0
 }
 
@@ -4883,12 +4883,12 @@ func (recv_ *Sqlite3) CreateCollation16(zName unsafe.Pointer, eTextRep c.Int, pA
 ** [sqlite3_create_collation_v2()].
  */
 // llgo:link (*Sqlite3).CollationNeeded C.sqlite3_collation_needed
-func (recv_ *Sqlite3) CollationNeeded(unsafe.Pointer, func(unsafe.Pointer, *Sqlite3, c.Int, *int8)) c.Int {
+func (recv_ *Sqlite3) CollationNeeded(c.Pointer, func(c.Pointer, *Sqlite3, c.Int, *c.Char)) c.Int {
 	return 0
 }
 
 // llgo:link (*Sqlite3).CollationNeeded16 C.sqlite3_collation_needed16
-func (recv_ *Sqlite3) CollationNeeded16(unsafe.Pointer, func(unsafe.Pointer, *Sqlite3, c.Int, unsafe.Pointer)) c.Int {
+func (recv_ *Sqlite3) CollationNeeded16(c.Pointer, func(c.Pointer, *Sqlite3, c.Int, c.Pointer)) c.Int {
 	return 0
 }
 
@@ -4983,7 +4983,7 @@ func (recv_ *Stmt) DbHandle() *Sqlite3 {
 ** private copy of the result prior to releasing the mutex.
  */
 // llgo:link (*Sqlite3).DbName C.sqlite3_db_name
-func (recv_ *Sqlite3) DbName(N c.Int) *int8 {
+func (recv_ *Sqlite3) DbName(N c.Int) *c.Char {
 	return nil
 }
 
@@ -5018,7 +5018,7 @@ func (recv_ *Sqlite3) DbName(N c.Int) *int8 {
 ** </ul>
  */
 // llgo:link (*Sqlite3).DbFilename C.sqlite3_db_filename
-func (recv_ *Sqlite3) DbFilename(zDbName *int8) Filename {
+func (recv_ *Sqlite3) DbFilename(zDbName *c.Char) Filename {
 	return nil
 }
 
@@ -5031,7 +5031,7 @@ func (recv_ *Sqlite3) DbFilename(zDbName *int8) Filename {
 ** the name of a database on connection D.
  */
 // llgo:link (*Sqlite3).DbReadonly C.sqlite3_db_readonly
-func (recv_ *Sqlite3) DbReadonly(zDbName *int8) c.Int {
+func (recv_ *Sqlite3) DbReadonly(zDbName *c.Char) c.Int {
 	return 0
 }
 
@@ -5052,7 +5052,7 @@ func (recv_ *Sqlite3) DbReadonly(zDbName *int8) c.Int {
 ** a valid schema, then -1 is returned.
  */
 // llgo:link (*Sqlite3).TxnState C.sqlite3_txn_state
-func (recv_ *Sqlite3) TxnState(zSchema *int8) c.Int {
+func (recv_ *Sqlite3) TxnState(zSchema *c.Char) c.Int {
 	return 0
 }
 
@@ -5123,12 +5123,12 @@ func (recv_ *Sqlite3) NextStmt(pStmt *Stmt) *Stmt {
 ** See also the [sqlite3_update_hook()] interface.
  */
 // llgo:link (*Sqlite3).CommitHook C.sqlite3_commit_hook
-func (recv_ *Sqlite3) CommitHook(func(unsafe.Pointer) c.Int, unsafe.Pointer) unsafe.Pointer {
+func (recv_ *Sqlite3) CommitHook(func(c.Pointer) c.Int, c.Pointer) c.Pointer {
 	return nil
 }
 
 // llgo:link (*Sqlite3).RollbackHook C.sqlite3_rollback_hook
-func (recv_ *Sqlite3) RollbackHook(func(unsafe.Pointer), unsafe.Pointer) unsafe.Pointer {
+func (recv_ *Sqlite3) RollbackHook(func(c.Pointer), c.Pointer) c.Pointer {
 	return nil
 }
 
@@ -5191,7 +5191,7 @@ func (recv_ *Sqlite3) RollbackHook(func(unsafe.Pointer), unsafe.Pointer) unsafe.
 ** </pre></blockquote>
  */
 // llgo:link (*Sqlite3).AutovacuumPages C.sqlite3_autovacuum_pages
-func (recv_ *Sqlite3) AutovacuumPages(func(unsafe.Pointer, *int8, c.Uint, c.Uint, c.Uint) c.Uint, unsafe.Pointer, func(unsafe.Pointer)) c.Int {
+func (recv_ *Sqlite3) AutovacuumPages(func(c.Pointer, *c.Char, c.Uint, c.Uint, c.Uint) c.Uint, c.Pointer, func(c.Pointer)) c.Int {
 	return 0
 }
 
@@ -5251,7 +5251,7 @@ func (recv_ *Sqlite3) AutovacuumPages(func(unsafe.Pointer, *int8, c.Uint, c.Uint
 ** and [sqlite3_preupdate_hook()] interfaces.
  */
 // llgo:link (*Sqlite3).UpdateHook C.sqlite3_update_hook
-func (recv_ *Sqlite3) UpdateHook(func(unsafe.Pointer, c.Int, *int8, *int8, Int64), unsafe.Pointer) unsafe.Pointer {
+func (recv_ *Sqlite3) UpdateHook(func(c.Pointer, c.Int, *c.Char, *c.Char, Int64), c.Pointer) c.Pointer {
 	return nil
 }
 
@@ -5492,7 +5492,7 @@ func SoftHeapLimit(N c.Int)
 ** any errors are encountered while loading the schema.
  */
 // llgo:link (*Sqlite3).TableColumnMetadata C.sqlite3_table_column_metadata
-func (recv_ *Sqlite3) TableColumnMetadata(zDbName *int8, zTableName *int8, zColumnName *int8, pzDataType **int8, pzCollSeq **int8, pNotNull *c.Int, pPrimaryKey *c.Int, pAutoinc *c.Int) c.Int {
+func (recv_ *Sqlite3) TableColumnMetadata(zDbName *c.Char, zTableName *c.Char, zColumnName *c.Char, pzDataType **c.Char, pzCollSeq **c.Char, pNotNull *c.Int, pPrimaryKey *c.Int, pAutoinc *c.Int) c.Int {
 	return 0
 }
 
@@ -5541,7 +5541,7 @@ func (recv_ *Sqlite3) TableColumnMetadata(zDbName *int8, zTableName *int8, zColu
 ** See also the [load_extension() SQL function].
  */
 // llgo:link (*Sqlite3).LoadExtension C.sqlite3_load_extension
-func (recv_ *Sqlite3) LoadExtension(zFile *int8, zProc *int8, pzErrMsg **int8) c.Int {
+func (recv_ *Sqlite3) LoadExtension(zFile *c.Char, zProc *c.Char, pzErrMsg **c.Char) c.Int {
 	return 0
 }
 
@@ -5639,7 +5639,7 @@ func ResetAutoExtension()
 type Vtab struct {
 	PModule *Module
 	NRef    c.Int
-	ZErrMsg *int8
+	ZErrMsg *c.Char
 }
 
 type IndexInfo struct {
@@ -5649,10 +5649,10 @@ type IndexInfo struct {
 	AOrderBy         *IndexOrderby
 	AConstraintUsage *IndexConstraintUsage
 	IdxNum           c.Int
-	IdxStr           *int8
+	IdxStr           *c.Char
 	NeedToFreeIdxStr c.Int
 	OrderByConsumed  c.Int
-	EstimatedCost    float64
+	EstimatedCost    c.Double
 	EstimatedRows    Int64
 	IdxFlags         c.Int
 	ColUsed          Uint64
@@ -5664,30 +5664,30 @@ type VtabCursor struct {
 
 type Module struct {
 	IVersion      c.Int
-	XCreate       unsafe.Pointer
-	XConnect      unsafe.Pointer
-	XBestIndex    unsafe.Pointer
-	XDisconnect   unsafe.Pointer
-	XDestroy      unsafe.Pointer
-	XOpen         unsafe.Pointer
-	XClose        unsafe.Pointer
-	XFilter       unsafe.Pointer
-	XNext         unsafe.Pointer
-	XEof          unsafe.Pointer
-	XColumn       unsafe.Pointer
-	XRowid        unsafe.Pointer
-	XUpdate       unsafe.Pointer
-	XBegin        unsafe.Pointer
-	XSync         unsafe.Pointer
-	XCommit       unsafe.Pointer
-	XRollback     unsafe.Pointer
-	XFindFunction unsafe.Pointer
-	XRename       unsafe.Pointer
-	XSavepoint    unsafe.Pointer
-	XRelease      unsafe.Pointer
-	XRollbackTo   unsafe.Pointer
-	XShadowName   unsafe.Pointer
-	XIntegrity    unsafe.Pointer
+	XCreate       c.Pointer
+	XConnect      c.Pointer
+	XBestIndex    c.Pointer
+	XDisconnect   c.Pointer
+	XDestroy      c.Pointer
+	XOpen         c.Pointer
+	XClose        c.Pointer
+	XFilter       c.Pointer
+	XNext         c.Pointer
+	XEof          c.Pointer
+	XColumn       c.Pointer
+	XRowid        c.Pointer
+	XUpdate       c.Pointer
+	XBegin        c.Pointer
+	XSync         c.Pointer
+	XCommit       c.Pointer
+	XRollback     c.Pointer
+	XFindFunction c.Pointer
+	XRename       c.Pointer
+	XSavepoint    c.Pointer
+	XRelease      c.Pointer
+	XRollbackTo   c.Pointer
+	XShadowName   c.Pointer
+	XIntegrity    c.Pointer
 }
 
 type IndexConstraint struct {
@@ -5735,12 +5735,12 @@ type IndexConstraintUsage struct {
 ** See also: [sqlite3_drop_modules()]
  */
 // llgo:link (*Sqlite3).CreateModule C.sqlite3_create_module
-func (recv_ *Sqlite3) CreateModule(zName *int8, p *Module, pClientData unsafe.Pointer) c.Int {
+func (recv_ *Sqlite3) CreateModule(zName *c.Char, p *Module, pClientData c.Pointer) c.Int {
 	return 0
 }
 
 // llgo:link (*Sqlite3).CreateModuleV2 C.sqlite3_create_module_v2
-func (recv_ *Sqlite3) CreateModuleV2(zName *int8, p *Module, pClientData unsafe.Pointer, xDestroy func(unsafe.Pointer)) c.Int {
+func (recv_ *Sqlite3) CreateModuleV2(zName *c.Char, p *Module, pClientData c.Pointer, xDestroy func(c.Pointer)) c.Int {
 	return 0
 }
 
@@ -5757,7 +5757,7 @@ func (recv_ *Sqlite3) CreateModuleV2(zName *int8, p *Module, pClientData unsafe.
 ** See also: [sqlite3_create_module()]
  */
 // llgo:link (*Sqlite3).DropModules C.sqlite3_drop_modules
-func (recv_ *Sqlite3) DropModules(azKeep **int8) c.Int {
+func (recv_ *Sqlite3) DropModules(azKeep **c.Char) c.Int {
 	return 0
 }
 
@@ -5770,7 +5770,7 @@ func (recv_ *Sqlite3) DropModules(azKeep **int8) c.Int {
 ** the virtual tables they implement.
  */
 // llgo:link (*Sqlite3).DeclareVtab C.sqlite3_declare_vtab
-func (recv_ *Sqlite3) DeclareVtab(zSQL *int8) c.Int {
+func (recv_ *Sqlite3) DeclareVtab(zSQL *c.Char) c.Int {
 	return 0
 }
 
@@ -5792,7 +5792,7 @@ func (recv_ *Sqlite3) DeclareVtab(zSQL *int8) c.Int {
 ** by a [virtual table].
  */
 // llgo:link (*Sqlite3).OverloadFunction C.sqlite3_overload_function
-func (recv_ *Sqlite3) OverloadFunction(zFuncName *int8, nArg c.Int) c.Int {
+func (recv_ *Sqlite3) OverloadFunction(zFuncName *c.Char, nArg c.Int) c.Int {
 	return 0
 }
 
@@ -5884,7 +5884,7 @@ type Blob struct {
 ** [sqlite3_blob_bytes()], [sqlite3_blob_write()].
  */
 // llgo:link (*Sqlite3).BlobOpen C.sqlite3_blob_open
-func (recv_ *Sqlite3) BlobOpen(zDb *int8, zTable *int8, zColumn *int8, iRow Int64, flags c.Int, ppBlob **Blob) c.Int {
+func (recv_ *Sqlite3) BlobOpen(zDb *c.Char, zTable *c.Char, zColumn *c.Char, iRow Int64, flags c.Int, ppBlob **Blob) c.Int {
 	return 0
 }
 
@@ -5989,7 +5989,7 @@ func (recv_ *Blob) BlobBytes() c.Int {
 ** See also: [sqlite3_blob_write()].
  */
 // llgo:link (*Blob).BlobRead C.sqlite3_blob_read
-func (recv_ *Blob) BlobRead(Z unsafe.Pointer, N c.Int, iOffset c.Int) c.Int {
+func (recv_ *Blob) BlobRead(Z c.Pointer, N c.Int, iOffset c.Int) c.Int {
 	return 0
 }
 
@@ -6034,7 +6034,7 @@ func (recv_ *Blob) BlobRead(Z unsafe.Pointer, N c.Int, iOffset c.Int) c.Int {
 ** See also: [sqlite3_blob_read()].
  */
 // llgo:link (*Blob).BlobWrite C.sqlite3_blob_write
-func (recv_ *Blob) BlobWrite(z unsafe.Pointer, n c.Int, iOffset c.Int) c.Int {
+func (recv_ *Blob) BlobWrite(z c.Pointer, n c.Int, iOffset c.Int) c.Int {
 	return 0
 }
 
@@ -6068,7 +6068,7 @@ func (recv_ *Blob) BlobWrite(z unsafe.Pointer, n c.Int, iOffset c.Int) c.Int {
 ** the default.  The choice for the new VFS is arbitrary.)^
  */
 //go:linkname VfsFind C.sqlite3_vfs_find
-func VfsFind(zVfsName *int8) *Vfs
+func VfsFind(zVfsName *c.Char) *Vfs
 
 // llgo:link (*Vfs).VfsRegister C.sqlite3_vfs_register
 func (recv_ *Vfs) VfsRegister(makeDflt c.Int) c.Int {
@@ -6217,15 +6217,15 @@ func (recv_ *Mutex) MutexLeave() {
 }
 
 type MutexMethods struct {
-	XMutexInit    unsafe.Pointer
-	XMutexEnd     unsafe.Pointer
-	XMutexAlloc   unsafe.Pointer
-	XMutexFree    unsafe.Pointer
-	XMutexEnter   unsafe.Pointer
-	XMutexTry     unsafe.Pointer
-	XMutexLeave   unsafe.Pointer
-	XMutexHeld    unsafe.Pointer
-	XMutexNotheld unsafe.Pointer
+	XMutexInit    c.Pointer
+	XMutexEnd     c.Pointer
+	XMutexAlloc   c.Pointer
+	XMutexFree    c.Pointer
+	XMutexEnter   c.Pointer
+	XMutexTry     c.Pointer
+	XMutexLeave   c.Pointer
+	XMutexHeld    c.Pointer
+	XMutexNotheld c.Pointer
 }
 
 /*
@@ -6285,7 +6285,7 @@ func (recv_ *Sqlite3) DbMutex() *Mutex {
 ** See also: [file control opcodes]
  */
 // llgo:link (*Sqlite3).FileControl C.sqlite3_file_control
-func (recv_ *Sqlite3) FileControl(zDbName *int8, op c.Int, __llgo_arg_2 unsafe.Pointer) c.Int {
+func (recv_ *Sqlite3) FileControl(zDbName *c.Char, op c.Int, __llgo_arg_2 c.Pointer) c.Int {
 	return 0
 }
 
@@ -6360,10 +6360,10 @@ func TestControl(op c.Int, __llgo_va_list ...interface{}) c.Int
 func KeywordCount() c.Int
 
 //go:linkname KeywordName C.sqlite3_keyword_name
-func KeywordName(c.Int, **int8, *c.Int) c.Int
+func KeywordName(c.Int, **c.Char, *c.Int) c.Int
 
 //go:linkname KeywordCheck C.sqlite3_keyword_check
-func KeywordCheck(*int8, c.Int) c.Int
+func KeywordCheck(*c.Char, c.Int) c.Int
 
 type Str struct {
 	Unused [8]uint8
@@ -6413,7 +6413,7 @@ func (recv_ *Sqlite3) StrNew() *Str {
 ** string in [sqlite3_str] object X is zero bytes long.
  */
 // llgo:link (*Str).StrFinish C.sqlite3_str_finish
-func (recv_ *Str) StrFinish() *int8 {
+func (recv_ *Str) StrFinish() *c.Char {
 	return nil
 }
 
@@ -6450,23 +6450,23 @@ func (recv_ *Str) StrFinish() *int8 {
 ** subsequent call to [sqlite3_str_errcode(X)].
  */
 // llgo:link (*Str).StrAppendf C.sqlite3_str_appendf
-func (recv_ *Str) StrAppendf(zFormat *int8, __llgo_va_list ...interface{}) {
+func (recv_ *Str) StrAppendf(zFormat *c.Char, __llgo_va_list ...interface{}) {
 }
 
 // llgo:link (*Str).StrVappendf C.sqlite3_str_vappendf
-func (recv_ *Str) StrVappendf(zFormat *int8, __llgo_arg_1 unsafe.Pointer) {
+func (recv_ *Str) StrVappendf(zFormat *c.Char, __llgo_arg_1 c.VaList) {
 }
 
 // llgo:link (*Str).StrAppend C.sqlite3_str_append
-func (recv_ *Str) StrAppend(zIn *int8, N c.Int) {
+func (recv_ *Str) StrAppend(zIn *c.Char, N c.Int) {
 }
 
 // llgo:link (*Str).StrAppendall C.sqlite3_str_appendall
-func (recv_ *Str) StrAppendall(zIn *int8) {
+func (recv_ *Str) StrAppendall(zIn *c.Char) {
 }
 
 // llgo:link (*Str).StrAppendchar C.sqlite3_str_appendchar
-func (recv_ *Str) StrAppendchar(N c.Int, C int8) {
+func (recv_ *Str) StrAppendchar(N c.Int, C c.Char) {
 }
 
 // llgo:link (*Str).StrReset C.sqlite3_str_reset
@@ -6513,7 +6513,7 @@ func (recv_ *Str) StrLength() c.Int {
 }
 
 // llgo:link (*Str).StrValue C.sqlite3_str_value
-func (recv_ *Str) StrValue() *int8 {
+func (recv_ *Str) StrValue() *c.Char {
 	return nil
 }
 
@@ -6611,38 +6611,38 @@ type Pcache struct {
 }
 
 type PcachePage struct {
-	PBuf   unsafe.Pointer
-	PExtra unsafe.Pointer
+	PBuf   c.Pointer
+	PExtra c.Pointer
 }
 
 type PcacheMethods2 struct {
 	IVersion   c.Int
-	PArg       unsafe.Pointer
-	XInit      unsafe.Pointer
-	XShutdown  unsafe.Pointer
-	XCreate    unsafe.Pointer
-	XCachesize unsafe.Pointer
-	XPagecount unsafe.Pointer
-	XFetch     unsafe.Pointer
-	XUnpin     unsafe.Pointer
-	XRekey     unsafe.Pointer
-	XTruncate  unsafe.Pointer
-	XDestroy   unsafe.Pointer
-	XShrink    unsafe.Pointer
+	PArg       c.Pointer
+	XInit      c.Pointer
+	XShutdown  c.Pointer
+	XCreate    c.Pointer
+	XCachesize c.Pointer
+	XPagecount c.Pointer
+	XFetch     c.Pointer
+	XUnpin     c.Pointer
+	XRekey     c.Pointer
+	XTruncate  c.Pointer
+	XDestroy   c.Pointer
+	XShrink    c.Pointer
 }
 
 type PcacheMethods struct {
-	PArg       unsafe.Pointer
-	XInit      unsafe.Pointer
-	XShutdown  unsafe.Pointer
-	XCreate    unsafe.Pointer
-	XCachesize unsafe.Pointer
-	XPagecount unsafe.Pointer
-	XFetch     unsafe.Pointer
-	XUnpin     unsafe.Pointer
-	XRekey     unsafe.Pointer
-	XTruncate  unsafe.Pointer
-	XDestroy   unsafe.Pointer
+	PArg       c.Pointer
+	XInit      c.Pointer
+	XShutdown  c.Pointer
+	XCreate    c.Pointer
+	XCachesize c.Pointer
+	XPagecount c.Pointer
+	XFetch     c.Pointer
+	XUnpin     c.Pointer
+	XRekey     c.Pointer
+	XTruncate  c.Pointer
+	XDestroy   c.Pointer
 }
 
 type Backup struct {
@@ -6846,7 +6846,7 @@ type Backup struct {
 ** </ul>
  */
 // llgo:link (*Sqlite3).BackupInit C.sqlite3_backup_init
-func (recv_ *Sqlite3) BackupInit(zDestName *int8, pSource *Sqlite3, zSourceName *int8) *Backup {
+func (recv_ *Sqlite3) BackupInit(zDestName *c.Char, pSource *Sqlite3, zSourceName *c.Char) *Backup {
 	return nil
 }
 
@@ -6986,7 +6986,7 @@ func (recv_ *Backup) BackupPagecount() c.Int {
 ** SQLITE_LOCKED.)^
  */
 // llgo:link (*Sqlite3).UnlockNotify C.sqlite3_unlock_notify
-func (recv_ *Sqlite3) UnlockNotify(xNotify func(*unsafe.Pointer, c.Int), pNotifyArg unsafe.Pointer) c.Int {
+func (recv_ *Sqlite3) UnlockNotify(xNotify func(*c.Pointer, c.Int), pNotifyArg c.Pointer) c.Int {
 	return 0
 }
 
@@ -6999,10 +6999,10 @@ func (recv_ *Sqlite3) UnlockNotify(xNotify func(*unsafe.Pointer, c.Int), pNotify
 ** independence" that SQLite uses internally when comparing identifiers.
  */
 //go:linkname Stricmp C.sqlite3_stricmp
-func Stricmp(*int8, *int8) c.Int
+func Stricmp(*c.Char, *c.Char) c.Int
 
 //go:linkname Strnicmp C.sqlite3_strnicmp
-func Strnicmp(*int8, *int8, c.Int) c.Int
+func Strnicmp(*c.Char, *c.Char, c.Int) c.Int
 
 /*
 ** CAPI3REF: String Globbing
@@ -7020,7 +7020,7 @@ func Strnicmp(*int8, *int8, c.Int) c.Int
 ** See also: [sqlite3_strlike()].
  */
 //go:linkname Strglob C.sqlite3_strglob
-func Strglob(zGlob *int8, zStr *int8) c.Int
+func Strglob(zGlob *c.Char, zStr *c.Char) c.Int
 
 /*
 ** CAPI3REF: String LIKE Matching
@@ -7044,7 +7044,7 @@ func Strglob(zGlob *int8, zStr *int8) c.Int
 ** See also: [sqlite3_strglob()].
  */
 //go:linkname Strlike C.sqlite3_strlike
-func Strlike(zGlob *int8, zStr *int8, cEsc c.Uint) c.Int
+func Strlike(zGlob *c.Char, zStr *c.Char, cEsc c.Uint) c.Int
 
 /*
 ** CAPI3REF: Error Logging Interface
@@ -7068,7 +7068,7 @@ func Strlike(zGlob *int8, zStr *int8, cEsc c.Uint) c.Int
 ** buffer.
  */
 //go:linkname Log C.sqlite3_log
-func Log(iErrCode c.Int, zFormat *int8, __llgo_va_list ...interface{})
+func Log(iErrCode c.Int, zFormat *c.Char, __llgo_va_list ...interface{})
 
 /*
 ** CAPI3REF: Write-Ahead Log Commit Hook
@@ -7106,7 +7106,7 @@ func Log(iErrCode c.Int, zFormat *int8, __llgo_va_list ...interface{})
 ** overwrite any prior [sqlite3_wal_hook()] settings.
  */
 // llgo:link (*Sqlite3).WalHook C.sqlite3_wal_hook
-func (recv_ *Sqlite3) WalHook(func(unsafe.Pointer, *Sqlite3, *int8, c.Int) c.Int, unsafe.Pointer) unsafe.Pointer {
+func (recv_ *Sqlite3) WalHook(func(c.Pointer, *Sqlite3, *c.Char, c.Int) c.Int, c.Pointer) c.Pointer {
 	return nil
 }
 
@@ -7165,7 +7165,7 @@ func (recv_ *Sqlite3) WalAutocheckpoint(N c.Int) c.Int {
 ** complication) of [sqlite3_wal_checkpoint_v2()].
  */
 // llgo:link (*Sqlite3).WalCheckpoint C.sqlite3_wal_checkpoint
-func (recv_ *Sqlite3) WalCheckpoint(zDb *int8) c.Int {
+func (recv_ *Sqlite3) WalCheckpoint(zDb *c.Char) c.Int {
 	return 0
 }
 
@@ -7262,7 +7262,7 @@ func (recv_ *Sqlite3) WalCheckpoint(zDb *int8) c.Int {
 ** from SQL.
  */
 // llgo:link (*Sqlite3).WalCheckpointV2 C.sqlite3_wal_checkpoint_v2
-func (recv_ *Sqlite3) WalCheckpointV2(zDb *int8, eMode c.Int, pnLog *c.Int, pnCkpt *c.Int) c.Int {
+func (recv_ *Sqlite3) WalCheckpointV2(zDb *c.Char, eMode c.Int, pnLog *c.Int, pnCkpt *c.Int) c.Int {
 	return 0
 }
 
@@ -7367,7 +7367,7 @@ func (recv_ *Context) VtabNochange() c.Int {
 ** </ol>
  */
 // llgo:link (*IndexInfo).VtabCollation C.sqlite3_vtab_collation
-func (recv_ *IndexInfo) VtabCollation(c.Int) *int8 {
+func (recv_ *IndexInfo) VtabCollation(c.Int) *c.Char {
 	return nil
 }
 
@@ -7717,7 +7717,7 @@ func (recv_ *Sqlite3) SystemErrno() c.Int {
 ** the most recent version.
  */
 type Snapshot struct {
-	Hidden [48]int8
+	Hidden [48]c.Char
 }
 
 /*
@@ -7765,7 +7765,7 @@ type Snapshot struct {
 ** [SQLITE_OMIT_DESERIALIZE] option.
  */
 // llgo:link (*Sqlite3).Serialize C.sqlite3_serialize
-func (recv_ *Sqlite3) Serialize(zSchema *int8, piSize *Int64, mFlags c.Uint) *int8 {
+func (recv_ *Sqlite3) Serialize(zSchema *c.Char, piSize *Int64, mFlags c.Uint) *c.Char {
 	return nil
 }
 
@@ -7813,24 +7813,24 @@ func (recv_ *Sqlite3) Serialize(zSchema *int8, piSize *Int64, mFlags c.Uint) *in
 ** [SQLITE_OMIT_DESERIALIZE] option.
  */
 // llgo:link (*Sqlite3).Deserialize C.sqlite3_deserialize
-func (recv_ *Sqlite3) Deserialize(zSchema *int8, pData *int8, szDb Int64, szBuf Int64, mFlags c.Uint) c.Int {
+func (recv_ *Sqlite3) Deserialize(zSchema *c.Char, pData *c.Char, szDb Int64, szBuf Int64, mFlags c.Uint) c.Int {
 	return 0
 }
 
 type RtreeGeometry struct {
-	PContext unsafe.Pointer
+	PContext c.Pointer
 	NParam   c.Int
 	AParam   *RtreeDbl
-	PUser    unsafe.Pointer
-	XDelUser unsafe.Pointer
+	PUser    c.Pointer
+	XDelUser c.Pointer
 }
 
 type RtreeQueryInfo struct {
-	PContext      unsafe.Pointer
+	PContext      c.Pointer
 	NParam        c.Int
 	AParam        *RtreeDbl
-	PUser         unsafe.Pointer
-	XDelUser      unsafe.Pointer
+	PUser         c.Pointer
+	XDelUser      c.Pointer
 	ACoord        *RtreeDbl
 	AnQueue       *c.Uint
 	NCoord        c.Int
@@ -7843,7 +7843,7 @@ type RtreeQueryInfo struct {
 	RScore        RtreeDbl
 	ApSqlParam    **Value
 }
-type RtreeDbl float64
+type RtreeDbl c.Double
 
 /*
 ** Register a geometry callback named zGeom that can be used as part of an
@@ -7852,7 +7852,7 @@ type RtreeDbl float64
 **   SELECT ... FROM <rtree> WHERE <rtree col> MATCH $zGeom(... params ...)
  */
 // llgo:link (*Sqlite3).RtreeGeometryCallback C.sqlite3_rtree_geometry_callback
-func (recv_ *Sqlite3) RtreeGeometryCallback(zGeom *int8, xGeom func(*RtreeGeometry, c.Int, *RtreeDbl, *c.Int) c.Int, pContext unsafe.Pointer) c.Int {
+func (recv_ *Sqlite3) RtreeGeometryCallback(zGeom *c.Char, xGeom func(*RtreeGeometry, c.Int, *RtreeDbl, *c.Int) c.Int, pContext c.Pointer) c.Int {
 	return 0
 }
 
@@ -7863,35 +7863,35 @@ func (recv_ *Sqlite3) RtreeGeometryCallback(zGeom *int8, xGeom func(*RtreeGeomet
 **   SELECT ... FROM <rtree> WHERE <rtree col> MATCH $zQueryFunc(... params ...)
  */
 // llgo:link (*Sqlite3).RtreeQueryCallback C.sqlite3_rtree_query_callback
-func (recv_ *Sqlite3) RtreeQueryCallback(zQueryFunc *int8, xQueryFunc func(*RtreeQueryInfo) c.Int, pContext unsafe.Pointer, xDestructor func(unsafe.Pointer)) c.Int {
+func (recv_ *Sqlite3) RtreeQueryCallback(zQueryFunc *c.Char, xQueryFunc func(*RtreeQueryInfo) c.Int, pContext c.Pointer, xDestructor func(c.Pointer)) c.Int {
 	return 0
 }
 
 type Fts5ExtensionApi struct {
 	IVersion           c.Int
-	XUserData          unsafe.Pointer
-	XColumnCount       unsafe.Pointer
-	XRowCount          unsafe.Pointer
-	XColumnTotalSize   unsafe.Pointer
-	XTokenize          unsafe.Pointer
-	XPhraseCount       unsafe.Pointer
-	XPhraseSize        unsafe.Pointer
-	XInstCount         unsafe.Pointer
-	XInst              unsafe.Pointer
-	XRowid             unsafe.Pointer
-	XColumnText        unsafe.Pointer
-	XColumnSize        unsafe.Pointer
-	XQueryPhrase       unsafe.Pointer
-	XSetAuxdata        unsafe.Pointer
-	XGetAuxdata        unsafe.Pointer
-	XPhraseFirst       unsafe.Pointer
-	XPhraseNext        unsafe.Pointer
-	XPhraseFirstColumn unsafe.Pointer
-	XPhraseNextColumn  unsafe.Pointer
-	XQueryToken        unsafe.Pointer
-	XInstToken         unsafe.Pointer
-	XColumnLocale      unsafe.Pointer
-	XTokenizeV2        unsafe.Pointer
+	XUserData          c.Pointer
+	XColumnCount       c.Pointer
+	XRowCount          c.Pointer
+	XColumnTotalSize   c.Pointer
+	XTokenize          c.Pointer
+	XPhraseCount       c.Pointer
+	XPhraseSize        c.Pointer
+	XInstCount         c.Pointer
+	XInst              c.Pointer
+	XRowid             c.Pointer
+	XColumnText        c.Pointer
+	XColumnSize        c.Pointer
+	XQueryPhrase       c.Pointer
+	XSetAuxdata        c.Pointer
+	XGetAuxdata        c.Pointer
+	XPhraseFirst       c.Pointer
+	XPhraseNext        c.Pointer
+	XPhraseFirstColumn c.Pointer
+	XPhraseNextColumn  c.Pointer
+	XQueryToken        c.Pointer
+	XInstToken         c.Pointer
+	XColumnLocale      c.Pointer
+	XTokenizeV2        c.Pointer
 }
 
 type Fts5Context struct {
@@ -7899,8 +7899,8 @@ type Fts5Context struct {
 }
 
 type Fts5PhraseIter struct {
-	A *int8
-	B *int8
+	A *c.Char
+	B *c.Char
 }
 
 // llgo:type C
@@ -7912,22 +7912,22 @@ type Fts5Tokenizer struct {
 
 type Fts5TokenizerV2 struct {
 	IVersion  c.Int
-	XCreate   unsafe.Pointer
-	XDelete   unsafe.Pointer
-	XTokenize unsafe.Pointer
+	XCreate   c.Pointer
+	XDelete   c.Pointer
+	XTokenize c.Pointer
 }
 
 type Fts5Tokenizer__1 struct {
-	XCreate   unsafe.Pointer
-	XDelete   unsafe.Pointer
-	XTokenize unsafe.Pointer
+	XCreate   c.Pointer
+	XDelete   c.Pointer
+	XTokenize c.Pointer
 }
 
 type Fts5Api struct {
 	IVersion           c.Int
-	XCreateTokenizer   unsafe.Pointer
-	XFindTokenizer     unsafe.Pointer
-	XCreateFunction    unsafe.Pointer
-	XCreateTokenizerV2 unsafe.Pointer
-	XFindTokenizerV2   unsafe.Pointer
+	XCreateTokenizer   c.Pointer
+	XFindTokenizer     c.Pointer
+	XCreateFunction    c.Pointer
+	XCreateTokenizerV2 c.Pointer
+	XFindTokenizerV2   c.Pointer
 }
