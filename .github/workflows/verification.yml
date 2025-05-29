@@ -52,10 +52,9 @@ jobs:
       - name: Install dependencies
         if: startsWith(matrix.os, 'macos')
         run: |
-          brew install llvm@19 bdw-gc openssl libffi libuv cmake cjson conan lld@19
+          brew install llvm@19 bdw-gc openssl libffi libuv cmake cjson conan
           brew link --force libffi
           echo "$(brew --prefix llvm@19)/bin" >> $GITHUB_PATH
-          echo "$(brew --prefix lld@19)/bin" >> $GITHUB_PATH
       - name: Install dependencies
         if: startsWith(matrix.os, 'ubuntu')
         run: |
