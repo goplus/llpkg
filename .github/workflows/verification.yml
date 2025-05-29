@@ -72,7 +72,7 @@ jobs:
         working-directory: .llgo
         run: |
           go install -v ./cmd/llgo/...
-          export LLGO_ROOT=$GITHUB_WORKSPACE/llgo
+          export LLGO_ROOT=$(pwd)
           echo "LLGO_ROOT=$LLGO_ROOT" >> $GITHUB_ENV
       - name: Setup LLCppg
         working-directory: .llcppg
