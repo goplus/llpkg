@@ -72,7 +72,7 @@ jobs:
         working-directory: .llgo
         run: |
           go install -v ./cmd/llgo/...
-          export LLGO_ROOT=$GITHUB_WORKSPACE/llgo
+          export LLGO_ROOT=$(pwd)
           echo "LLGO_ROOT=$LLGO_ROOT" >> $GITHUB_ENV
       - name: Setup LLCppg
         working-directory: .llcppg
@@ -81,7 +81,7 @@ jobs:
           llgo install ./_xtool/llcppsigfetch
           go install github.com/goplus/llcppg/cmd/llcppcfg@${{matrix.llcppg}}
           go install github.com/goplus/llcppg/cmd/gogensig@${{matrix.llcppg}}
-          go install github.com/goplus/llcppg@${{matrix.llcppg}}
+          go install github.com/goplus/llcppg/cmd/llcppg@${{matrix.llcppg}}
       - name: Get changed files
         id: changed-files
         uses: tj-actions/changed-files@v45
