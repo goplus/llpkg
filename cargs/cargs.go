@@ -1,8 +1,8 @@
 package cargs
 
 import (
-	"github.com/goplus/llgo/c"
-	"unsafe"
+	"github.com/goplus/lib/c"
+	_ "unsafe"
 )
 
 /**
@@ -11,11 +11,11 @@ import (
  */
 
 type Option struct {
-	Identifier    int8
-	AccessLetters *int8
-	AccessName    *int8
-	ValueName     *int8
-	Description   *int8
+	Identifier    c.Char
+	AccessLetters *c.Char
+	AccessName    *c.Char
+	ValueName     *c.Char
+	Description   *c.Char
 }
 
 /**
@@ -25,20 +25,20 @@ type Option struct {
 
 type OptionContext struct {
 	Options     *Option
-	OptionCount uintptr
+	OptionCount c.SizeT
 	Argc        c.Int
-	Argv        **int8
+	Argv        **c.Char
 	Index       c.Int
 	InnerIndex  c.Int
 	ErrorIndex  c.Int
-	ErrorLetter int8
+	ErrorLetter c.Char
 	ForcedEnd   bool
-	Identifier  int8
-	Value       *int8
+	Identifier  c.Char
+	Value       *c.Char
 }
 
 // llgo:type C
-type Printer func(__llgo_arg_0 unsafe.Pointer, __llgo_arg_1 *int8, __llgo_va_list ...interface{}) c.Int
+type Printer func(__llgo_arg_0 c.Pointer, __llgo_arg_1 *c.Char, __llgo_va_list ...interface{}) c.Int
 
 /**
  * @brief Prepare argument options context for parsing.
@@ -55,7 +55,7 @@ type Printer func(__llgo_arg_0 unsafe.Pointer, __llgo_arg_1 *int8, __llgo_va_lis
  * @param argv A pointer to the arguments of the main function.
  */
 // llgo:link (*OptionContext).OptionInit C.cag_option_init
-func (recv_ *OptionContext) OptionInit(options *Option, option_count uintptr, argc c.Int, argv **int8) {
+func (recv_ *OptionContext) OptionInit(options *Option, option_count c.SizeT, argc c.Int, argv **c.Char) {
 }
 
 /**
@@ -88,7 +88,7 @@ func (recv_ *OptionContext) OptionFetch() bool {
  * @return Returns the identifier of the option.
  */
 // llgo:link (*OptionContext).OptionGetIdentifier C.cag_option_get_identifier
-func (recv_ *OptionContext) OptionGetIdentifier() int8 {
+func (recv_ *OptionContext) OptionGetIdentifier() c.Char {
 	return 0
 }
 
@@ -102,7 +102,7 @@ func (recv_ *OptionContext) OptionGetIdentifier() int8 {
  * @return Returns a pointer to the value or NULL if there is no value.
  */
 // llgo:link (*OptionContext).OptionGetValue C.cag_option_get_value
-func (recv_ *OptionContext) OptionGetValue() *int8 {
+func (recv_ *OptionContext) OptionGetValue() *c.Char {
 	return nil
 }
 
@@ -149,7 +149,7 @@ func (recv_ *OptionContext) OptionGetErrorIndex() c.Int {
  * @return Returns the letter that was unknown, or 0 otherwise.
  */
 // llgo:link (*OptionContext).OptionGetErrorLetter C.cag_option_get_error_letter
-func (recv_ *OptionContext) OptionGetErrorLetter() int8 {
+func (recv_ *OptionContext) OptionGetErrorLetter() c.Char {
 	return 0
 }
 
@@ -183,7 +183,7 @@ func (recv_ *OptionContext) OptionPrintError(destination *c.FILE) {
  * could use parameter stderr.
  */
 // llgo:link (*OptionContext).OptionPrinterError C.cag_option_printer_error
-func (recv_ *OptionContext) OptionPrinterError(printer Printer, printer_ctx unsafe.Pointer) {
+func (recv_ *OptionContext) OptionPrinterError(printer Printer, printer_ctx c.Pointer) {
 }
 
 /**
@@ -197,7 +197,7 @@ func (recv_ *OptionContext) OptionPrinterError(printer Printer, printer_ctx unsa
  * @param destination The destination where the output will be printed.
  */
 // llgo:link (*Option).OptionPrint C.cag_option_print
-func (recv_ *Option) OptionPrint(option_count uintptr, destination *c.FILE) {
+func (recv_ *Option) OptionPrint(option_count c.SizeT, destination *c.FILE) {
 }
 
 /**
@@ -215,14 +215,14 @@ func (recv_ *Option) OptionPrint(option_count uintptr, destination *c.FILE) {
  * could use parameter stderr.
  */
 // llgo:link (*Option).OptionPrinter C.cag_option_printer
-func (recv_ *Option) OptionPrinter(option_count uintptr, printer Printer, printer_ctx unsafe.Pointer) {
+func (recv_ *Option) OptionPrinter(option_count c.SizeT, printer Printer, printer_ctx c.Pointer) {
 }
 
 // llgo:link (*OptionContext).OptionPrepare C.cag_option_prepare
-func (recv_ *OptionContext) OptionPrepare(options *Option, option_count uintptr, argc c.Int, argv **int8) {
+func (recv_ *OptionContext) OptionPrepare(options *Option, option_count c.SizeT, argc c.Int, argv **c.Char) {
 }
 
 // llgo:link (*OptionContext).OptionGet C.cag_option_get
-func (recv_ *OptionContext) OptionGet() int8 {
+func (recv_ *OptionContext) OptionGet() c.Char {
 	return 0
 }
