@@ -73,6 +73,8 @@ jobs:
           go install -v ./cmd/llgo/...
           export LLGO_ROOT=$(pwd)
           echo "LLGO_ROOT=$LLGO_ROOT" >> $GITHUB_ENV
+          # https://github.com/goplus/llgo/issues/1135
+          echo "LLGO_RPATH_CHANGE=ON" >> $GITHUB_ENV
       - name: Setup LLCppg
         working-directory: .llcppg
         run: |
