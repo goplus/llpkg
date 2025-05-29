@@ -23,8 +23,8 @@ jobs:
           - macos-latest
           - ubuntu-24.04
           - ubuntu-24.04-arm
-        llgo: [v0.10.1]
-        llcppg: [v0.3.1]
+        llgo: [87c7b65223eea16ade3ad1de4079bf2a20d20b1b]
+        llcppg: [v0.5.0]
 
     runs-on: ${{matrix.os}}
     steps:
