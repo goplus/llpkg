@@ -70,8 +70,7 @@ jobs:
       - name: Setup LLGo
         working-directory: .llgo
         run: |
-          cd compiler
-          go install -v ./cmd/...
+          go install -v ./cmd/llgo/...
           export LLGO_ROOT=$GITHUB_WORKSPACE/llgo
           echo "LLGO_ROOT=$LLGO_ROOT" >> $GITHUB_ENV
       - name: Setup LLCppg
