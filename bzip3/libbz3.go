@@ -1,7 +1,7 @@
 package bzip3
 
 import (
-	"github.com/goplus/llgo/c"
+	"github.com/goplus/lib/c"
 	_ "unsafe"
 )
 
@@ -15,13 +15,13 @@ type State struct {
  * @brief Get bzip3 version.
  */
 //go:linkname Version C.bz3_version
-func Version() *int8
+func Version() *c.Char
 
 /**
  * @brief Get the last error number associated with a given state.
  */
 // llgo:link (*State).LastError C.bz3_last_error
-func (recv_ *State) LastError() int8 {
+func (recv_ *State) LastError() c.Int8T {
 	return 0
 }
 
@@ -29,7 +29,7 @@ func (recv_ *State) LastError() int8 {
  * @brief Return a user-readable message explaining the cause of the last error.
  */
 // llgo:link (*State).Strerror C.bz3_strerror
-func (recv_ *State) Strerror() *int8 {
+func (recv_ *State) Strerror() *c.Char {
 	return nil
 }
 
@@ -39,7 +39,7 @@ func (recv_ *State) Strerror() *int8 {
  * Returns NULL in case allocation fails or the block size is not between 65K and 511M
  */
 //go:linkname New C.bz3_new
-func New(block_size int32) *State
+func New(block_size c.Int32T) *State
 
 /**
  * @brief Free the memory occupied by a block encoder state.
@@ -52,7 +52,7 @@ func (recv_ *State) Free() {
  * @brief Return the recommended size of the output buffer for the compression functions.
  */
 //go:linkname Bound C.bz3_bound
-func Bound(input_size uintptr) uintptr
+func Bound(input_size c.SizeT) c.SizeT
 
 /**
  * @brief Compress a frame. This function does not support parallelism
@@ -63,7 +63,7 @@ func Bound(input_size uintptr) uintptr
  * out_size must be at least equal to `bz3_bound(in_size)'.
  */
 //go:linkname Compress C.bz3_compress
-func Compress(block_size uint32, in *uint8, out *uint8, in_size uintptr, out_size *uintptr) c.Int
+func Compress(block_size c.Uint32T, in *c.Uint8T, out *c.Uint8T, in_size c.SizeT, out_size *c.SizeT) c.Int
 
 /**
  * @brief Decompress a frame. This function does not support parallelism
@@ -73,7 +73,7 @@ func Compress(block_size uint32, in *uint8, out *uint8, in_size uintptr, out_siz
  * Make sure to set out_size to the size of the output buffer before the operation.
  */
 //go:linkname Decompress C.bz3_decompress
-func Decompress(in *uint8, out *uint8, in_size uintptr, out_size *uintptr) c.Int
+func Decompress(in *c.Uint8T, out *c.Uint8T, in_size c.SizeT, out_size *c.SizeT) c.Int
 
 /**
  * @brief Calculate the minimal memory required for compression with the given block size.
@@ -131,7 +131,7 @@ func Decompress(in *uint8, out *uint8, in_size uintptr, out_size *uintptr) c.Int
  * @return The total number of bytes required for compression, or 0 if block_size is invalid
  */
 //go:linkname MinMemoryNeeded C.bz3_min_memory_needed
-func MinMemoryNeeded(block_size int32) uintptr
+func MinMemoryNeeded(block_size c.Int32T) c.SizeT
 
 /**
  * @brief Encode a single block. Returns the amount of bytes written to `buffer'.
@@ -139,7 +139,7 @@ func MinMemoryNeeded(block_size int32) uintptr
  * exceed the block size associated with the state.
  */
 // llgo:link (*State).EncodeBlock C.bz3_encode_block
-func (recv_ *State) EncodeBlock(buffer *uint8, size int32) int32 {
+func (recv_ *State) EncodeBlock(buffer *c.Uint8T, size c.Int32T) c.Int32T {
 	return 0
 }
 
@@ -160,7 +160,7 @@ func (recv_ *State) EncodeBlock(buffer *uint8, size int32) int32 {
  * @param orig_size The original size of the data before compression.
  */
 // llgo:link (*State).DecodeBlock C.bz3_decode_block
-func (recv_ *State) DecodeBlock(buffer *uint8, buffer_size uintptr, compressed_size int32, orig_size int32) int32 {
+func (recv_ *State) DecodeBlock(buffer *c.Uint8T, buffer_size c.SizeT, compressed_size c.Int32T, orig_size c.Int32T) c.Int32T {
 	return 0
 }
 
@@ -185,4 +185,4 @@ func (recv_ *State) DecodeBlock(buffer *uint8, buffer_size uintptr, compressed_s
  *      in turn
  */
 //go:linkname OrigSizeSufficientForDecode C.bz3_orig_size_sufficient_for_decode
-func OrigSizeSufficientForDecode(block *uint8, block_size uintptr, orig_size int32) c.Int
+func OrigSizeSufficientForDecode(block *c.Uint8T, block_size c.SizeT, orig_size c.Int32T) c.Int

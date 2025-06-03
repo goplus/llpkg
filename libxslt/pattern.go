@@ -1,9 +1,9 @@
 package libxslt
 
 import (
-	"github.com/goplus/llgo/c"
+	"github.com/goplus/lib/c"
 	"github.com/goplus/llpkg/libxml2"
-	"unsafe"
+	_ "unsafe"
 )
 
 type CompMatch X_xsltCompMatch
@@ -25,7 +25,7 @@ func TestCompMatchList(ctxt TransformContextPtr, node libxml2.NodePtr, comp Comp
 func CompMatchClearCache(ctxt TransformContextPtr, comp CompMatchPtr)
 
 //go:linkname NormalizeCompSteps C.xsltNormalizeCompSteps
-func NormalizeCompSteps(payload unsafe.Pointer, data unsafe.Pointer, name *libxml2.Char)
+func NormalizeCompSteps(payload c.Pointer, data c.Pointer, name *libxml2.Char)
 
 /*
  * Template related interfaces.

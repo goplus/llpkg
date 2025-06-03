@@ -1,7 +1,7 @@
 package libxml2
 
 import (
-	"github.com/goplus/llgo/c"
+	"github.com/goplus/lib/c"
 	_ "unsafe"
 )
 
@@ -21,10 +21,10 @@ func InitializeDict() c.Int
 func DictCreate() DictPtr
 
 //go:linkname DictSetLimit C.xmlDictSetLimit
-func DictSetLimit(dict DictPtr, limit uintptr) uintptr
+func DictSetLimit(dict DictPtr, limit c.SizeT) c.SizeT
 
 //go:linkname DictGetUsage C.xmlDictGetUsage
-func DictGetUsage(dict DictPtr) uintptr
+func DictGetUsage(dict DictPtr) c.SizeT
 
 //go:linkname DictCreateSub C.xmlDictCreateSub
 func DictCreateSub(sub DictPtr) DictPtr

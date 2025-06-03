@@ -1,18 +1,18 @@
 package libxslt
 
 import (
-	"github.com/goplus/llgo/c"
+	"github.com/goplus/lib/c"
 	"github.com/goplus/llpkg/libxml2"
-	"unsafe"
+	_ "unsafe"
 )
 
 const MAX_SORT = 15
 
 type X_xsltRuntimeExtra struct {
-	Info       unsafe.Pointer
-	Deallocate unsafe.Pointer
+	Info       c.Pointer
+	Deallocate c.Pointer
 	Val        struct {
-		Ptr unsafe.Pointer
+		Ptr c.Pointer
 	}
 }
 type RuntimeExtra X_xsltRuntimeExtra
@@ -22,7 +22,7 @@ type X_xsltTemplate struct {
 	Next           *X_xsltTemplate
 	Style          *X_xsltStylesheet
 	Match          *libxml2.Char
-	Priority       float32
+	Priority       c.Float
 	Name           *libxml2.Char
 	NameURI        *libxml2.Char
 	Mode           *libxml2.Char
@@ -33,7 +33,7 @@ type X_xsltTemplate struct {
 	InheritedNs    *libxml2.NsPtr
 	NbCalls        c.Int
 	Time           c.Ulong
-	Params         unsafe.Pointer
+	Params         c.Pointer
 	TemplNr        c.Int
 	TemplMax       c.Int
 	TemplCalledTab *TemplatePtr
@@ -66,8 +66,8 @@ type X_xsltStylesheet struct {
 	NsAliases          libxml2.HashTablePtr
 	AttributeSets      libxml2.HashTablePtr
 	NsHash             libxml2.HashTablePtr
-	NsDefs             unsafe.Pointer
-	Keys               unsafe.Pointer
+	NsDefs             c.Pointer
+	Keys               c.Pointer
 	Method             *libxml2.Char
 	MethodURI          *libxml2.Char
 	Version            *libxml2.Char
@@ -86,12 +86,12 @@ type X_xsltStylesheet struct {
 	ExclPrefixTab      **libxml2.Char
 	ExclPrefixNr       c.Int
 	ExclPrefixMax      c.Int
-	X_private          unsafe.Pointer
+	X_private          c.Pointer
 	ExtInfos           libxml2.HashTablePtr
 	ExtrasNr           c.Int
 	Includes           DocumentPtr
 	Dict               libxml2.DictPtr
-	AttVTs             unsafe.Pointer
+	AttVTs             c.Pointer
 	DefaultAlias       *libxml2.Char
 	Nopreproc          c.Int
 	Internalized       c.Int
@@ -126,7 +126,7 @@ type X_xsltDocument struct {
 	Next           *X_xsltDocument
 	Main           c.Int
 	Doc            libxml2.DocPtr
-	Keys           unsafe.Pointer
+	Keys           c.Pointer
 	Includes       *X_xsltDocument
 	Preproc        c.Int
 	NbKeysComputed c.Int
@@ -188,21 +188,21 @@ type X_xsltTransformContext struct {
 	GlobalVars          libxml2.HashTablePtr
 	Inst                libxml2.NodePtr
 	Xinclude            c.Int
-	OutputFile          *int8
+	OutputFile          *c.Char
 	Profile             c.Int
 	Prof                c.Long
 	ProfNr              c.Int
 	ProfMax             c.Int
 	ProfTab             *c.Long
-	X_private           unsafe.Pointer
+	X_private           c.Pointer
 	ExtrasNr            c.Int
 	ExtrasMax           c.Int
 	Extras              RuntimeExtraPtr
 	StyleList           DocumentPtr
-	Sec                 unsafe.Pointer
-	Error               unsafe.Pointer
-	Errctx              unsafe.Pointer
-	Sortfunc            unsafe.Pointer
+	Sec                 c.Pointer
+	Error               c.Pointer
+	Errctx              c.Pointer
+	Sortfunc            c.Pointer
 	TmpRVT              libxml2.DocPtr
 	PersistRVT          libxml2.DocPtr
 	Ctxtflags           c.Int
@@ -221,7 +221,7 @@ type X_xsltTransformContext struct {
 	InitialContextNode  libxml2.NodePtr
 	InitialContextDoc   libxml2.DocPtr
 	Cache               TransformCachePtr
-	ContextVariable     unsafe.Pointer
+	ContextVariable     c.Pointer
 	LocalRVT            libxml2.DocPtr
 	LocalRVTBase        libxml2.DocPtr
 	KeyInitLevel        c.Int
@@ -232,9 +232,9 @@ type X_xsltTransformContext struct {
 	OpCount             c.Ulong
 	SourceDocDirty      c.Int
 	CurrentId           c.Ulong
-	NewLocale           unsafe.Pointer
-	FreeLocale          unsafe.Pointer
-	GenSortKey          unsafe.Pointer
+	NewLocale           c.Pointer
+	FreeLocale          c.Pointer
+	GenSortKey          c.Pointer
 }
 type TransformContext X_xsltTransformContext
 type TransformContextPtr *TransformContext
@@ -242,9 +242,9 @@ type TransformContextPtr *TransformContext
 type X_xsltElemPreComp struct {
 	Next ElemPreCompPtr
 	Type StyleType
-	Func unsafe.Pointer
+	Func c.Pointer
 	Inst libxml2.NodePtr
-	Free unsafe.Pointer
+	Free c.Pointer
 }
 type ElemPreComp X_xsltElemPreComp
 type ElemPreCompPtr *ElemPreComp
@@ -257,28 +257,28 @@ type SortFunc func(TransformContextPtr, *libxml2.NodePtr, c.Int)
 type StyleType c.Int
 
 const (
-	FUNCCOPY           StyleType = 1
-	FUNCSORT           StyleType = 2
-	FUNCTEXT           StyleType = 3
-	FUNCELEMENT        StyleType = 4
-	FUNCATTRIBUTE      StyleType = 5
-	FUNCCOMMENT        StyleType = 6
-	FUNCPI             StyleType = 7
-	FUNCCOPYOF         StyleType = 8
-	FUNCVALUEOF        StyleType = 9
-	FUNCNUMBER         StyleType = 10
-	FUNCAPPLYIMPORTS   StyleType = 11
-	FUNCCALLTEMPLATE   StyleType = 12
-	FUNCAPPLYTEMPLATES StyleType = 13
-	FUNCCHOOSE         StyleType = 14
-	FUNCIF             StyleType = 15
-	FUNCFOREACH        StyleType = 16
-	FUNCDOCUMENT       StyleType = 17
-	FUNCWITHPARAM      StyleType = 18
-	FUNCPARAM          StyleType = 19
-	FUNCVARIABLE       StyleType = 20
-	FUNCWHEN           StyleType = 21
-	FUNCEXTENSION      StyleType = 22
+	FUNC_COPY           StyleType = 1
+	FUNC_SORT           StyleType = 2
+	FUNC_TEXT           StyleType = 3
+	FUNC_ELEMENT        StyleType = 4
+	FUNC_ATTRIBUTE      StyleType = 5
+	FUNC_COMMENT        StyleType = 6
+	FUNC_PI             StyleType = 7
+	FUNC_COPYOF         StyleType = 8
+	FUNC_VALUEOF        StyleType = 9
+	FUNC_NUMBER         StyleType = 10
+	FUNC_APPLYIMPORTS   StyleType = 11
+	FUNC_CALLTEMPLATE   StyleType = 12
+	FUNC_APPLYTEMPLATES StyleType = 13
+	FUNC_CHOOSE         StyleType = 14
+	FUNC_IF             StyleType = 15
+	FUNC_FOREACH        StyleType = 16
+	FUNC_DOCUMENT       StyleType = 17
+	FUNC_WITHPARAM      StyleType = 18
+	FUNC_PARAM          StyleType = 19
+	FUNC_VARIABLE       StyleType = 20
+	FUNC_WHEN           StyleType = 21
+	FUNC_EXTENSION      StyleType = 22
 )
 
 // llgo:type C
@@ -287,7 +287,7 @@ type ElemPreCompDeallocator func(ElemPreCompPtr)
 type X_xsltStylePreComp struct {
 	Next        ElemPreCompPtr
 	Type        StyleType
-	Func        unsafe.Pointer
+	Func        c.Pointer
 	Inst        libxml2.NodePtr
 	Stype       *libxml2.Char
 	HasStype    c.Int
@@ -350,25 +350,25 @@ type TransformCachePtr *TransformCache
 type OutputType c.Int
 
 const (
-	OUTPUTXML  OutputType = 0
-	OUTPUTHTML OutputType = 1
-	OUTPUTTEXT OutputType = 2
+	OUTPUT_XML  OutputType = 0
+	OUTPUT_HTML OutputType = 1
+	OUTPUT_TEXT OutputType = 2
 )
 
 // llgo:type C
-type NewLocaleFunc func(*libxml2.Char, c.Int) unsafe.Pointer
+type NewLocaleFunc func(*libxml2.Char, c.Int) c.Pointer
 
 // llgo:type C
-type FreeLocaleFunc func(unsafe.Pointer)
+type FreeLocaleFunc func(c.Pointer)
 
 // llgo:type C
-type GenSortKeyFunc func(unsafe.Pointer, *libxml2.Char) *libxml2.Char
+type GenSortKeyFunc func(c.Pointer, *libxml2.Char) *libxml2.Char
 type TransformState c.Int
 
 const (
-	STATEOK      TransformState = 0
-	STATEERROR   TransformState = 1
-	STATESTOPPED TransformState = 2
+	STATE_OK      TransformState = 0
+	STATE_ERROR   TransformState = 1
+	STATE_STOPPED TransformState = 2
 )
 
 /*
@@ -419,7 +419,7 @@ func LoadStylesheetPI(doc libxml2.DocPtr) StylesheetPtr
 func NumberFormat(ctxt TransformContextPtr, data NumberDataPtr, node libxml2.NodePtr)
 
 //go:linkname FormatNumberConversion C.xsltFormatNumberConversion
-func FormatNumberConversion(self DecimalFormatPtr, format *libxml2.Char, number float64, result **libxml2.Char) libxml2.XPathError
+func FormatNumberConversion(self DecimalFormatPtr, format *libxml2.Char, number c.Double, result **libxml2.Char) libxml2.XPathError
 
 //go:linkname ParseTemplateContent C.xsltParseTemplateContent
 func ParseTemplateContent(style StylesheetPtr, templ libxml2.NodePtr)
@@ -467,10 +467,10 @@ func ReleaseRVT(ctxt TransformContextPtr, RVT libxml2.DocPtr)
 func CompileAttr(style StylesheetPtr, attr libxml2.AttrPtr)
 
 //go:linkname EvalAVT C.xsltEvalAVT
-func EvalAVT(ctxt TransformContextPtr, avt unsafe.Pointer, node libxml2.NodePtr) *libxml2.Char
+func EvalAVT(ctxt TransformContextPtr, avt c.Pointer, node libxml2.NodePtr) *libxml2.Char
 
 //go:linkname FreeAVTList C.xsltFreeAVTList
-func FreeAVTList(avt unsafe.Pointer)
+func FreeAVTList(avt c.Pointer)
 
 /*
  * Extra function for successful xsltCleanupGlobals / xsltInit sequence.

@@ -16,11 +16,17 @@ on:
 jobs:
   llcppg-verification:
     name: Verify Go Module
-    runs-on: ubuntu-24.04
     strategy:
       matrix:
-        llgo: [v0.10.1]
-        llcppg: [v0.2.1]
+        os:
+          - macos-13
+          - macos-latest
+          - ubuntu-24.04
+          - ubuntu-24.04-arm
+        llgo: [87c7b65223eea16ade3ad1de4079bf2a20d20b1b]
+        llcppg: [v0.5.0]
+
+    runs-on: ${{matrix.os}}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -43,24 +49,33 @@ jobs:
       - name: Set up Tool
         run: |
           go install -v github.com/goplus/llpkgstore/cmd/llpkgstore@latest
-          go install -v github.com/goplus/llpkgstore/cmd/demotest@latest
+      - name: Install dependencies
+        if: startsWith(matrix.os, 'macos')
+        run: |
+          brew install llvm@19 bdw-gc openssl libffi libuv cmake cjson conan lld@19
+          brew link --force libffi
+          echo "$(brew --prefix llvm@19)/bin" >> $GITHUB_PATH
+          echo "$(brew --prefix lld@19)/bin" >> $GITHUB_PATH
+      - name: Install dependencies
+        if: startsWith(matrix.os, 'ubuntu')
+        run: |
+          sudo apt-get update
+          echo "deb http://apt.llvm.org/$(lsb_release -cs)/ llvm-toolchain-$(lsb_release -cs)-19 main" | sudo tee /etc/apt/sources.list.d/llvm.list
+          wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
+          sudo apt-get install -y python3 libcjson-dev python3-pip llvm-19-dev libuv1-dev clang-19 libunwind-dev libclang-19-dev lld-19 cmake pkg-config libgc-dev libssl-dev zlib1g-dev libffi-dev libcjson-dev
+          echo "/usr/lib/llvm-19/bin" >> $GITHUB_PATH
+          python3 -m pip install conan
       - name: Set up Conan
         run: |
-          sudo apt-get install -y python3 python3-pip
-          python3 -m pip install conan
           conan profile detect
       - name: Setup LLGo
         working-directory: .llgo
         run: |
-          echo "deb http://apt.llvm.org/$(lsb_release -cs)/ llvm-toolchain-$(lsb_release -cs)-18 main" | sudo tee /etc/apt/sources.list.d/llvm.list
-          wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
-          sudo apt-get update
-          sudo apt-get install -y python3 python3-pip llvm-18-dev libuv1-dev clang-18 libunwind-dev libclang-18-dev lld-18 cmake pkg-config libgc-dev libssl-dev zlib1g-dev libffi-dev libcjson-dev
-          echo "/usr/lib/llvm-18/bin" >> $GITHUB_PATH
-          cd compiler
-          go install -v ./cmd/...
-          export LLGO_ROOT=$GITHUB_WORKSPACE/llgo
+          go install -v ./cmd/llgo/...
+          export LLGO_ROOT=$(pwd)
           echo "LLGO_ROOT=$LLGO_ROOT" >> $GITHUB_ENV
+          # https://github.com/goplus/llgo/issues/1135
+          echo "LLGO_RPATH_CHANGE=ON" >> $GITHUB_ENV
       - name: Setup LLCppg
         working-directory: .llcppg
         run: |
@@ -68,7 +83,7 @@ jobs:
           llgo install ./_xtool/llcppsigfetch
           go install github.com/goplus/llcppg/cmd/llcppcfg@${{matrix.llcppg}}
           go install github.com/goplus/llcppg/cmd/gogensig@${{matrix.llcppg}}
-          go install github.com/goplus/llcppg@${{matrix.llcppg}}
+          go install github.com/goplus/llcppg/cmd/llcppg@${{matrix.llcppg}}
       - name: Get changed files
         id: changed-files
         uses: tj-actions/changed-files@v45
@@ -83,7 +98,7 @@ jobs:
           ls .website .website/public
           cp .website/public/llpkgstore.json .
           rm -rf .website
-      - name: Verification
+      - name: Verification & Prebuilt
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
@@ -91,4 +106,4 @@ jobs:
       - name: Run demotest process
         env:
           LLPKG_PATH: ${{ env.LLPKG_PATH }}
-        run: demotest run
+        run: llpkgstore demotest

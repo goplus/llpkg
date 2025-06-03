@@ -1,60 +1,60 @@
 package libxml2
 
 import (
-	"github.com/goplus/llgo/c"
-	"unsafe"
+	"github.com/goplus/lib/c"
+	_ "unsafe"
 )
 
 type CharEncError c.Int
 
 const (
-	ENCERRSUCCESS  CharEncError = 0
-	ENCERRSPACE    CharEncError = -1
-	ENCERRINPUT    CharEncError = -2
-	ENCERRPARTIAL  CharEncError = -3
-	ENCERRINTERNAL CharEncError = -4
-	ENCERRMEMORY   CharEncError = -5
+	ENC_ERR_SUCCESS  CharEncError = 0
+	ENC_ERR_SPACE    CharEncError = -1
+	ENC_ERR_INPUT    CharEncError = -2
+	ENC_ERR_PARTIAL  CharEncError = -3
+	ENC_ERR_INTERNAL CharEncError = -4
+	ENC_ERR_MEMORY   CharEncError = -5
 )
 
 type CharEncoding c.Int
 
 const (
-	CHARENCODINGERROR    CharEncoding = -1
-	CHARENCODINGNONE     CharEncoding = 0
-	CHARENCODINGUTF8     CharEncoding = 1
-	CHARENCODINGUTF16LE  CharEncoding = 2
-	CHARENCODINGUTF16BE  CharEncoding = 3
-	CHARENCODINGUCS4LE   CharEncoding = 4
-	CHARENCODINGUCS4BE   CharEncoding = 5
-	CHARENCODINGEBCDIC   CharEncoding = 6
-	CHARENCODINGUCS42143 CharEncoding = 7
-	CHARENCODINGUCS43412 CharEncoding = 8
-	CHARENCODINGUCS2     CharEncoding = 9
-	CHARENCODING88591    CharEncoding = 10
-	CHARENCODING88592    CharEncoding = 11
-	CHARENCODING88593    CharEncoding = 12
-	CHARENCODING88594    CharEncoding = 13
-	CHARENCODING88595    CharEncoding = 14
-	CHARENCODING88596    CharEncoding = 15
-	CHARENCODING88597    CharEncoding = 16
-	CHARENCODING88598    CharEncoding = 17
-	CHARENCODING88599    CharEncoding = 18
-	CHARENCODING2022JP   CharEncoding = 19
-	CHARENCODINGSHIFTJIS CharEncoding = 20
-	CHARENCODINGEUCJP    CharEncoding = 21
-	CHARENCODINGASCII    CharEncoding = 22
+	CHAR_ENCODING_ERROR     CharEncoding = -1
+	CHAR_ENCODING_NONE      CharEncoding = 0
+	CHAR_ENCODING_UTF8      CharEncoding = 1
+	CHAR_ENCODING_UTF16LE   CharEncoding = 2
+	CHAR_ENCODING_UTF16BE   CharEncoding = 3
+	CHAR_ENCODING_UCS4LE    CharEncoding = 4
+	CHAR_ENCODING_UCS4BE    CharEncoding = 5
+	CHAR_ENCODING_EBCDIC    CharEncoding = 6
+	CHAR_ENCODING_UCS4_2143 CharEncoding = 7
+	CHAR_ENCODING_UCS4_3412 CharEncoding = 8
+	CHAR_ENCODING_UCS2      CharEncoding = 9
+	CHAR_ENCODING_8859_1    CharEncoding = 10
+	CHAR_ENCODING_8859_2    CharEncoding = 11
+	CHAR_ENCODING_8859_3    CharEncoding = 12
+	CHAR_ENCODING_8859_4    CharEncoding = 13
+	CHAR_ENCODING_8859_5    CharEncoding = 14
+	CHAR_ENCODING_8859_6    CharEncoding = 15
+	CHAR_ENCODING_8859_7    CharEncoding = 16
+	CHAR_ENCODING_8859_8    CharEncoding = 17
+	CHAR_ENCODING_8859_9    CharEncoding = 18
+	CHAR_ENCODING_2022_JP   CharEncoding = 19
+	CHAR_ENCODING_SHIFT_JIS CharEncoding = 20
+	CHAR_ENCODING_EUC_JP    CharEncoding = 21
+	CHAR_ENCODING_ASCII     CharEncoding = 22
 )
 
 // llgo:type C
-type CharEncodingInputFunc func(*int8, *c.Int, *int8, *c.Int) c.Int
+type CharEncodingInputFunc func(*c.Char, *c.Int, *c.Char, *c.Int) c.Int
 
 // llgo:type C
-type CharEncodingOutputFunc func(*int8, *c.Int, *int8, *c.Int) c.Int
+type CharEncodingOutputFunc func(*c.Char, *c.Int, *c.Char, *c.Int) c.Int
 
 type X_xmlCharEncodingHandler struct {
-	Name   *int8
-	Input  unsafe.Pointer
-	Output unsafe.Pointer
+	Name   *c.Char
+	Input  c.Pointer
+	Output c.Pointer
 }
 type CharEncodingHandler X_xmlCharEncodingHandler
 type CharEncodingHandlerPtr *CharEncodingHandler
@@ -77,7 +77,7 @@ func (recv_ CharEncoding) LookupCharEncodingHandler(out *CharEncodingHandlerPtr)
 }
 
 //go:linkname OpenCharEncodingHandler C.xmlOpenCharEncodingHandler
-func OpenCharEncodingHandler(name *int8, output c.Int, out *CharEncodingHandlerPtr) c.Int
+func OpenCharEncodingHandler(name *c.Char, output c.Int, out *CharEncodingHandlerPtr) c.Int
 
 // llgo:link CharEncoding.GetCharEncodingHandler C.xmlGetCharEncodingHandler
 func (recv_ CharEncoding) GetCharEncodingHandler() CharEncodingHandlerPtr {
@@ -85,31 +85,31 @@ func (recv_ CharEncoding) GetCharEncodingHandler() CharEncodingHandlerPtr {
 }
 
 //go:linkname FindCharEncodingHandler C.xmlFindCharEncodingHandler
-func FindCharEncodingHandler(name *int8) CharEncodingHandlerPtr
+func FindCharEncodingHandler(name *c.Char) CharEncodingHandlerPtr
 
 //go:linkname NewCharEncodingHandler C.xmlNewCharEncodingHandler
-func NewCharEncodingHandler(name *int8, input CharEncodingInputFunc, output CharEncodingOutputFunc) CharEncodingHandlerPtr
+func NewCharEncodingHandler(name *c.Char, input CharEncodingInputFunc, output CharEncodingOutputFunc) CharEncodingHandlerPtr
 
 /*
  * Interfaces for encoding names and aliases.
  */
 //go:linkname AddEncodingAlias C.xmlAddEncodingAlias
-func AddEncodingAlias(name *int8, alias *int8) c.Int
+func AddEncodingAlias(name *c.Char, alias *c.Char) c.Int
 
 //go:linkname DelEncodingAlias C.xmlDelEncodingAlias
-func DelEncodingAlias(alias *int8) c.Int
+func DelEncodingAlias(alias *c.Char) c.Int
 
 //go:linkname GetEncodingAlias C.xmlGetEncodingAlias
-func GetEncodingAlias(alias *int8) *int8
+func GetEncodingAlias(alias *c.Char) *c.Char
 
 //go:linkname CleanupEncodingAliases C.xmlCleanupEncodingAliases
 func CleanupEncodingAliases()
 
 //go:linkname ParseCharEncoding C.xmlParseCharEncoding
-func ParseCharEncoding(name *int8) CharEncoding
+func ParseCharEncoding(name *c.Char) CharEncoding
 
 // llgo:link CharEncoding.GetCharEncodingName C.xmlGetCharEncodingName
-func (recv_ CharEncoding) GetCharEncodingName() *int8 {
+func (recv_ CharEncoding) GetCharEncodingName() *c.Char {
 	return nil
 }
 
@@ -117,7 +117,7 @@ func (recv_ CharEncoding) GetCharEncodingName() *int8 {
  * Interfaces directly used by the parsers.
  */
 //go:linkname DetectCharEncoding C.xmlDetectCharEncoding
-func DetectCharEncoding(in *int8, len c.Int) CharEncoding
+func DetectCharEncoding(in *c.Char, len c.Int) CharEncoding
 
 /** DOC_ENABLE */
 // llgo:link (*CharEncodingHandler).CharEncOutFunc C.xmlCharEncOutFunc
@@ -144,7 +144,7 @@ func (recv_ *CharEncodingHandler) CharEncCloseFunc() c.Int {
  * Export a few useful functions
  */
 //go:linkname UTF8Toisolat1 C.UTF8Toisolat1
-func UTF8Toisolat1(out *int8, outlen *c.Int, in *int8, inlen *c.Int) c.Int
+func UTF8Toisolat1(out *c.Char, outlen *c.Int, in *c.Char, inlen *c.Int) c.Int
 
 //go:linkname Isolat1ToUTF8 C.isolat1ToUTF8
-func Isolat1ToUTF8(out *int8, outlen *c.Int, in *int8, inlen *c.Int) c.Int
+func Isolat1ToUTF8(out *c.Char, outlen *c.Int, in *c.Char, inlen *c.Int) c.Int

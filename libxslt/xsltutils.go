@@ -1,9 +1,9 @@
 package libxslt
 
 import (
-	"github.com/goplus/llgo/c"
+	"github.com/goplus/lib/c"
 	"github.com/goplus/llpkg/libxml2"
-	"unsafe"
+	_ "unsafe"
 )
 
 /*
@@ -16,30 +16,30 @@ func GetNsProp(node libxml2.NodePtr, name *libxml2.Char, nameSpace *libxml2.Char
 func GetCNsProp(style StylesheetPtr, node libxml2.NodePtr, name *libxml2.Char, nameSpace *libxml2.Char) *libxml2.Char
 
 //go:linkname GetUTF8Char C.xsltGetUTF8Char
-func GetUTF8Char(utf *int8, len *c.Int) c.Int
+func GetUTF8Char(utf *c.Char, len *c.Int) c.Int
 
 type DebugTraceCodes c.Int
 
 const (
-	TRACEALL            DebugTraceCodes = -1
-	TRACENONE           DebugTraceCodes = 0
-	TRACECOPYTEXT       DebugTraceCodes = 1
-	TRACEPROCESSNODE    DebugTraceCodes = 2
-	TRACEAPPLYTEMPLATE  DebugTraceCodes = 4
-	TRACECOPY           DebugTraceCodes = 8
-	TRACECOMMENT        DebugTraceCodes = 16
-	TRACEPI             DebugTraceCodes = 32
-	TRACECOPYOF         DebugTraceCodes = 64
-	TRACEVALUEOF        DebugTraceCodes = 128
-	TRACECALLTEMPLATE   DebugTraceCodes = 256
-	TRACEAPPLYTEMPLATES DebugTraceCodes = 512
-	TRACECHOOSE         DebugTraceCodes = 1024
-	TRACEIF             DebugTraceCodes = 2048
-	TRACEFOREACH        DebugTraceCodes = 4096
-	TRACESTRIPSPACES    DebugTraceCodes = 8192
-	TRACETEMPLATES      DebugTraceCodes = 16384
-	TRACEKEYS           DebugTraceCodes = 32768
-	TRACEVARIABLES      DebugTraceCodes = 65536
+	TRACE_ALL             DebugTraceCodes = -1
+	TRACE_NONE            DebugTraceCodes = 0
+	TRACE_COPY_TEXT       DebugTraceCodes = 1
+	TRACE_PROCESS_NODE    DebugTraceCodes = 2
+	TRACE_APPLY_TEMPLATE  DebugTraceCodes = 4
+	TRACE_COPY            DebugTraceCodes = 8
+	TRACE_COMMENT         DebugTraceCodes = 16
+	TRACE_PI              DebugTraceCodes = 32
+	TRACE_COPY_OF         DebugTraceCodes = 64
+	TRACE_VALUE_OF        DebugTraceCodes = 128
+	TRACE_CALL_TEMPLATE   DebugTraceCodes = 256
+	TRACE_APPLY_TEMPLATES DebugTraceCodes = 512
+	TRACE_CHOOSE          DebugTraceCodes = 1024
+	TRACE_IF              DebugTraceCodes = 2048
+	TRACE_FOR_EACH        DebugTraceCodes = 4096
+	TRACE_STRIP_SPACES    DebugTraceCodes = 8192
+	TRACE_TEMPLATES       DebugTraceCodes = 16384
+	TRACE_KEYS            DebugTraceCodes = 32768
+	TRACE_VARIABLES       DebugTraceCodes = 65536
 )
 
 // llgo:link DebugTraceCodes.DebugSetDefaultTrace C.xsltDebugSetDefaultTrace
@@ -56,16 +56,16 @@ func PrintErrorContext(ctxt TransformContextPtr, style StylesheetPtr, node libxm
 func Message(ctxt TransformContextPtr, node libxml2.NodePtr, inst libxml2.NodePtr)
 
 //go:linkname SetGenericErrorFunc C.xsltSetGenericErrorFunc
-func SetGenericErrorFunc(ctx unsafe.Pointer, handler libxml2.GenericErrorFunc)
+func SetGenericErrorFunc(ctx c.Pointer, handler libxml2.GenericErrorFunc)
 
 //go:linkname SetGenericDebugFunc C.xsltSetGenericDebugFunc
-func SetGenericDebugFunc(ctx unsafe.Pointer, handler libxml2.GenericErrorFunc)
+func SetGenericDebugFunc(ctx c.Pointer, handler libxml2.GenericErrorFunc)
 
 //go:linkname SetTransformErrorFunc C.xsltSetTransformErrorFunc
-func SetTransformErrorFunc(ctxt TransformContextPtr, ctx unsafe.Pointer, handler libxml2.GenericErrorFunc)
+func SetTransformErrorFunc(ctxt TransformContextPtr, ctx c.Pointer, handler libxml2.GenericErrorFunc)
 
 //go:linkname TransformError C.xsltTransformError
-func TransformError(ctxt TransformContextPtr, style StylesheetPtr, node libxml2.NodePtr, msg *int8, __llgo_va_list ...interface{})
+func TransformError(ctxt TransformContextPtr, style StylesheetPtr, node libxml2.NodePtr, msg *c.Char, __llgo_va_list ...interface{})
 
 //go:linkname SetCtxtParseOptions C.xsltSetCtxtParseOptions
 func SetCtxtParseOptions(ctxt TransformContextPtr, options c.Int) c.Int
@@ -110,7 +110,7 @@ func GetQNameURI2(style StylesheetPtr, node libxml2.NodePtr, name **libxml2.Char
 func SaveResultTo(buf libxml2.OutputBufferPtr, result libxml2.DocPtr, style StylesheetPtr) c.Int
 
 //go:linkname SaveResultToFilename C.xsltSaveResultToFilename
-func SaveResultToFilename(URI *int8, result libxml2.DocPtr, style StylesheetPtr, compression c.Int) c.Int
+func SaveResultToFilename(URI *c.Char, result libxml2.DocPtr, style StylesheetPtr, compression c.Int) c.Int
 
 //go:linkname SaveResultToFile C.xsltSaveResultToFile
 func SaveResultToFile(file *c.FILE, result libxml2.DocPtr, style StylesheetPtr) c.Int
@@ -133,16 +133,16 @@ func XPathCompileFlags(style StylesheetPtr, str *libxml2.Char, flags c.Int) libx
 type DebugStatusCodes c.Int
 
 const (
-	DEBUGNONE       DebugStatusCodes = 0
-	DEBUGINIT       DebugStatusCodes = 1
-	DEBUGSTEP       DebugStatusCodes = 2
-	DEBUGSTEPOUT    DebugStatusCodes = 3
-	DEBUGNEXT       DebugStatusCodes = 4
-	DEBUGSTOP       DebugStatusCodes = 5
-	DEBUGCONT       DebugStatusCodes = 6
-	DEBUGRUN        DebugStatusCodes = 7
-	DEBUGRUNRESTART DebugStatusCodes = 8
-	DEBUGQUIT       DebugStatusCodes = 9
+	DEBUG_NONE        DebugStatusCodes = 0
+	DEBUG_INIT        DebugStatusCodes = 1
+	DEBUG_STEP        DebugStatusCodes = 2
+	DEBUG_STEPOUT     DebugStatusCodes = 3
+	DEBUG_NEXT        DebugStatusCodes = 4
+	DEBUG_STOP        DebugStatusCodes = 5
+	DEBUG_CONT        DebugStatusCodes = 6
+	DEBUG_RUN         DebugStatusCodes = 7
+	DEBUG_RUN_RESTART DebugStatusCodes = 8
+	DEBUG_QUIT        DebugStatusCodes = 9
 )
 
 // llgo:type C

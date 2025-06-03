@@ -1,11 +1,11 @@
 package libxml2
 
 import (
-	"github.com/goplus/llgo/c"
-	"unsafe"
+	"github.com/goplus/lib/c"
+	_ "unsafe"
 )
 
-type Char int8
+type Char c.Char
 
 /*
  * xmlChar handling
@@ -21,10 +21,10 @@ func (recv_ *Char) Strndup(len c.Int) *Char {
 }
 
 //go:linkname CharStrndup C.xmlCharStrndup
-func CharStrndup(cur *int8, len c.Int) *Char
+func CharStrndup(cur *c.Char, len c.Int) *Char
 
 //go:linkname CharStrdup C.xmlCharStrdup
-func CharStrdup(cur *int8) *Char
+func CharStrdup(cur *c.Char) *Char
 
 // llgo:link (*Char).Strsub C.xmlStrsub
 func (recv_ *Char) Strsub(start c.Int, len c.Int) *Char {
@@ -97,20 +97,20 @@ func (recv_ *Char) StrncatNew(str2 *Char, len c.Int) *Char {
 }
 
 // llgo:link (*Char).StrPrintf C.xmlStrPrintf
-func (recv_ *Char) StrPrintf(len c.Int, msg *int8, __llgo_va_list ...interface{}) c.Int {
+func (recv_ *Char) StrPrintf(len c.Int, msg *c.Char, __llgo_va_list ...interface{}) c.Int {
 	return 0
 }
 
 // llgo:link (*Char).StrVPrintf C.xmlStrVPrintf
-func (recv_ *Char) StrVPrintf(len c.Int, msg *int8, ap unsafe.Pointer) c.Int {
+func (recv_ *Char) StrVPrintf(len c.Int, msg *c.Char, ap c.VaList) c.Int {
 	return 0
 }
 
 //go:linkname GetUTF8Char C.xmlGetUTF8Char
-func GetUTF8Char(utf *int8, len *c.Int) c.Int
+func GetUTF8Char(utf *c.Char, len *c.Int) c.Int
 
 //go:linkname CheckUTF8 C.xmlCheckUTF8
-func CheckUTF8(utf *int8) c.Int
+func CheckUTF8(utf *c.Char) c.Int
 
 // llgo:link (*Char).UTF8Strsize C.xmlUTF8Strsize
 func (recv_ *Char) UTF8Strsize(len c.Int) c.Int {

@@ -1,25 +1,25 @@
 package libxml2
 
 import (
-	"github.com/goplus/llgo/c"
-	"unsafe"
+	"github.com/goplus/lib/c"
+	_ "unsafe"
 )
 
 type CatalogPrefer c.Int
 
 const (
-	CATAPREFERNONE   CatalogPrefer = 0
-	CATAPREFERPUBLIC CatalogPrefer = 1
-	CATAPREFERSYSTEM CatalogPrefer = 2
+	CATA_PREFER_NONE   CatalogPrefer = 0
+	CATA_PREFER_PUBLIC CatalogPrefer = 1
+	CATA_PREFER_SYSTEM CatalogPrefer = 2
 )
 
 type CatalogAllow c.Int
 
 const (
-	CATAALLOWNONE     CatalogAllow = 0
-	CATAALLOWGLOBAL   CatalogAllow = 1
-	CATAALLOWDOCUMENT CatalogAllow = 2
-	CATAALLOWALL      CatalogAllow = 3
+	CATA_ALLOW_NONE     CatalogAllow = 0
+	CATA_ALLOW_GLOBAL   CatalogAllow = 1
+	CATA_ALLOW_DOCUMENT CatalogAllow = 2
+	CATA_ALLOW_ALL      CatalogAllow = 3
 )
 
 type X_xmlCatalog struct {
@@ -35,10 +35,10 @@ type CatalogPtr *Catalog
 func NewCatalog(sgml c.Int) CatalogPtr
 
 //go:linkname LoadACatalog C.xmlLoadACatalog
-func LoadACatalog(filename *int8) CatalogPtr
+func LoadACatalog(filename *c.Char) CatalogPtr
 
 //go:linkname LoadSGMLSuperCatalog C.xmlLoadSGMLSuperCatalog
-func LoadSGMLSuperCatalog(filename *int8) CatalogPtr
+func LoadSGMLSuperCatalog(filename *c.Char) CatalogPtr
 
 //go:linkname ConvertSGMLCatalog C.xmlConvertSGMLCatalog
 func ConvertSGMLCatalog(catal CatalogPtr) c.Int
@@ -77,10 +77,10 @@ func CatalogIsEmpty(catal CatalogPtr) c.Int
 func InitializeCatalog()
 
 //go:linkname LoadCatalog C.xmlLoadCatalog
-func LoadCatalog(filename *int8) c.Int
+func LoadCatalog(filename *c.Char) c.Int
 
 //go:linkname LoadCatalogs C.xmlLoadCatalogs
-func LoadCatalogs(paths *int8)
+func LoadCatalogs(paths *c.Char)
 
 //go:linkname CatalogCleanup C.xmlCatalogCleanup
 func CatalogCleanup()
@@ -119,7 +119,7 @@ func (recv_ *Char) CatalogRemove() c.Int {
 }
 
 //go:linkname ParseCatalogFile C.xmlParseCatalogFile
-func ParseCatalogFile(filename *int8) DocPtr
+func ParseCatalogFile(filename *c.Char) DocPtr
 
 //go:linkname CatalogConvert C.xmlCatalogConvert
 func CatalogConvert() c.Int
@@ -129,16 +129,16 @@ func CatalogConvert() c.Int
  * by the parser.
  */
 //go:linkname CatalogFreeLocal C.xmlCatalogFreeLocal
-func CatalogFreeLocal(catalogs unsafe.Pointer)
+func CatalogFreeLocal(catalogs c.Pointer)
 
 //go:linkname CatalogAddLocal C.xmlCatalogAddLocal
-func CatalogAddLocal(catalogs unsafe.Pointer, URL *Char) unsafe.Pointer
+func CatalogAddLocal(catalogs c.Pointer, URL *Char) c.Pointer
 
 //go:linkname CatalogLocalResolve C.xmlCatalogLocalResolve
-func CatalogLocalResolve(catalogs unsafe.Pointer, pubID *Char, sysID *Char) *Char
+func CatalogLocalResolve(catalogs c.Pointer, pubID *Char, sysID *Char) *Char
 
 //go:linkname CatalogLocalResolveURI C.xmlCatalogLocalResolveURI
-func CatalogLocalResolveURI(catalogs unsafe.Pointer, URI *Char) *Char
+func CatalogLocalResolveURI(catalogs c.Pointer, URI *Char) *Char
 
 /*
  * Preference settings.

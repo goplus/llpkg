@@ -1,9 +1,9 @@
 package libxslt
 
 import (
-	"github.com/goplus/llgo/c"
+	"github.com/goplus/lib/c"
 	"github.com/goplus/llpkg/libxml2"
-	"unsafe"
+	_ "unsafe"
 )
 
 /**
@@ -16,16 +16,16 @@ import (
 func InitGlobals()
 
 // llgo:type C
-type StyleExtInitFunction func(StylesheetPtr, *libxml2.Char) unsafe.Pointer
+type StyleExtInitFunction func(StylesheetPtr, *libxml2.Char) c.Pointer
 
 // llgo:type C
-type StyleExtShutdownFunction func(StylesheetPtr, *libxml2.Char, unsafe.Pointer)
+type StyleExtShutdownFunction func(StylesheetPtr, *libxml2.Char, c.Pointer)
 
 // llgo:type C
-type ExtInitFunction func(TransformContextPtr, *libxml2.Char) unsafe.Pointer
+type ExtInitFunction func(TransformContextPtr, *libxml2.Char) c.Pointer
 
 // llgo:type C
-type ExtShutdownFunction func(TransformContextPtr, *libxml2.Char, unsafe.Pointer)
+type ExtShutdownFunction func(TransformContextPtr, *libxml2.Char, c.Pointer)
 
 //go:linkname RegisterExtModule C.xsltRegisterExtModule
 func RegisterExtModule(URI *libxml2.Char, initFunc ExtInitFunction, shutdownFunc ExtShutdownFunction) c.Int
@@ -37,10 +37,10 @@ func RegisterExtModuleFull(URI *libxml2.Char, initFunc ExtInitFunction, shutdown
 func UnregisterExtModule(URI *libxml2.Char) c.Int
 
 //go:linkname GetExtData C.xsltGetExtData
-func GetExtData(ctxt TransformContextPtr, URI *libxml2.Char) unsafe.Pointer
+func GetExtData(ctxt TransformContextPtr, URI *libxml2.Char) c.Pointer
 
 //go:linkname StyleGetExtData C.xsltStyleGetExtData
-func StyleGetExtData(style StylesheetPtr, URI *libxml2.Char) unsafe.Pointer
+func StyleGetExtData(style StylesheetPtr, URI *libxml2.Char) c.Pointer
 
 //go:linkname ShutdownCtxtExts C.xsltShutdownCtxtExts
 func ShutdownCtxtExts(ctxt TransformContextPtr)

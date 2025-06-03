@@ -1,8 +1,8 @@
 package libxml2
 
 import (
-	"github.com/goplus/llgo/c"
-	"unsafe"
+	"github.com/goplus/lib/c"
+	_ "unsafe"
 )
 
 /*
@@ -58,67 +58,67 @@ func LsOneNode(output *c.FILE, node NodePtr)
 func LsCountNode(node NodePtr) c.Int
 
 //go:linkname BoolToText C.xmlBoolToText
-func BoolToText(boolval c.Int) *int8
+func BoolToText(boolval c.Int) *c.Char
 
 // llgo:type C
-type ShellReadlineFunc func(*int8) *int8
+type ShellReadlineFunc func(*c.Char) *c.Char
 
 type X_xmlShellCtxt struct {
-	Filename *int8
+	Filename *c.Char
 	Doc      DocPtr
 	Node     NodePtr
 	Pctxt    XPathContextPtr
 	Loaded   c.Int
 	Output   *c.FILE
-	Input    unsafe.Pointer
+	Input    c.Pointer
 }
 type ShellCtxt X_xmlShellCtxt
 type ShellCtxtPtr *ShellCtxt
 
 // llgo:type C
-type ShellCmd func(ShellCtxtPtr, *int8, NodePtr, NodePtr) c.Int
+type ShellCmd func(ShellCtxtPtr, *c.Char, NodePtr, NodePtr) c.Int
 
 //go:linkname ShellPrintXPathError C.xmlShellPrintXPathError
-func ShellPrintXPathError(errorType c.Int, arg *int8)
+func ShellPrintXPathError(errorType c.Int, arg *c.Char)
 
 //go:linkname ShellPrintXPathResult C.xmlShellPrintXPathResult
 func ShellPrintXPathResult(list XPathObjectPtr)
 
 //go:linkname ShellList C.xmlShellList
-func ShellList(ctxt ShellCtxtPtr, arg *int8, node NodePtr, node2 NodePtr) c.Int
+func ShellList(ctxt ShellCtxtPtr, arg *c.Char, node NodePtr, node2 NodePtr) c.Int
 
 //go:linkname ShellBase C.xmlShellBase
-func ShellBase(ctxt ShellCtxtPtr, arg *int8, node NodePtr, node2 NodePtr) c.Int
+func ShellBase(ctxt ShellCtxtPtr, arg *c.Char, node NodePtr, node2 NodePtr) c.Int
 
 //go:linkname ShellDir C.xmlShellDir
-func ShellDir(ctxt ShellCtxtPtr, arg *int8, node NodePtr, node2 NodePtr) c.Int
+func ShellDir(ctxt ShellCtxtPtr, arg *c.Char, node NodePtr, node2 NodePtr) c.Int
 
 //go:linkname ShellLoad C.xmlShellLoad
-func ShellLoad(ctxt ShellCtxtPtr, filename *int8, node NodePtr, node2 NodePtr) c.Int
+func ShellLoad(ctxt ShellCtxtPtr, filename *c.Char, node NodePtr, node2 NodePtr) c.Int
 
 //go:linkname ShellPrintNode C.xmlShellPrintNode
 func ShellPrintNode(node NodePtr)
 
 //go:linkname ShellCat C.xmlShellCat
-func ShellCat(ctxt ShellCtxtPtr, arg *int8, node NodePtr, node2 NodePtr) c.Int
+func ShellCat(ctxt ShellCtxtPtr, arg *c.Char, node NodePtr, node2 NodePtr) c.Int
 
 //go:linkname ShellWrite C.xmlShellWrite
-func ShellWrite(ctxt ShellCtxtPtr, filename *int8, node NodePtr, node2 NodePtr) c.Int
+func ShellWrite(ctxt ShellCtxtPtr, filename *c.Char, node NodePtr, node2 NodePtr) c.Int
 
 //go:linkname ShellSave C.xmlShellSave
-func ShellSave(ctxt ShellCtxtPtr, filename *int8, node NodePtr, node2 NodePtr) c.Int
+func ShellSave(ctxt ShellCtxtPtr, filename *c.Char, node NodePtr, node2 NodePtr) c.Int
 
 //go:linkname ShellValidate C.xmlShellValidate
-func ShellValidate(ctxt ShellCtxtPtr, dtd *int8, node NodePtr, node2 NodePtr) c.Int
+func ShellValidate(ctxt ShellCtxtPtr, dtd *c.Char, node NodePtr, node2 NodePtr) c.Int
 
 //go:linkname ShellDu C.xmlShellDu
-func ShellDu(ctxt ShellCtxtPtr, arg *int8, tree NodePtr, node2 NodePtr) c.Int
+func ShellDu(ctxt ShellCtxtPtr, arg *c.Char, tree NodePtr, node2 NodePtr) c.Int
 
 //go:linkname ShellPwd C.xmlShellPwd
-func ShellPwd(ctxt ShellCtxtPtr, buffer *int8, node NodePtr, node2 NodePtr) c.Int
+func ShellPwd(ctxt ShellCtxtPtr, buffer *c.Char, node NodePtr, node2 NodePtr) c.Int
 
 /*
  * The Shell interface.
  */
 //go:linkname Shell C.xmlShell
-func Shell(doc DocPtr, filename *int8, input ShellReadlineFunc, output *c.FILE)
+func Shell(doc DocPtr, filename *c.Char, input ShellReadlineFunc, output *c.FILE)

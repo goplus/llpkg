@@ -1,8 +1,8 @@
 package libxml2
 
 import (
-	"github.com/goplus/llgo/c"
-	"unsafe"
+	"github.com/goplus/lib/c"
+	_ "unsafe"
 )
 
 type X_xmlHashTable struct {
@@ -12,16 +12,16 @@ type HashTable X_xmlHashTable
 type HashTablePtr *HashTable
 
 // llgo:type C
-type HashDeallocator func(unsafe.Pointer, *Char)
+type HashDeallocator func(c.Pointer, *Char)
 
 // llgo:type C
-type HashCopier func(unsafe.Pointer, *Char) unsafe.Pointer
+type HashCopier func(c.Pointer, *Char) c.Pointer
 
 // llgo:type C
-type HashScanner func(unsafe.Pointer, unsafe.Pointer, *Char)
+type HashScanner func(c.Pointer, c.Pointer, *Char)
 
 // llgo:type C
-type HashScannerFull func(unsafe.Pointer, unsafe.Pointer, *Char, *Char, *Char)
+type HashScannerFull func(c.Pointer, c.Pointer, *Char, *Char, *Char)
 
 /*
  * Constructor and destructor.
@@ -36,37 +36,37 @@ func HashCreateDict(size c.Int, dict DictPtr) HashTablePtr
 func HashFree(hash HashTablePtr, dealloc HashDeallocator)
 
 //go:linkname HashDefaultDeallocator C.xmlHashDefaultDeallocator
-func HashDefaultDeallocator(entry unsafe.Pointer, name *Char)
+func HashDefaultDeallocator(entry c.Pointer, name *Char)
 
 /*
  * Add a new entry to the hash table.
  */
 //go:linkname HashAdd C.xmlHashAdd
-func HashAdd(hash HashTablePtr, name *Char, userdata unsafe.Pointer) c.Int
+func HashAdd(hash HashTablePtr, name *Char, userdata c.Pointer) c.Int
 
 //go:linkname HashAddEntry C.xmlHashAddEntry
-func HashAddEntry(hash HashTablePtr, name *Char, userdata unsafe.Pointer) c.Int
+func HashAddEntry(hash HashTablePtr, name *Char, userdata c.Pointer) c.Int
 
 //go:linkname HashUpdateEntry C.xmlHashUpdateEntry
-func HashUpdateEntry(hash HashTablePtr, name *Char, userdata unsafe.Pointer, dealloc HashDeallocator) c.Int
+func HashUpdateEntry(hash HashTablePtr, name *Char, userdata c.Pointer, dealloc HashDeallocator) c.Int
 
 //go:linkname HashAdd2 C.xmlHashAdd2
-func HashAdd2(hash HashTablePtr, name *Char, name2 *Char, userdata unsafe.Pointer) c.Int
+func HashAdd2(hash HashTablePtr, name *Char, name2 *Char, userdata c.Pointer) c.Int
 
 //go:linkname HashAddEntry2 C.xmlHashAddEntry2
-func HashAddEntry2(hash HashTablePtr, name *Char, name2 *Char, userdata unsafe.Pointer) c.Int
+func HashAddEntry2(hash HashTablePtr, name *Char, name2 *Char, userdata c.Pointer) c.Int
 
 //go:linkname HashUpdateEntry2 C.xmlHashUpdateEntry2
-func HashUpdateEntry2(hash HashTablePtr, name *Char, name2 *Char, userdata unsafe.Pointer, dealloc HashDeallocator) c.Int
+func HashUpdateEntry2(hash HashTablePtr, name *Char, name2 *Char, userdata c.Pointer, dealloc HashDeallocator) c.Int
 
 //go:linkname HashAdd3 C.xmlHashAdd3
-func HashAdd3(hash HashTablePtr, name *Char, name2 *Char, name3 *Char, userdata unsafe.Pointer) c.Int
+func HashAdd3(hash HashTablePtr, name *Char, name2 *Char, name3 *Char, userdata c.Pointer) c.Int
 
 //go:linkname HashAddEntry3 C.xmlHashAddEntry3
-func HashAddEntry3(hash HashTablePtr, name *Char, name2 *Char, name3 *Char, userdata unsafe.Pointer) c.Int
+func HashAddEntry3(hash HashTablePtr, name *Char, name2 *Char, name3 *Char, userdata c.Pointer) c.Int
 
 //go:linkname HashUpdateEntry3 C.xmlHashUpdateEntry3
-func HashUpdateEntry3(hash HashTablePtr, name *Char, name2 *Char, name3 *Char, userdata unsafe.Pointer, dealloc HashDeallocator) c.Int
+func HashUpdateEntry3(hash HashTablePtr, name *Char, name2 *Char, name3 *Char, userdata c.Pointer, dealloc HashDeallocator) c.Int
 
 /*
  * Remove an entry from the hash table.
@@ -84,22 +84,22 @@ func HashRemoveEntry3(hash HashTablePtr, name *Char, name2 *Char, name3 *Char, d
  * Retrieve the payload.
  */
 //go:linkname HashLookup C.xmlHashLookup
-func HashLookup(hash HashTablePtr, name *Char) unsafe.Pointer
+func HashLookup(hash HashTablePtr, name *Char) c.Pointer
 
 //go:linkname HashLookup2 C.xmlHashLookup2
-func HashLookup2(hash HashTablePtr, name *Char, name2 *Char) unsafe.Pointer
+func HashLookup2(hash HashTablePtr, name *Char, name2 *Char) c.Pointer
 
 //go:linkname HashLookup3 C.xmlHashLookup3
-func HashLookup3(hash HashTablePtr, name *Char, name2 *Char, name3 *Char) unsafe.Pointer
+func HashLookup3(hash HashTablePtr, name *Char, name2 *Char, name3 *Char) c.Pointer
 
 //go:linkname HashQLookup C.xmlHashQLookup
-func HashQLookup(hash HashTablePtr, prefix *Char, name *Char) unsafe.Pointer
+func HashQLookup(hash HashTablePtr, prefix *Char, name *Char) c.Pointer
 
 //go:linkname HashQLookup2 C.xmlHashQLookup2
-func HashQLookup2(hash HashTablePtr, prefix *Char, name *Char, prefix2 *Char, name2 *Char) unsafe.Pointer
+func HashQLookup2(hash HashTablePtr, prefix *Char, name *Char, prefix2 *Char, name2 *Char) c.Pointer
 
 //go:linkname HashQLookup3 C.xmlHashQLookup3
-func HashQLookup3(hash HashTablePtr, prefix *Char, name *Char, prefix2 *Char, name2 *Char, prefix3 *Char, name3 *Char) unsafe.Pointer
+func HashQLookup3(hash HashTablePtr, prefix *Char, name *Char, prefix2 *Char, name2 *Char, prefix3 *Char, name3 *Char) c.Pointer
 
 /*
  * Helpers.
@@ -114,13 +114,13 @@ func HashCopy(hash HashTablePtr, copy HashCopier) HashTablePtr
 func HashSize(hash HashTablePtr) c.Int
 
 //go:linkname HashScan C.xmlHashScan
-func HashScan(hash HashTablePtr, scan HashScanner, data unsafe.Pointer)
+func HashScan(hash HashTablePtr, scan HashScanner, data c.Pointer)
 
 //go:linkname HashScan3 C.xmlHashScan3
-func HashScan3(hash HashTablePtr, name *Char, name2 *Char, name3 *Char, scan HashScanner, data unsafe.Pointer)
+func HashScan3(hash HashTablePtr, name *Char, name2 *Char, name3 *Char, scan HashScanner, data c.Pointer)
 
 //go:linkname HashScanFull C.xmlHashScanFull
-func HashScanFull(hash HashTablePtr, scan HashScannerFull, data unsafe.Pointer)
+func HashScanFull(hash HashTablePtr, scan HashScannerFull, data c.Pointer)
 
 //go:linkname HashScanFull3 C.xmlHashScanFull3
-func HashScanFull3(hash HashTablePtr, name *Char, name2 *Char, name3 *Char, scan HashScannerFull, data unsafe.Pointer)
+func HashScanFull3(hash HashTablePtr, name *Char, name2 *Char, name3 *Char, scan HashScannerFull, data c.Pointer)

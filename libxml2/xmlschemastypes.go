@@ -1,17 +1,17 @@
 package libxml2
 
 import (
-	"github.com/goplus/llgo/c"
+	"github.com/goplus/lib/c"
 	_ "unsafe"
 )
 
 type SchemaWhitespaceValueType c.Int
 
 const (
-	SCHEMAWHITESPACEUNKNOWN  SchemaWhitespaceValueType = 0
-	SCHEMAWHITESPACEPRESERVE SchemaWhitespaceValueType = 1
-	SCHEMAWHITESPACEREPLACE  SchemaWhitespaceValueType = 2
-	SCHEMAWHITESPACECOLLAPSE SchemaWhitespaceValueType = 3
+	SCHEMA_WHITESPACE_UNKNOWN  SchemaWhitespaceValueType = 0
+	SCHEMA_WHITESPACE_PRESERVE SchemaWhitespaceValueType = 1
+	SCHEMA_WHITESPACE_REPLACE  SchemaWhitespaceValueType = 2
+	SCHEMA_WHITESPACE_COLLAPSE SchemaWhitespaceValueType = 3
 )
 
 //go:linkname SchemaInitTypes C.xmlSchemaInitTypes

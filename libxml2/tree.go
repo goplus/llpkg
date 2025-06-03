@@ -1,17 +1,17 @@
 package libxml2
 
 import (
-	"github.com/goplus/llgo/c"
-	"unsafe"
+	"github.com/goplus/lib/c"
+	_ "unsafe"
 )
 
 const BASE_BUFFER_SIZE = 4096
 const DOCB_DOCUMENT_NODE = 21
 
 type X_xmlParserInputBuffer struct {
-	Context       unsafe.Pointer
-	Readcallback  unsafe.Pointer
-	Closecallback unsafe.Pointer
+	Context       c.Pointer
+	Readcallback  c.Pointer
+	Closecallback c.Pointer
 	Encoder       CharEncodingHandlerPtr
 	Buffer        BufPtr
 	Raw           BufPtr
@@ -23,9 +23,9 @@ type ParserInputBuffer X_xmlParserInputBuffer
 type ParserInputBufferPtr *ParserInputBuffer
 
 type X_xmlOutputBuffer struct {
-	Context       unsafe.Pointer
-	Writecallback unsafe.Pointer
-	Closecallback unsafe.Pointer
+	Context       c.Pointer
+	Writecallback c.Pointer
+	Closecallback c.Pointer
 	Encoder       CharEncodingHandlerPtr
 	Buffer        BufPtr
 	Conv          BufPtr
@@ -37,8 +37,8 @@ type OutputBufferPtr *OutputBuffer
 
 type X_xmlParserInput struct {
 	Buf            ParserInputBufferPtr
-	Filename       *int8
-	Directory      *int8
+	Filename       *c.Char
+	Directory      *c.Char
 	Base           *Char
 	Cur            *Char
 	End            *Char
@@ -46,7 +46,7 @@ type X_xmlParserInput struct {
 	Line           c.Int
 	Col            c.Int
 	Consumed       c.Ulong
-	Free           unsafe.Pointer
+	Free           c.Pointer
 	Encoding       *Char
 	Version        *Char
 	Flags          c.Int
@@ -59,7 +59,7 @@ type ParserInputPtr *ParserInput
 
 type X_xmlParserCtxt struct {
 	Sax               *X_xmlSAXHandler
-	UserData          unsafe.Pointer
+	UserData          c.Pointer
 	MyDoc             DocPtr
 	WellFormed        c.Int
 	ReplaceEntities   c.Int
@@ -86,7 +86,7 @@ type X_xmlParserCtxt struct {
 	Vctxt             ValidCtxt
 	Instate           ParserInputState
 	Token             c.Int
-	Directory         *int8
+	Directory         *c.Char
 	Name              *Char
 	NameNr            c.Int
 	NameMax           c.Int
@@ -109,10 +109,10 @@ type X_xmlParserCtxt struct {
 	Nodelen           c.Int
 	Nodemem           c.Int
 	Pedantic          c.Int
-	X_private         unsafe.Pointer
+	X_private         c.Pointer
 	Loadsubset        c.Int
 	Linenumbers       c.Int
-	Catalogs          unsafe.Pointer
+	Catalogs          c.Pointer
 	Recovery          c.Int
 	Progressive       c.Int
 	Dict              DictPtr
@@ -154,60 +154,60 @@ type X_xmlParserCtxt struct {
 	Nsdb              *ParserNsData
 	AttrHashMax       c.Uint
 	AttrHash          *AttrHashBucket
-	ErrorHandler      unsafe.Pointer
-	ErrorCtxt         unsafe.Pointer
+	ErrorHandler      c.Pointer
+	ErrorCtxt         c.Pointer
 }
 type ParserCtxt X_xmlParserCtxt
 type ParserCtxtPtr *ParserCtxt
 
 type X_xmlSAXLocator struct {
-	GetPublicId     unsafe.Pointer
-	GetSystemId     unsafe.Pointer
-	GetLineNumber   unsafe.Pointer
-	GetColumnNumber unsafe.Pointer
+	GetPublicId     c.Pointer
+	GetSystemId     c.Pointer
+	GetLineNumber   c.Pointer
+	GetColumnNumber c.Pointer
 }
 type SAXLocator X_xmlSAXLocator
 type SAXLocatorPtr *SAXLocator
 
 type X_xmlSAXHandler struct {
-	InternalSubset        unsafe.Pointer
-	IsStandalone          unsafe.Pointer
-	HasInternalSubset     unsafe.Pointer
-	HasExternalSubset     unsafe.Pointer
-	ResolveEntity         unsafe.Pointer
-	GetEntity             unsafe.Pointer
-	EntityDecl            unsafe.Pointer
-	NotationDecl          unsafe.Pointer
-	AttributeDecl         unsafe.Pointer
-	ElementDecl           unsafe.Pointer
-	UnparsedEntityDecl    unsafe.Pointer
-	SetDocumentLocator    unsafe.Pointer
-	StartDocument         unsafe.Pointer
-	EndDocument           unsafe.Pointer
-	StartElement          unsafe.Pointer
-	EndElement            unsafe.Pointer
-	Reference             unsafe.Pointer
-	Characters            unsafe.Pointer
-	IgnorableWhitespace   unsafe.Pointer
-	ProcessingInstruction unsafe.Pointer
-	Comment               unsafe.Pointer
-	Warning               unsafe.Pointer
-	Error                 unsafe.Pointer
-	FatalError            unsafe.Pointer
-	GetParameterEntity    unsafe.Pointer
-	CdataBlock            unsafe.Pointer
-	ExternalSubset        unsafe.Pointer
+	InternalSubset        c.Pointer
+	IsStandalone          c.Pointer
+	HasInternalSubset     c.Pointer
+	HasExternalSubset     c.Pointer
+	ResolveEntity         c.Pointer
+	GetEntity             c.Pointer
+	EntityDecl            c.Pointer
+	NotationDecl          c.Pointer
+	AttributeDecl         c.Pointer
+	ElementDecl           c.Pointer
+	UnparsedEntityDecl    c.Pointer
+	SetDocumentLocator    c.Pointer
+	StartDocument         c.Pointer
+	EndDocument           c.Pointer
+	StartElement          c.Pointer
+	EndElement            c.Pointer
+	Reference             c.Pointer
+	Characters            c.Pointer
+	IgnorableWhitespace   c.Pointer
+	ProcessingInstruction c.Pointer
+	Comment               c.Pointer
+	Warning               c.Pointer
+	Error                 c.Pointer
+	FatalError            c.Pointer
+	GetParameterEntity    c.Pointer
+	CdataBlock            c.Pointer
+	ExternalSubset        c.Pointer
 	Initialized           c.Uint
-	X_private             unsafe.Pointer
-	StartElementNs        unsafe.Pointer
-	EndElementNs          unsafe.Pointer
-	Serror                unsafe.Pointer
+	X_private             c.Pointer
+	StartElementNs        c.Pointer
+	EndElementNs          c.Pointer
+	Serror                c.Pointer
 }
 type SAXHandler X_xmlSAXHandler
 type SAXHandlerPtr *SAXHandler
 
 type X_xmlEntity struct {
-	X_private    unsafe.Pointer
+	X_private    c.Pointer
 	Type         ElementType
 	Name         *Char
 	Children     *X_xmlNode
@@ -233,12 +233,12 @@ type EntityPtr *Entity
 type BufferAllocationScheme c.Int
 
 const (
-	BUFFERALLOCDOUBLEIT  BufferAllocationScheme = 0
-	BUFFERALLOCEXACT     BufferAllocationScheme = 1
-	BUFFERALLOCIMMUTABLE BufferAllocationScheme = 2
-	BUFFERALLOCIO        BufferAllocationScheme = 3
-	BUFFERALLOCHYBRID    BufferAllocationScheme = 4
-	BUFFERALLOCBOUNDED   BufferAllocationScheme = 5
+	BUFFER_ALLOC_DOUBLEIT  BufferAllocationScheme = 0
+	BUFFER_ALLOC_EXACT     BufferAllocationScheme = 1
+	BUFFER_ALLOC_IMMUTABLE BufferAllocationScheme = 2
+	BUFFER_ALLOC_IO        BufferAllocationScheme = 3
+	BUFFER_ALLOC_HYBRID    BufferAllocationScheme = 4
+	BUFFER_ALLOC_BOUNDED   BufferAllocationScheme = 5
 )
 
 type X_xmlBuffer struct {
@@ -270,34 +270,34 @@ func (recv_ *Buf) BufContent() *Char {
 func BufEnd(buf BufPtr) *Char
 
 //go:linkname BufUse C.xmlBufUse
-func BufUse(buf BufPtr) uintptr
+func BufUse(buf BufPtr) c.SizeT
 
 //go:linkname BufShrink C.xmlBufShrink
-func BufShrink(buf BufPtr, len uintptr) uintptr
+func BufShrink(buf BufPtr, len c.SizeT) c.SizeT
 
 type ElementType c.Int
 
 const (
-	ELEMENTNODE      ElementType = 1
-	ATTRIBUTENODE    ElementType = 2
-	TEXTNODE         ElementType = 3
-	CDATASECTIONNODE ElementType = 4
-	ENTITYREFNODE    ElementType = 5
-	ENTITYNODE       ElementType = 6
-	PINODE           ElementType = 7
-	COMMENTNODE      ElementType = 8
-	DOCUMENTNODE     ElementType = 9
-	DOCUMENTTYPENODE ElementType = 10
-	DOCUMENTFRAGNODE ElementType = 11
-	NOTATIONNODE     ElementType = 12
-	HTMLDOCUMENTNODE ElementType = 13
-	DTDNODE          ElementType = 14
-	ELEMENTDECL      ElementType = 15
-	ATTRIBUTEDECL    ElementType = 16
-	ENTITYDECL       ElementType = 17
-	NAMESPACEDECL    ElementType = 18
-	XINCLUDESTART    ElementType = 19
-	XINCLUDEEND      ElementType = 20
+	ELEMENT_NODE       ElementType = 1
+	ATTRIBUTE_NODE     ElementType = 2
+	TEXT_NODE          ElementType = 3
+	CDATA_SECTION_NODE ElementType = 4
+	ENTITY_REF_NODE    ElementType = 5
+	ENTITY_NODE        ElementType = 6
+	PI_NODE            ElementType = 7
+	COMMENT_NODE       ElementType = 8
+	DOCUMENT_NODE      ElementType = 9
+	DOCUMENT_TYPE_NODE ElementType = 10
+	DOCUMENT_FRAG_NODE ElementType = 11
+	NOTATION_NODE      ElementType = 12
+	HTML_DOCUMENT_NODE ElementType = 13
+	DTD_NODE           ElementType = 14
+	ELEMENT_DECL       ElementType = 15
+	ATTRIBUTE_DECL     ElementType = 16
+	ENTITY_DECL        ElementType = 17
+	NAMESPACE_DECL     ElementType = 18
+	XINCLUDE_START     ElementType = 19
+	XINCLUDE_END       ElementType = 20
 )
 
 type X_xmlNotation struct {
@@ -310,25 +310,25 @@ type NotationPtr *Notation
 type AttributeType c.Int
 
 const (
-	ATTRIBUTECDATA       AttributeType = 1
-	ATTRIBUTEID          AttributeType = 2
-	ATTRIBUTEIDREF       AttributeType = 3
-	ATTRIBUTEIDREFS      AttributeType = 4
-	ATTRIBUTEENTITY      AttributeType = 5
-	ATTRIBUTEENTITIES    AttributeType = 6
-	ATTRIBUTENMTOKEN     AttributeType = 7
-	ATTRIBUTENMTOKENS    AttributeType = 8
-	ATTRIBUTEENUMERATION AttributeType = 9
-	ATTRIBUTENOTATION    AttributeType = 10
+	ATTRIBUTE_CDATA       AttributeType = 1
+	ATTRIBUTE_ID          AttributeType = 2
+	ATTRIBUTE_IDREF       AttributeType = 3
+	ATTRIBUTE_IDREFS      AttributeType = 4
+	ATTRIBUTE_ENTITY      AttributeType = 5
+	ATTRIBUTE_ENTITIES    AttributeType = 6
+	ATTRIBUTE_NMTOKEN     AttributeType = 7
+	ATTRIBUTE_NMTOKENS    AttributeType = 8
+	ATTRIBUTE_ENUMERATION AttributeType = 9
+	ATTRIBUTE_NOTATION    AttributeType = 10
 )
 
 type AttributeDefault c.Int
 
 const (
-	ATTRIBUTENONE     AttributeDefault = 1
-	ATTRIBUTEREQUIRED AttributeDefault = 2
-	ATTRIBUTEIMPLIED  AttributeDefault = 3
-	ATTRIBUTEFIXED    AttributeDefault = 4
+	ATTRIBUTE_NONE     AttributeDefault = 1
+	ATTRIBUTE_REQUIRED AttributeDefault = 2
+	ATTRIBUTE_IMPLIED  AttributeDefault = 3
+	ATTRIBUTE_FIXED    AttributeDefault = 4
 )
 
 type X_xmlEnumeration struct {
@@ -339,7 +339,7 @@ type Enumeration X_xmlEnumeration
 type EnumerationPtr *Enumeration
 
 type X_xmlAttribute struct {
-	X_private    unsafe.Pointer
+	X_private    c.Pointer
 	Type         ElementType
 	Name         *Char
 	Children     *X_xmlNode
@@ -360,7 +360,7 @@ type Attribute X_xmlAttribute
 type AttributePtr *Attribute
 
 type X_xmlNode struct {
-	X_private  unsafe.Pointer
+	X_private  c.Pointer
 	Type       ElementType
 	Name       *Char
 	Children   *X_xmlNode
@@ -373,13 +373,13 @@ type X_xmlNode struct {
 	Content    *Char
 	Properties *X_xmlAttr
 	NsDef      *Ns
-	Psvi       unsafe.Pointer
+	Psvi       c.Pointer
 	Line       uint16
 	Extra      uint16
 }
 
 type X_xmlDtd struct {
-	X_private  unsafe.Pointer
+	X_private  c.Pointer
 	Type       ElementType
 	Name       *Char
 	Children   *X_xmlNode
@@ -388,19 +388,19 @@ type X_xmlDtd struct {
 	Next       *X_xmlNode
 	Prev       *X_xmlNode
 	Doc        *X_xmlDoc
-	Notations  unsafe.Pointer
-	Elements   unsafe.Pointer
-	Attributes unsafe.Pointer
-	Entities   unsafe.Pointer
+	Notations  c.Pointer
+	Elements   c.Pointer
+	Attributes c.Pointer
+	Entities   c.Pointer
 	ExternalID *Char
 	SystemID   *Char
-	Pentities  unsafe.Pointer
+	Pentities  c.Pointer
 }
 
 type X_xmlDoc struct {
-	X_private   unsafe.Pointer
+	X_private   c.Pointer
 	Type        ElementType
-	Name        *int8
+	Name        *c.Char
 	Children    *X_xmlNode
 	Last        *X_xmlNode
 	Parent      *X_xmlNode
@@ -414,31 +414,31 @@ type X_xmlDoc struct {
 	OldNs       *X_xmlNs
 	Version     *Char
 	Encoding    *Char
-	Ids         unsafe.Pointer
-	Refs        unsafe.Pointer
+	Ids         c.Pointer
+	Refs        c.Pointer
 	URL         *Char
 	Charset     c.Int
 	Dict        *X_xmlDict
-	Psvi        unsafe.Pointer
+	Psvi        c.Pointer
 	ParseFlags  c.Int
 	Properties  c.Int
 }
 type ElementContentType c.Int
 
 const (
-	ELEMENTCONTENTPCDATA  ElementContentType = 1
-	ELEMENTCONTENTELEMENT ElementContentType = 2
-	ELEMENTCONTENTSEQ     ElementContentType = 3
-	ELEMENTCONTENTOR      ElementContentType = 4
+	ELEMENT_CONTENT_PCDATA  ElementContentType = 1
+	ELEMENT_CONTENT_ELEMENT ElementContentType = 2
+	ELEMENT_CONTENT_SEQ     ElementContentType = 3
+	ELEMENT_CONTENT_OR      ElementContentType = 4
 )
 
 type ElementContentOccur c.Int
 
 const (
-	ELEMENTCONTENTONCE ElementContentOccur = 1
-	ELEMENTCONTENTOPT  ElementContentOccur = 2
-	ELEMENTCONTENTMULT ElementContentOccur = 3
-	ELEMENTCONTENTPLUS ElementContentOccur = 4
+	ELEMENT_CONTENT_ONCE ElementContentOccur = 1
+	ELEMENT_CONTENT_OPT  ElementContentOccur = 2
+	ELEMENT_CONTENT_MULT ElementContentOccur = 3
+	ELEMENT_CONTENT_PLUS ElementContentOccur = 4
 )
 
 type X_xmlElementContent struct {
@@ -455,15 +455,15 @@ type ElementContentPtr *ElementContent
 type ElementTypeVal c.Int
 
 const (
-	ELEMENTTYPEUNDEFINED ElementTypeVal = 0
-	ELEMENTTYPEEMPTY     ElementTypeVal = 1
-	ELEMENTTYPEANY       ElementTypeVal = 2
-	ELEMENTTYPEMIXED     ElementTypeVal = 3
-	ELEMENTTYPEELEMENT   ElementTypeVal = 4
+	ELEMENT_TYPE_UNDEFINED ElementTypeVal = 0
+	ELEMENT_TYPE_EMPTY     ElementTypeVal = 1
+	ELEMENT_TYPE_ANY       ElementTypeVal = 2
+	ELEMENT_TYPE_MIXED     ElementTypeVal = 3
+	ELEMENT_TYPE_ELEMENT   ElementTypeVal = 4
 )
 
 type X_xmlElement struct {
-	X_private  unsafe.Pointer
+	X_private  c.Pointer
 	Type       ElementType
 	Name       *Char
 	Children   *X_xmlNode
@@ -487,7 +487,7 @@ type X_xmlNs struct {
 	Type      NsType
 	Href      *Char
 	Prefix    *Char
-	X_private unsafe.Pointer
+	X_private c.Pointer
 	Context   *X_xmlDoc
 }
 type Ns X_xmlNs
@@ -496,7 +496,7 @@ type Dtd X_xmlDtd
 type DtdPtr *Dtd
 
 type X_xmlAttr struct {
-	X_private unsafe.Pointer
+	X_private c.Pointer
 	Type      ElementType
 	Name      *Char
 	Children  *X_xmlNode
@@ -507,7 +507,7 @@ type X_xmlAttr struct {
 	Doc       *X_xmlDoc
 	Ns        *Ns
 	Atype     AttributeType
-	Psvi      unsafe.Pointer
+	Psvi      c.Pointer
 	Id        *X_xmlID
 }
 type Attr X_xmlAttr
@@ -538,14 +538,14 @@ type NodePtr *Node
 type DocProperties c.Int
 
 const (
-	DOCWELLFORMED DocProperties = 1
-	DOCNSVALID    DocProperties = 2
-	DOCOLD10      DocProperties = 4
-	DOCDTDVALID   DocProperties = 8
-	DOCXINCLUDE   DocProperties = 16
-	DOCUSERBUILT  DocProperties = 32
-	DOCINTERNAL   DocProperties = 64
-	DOCHTML       DocProperties = 128
+	DOC_WELLFORMED DocProperties = 1
+	DOC_NSVALID    DocProperties = 2
+	DOC_OLD10      DocProperties = 4
+	DOC_DTDVALID   DocProperties = 8
+	DOC_XINCLUDE   DocProperties = 16
+	DOC_USERBUILT  DocProperties = 32
+	DOC_INTERNAL   DocProperties = 64
+	DOC_HTML       DocProperties = 128
 )
 
 type Doc X_xmlDoc
@@ -556,10 +556,10 @@ type X_xmlDict struct {
 }
 
 type X_xmlDOMWrapCtxt struct {
-	X_private        unsafe.Pointer
+	X_private        c.Pointer
 	Type             c.Int
-	NamespaceMap     unsafe.Pointer
-	GetNsForNodeFunc unsafe.Pointer
+	NamespaceMap     c.Pointer
+	GetNsForNodeFunc c.Pointer
 }
 type DOMWrapCtxt X_xmlDOMWrapCtxt
 type DOMWrapCtxtPtr *DOMWrapCtxt
@@ -637,10 +637,10 @@ func GetBufferAllocationScheme() BufferAllocationScheme
 func BufferCreate() BufferPtr
 
 //go:linkname BufferCreateSize C.xmlBufferCreateSize
-func BufferCreateSize(size uintptr) BufferPtr
+func BufferCreateSize(size c.SizeT) BufferPtr
 
 //go:linkname BufferCreateStatic C.xmlBufferCreateStatic
-func BufferCreateStatic(mem unsafe.Pointer, size uintptr) BufferPtr
+func BufferCreateStatic(mem c.Pointer, size c.SizeT) BufferPtr
 
 //go:linkname BufferResize C.xmlBufferResize
 func BufferResize(buf BufferPtr, size c.Uint) c.Int
@@ -661,7 +661,7 @@ func BufferAddHead(buf BufferPtr, str *Char, len c.Int) c.Int
 func BufferCat(buf BufferPtr, str *Char) c.Int
 
 //go:linkname BufferCCat C.xmlBufferCCat
-func BufferCCat(buf BufferPtr, str *int8) c.Int
+func BufferCCat(buf BufferPtr, str *c.Char) c.Int
 
 //go:linkname BufferShrink C.xmlBufferShrink
 func BufferShrink(buf BufferPtr, len c.Uint) c.Int
@@ -1076,7 +1076,7 @@ func UnsetProp(node NodePtr, name *Char) c.Int
 func BufferWriteCHAR(buf BufferPtr, string *Char)
 
 //go:linkname BufferWriteChar C.xmlBufferWriteChar
-func BufferWriteChar(buf BufferPtr, string *int8)
+func BufferWriteChar(buf BufferPtr, string *c.Char)
 
 //go:linkname BufferWriteQuotedString C.xmlBufferWriteQuotedString
 func BufferWriteQuotedString(buf BufferPtr, string *Char)
@@ -1100,10 +1100,10 @@ func DocDumpFormatMemory(cur DocPtr, mem **Char, size *c.Int, format c.Int)
 func DocDumpMemory(cur DocPtr, mem **Char, size *c.Int)
 
 //go:linkname DocDumpMemoryEnc C.xmlDocDumpMemoryEnc
-func DocDumpMemoryEnc(out_doc DocPtr, doc_txt_ptr **Char, doc_txt_len *c.Int, txt_encoding *int8)
+func DocDumpMemoryEnc(out_doc DocPtr, doc_txt_ptr **Char, doc_txt_len *c.Int, txt_encoding *c.Char)
 
 //go:linkname DocDumpFormatMemoryEnc C.xmlDocDumpFormatMemoryEnc
-func DocDumpFormatMemoryEnc(out_doc DocPtr, doc_txt_ptr **Char, doc_txt_len *c.Int, txt_encoding *int8, format c.Int)
+func DocDumpFormatMemoryEnc(out_doc DocPtr, doc_txt_ptr **Char, doc_txt_len *c.Int, txt_encoding *c.Char, format c.Int)
 
 //go:linkname DocFormatDump C.xmlDocFormatDump
 func DocFormatDump(f *c.FILE, cur DocPtr, format c.Int) c.Int
@@ -1115,31 +1115,31 @@ func DocDump(f *c.FILE, cur DocPtr) c.Int
 func ElemDump(f *c.FILE, doc DocPtr, cur NodePtr)
 
 //go:linkname SaveFile C.xmlSaveFile
-func SaveFile(filename *int8, cur DocPtr) c.Int
+func SaveFile(filename *c.Char, cur DocPtr) c.Int
 
 //go:linkname SaveFormatFile C.xmlSaveFormatFile
-func SaveFormatFile(filename *int8, cur DocPtr, format c.Int) c.Int
+func SaveFormatFile(filename *c.Char, cur DocPtr, format c.Int) c.Int
 
 //go:linkname BufNodeDump C.xmlBufNodeDump
-func BufNodeDump(buf BufPtr, doc DocPtr, cur NodePtr, level c.Int, format c.Int) uintptr
+func BufNodeDump(buf BufPtr, doc DocPtr, cur NodePtr, level c.Int, format c.Int) c.SizeT
 
 //go:linkname NodeDump C.xmlNodeDump
 func NodeDump(buf BufferPtr, doc DocPtr, cur NodePtr, level c.Int, format c.Int) c.Int
 
 //go:linkname SaveFileTo C.xmlSaveFileTo
-func SaveFileTo(buf OutputBufferPtr, cur DocPtr, encoding *int8) c.Int
+func SaveFileTo(buf OutputBufferPtr, cur DocPtr, encoding *c.Char) c.Int
 
 //go:linkname SaveFormatFileTo C.xmlSaveFormatFileTo
-func SaveFormatFileTo(buf OutputBufferPtr, cur DocPtr, encoding *int8, format c.Int) c.Int
+func SaveFormatFileTo(buf OutputBufferPtr, cur DocPtr, encoding *c.Char, format c.Int) c.Int
 
 //go:linkname NodeDumpOutput C.xmlNodeDumpOutput
-func NodeDumpOutput(buf OutputBufferPtr, doc DocPtr, cur NodePtr, level c.Int, format c.Int, encoding *int8)
+func NodeDumpOutput(buf OutputBufferPtr, doc DocPtr, cur NodePtr, level c.Int, format c.Int, encoding *c.Char)
 
 //go:linkname SaveFormatFileEnc C.xmlSaveFormatFileEnc
-func SaveFormatFileEnc(filename *int8, cur DocPtr, encoding *int8, format c.Int) c.Int
+func SaveFormatFileEnc(filename *c.Char, cur DocPtr, encoding *c.Char, format c.Int) c.Int
 
 //go:linkname SaveFileEnc C.xmlSaveFileEnc
-func SaveFileEnc(filename *int8, cur DocPtr, encoding *int8) c.Int
+func SaveFileEnc(filename *c.Char, cur DocPtr, encoding *c.Char) c.Int
 
 /*
  * XHTML

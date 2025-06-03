@@ -1,7 +1,7 @@
 package libxslt
 
 import (
-	"github.com/goplus/llgo/c"
+	"github.com/goplus/lib/c"
 	"github.com/goplus/llpkg/libxml2"
 	_ "unsafe"
 )
@@ -25,7 +25,7 @@ func NewTransformContext(style StylesheetPtr, doc libxml2.DocPtr) TransformConte
 func FreeTransformContext(ctxt TransformContextPtr)
 
 //go:linkname ApplyStylesheetUser C.xsltApplyStylesheetUser
-func ApplyStylesheetUser(style StylesheetPtr, doc libxml2.DocPtr, params **int8, output *int8, profile *c.FILE, userCtxt TransformContextPtr) libxml2.DocPtr
+func ApplyStylesheetUser(style StylesheetPtr, doc libxml2.DocPtr, params **c.Char, output *c.Char, profile *c.FILE, userCtxt TransformContextPtr) libxml2.DocPtr
 
 //go:linkname ProcessOneNode C.xsltProcessOneNode
 func ProcessOneNode(ctxt TransformContextPtr, node libxml2.NodePtr, params StackElemPtr)
@@ -37,16 +37,16 @@ func ProcessOneNode(ctxt TransformContextPtr, node libxml2.NodePtr, params Stack
 func ApplyStripSpaces(ctxt TransformContextPtr, node libxml2.NodePtr)
 
 //go:linkname ApplyStylesheet C.xsltApplyStylesheet
-func ApplyStylesheet(style StylesheetPtr, doc libxml2.DocPtr, params **int8) libxml2.DocPtr
+func ApplyStylesheet(style StylesheetPtr, doc libxml2.DocPtr, params **c.Char) libxml2.DocPtr
 
 //go:linkname ProfileStylesheet C.xsltProfileStylesheet
-func ProfileStylesheet(style StylesheetPtr, doc libxml2.DocPtr, params **int8, output *c.FILE) libxml2.DocPtr
+func ProfileStylesheet(style StylesheetPtr, doc libxml2.DocPtr, params **c.Char, output *c.FILE) libxml2.DocPtr
 
 //go:linkname RunStylesheet C.xsltRunStylesheet
-func RunStylesheet(style StylesheetPtr, doc libxml2.DocPtr, params **int8, output *int8, SAX libxml2.SAXHandlerPtr, IObuf libxml2.OutputBufferPtr) c.Int
+func RunStylesheet(style StylesheetPtr, doc libxml2.DocPtr, params **c.Char, output *c.Char, SAX libxml2.SAXHandlerPtr, IObuf libxml2.OutputBufferPtr) c.Int
 
 //go:linkname RunStylesheetUser C.xsltRunStylesheetUser
-func RunStylesheetUser(style StylesheetPtr, doc libxml2.DocPtr, params **int8, output *int8, SAX libxml2.SAXHandlerPtr, IObuf libxml2.OutputBufferPtr, profile *c.FILE, userCtxt TransformContextPtr) c.Int
+func RunStylesheetUser(style StylesheetPtr, doc libxml2.DocPtr, params **c.Char, output *c.Char, SAX libxml2.SAXHandlerPtr, IObuf libxml2.OutputBufferPtr, profile *c.FILE, userCtxt TransformContextPtr) c.Int
 
 //go:linkname ApplyOneTemplate C.xsltApplyOneTemplate
 func ApplyOneTemplate(ctxt TransformContextPtr, node libxml2.NodePtr, list libxml2.NodePtr, templ TemplatePtr, params StackElemPtr)

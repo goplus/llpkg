@@ -1,7 +1,7 @@
 package libxml2
 
 import (
-	"github.com/goplus/llgo/c"
+	"github.com/goplus/lib/c"
 	_ "unsafe"
 )
 
@@ -27,13 +27,13 @@ func IsLetter(c c.Int) c.Int
  * Parser context.
  */
 //go:linkname CreateFileParserCtxt C.xmlCreateFileParserCtxt
-func CreateFileParserCtxt(filename *int8) ParserCtxtPtr
+func CreateFileParserCtxt(filename *c.Char) ParserCtxtPtr
 
 //go:linkname CreateURLParserCtxt C.xmlCreateURLParserCtxt
-func CreateURLParserCtxt(filename *int8, options c.Int) ParserCtxtPtr
+func CreateURLParserCtxt(filename *c.Char, options c.Int) ParserCtxtPtr
 
 //go:linkname CreateMemoryParserCtxt C.xmlCreateMemoryParserCtxt
-func CreateMemoryParserCtxt(buffer *int8, size c.Int) ParserCtxtPtr
+func CreateMemoryParserCtxt(buffer *c.Char, size c.Int) ParserCtxtPtr
 
 // llgo:link (*Char).CreateEntityParserCtxt C.xmlCreateEntityParserCtxt
 func (recv_ *Char) CreateEntityParserCtxt(ID *Char, base *Char) ParserCtxtPtr {
@@ -47,7 +47,7 @@ func CtxtErrMemory(ctxt ParserCtxtPtr)
 func SwitchEncoding(ctxt ParserCtxtPtr, enc CharEncoding) c.Int
 
 //go:linkname SwitchEncodingName C.xmlSwitchEncodingName
-func SwitchEncodingName(ctxt ParserCtxtPtr, encoding *int8) c.Int
+func SwitchEncodingName(ctxt ParserCtxtPtr, encoding *c.Char) c.Int
 
 //go:linkname SwitchToEncoding C.xmlSwitchToEncoding
 func SwitchToEncoding(ctxt ParserCtxtPtr, handler CharEncodingHandlerPtr) c.Int
@@ -74,7 +74,7 @@ func PopInput(ctxt ParserCtxtPtr) Char
 func FreeInputStream(input ParserInputPtr)
 
 //go:linkname NewInputFromFile C.xmlNewInputFromFile
-func NewInputFromFile(ctxt ParserCtxtPtr, filename *int8) ParserInputPtr
+func NewInputFromFile(ctxt ParserCtxtPtr, filename *c.Char) ParserInputPtr
 
 //go:linkname NewInputStream C.xmlNewInputStream
 func NewInputStream(ctxt ParserCtxtPtr) ParserInputPtr

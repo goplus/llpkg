@@ -1,9 +1,9 @@
 package libxslt
 
 import (
-	"github.com/goplus/llgo/c"
+	"github.com/goplus/lib/c"
 	"github.com/goplus/llpkg/libxml2"
-	"unsafe"
+	_ "unsafe"
 )
 
 const RVT_LOCAL = 1
@@ -17,10 +17,10 @@ const RVT_GLOBAL = 3
 func EvalGlobalVariables(ctxt TransformContextPtr) c.Int
 
 //go:linkname EvalUserParams C.xsltEvalUserParams
-func EvalUserParams(ctxt TransformContextPtr, params **int8) c.Int
+func EvalUserParams(ctxt TransformContextPtr, params **c.Char) c.Int
 
 //go:linkname QuoteUserParams C.xsltQuoteUserParams
-func QuoteUserParams(ctxt TransformContextPtr, params **int8) c.Int
+func QuoteUserParams(ctxt TransformContextPtr, params **c.Char) c.Int
 
 //go:linkname EvalOneUserParam C.xsltEvalOneUserParam
 func EvalOneUserParam(ctxt TransformContextPtr, name *libxml2.Char, value *libxml2.Char) c.Int
@@ -53,4 +53,4 @@ func FreeGlobalVariables(ctxt TransformContextPtr)
 func VariableLookup(ctxt TransformContextPtr, name *libxml2.Char, ns_uri *libxml2.Char) libxml2.XPathObjectPtr
 
 //go:linkname XPathVariableLookup C.xsltXPathVariableLookup
-func XPathVariableLookup(ctxt unsafe.Pointer, name *libxml2.Char, ns_uri *libxml2.Char) libxml2.XPathObjectPtr
+func XPathVariableLookup(ctxt c.Pointer, name *libxml2.Char, ns_uri *libxml2.Char) libxml2.XPathObjectPtr

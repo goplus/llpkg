@@ -29,7 +29,7 @@ jobs:
         with:
           go-version: 1.23.x
       - name: Set up Tool
-        run: go install -v github.com/goplus/llpkgstore/cmd/maintain@latest
+        run: go install -v github.com/goplus/llpkgstore/cmd/llpkgstore@latest
       - name: Copy llpkgstore.json to root
         continue-on-error: true
         run: |
@@ -41,4 +41,4 @@ jobs:
         working-directory: .main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: maintain labelcreate -l "${{ github.event.label.name }}"
+        run: llpkgstore labelcreate -l "${{ github.event.label.name }}"

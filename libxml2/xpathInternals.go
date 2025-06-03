@@ -1,15 +1,15 @@
 package libxml2
 
 import (
-	"github.com/goplus/llgo/c"
-	"unsafe"
+	"github.com/goplus/lib/c"
+	_ "unsafe"
 )
 
 //go:linkname XPathPopBoolean C.xmlXPathPopBoolean
 func XPathPopBoolean(ctxt XPathParserContextPtr) c.Int
 
 //go:linkname XPathPopNumber C.xmlXPathPopNumber
-func XPathPopNumber(ctxt XPathParserContextPtr) float64
+func XPathPopNumber(ctxt XPathParserContextPtr) c.Double
 
 //go:linkname XPathPopString C.xmlXPathPopString
 func XPathPopString(ctxt XPathParserContextPtr) *Char
@@ -18,25 +18,25 @@ func XPathPopString(ctxt XPathParserContextPtr) *Char
 func XPathPopNodeSet(ctxt XPathParserContextPtr) NodeSetPtr
 
 //go:linkname XPathPopExternal C.xmlXPathPopExternal
-func XPathPopExternal(ctxt XPathParserContextPtr) unsafe.Pointer
+func XPathPopExternal(ctxt XPathParserContextPtr) c.Pointer
 
 /*
  * Variable Lookup forwarding.
  */
 //go:linkname XPathRegisterVariableLookup C.xmlXPathRegisterVariableLookup
-func XPathRegisterVariableLookup(ctxt XPathContextPtr, f XPathVariableLookupFunc, data unsafe.Pointer)
+func XPathRegisterVariableLookup(ctxt XPathContextPtr, f XPathVariableLookupFunc, data c.Pointer)
 
 /*
  * Function Lookup forwarding.
  */
 //go:linkname XPathRegisterFuncLookup C.xmlXPathRegisterFuncLookup
-func XPathRegisterFuncLookup(ctxt XPathContextPtr, f XPathFuncLookupFunc, funcCtxt unsafe.Pointer)
+func XPathRegisterFuncLookup(ctxt XPathContextPtr, f XPathFuncLookupFunc, funcCtxt c.Pointer)
 
 /*
  * Error reporting.
  */
 //go:linkname XPatherror C.xmlXPatherror
-func XPatherror(ctxt XPathParserContextPtr, file *int8, line c.Int, no c.Int)
+func XPatherror(ctxt XPathParserContextPtr, file *c.Char, line c.Int, no c.Int)
 
 //go:linkname XPathErr C.xmlXPathErr
 func XPathErr(ctxt XPathParserContextPtr, error c.Int)
@@ -158,7 +158,7 @@ func (recv_ *Char) XPathNewString() XPathObjectPtr {
 }
 
 //go:linkname XPathNewCString C.xmlXPathNewCString
-func XPathNewCString(val *int8) XPathObjectPtr
+func XPathNewCString(val *c.Char) XPathObjectPtr
 
 // llgo:link (*Char).XPathWrapString C.xmlXPathWrapString
 func (recv_ *Char) XPathWrapString() XPathObjectPtr {
@@ -166,10 +166,10 @@ func (recv_ *Char) XPathWrapString() XPathObjectPtr {
 }
 
 //go:linkname XPathWrapCString C.xmlXPathWrapCString
-func XPathWrapCString(val *int8) XPathObjectPtr
+func XPathWrapCString(val *c.Char) XPathObjectPtr
 
 //go:linkname XPathNewFloat C.xmlXPathNewFloat
-func XPathNewFloat(val float64) XPathObjectPtr
+func XPathNewFloat(val c.Double) XPathObjectPtr
 
 //go:linkname XPathNewBoolean C.xmlXPathNewBoolean
 func XPathNewBoolean(val c.Int) XPathObjectPtr
@@ -208,7 +208,7 @@ func XPathParseNCName(ctxt XPathParserContextPtr) *Char
  * Existing functions.
  */
 // llgo:link (*Char).XPathStringEvalNumber C.xmlXPathStringEvalNumber
-func (recv_ *Char) XPathStringEvalNumber() float64 {
+func (recv_ *Char) XPathStringEvalNumber() c.Double {
 	return 0
 }
 
@@ -234,7 +234,7 @@ func XPathNewNodeSetList(val NodeSetPtr) XPathObjectPtr
 func XPathWrapNodeSet(val NodeSetPtr) XPathObjectPtr
 
 //go:linkname XPathWrapExternal C.xmlXPathWrapExternal
-func XPathWrapExternal(val unsafe.Pointer) XPathObjectPtr
+func XPathWrapExternal(val c.Pointer) XPathObjectPtr
 
 //go:linkname XPathEqualValues C.xmlXPathEqualValues
 func XPathEqualValues(ctxt XPathParserContextPtr) c.Int

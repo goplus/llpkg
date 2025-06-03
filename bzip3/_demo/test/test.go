@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/goplus/llgo/c"
+	"github.com/goplus/lib/c"
 	zip "github.com/goplus/llpkg/bzip3"
 )
 

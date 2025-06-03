@@ -1,8 +1,8 @@
 package libxml2
 
 import (
-	"github.com/goplus/llgo/c"
-	"unsafe"
+	"github.com/goplus/lib/c"
+	_ "unsafe"
 )
 
 const SCHEMAS_ANYATTR_SKIP = 1
@@ -22,111 +22,111 @@ const SCHEMAS_FACET_COLLAPSE = 3
 type SchemaValType c.Int
 
 const (
-	SCHEMASUNKNOWN       SchemaValType = 0
-	SCHEMASSTRING        SchemaValType = 1
-	SCHEMASNORMSTRING    SchemaValType = 2
-	SCHEMASDECIMAL       SchemaValType = 3
-	SCHEMASTIME          SchemaValType = 4
-	SCHEMASGDAY          SchemaValType = 5
-	SCHEMASGMONTH        SchemaValType = 6
-	SCHEMASGMONTHDAY     SchemaValType = 7
-	SCHEMASGYEAR         SchemaValType = 8
-	SCHEMASGYEARMONTH    SchemaValType = 9
-	SCHEMASDATE          SchemaValType = 10
-	SCHEMASDATETIME      SchemaValType = 11
-	SCHEMASDURATION      SchemaValType = 12
-	SCHEMASFLOAT         SchemaValType = 13
-	SCHEMASDOUBLE        SchemaValType = 14
-	SCHEMASBOOLEAN       SchemaValType = 15
-	SCHEMASTOKEN         SchemaValType = 16
-	SCHEMASLANGUAGE      SchemaValType = 17
-	SCHEMASNMTOKEN       SchemaValType = 18
-	SCHEMASNMTOKENS      SchemaValType = 19
-	SCHEMASNAME          SchemaValType = 20
-	SCHEMASQNAME         SchemaValType = 21
-	SCHEMASNCNAME        SchemaValType = 22
-	SCHEMASID            SchemaValType = 23
-	SCHEMASIDREF         SchemaValType = 24
-	SCHEMASIDREFS        SchemaValType = 25
-	SCHEMASENTITY        SchemaValType = 26
-	SCHEMASENTITIES      SchemaValType = 27
-	SCHEMASNOTATION      SchemaValType = 28
-	SCHEMASANYURI        SchemaValType = 29
-	SCHEMASINTEGER       SchemaValType = 30
-	SCHEMASNPINTEGER     SchemaValType = 31
-	SCHEMASNINTEGER      SchemaValType = 32
-	SCHEMASNNINTEGER     SchemaValType = 33
-	SCHEMASPINTEGER      SchemaValType = 34
-	SCHEMASINT           SchemaValType = 35
-	SCHEMASUINT          SchemaValType = 36
-	SCHEMASLONG          SchemaValType = 37
-	SCHEMASULONG         SchemaValType = 38
-	SCHEMASSHORT         SchemaValType = 39
-	SCHEMASUSHORT        SchemaValType = 40
-	SCHEMASBYTE          SchemaValType = 41
-	SCHEMASUBYTE         SchemaValType = 42
-	SCHEMASHEXBINARY     SchemaValType = 43
-	SCHEMASBASE64BINARY  SchemaValType = 44
-	SCHEMASANYTYPE       SchemaValType = 45
-	SCHEMASANYSIMPLETYPE SchemaValType = 46
+	SCHEMAS_UNKNOWN       SchemaValType = 0
+	SCHEMAS_STRING        SchemaValType = 1
+	SCHEMAS_NORMSTRING    SchemaValType = 2
+	SCHEMAS_DECIMAL       SchemaValType = 3
+	SCHEMAS_TIME          SchemaValType = 4
+	SCHEMAS_GDAY          SchemaValType = 5
+	SCHEMAS_GMONTH        SchemaValType = 6
+	SCHEMAS_GMONTHDAY     SchemaValType = 7
+	SCHEMAS_GYEAR         SchemaValType = 8
+	SCHEMAS_GYEARMONTH    SchemaValType = 9
+	SCHEMAS_DATE          SchemaValType = 10
+	SCHEMAS_DATETIME      SchemaValType = 11
+	SCHEMAS_DURATION      SchemaValType = 12
+	SCHEMAS_FLOAT         SchemaValType = 13
+	SCHEMAS_DOUBLE        SchemaValType = 14
+	SCHEMAS_BOOLEAN       SchemaValType = 15
+	SCHEMAS_TOKEN         SchemaValType = 16
+	SCHEMAS_LANGUAGE      SchemaValType = 17
+	SCHEMAS_NMTOKEN       SchemaValType = 18
+	SCHEMAS_NMTOKENS      SchemaValType = 19
+	SCHEMAS_NAME          SchemaValType = 20
+	SCHEMAS_QNAME         SchemaValType = 21
+	SCHEMAS_NCNAME        SchemaValType = 22
+	SCHEMAS_ID            SchemaValType = 23
+	SCHEMAS_IDREF         SchemaValType = 24
+	SCHEMAS_IDREFS        SchemaValType = 25
+	SCHEMAS_ENTITY        SchemaValType = 26
+	SCHEMAS_ENTITIES      SchemaValType = 27
+	SCHEMAS_NOTATION      SchemaValType = 28
+	SCHEMAS_ANYURI        SchemaValType = 29
+	SCHEMAS_INTEGER       SchemaValType = 30
+	SCHEMAS_NPINTEGER     SchemaValType = 31
+	SCHEMAS_NINTEGER      SchemaValType = 32
+	SCHEMAS_NNINTEGER     SchemaValType = 33
+	SCHEMAS_PINTEGER      SchemaValType = 34
+	SCHEMAS_INT           SchemaValType = 35
+	SCHEMAS_UINT          SchemaValType = 36
+	SCHEMAS_LONG          SchemaValType = 37
+	SCHEMAS_ULONG         SchemaValType = 38
+	SCHEMAS_SHORT         SchemaValType = 39
+	SCHEMAS_USHORT        SchemaValType = 40
+	SCHEMAS_BYTE          SchemaValType = 41
+	SCHEMAS_UBYTE         SchemaValType = 42
+	SCHEMAS_HEXBINARY     SchemaValType = 43
+	SCHEMAS_BASE64BINARY  SchemaValType = 44
+	SCHEMAS_ANYTYPE       SchemaValType = 45
+	SCHEMAS_ANYSIMPLETYPE SchemaValType = 46
 )
 
 type SchemaTypeType c.Int
 
 const (
-	SCHEMATYPEBASIC           SchemaTypeType = 1
-	SCHEMATYPEANY             SchemaTypeType = 2
-	SCHEMATYPEFACET           SchemaTypeType = 3
-	SCHEMATYPESIMPLE          SchemaTypeType = 4
-	SCHEMATYPECOMPLEX         SchemaTypeType = 5
-	SCHEMATYPESEQUENCE        SchemaTypeType = 6
-	SCHEMATYPECHOICE          SchemaTypeType = 7
-	SCHEMATYPEALL             SchemaTypeType = 8
-	SCHEMATYPESIMPLECONTENT   SchemaTypeType = 9
-	SCHEMATYPECOMPLEXCONTENT  SchemaTypeType = 10
-	SCHEMATYPEUR              SchemaTypeType = 11
-	SCHEMATYPERESTRICTION     SchemaTypeType = 12
-	SCHEMATYPEEXTENSION       SchemaTypeType = 13
-	SCHEMATYPEELEMENT         SchemaTypeType = 14
-	SCHEMATYPEATTRIBUTE       SchemaTypeType = 15
-	SCHEMATYPEATTRIBUTEGROUP  SchemaTypeType = 16
-	SCHEMATYPEGROUP           SchemaTypeType = 17
-	SCHEMATYPENOTATION        SchemaTypeType = 18
-	SCHEMATYPELIST            SchemaTypeType = 19
-	SCHEMATYPEUNION           SchemaTypeType = 20
-	SCHEMATYPEANYATTRIBUTE    SchemaTypeType = 21
-	SCHEMATYPEIDCUNIQUE       SchemaTypeType = 22
-	SCHEMATYPEIDCKEY          SchemaTypeType = 23
-	SCHEMATYPEIDCKEYREF       SchemaTypeType = 24
-	SCHEMATYPEPARTICLE        SchemaTypeType = 25
-	SCHEMATYPEATTRIBUTEUSE    SchemaTypeType = 26
-	SCHEMAFACETMININCLUSIVE   SchemaTypeType = 1000
-	SCHEMAFACETMINEXCLUSIVE   SchemaTypeType = 1001
-	SCHEMAFACETMAXINCLUSIVE   SchemaTypeType = 1002
-	SCHEMAFACETMAXEXCLUSIVE   SchemaTypeType = 1003
-	SCHEMAFACETTOTALDIGITS    SchemaTypeType = 1004
-	SCHEMAFACETFRACTIONDIGITS SchemaTypeType = 1005
-	SCHEMAFACETPATTERN        SchemaTypeType = 1006
-	SCHEMAFACETENUMERATION    SchemaTypeType = 1007
-	SCHEMAFACETWHITESPACE     SchemaTypeType = 1008
-	SCHEMAFACETLENGTH         SchemaTypeType = 1009
-	SCHEMAFACETMAXLENGTH      SchemaTypeType = 1010
-	SCHEMAFACETMINLENGTH      SchemaTypeType = 1011
-	SCHEMAEXTRAQNAMEREF       SchemaTypeType = 2000
-	SCHEMAEXTRAATTRUSEPROHIB  SchemaTypeType = 2001
+	SCHEMA_TYPE_BASIC            SchemaTypeType = 1
+	SCHEMA_TYPE_ANY              SchemaTypeType = 2
+	SCHEMA_TYPE_FACET            SchemaTypeType = 3
+	SCHEMA_TYPE_SIMPLE           SchemaTypeType = 4
+	SCHEMA_TYPE_COMPLEX          SchemaTypeType = 5
+	SCHEMA_TYPE_SEQUENCE         SchemaTypeType = 6
+	SCHEMA_TYPE_CHOICE           SchemaTypeType = 7
+	SCHEMA_TYPE_ALL              SchemaTypeType = 8
+	SCHEMA_TYPE_SIMPLE_CONTENT   SchemaTypeType = 9
+	SCHEMA_TYPE_COMPLEX_CONTENT  SchemaTypeType = 10
+	SCHEMA_TYPE_UR               SchemaTypeType = 11
+	SCHEMA_TYPE_RESTRICTION      SchemaTypeType = 12
+	SCHEMA_TYPE_EXTENSION        SchemaTypeType = 13
+	SCHEMA_TYPE_ELEMENT          SchemaTypeType = 14
+	SCHEMA_TYPE_ATTRIBUTE        SchemaTypeType = 15
+	SCHEMA_TYPE_ATTRIBUTEGROUP   SchemaTypeType = 16
+	SCHEMA_TYPE_GROUP            SchemaTypeType = 17
+	SCHEMA_TYPE_NOTATION         SchemaTypeType = 18
+	SCHEMA_TYPE_LIST             SchemaTypeType = 19
+	SCHEMA_TYPE_UNION            SchemaTypeType = 20
+	SCHEMA_TYPE_ANY_ATTRIBUTE    SchemaTypeType = 21
+	SCHEMA_TYPE_IDC_UNIQUE       SchemaTypeType = 22
+	SCHEMA_TYPE_IDC_KEY          SchemaTypeType = 23
+	SCHEMA_TYPE_IDC_KEYREF       SchemaTypeType = 24
+	SCHEMA_TYPE_PARTICLE         SchemaTypeType = 25
+	SCHEMA_TYPE_ATTRIBUTE_USE    SchemaTypeType = 26
+	SCHEMA_FACET_MININCLUSIVE    SchemaTypeType = 1000
+	SCHEMA_FACET_MINEXCLUSIVE    SchemaTypeType = 1001
+	SCHEMA_FACET_MAXINCLUSIVE    SchemaTypeType = 1002
+	SCHEMA_FACET_MAXEXCLUSIVE    SchemaTypeType = 1003
+	SCHEMA_FACET_TOTALDIGITS     SchemaTypeType = 1004
+	SCHEMA_FACET_FRACTIONDIGITS  SchemaTypeType = 1005
+	SCHEMA_FACET_PATTERN         SchemaTypeType = 1006
+	SCHEMA_FACET_ENUMERATION     SchemaTypeType = 1007
+	SCHEMA_FACET_WHITESPACE      SchemaTypeType = 1008
+	SCHEMA_FACET_LENGTH          SchemaTypeType = 1009
+	SCHEMA_FACET_MAXLENGTH       SchemaTypeType = 1010
+	SCHEMA_FACET_MINLENGTH       SchemaTypeType = 1011
+	SCHEMA_EXTRA_QNAMEREF        SchemaTypeType = 2000
+	SCHEMA_EXTRA_ATTR_USE_PROHIB SchemaTypeType = 2001
 )
 
 type SchemaContentType c.Int
 
 const (
-	SCHEMACONTENTUNKNOWN         SchemaContentType = 0
-	SCHEMACONTENTEMPTY           SchemaContentType = 1
-	SCHEMACONTENTELEMENTS        SchemaContentType = 2
-	SCHEMACONTENTMIXED           SchemaContentType = 3
-	SCHEMACONTENTSIMPLE          SchemaContentType = 4
-	SCHEMACONTENTMIXEDORELEMENTS SchemaContentType = 5
-	SCHEMACONTENTBASIC           SchemaContentType = 6
-	SCHEMACONTENTANY             SchemaContentType = 7
+	SCHEMA_CONTENT_UNKNOWN           SchemaContentType = 0
+	SCHEMA_CONTENT_EMPTY             SchemaContentType = 1
+	SCHEMA_CONTENT_ELEMENTS          SchemaContentType = 2
+	SCHEMA_CONTENT_MIXED             SchemaContentType = 3
+	SCHEMA_CONTENT_SIMPLE            SchemaContentType = 4
+	SCHEMA_CONTENT_MIXED_OR_ELEMENTS SchemaContentType = 5
+	SCHEMA_CONTENT_BASIC             SchemaContentType = 6
+	SCHEMA_CONTENT_ANY               SchemaContentType = 7
 )
 
 type X_xmlSchemaVal struct {
@@ -165,7 +165,7 @@ type X_xmlSchemaType struct {
 	ContentTypeDef    SchemaTypePtr
 	ContModel         RegexpPtr
 	TargetNamespace   *Char
-	AttrUses          unsafe.Pointer
+	AttrUses          c.Pointer
 }
 type SchemaType X_xmlSchemaType
 type SchemaTypePtr *SchemaType
@@ -261,7 +261,7 @@ type X_xmlSchemaAttributeGroup struct {
 	RefPrefix         *Char
 	RefItem           SchemaAttributeGroupPtr
 	TargetNamespace   *Char
-	AttrUses          unsafe.Pointer
+	AttrUses          c.Pointer
 }
 type SchemaAttributeGroup X_xmlSchemaAttributeGroup
 type SchemaAttributeGroupPtr *SchemaAttributeGroup
@@ -306,7 +306,7 @@ type X_xmlSchemaElement struct {
 	ContentType     SchemaContentType
 	RefPrefix       *Char
 	DefVal          SchemaValPtr
-	Idcs            unsafe.Pointer
+	Idcs            c.Pointer
 }
 type SchemaElement X_xmlSchemaElement
 type SchemaElementPtr *SchemaElement
@@ -341,14 +341,14 @@ type X_xmlSchema struct {
 	ElemDecl        HashTablePtr
 	NotaDecl        HashTablePtr
 	SchemasImports  HashTablePtr
-	X_private       unsafe.Pointer
+	X_private       c.Pointer
 	GroupDecl       HashTablePtr
 	Dict            DictPtr
-	Includes        unsafe.Pointer
+	Includes        c.Pointer
 	Preserve        c.Int
 	Counter         c.Int
 	IdcDef          HashTablePtr
-	Volatiles       unsafe.Pointer
+	Volatiles       c.Pointer
 }
 
 //go:linkname SchemaFreeType C.xmlSchemaFreeType

@@ -1,8 +1,8 @@
 package libxml2
 
 import (
-	"github.com/goplus/llgo/c"
-	"unsafe"
+	"github.com/goplus/lib/c"
+	_ "unsafe"
 )
 
 type XlinkHRef *Char
@@ -11,45 +11,45 @@ type XlinkTitle *Char
 type XlinkType c.Int
 
 const (
-	XLINKTYPENONE        XlinkType = 0
-	XLINKTYPESIMPLE      XlinkType = 1
-	XLINKTYPEEXTENDED    XlinkType = 2
-	XLINKTYPEEXTENDEDSET XlinkType = 3
+	XLINK_TYPE_NONE         XlinkType = 0
+	XLINK_TYPE_SIMPLE       XlinkType = 1
+	XLINK_TYPE_EXTENDED     XlinkType = 2
+	XLINK_TYPE_EXTENDED_SET XlinkType = 3
 )
 
 type XlinkShow c.Int
 
 const (
-	XLINKSHOWNONE    XlinkShow = 0
-	XLINKSHOWNEW     XlinkShow = 1
-	XLINKSHOWEMBED   XlinkShow = 2
-	XLINKSHOWREPLACE XlinkShow = 3
+	XLINK_SHOW_NONE    XlinkShow = 0
+	XLINK_SHOW_NEW     XlinkShow = 1
+	XLINK_SHOW_EMBED   XlinkShow = 2
+	XLINK_SHOW_REPLACE XlinkShow = 3
 )
 
 type XlinkActuate c.Int
 
 const (
-	XLINKACTUATENONE      XlinkActuate = 0
-	XLINKACTUATEAUTO      XlinkActuate = 1
-	XLINKACTUATEONREQUEST XlinkActuate = 2
+	XLINK_ACTUATE_NONE      XlinkActuate = 0
+	XLINK_ACTUATE_AUTO      XlinkActuate = 1
+	XLINK_ACTUATE_ONREQUEST XlinkActuate = 2
 )
 
 // llgo:type C
-type XlinkNodeDetectFunc func(unsafe.Pointer, NodePtr)
+type XlinkNodeDetectFunc func(c.Pointer, NodePtr)
 
 // llgo:type C
-type XlinkSimpleLinkFunk func(unsafe.Pointer, NodePtr, XlinkHRef, XlinkRole, XlinkTitle)
+type XlinkSimpleLinkFunk func(c.Pointer, NodePtr, XlinkHRef, XlinkRole, XlinkTitle)
 
 // llgo:type C
-type XlinkExtendedLinkFunk func(unsafe.Pointer, NodePtr, c.Int, *XlinkHRef, *XlinkRole, c.Int, *XlinkRole, *XlinkRole, *XlinkShow, *XlinkActuate, c.Int, *XlinkTitle, **Char)
+type XlinkExtendedLinkFunk func(c.Pointer, NodePtr, c.Int, *XlinkHRef, *XlinkRole, c.Int, *XlinkRole, *XlinkRole, *XlinkShow, *XlinkActuate, c.Int, *XlinkTitle, **Char)
 
 // llgo:type C
-type XlinkExtendedLinkSetFunk func(unsafe.Pointer, NodePtr, c.Int, *XlinkHRef, *XlinkRole, c.Int, *XlinkTitle, **Char)
+type XlinkExtendedLinkSetFunk func(c.Pointer, NodePtr, c.Int, *XlinkHRef, *XlinkRole, c.Int, *XlinkTitle, **Char)
 
 type X_xlinkHandler struct {
-	Simple   unsafe.Pointer
-	Extended unsafe.Pointer
-	Set      unsafe.Pointer
+	Simple   c.Pointer
+	Extended c.Pointer
+	Set      c.Pointer
 }
 type XlinkHandler X_xlinkHandler
 type XlinkHandlerPtr *XlinkHandler

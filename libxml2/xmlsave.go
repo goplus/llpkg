@@ -1,21 +1,21 @@
 package libxml2
 
 import (
-	"github.com/goplus/llgo/c"
-	"unsafe"
+	"github.com/goplus/lib/c"
+	_ "unsafe"
 )
 
 type SaveOption c.Int
 
 const (
-	SAVEFORMAT   SaveOption = 1
-	SAVENODECL   SaveOption = 2
-	SAVENOEMPTY  SaveOption = 4
-	SAVENOXHTML  SaveOption = 8
-	SAVEXHTML    SaveOption = 16
-	SAVEASXML    SaveOption = 32
-	SAVEASHTML   SaveOption = 64
-	SAVEWSNONSIG SaveOption = 128
+	SAVE_FORMAT   SaveOption = 1
+	SAVE_NO_DECL  SaveOption = 2
+	SAVE_NO_EMPTY SaveOption = 4
+	SAVE_NO_XHTML SaveOption = 8
+	SAVE_XHTML    SaveOption = 16
+	SAVE_AS_XML   SaveOption = 32
+	SAVE_AS_HTML  SaveOption = 64
+	SAVE_WSNONSIG SaveOption = 128
 )
 
 type X_xmlSaveCtxt struct {
@@ -25,16 +25,16 @@ type SaveCtxt X_xmlSaveCtxt
 type SaveCtxtPtr *SaveCtxt
 
 //go:linkname SaveToFd C.xmlSaveToFd
-func SaveToFd(fd c.Int, encoding *int8, options c.Int) SaveCtxtPtr
+func SaveToFd(fd c.Int, encoding *c.Char, options c.Int) SaveCtxtPtr
 
 //go:linkname SaveToFilename C.xmlSaveToFilename
-func SaveToFilename(filename *int8, encoding *int8, options c.Int) SaveCtxtPtr
+func SaveToFilename(filename *c.Char, encoding *c.Char, options c.Int) SaveCtxtPtr
 
 //go:linkname SaveToBuffer C.xmlSaveToBuffer
-func SaveToBuffer(buffer BufferPtr, encoding *int8, options c.Int) SaveCtxtPtr
+func SaveToBuffer(buffer BufferPtr, encoding *c.Char, options c.Int) SaveCtxtPtr
 
 //go:linkname SaveToIO C.xmlSaveToIO
-func SaveToIO(iowrite OutputWriteCallback, ioclose OutputCloseCallback, ioctx unsafe.Pointer, encoding *int8, options c.Int) SaveCtxtPtr
+func SaveToIO(iowrite OutputWriteCallback, ioclose OutputCloseCallback, ioctx c.Pointer, encoding *c.Char, options c.Int) SaveCtxtPtr
 
 //go:linkname SaveDoc C.xmlSaveDoc
 func SaveDoc(ctxt SaveCtxtPtr, doc DocPtr) c.Long
@@ -61,7 +61,7 @@ func SaveSetAttrEscape(ctxt SaveCtxtPtr, escape CharEncodingOutputFunc) c.Int
 func ThrDefIndentTreeOutput(v c.Int) c.Int
 
 //go:linkname ThrDefTreeIndentString C.xmlThrDefTreeIndentString
-func ThrDefTreeIndentString(v *int8) *int8
+func ThrDefTreeIndentString(v *c.Char) *c.Char
 
 //go:linkname ThrDefSaveNoEmptyTags C.xmlThrDefSaveNoEmptyTags
 func ThrDefSaveNoEmptyTags(v c.Int) c.Int

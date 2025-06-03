@@ -1,7 +1,7 @@
 package libxslt
 
 import (
-	"github.com/goplus/llgo/c"
+	"github.com/goplus/lib/c"
 	"github.com/goplus/llpkg/libxml2"
 	_ "unsafe"
 )
@@ -35,9 +35,9 @@ type X_xsltFormatNumberInfo struct {
 	FracHash          c.Int
 	Group             c.Int
 	Multiplier        c.Int
-	AddDecimal        int8
-	IsMultiplierSet   int8
-	IsNegativePattern int8
+	AddDecimal        c.Char
+	IsMultiplierSet   c.Char
+	IsNegativePattern c.Char
 }
 type FormatNumberInfo X_xsltFormatNumberInfo
 type FormatNumberInfoPtr *FormatNumberInfo

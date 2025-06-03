@@ -1,8 +1,8 @@
 package libxml2
 
 import (
-	"github.com/goplus/llgo/c"
-	"unsafe"
+	"github.com/goplus/lib/c"
+	_ "unsafe"
 )
 
 const XPATH_POINT = 5
@@ -26,29 +26,29 @@ type X_xmlXPathContext struct {
 	Axis               XPathAxisPtr
 	Namespaces         *NsPtr
 	NsNr               c.Int
-	User               unsafe.Pointer
+	User               c.Pointer
 	ContextSize        c.Int
 	ProximityPosition  c.Int
 	Xptr               c.Int
 	Here               NodePtr
 	Origin             NodePtr
 	NsHash             HashTablePtr
-	VarLookupFunc      unsafe.Pointer
-	VarLookupData      unsafe.Pointer
-	Extra              unsafe.Pointer
+	VarLookupFunc      c.Pointer
+	VarLookupData      c.Pointer
+	Extra              c.Pointer
 	Function           *Char
 	FunctionURI        *Char
-	FuncLookupFunc     unsafe.Pointer
-	FuncLookupData     unsafe.Pointer
+	FuncLookupFunc     c.Pointer
+	FuncLookupData     c.Pointer
 	TmpNsList          *NsPtr
 	TmpNsNr            c.Int
-	UserData           unsafe.Pointer
-	Error              unsafe.Pointer
+	UserData           c.Pointer
+	Error              c.Pointer
 	LastError          Error
 	DebugNode          NodePtr
 	Dict               DictPtr
 	Flags              c.Int
-	Cache              unsafe.Pointer
+	Cache              c.Pointer
 	OpLimit            c.Ulong
 	OpCount            c.Ulong
 	Depth              c.Int
@@ -75,33 +75,33 @@ type XPathParserContextPtr *XPathParserContext
 type XPathError c.Int
 
 const (
-	XPATHEXPRESSIONOK__1           XPathError = 0
-	XPATHNUMBERERROR__1            XPathError = 1
-	XPATHUNFINISHEDLITERALERROR__1 XPathError = 2
-	XPATHSTARTLITERALERROR__1      XPathError = 3
-	XPATHVARIABLEREFERROR__1       XPathError = 4
-	XPATHUNDEFVARIABLEERROR__1     XPathError = 5
-	XPATHINVALIDPREDICATEERROR__1  XPathError = 6
-	XPATHEXPRERROR__1              XPathError = 7
-	XPATHUNCLOSEDERROR__1          XPathError = 8
-	XPATHUNKNOWNFUNCERROR__1       XPathError = 9
-	XPATHINVALIDOPERAND__1         XPathError = 10
-	XPATHINVALIDTYPE__1            XPathError = 11
-	XPATHINVALIDARITY__1           XPathError = 12
-	XPATHINVALIDCTXTSIZE__1        XPathError = 13
-	XPATHINVALIDCTXTPOSITION__1    XPathError = 14
-	XPATHMEMORYERROR__1            XPathError = 15
-	XPTRSYNTAXERROR__1             XPathError = 16
-	XPTRRESOURCEERROR__1           XPathError = 17
-	XPTRSUBRESOURCEERROR__1        XPathError = 18
-	XPATHUNDEFPREFIXERROR__1       XPathError = 19
-	XPATHENCODINGERROR__1          XPathError = 20
-	XPATHINVALIDCHARERROR__1       XPathError = 21
-	XPATHINVALIDCTXT               XPathError = 22
-	XPATHSTACKERROR                XPathError = 23
-	XPATHFORBIDVARIABLEERROR       XPathError = 24
-	XPATHOPLIMITEXCEEDED           XPathError = 25
-	XPATHRECURSIONLIMITEXCEEDED    XPathError = 26
+	XPATH_EXPRESSION_OK__1            XPathError = 0
+	XPATH_NUMBER_ERROR__1             XPathError = 1
+	XPATH_UNFINISHED_LITERAL_ERROR__1 XPathError = 2
+	XPATH_START_LITERAL_ERROR__1      XPathError = 3
+	XPATH_VARIABLE_REF_ERROR__1       XPathError = 4
+	XPATH_UNDEF_VARIABLE_ERROR__1     XPathError = 5
+	XPATH_INVALID_PREDICATE_ERROR__1  XPathError = 6
+	XPATH_EXPR_ERROR__1               XPathError = 7
+	XPATH_UNCLOSED_ERROR__1           XPathError = 8
+	XPATH_UNKNOWN_FUNC_ERROR__1       XPathError = 9
+	XPATH_INVALID_OPERAND__1          XPathError = 10
+	XPATH_INVALID_TYPE__1             XPathError = 11
+	XPATH_INVALID_ARITY__1            XPathError = 12
+	XPATH_INVALID_CTXT_SIZE__1        XPathError = 13
+	XPATH_INVALID_CTXT_POSITION__1    XPathError = 14
+	XPATH_MEMORY_ERROR__1             XPathError = 15
+	XPTR_SYNTAX_ERROR__1              XPathError = 16
+	XPTR_RESOURCE_ERROR__1            XPathError = 17
+	XPTR_SUB_RESOURCE_ERROR__1        XPathError = 18
+	XPATH_UNDEF_PREFIX_ERROR__1       XPathError = 19
+	XPATH_ENCODING_ERROR__1           XPathError = 20
+	XPATH_INVALID_CHAR_ERROR__1       XPathError = 21
+	XPATH_INVALID_CTXT                XPathError = 22
+	XPATH_STACK_ERROR                 XPathError = 23
+	XPATH_FORBID_VARIABLE_ERROR       XPathError = 24
+	XPATH_OP_LIMIT_EXCEEDED           XPathError = 25
+	XPATH_RECURSION_LIMIT_EXCEEDED    XPathError = 26
 )
 
 type X_xmlNodeSet struct {
@@ -114,24 +114,24 @@ type NodeSetPtr *NodeSet
 type XPathObjectType c.Int
 
 const (
-	XPATHUNDEFINED XPathObjectType = 0
-	XPATHNODESET   XPathObjectType = 1
-	XPATHBOOLEAN   XPathObjectType = 2
-	XPATHNUMBER    XPathObjectType = 3
-	XPATHSTRING    XPathObjectType = 4
-	XPATHUSERS     XPathObjectType = 8
-	XPATHXSLTTREE  XPathObjectType = 9
+	XPATH_UNDEFINED XPathObjectType = 0
+	XPATH_NODESET   XPathObjectType = 1
+	XPATH_BOOLEAN   XPathObjectType = 2
+	XPATH_NUMBER    XPathObjectType = 3
+	XPATH_STRING    XPathObjectType = 4
+	XPATH_USERS     XPathObjectType = 8
+	XPATH_XSLT_TREE XPathObjectType = 9
 )
 
 type X_xmlXPathObject struct {
 	Type       XPathObjectType
 	Nodesetval NodeSetPtr
 	Boolval    c.Int
-	Floatval   float64
+	Floatval   c.Double
 	Stringval  *Char
-	User       unsafe.Pointer
+	User       c.Pointer
 	Index      c.Int
-	User2      unsafe.Pointer
+	User2      c.Pointer
 	Index2     c.Int
 }
 type XPathObject X_xmlXPathObject
@@ -142,7 +142,7 @@ type XPathConvertFunc func(XPathObjectPtr, c.Int) c.Int
 
 type X_xmlXPathType struct {
 	Name *Char
-	Func unsafe.Pointer
+	Func c.Pointer
 }
 type XPathType X_xmlXPathType
 type XPathTypePtr *XPathType
@@ -159,7 +159,7 @@ type XPathEvalFunc func(XPathParserContextPtr, c.Int)
 
 type X_xmlXPathFunct struct {
 	Name *Char
-	Func unsafe.Pointer
+	Func c.Pointer
 }
 type XPathFunct X_xmlXPathFunct
 type XPathFuncPtr *XPathFunct
@@ -169,7 +169,7 @@ type XPathAxisFunc func(XPathParserContextPtr, XPathObjectPtr) XPathObjectPtr
 
 type X_xmlXPathAxis struct {
 	Name *Char
-	Func unsafe.Pointer
+	Func c.Pointer
 }
 type XPathAxis X_xmlXPathAxis
 type XPathAxisPtr *XPathAxis
@@ -178,10 +178,10 @@ type XPathAxisPtr *XPathAxis
 type XPathFunction func(XPathParserContextPtr, c.Int)
 
 // llgo:type C
-type XPathVariableLookupFunc func(unsafe.Pointer, *Char, *Char) XPathObjectPtr
+type XPathVariableLookupFunc func(c.Pointer, *Char, *Char) XPathObjectPtr
 
 // llgo:type C
-type XPathFuncLookupFunc func(unsafe.Pointer, *Char, *Char) XPathFunction
+type XPathFuncLookupFunc func(c.Pointer, *Char, *Char) XPathFunction
 
 type X_xmlXPathCompExpr struct {
 	Unused [8]uint8
@@ -211,7 +211,7 @@ func XPathCmpNodes(node1 NodePtr, node2 NodePtr) c.Int
  * Conversion functions to basic types.
  */
 //go:linkname XPathCastNumberToBoolean C.xmlXPathCastNumberToBoolean
-func XPathCastNumberToBoolean(val float64) c.Int
+func XPathCastNumberToBoolean(val c.Double) c.Int
 
 // llgo:link (*Char).XPathCastStringToBoolean C.xmlXPathCastStringToBoolean
 func (recv_ *Char) XPathCastStringToBoolean() c.Int {
@@ -225,27 +225,27 @@ func XPathCastNodeSetToBoolean(ns NodeSetPtr) c.Int
 func XPathCastToBoolean(val XPathObjectPtr) c.Int
 
 //go:linkname XPathCastBooleanToNumber C.xmlXPathCastBooleanToNumber
-func XPathCastBooleanToNumber(val c.Int) float64
+func XPathCastBooleanToNumber(val c.Int) c.Double
 
 // llgo:link (*Char).XPathCastStringToNumber C.xmlXPathCastStringToNumber
-func (recv_ *Char) XPathCastStringToNumber() float64 {
+func (recv_ *Char) XPathCastStringToNumber() c.Double {
 	return 0
 }
 
 //go:linkname XPathCastNodeToNumber C.xmlXPathCastNodeToNumber
-func XPathCastNodeToNumber(node NodePtr) float64
+func XPathCastNodeToNumber(node NodePtr) c.Double
 
 //go:linkname XPathCastNodeSetToNumber C.xmlXPathCastNodeSetToNumber
-func XPathCastNodeSetToNumber(ns NodeSetPtr) float64
+func XPathCastNodeSetToNumber(ns NodeSetPtr) c.Double
 
 //go:linkname XPathCastToNumber C.xmlXPathCastToNumber
-func XPathCastToNumber(val XPathObjectPtr) float64
+func XPathCastToNumber(val XPathObjectPtr) c.Double
 
 //go:linkname XPathCastBooleanToString C.xmlXPathCastBooleanToString
 func XPathCastBooleanToString(val c.Int) *Char
 
 //go:linkname XPathCastNumberToString C.xmlXPathCastNumberToString
-func XPathCastNumberToString(val float64) *Char
+func XPathCastNumberToString(val c.Double) *Char
 
 //go:linkname XPathCastNodeToString C.xmlXPathCastNodeToString
 func XPathCastNodeToString(node NodePtr) *Char
@@ -275,7 +275,7 @@ func XPathNewContext(doc DocPtr) XPathContextPtr
 func XPathFreeContext(ctxt XPathContextPtr)
 
 //go:linkname XPathSetErrorHandler C.xmlXPathSetErrorHandler
-func XPathSetErrorHandler(ctxt XPathContextPtr, handler StructuredErrorFunc, context unsafe.Pointer)
+func XPathSetErrorHandler(ctxt XPathContextPtr, handler StructuredErrorFunc, context c.Pointer)
 
 //go:linkname XPathContextSetCache C.xmlXPathContextSetCache
 func XPathContextSetCache(ctxt XPathContextPtr, active c.Int, value c.Int, options c.Int) c.Int
@@ -329,7 +329,7 @@ func XPathFreeCompExpr(comp XPathCompExprPtr)
 func XPathInit()
 
 //go:linkname XPathIsNaN C.xmlXPathIsNaN
-func XPathIsNaN(val float64) c.Int
+func XPathIsNaN(val c.Double) c.Int
 
 //go:linkname XPathIsInf C.xmlXPathIsInf
-func XPathIsInf(val float64) c.Int
+func XPathIsInf(val c.Double) c.Int

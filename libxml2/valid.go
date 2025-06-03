@@ -1,8 +1,8 @@
 package libxml2
 
 import (
-	"github.com/goplus/llgo/c"
-	"unsafe"
+	"github.com/goplus/lib/c"
+	_ "unsafe"
 )
 
 type X_xmlValidState struct {
@@ -12,15 +12,15 @@ type ValidState X_xmlValidState
 type ValidStatePtr *ValidState
 
 // llgo:type C
-type ValidityErrorFunc func(__llgo_arg_0 unsafe.Pointer, __llgo_arg_1 *int8, __llgo_va_list ...interface{})
+type ValidityErrorFunc func(__llgo_arg_0 c.Pointer, __llgo_arg_1 *c.Char, __llgo_va_list ...interface{})
 
 // llgo:type C
-type ValidityWarningFunc func(__llgo_arg_0 unsafe.Pointer, __llgo_arg_1 *int8, __llgo_va_list ...interface{})
+type ValidityWarningFunc func(__llgo_arg_0 c.Pointer, __llgo_arg_1 *c.Char, __llgo_va_list ...interface{})
 
 type X_xmlValidCtxt struct {
-	UserData  unsafe.Pointer
-	Error     unsafe.Pointer
-	Warning   unsafe.Pointer
+	UserData  c.Pointer
+	Error     c.Pointer
+	Warning   c.Pointer
 	Node      NodePtr
 	NodeNr    c.Int
 	NodeMax   c.Int
@@ -89,10 +89,10 @@ func CopyDocElementContent(doc DocPtr, content ElementContentPtr) ElementContent
 func FreeDocElementContent(doc DocPtr, cur ElementContentPtr)
 
 //go:linkname SnprintfElementContent C.xmlSnprintfElementContent
-func SnprintfElementContent(buf *int8, size c.Int, content ElementContentPtr, englob c.Int)
+func SnprintfElementContent(buf *c.Char, size c.Int, content ElementContentPtr, englob c.Int)
 
 //go:linkname SprintfElementContent C.xmlSprintfElementContent
-func SprintfElementContent(buf *int8, content ElementContentPtr, englob c.Int)
+func SprintfElementContent(buf *c.Char, content ElementContentPtr, englob c.Int)
 
 /* Element */
 //go:linkname AddElementDecl C.xmlAddElementDecl

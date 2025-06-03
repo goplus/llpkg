@@ -1,9 +1,9 @@
 package libxslt
 
 import (
-	"github.com/goplus/llgo/c"
+	"github.com/goplus/lib/c"
 	"github.com/goplus/llpkg/libxml2"
-	"unsafe"
+	_ "unsafe"
 )
 
 //go:linkname NewDocument C.xsltNewDocument
@@ -30,13 +30,13 @@ func FreeStyleDocuments(style StylesheetPtr)
 type LoadType c.Int
 
 const (
-	LOADSTART      LoadType = 0
-	LOADSTYLESHEET LoadType = 1
-	LOADDOCUMENT   LoadType = 2
+	LOAD_START      LoadType = 0
+	LOAD_STYLESHEET LoadType = 1
+	LOAD_DOCUMENT   LoadType = 2
 )
 
 // llgo:type C
-type DocLoaderFunc func(*libxml2.Char, libxml2.DictPtr, c.Int, unsafe.Pointer, LoadType) libxml2.DocPtr
+type DocLoaderFunc func(*libxml2.Char, libxml2.DictPtr, c.Int, c.Pointer, LoadType) libxml2.DocPtr
 
 //go:linkname SetLoaderFunc C.xsltSetLoaderFunc
 func SetLoaderFunc(f DocLoaderFunc)

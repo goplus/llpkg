@@ -1,9 +1,9 @@
 package zlib
 
 import (
-	"github.com/goplus/llgo/c"
-	"github.com/goplus/llgo/c/os"
-	"unsafe"
+	"github.com/goplus/lib/c"
+	"github.com/goplus/lib/c/os"
+	_ "unsafe"
 )
 
 const VERSION = "1.3.1"
@@ -53,10 +53,10 @@ type ZStreamS struct {
 	NextOut  *Bytef
 	AvailOut UInt
 	TotalOut ULong
-	Msg      *int8
+	Msg      *c.Char
 	State    *InternalState
-	Zalloc   unsafe.Pointer
-	Zfree    unsafe.Pointer
+	Zalloc   c.Pointer
+	Zfree    c.Pointer
 	Opaque   Voidpf
 	DataType c.Int
 	Adler    ULong
@@ -90,7 +90,7 @@ type GzHeaderp *GzHeader
 
 /* basic functions */
 //go:linkname Version C.zlibVersion
-func Version() *int8
+func Version() *c.Char
 
 /*
 ZEXTERN int ZEXPORT deflateInit(z_streamp strm, int level);
@@ -844,13 +844,13 @@ func InflateMark(strm ZStreamp) c.Long
 func InflateGetHeader(strm ZStreamp, head GzHeaderp) c.Int
 
 // llgo:type C
-type InFunc func(unsafe.Pointer, **int8) c.Uint
+type InFunc func(c.Pointer, **c.Char) c.Uint
 
 // llgo:type C
-type OutFunc func(unsafe.Pointer, *int8, c.Uint) c.Int
+type OutFunc func(c.Pointer, *c.Char, c.Uint) c.Int
 
 //go:linkname InflateBack C.inflateBack
-func InflateBack(strm ZStreamp, in InFunc, in_desc unsafe.Pointer, out OutFunc, out_desc unsafe.Pointer) c.Int
+func InflateBack(strm ZStreamp, in InFunc, in_desc c.Pointer, out OutFunc, out_desc c.Pointer) c.Int
 
 /*
      inflateBack() does a raw inflate with a single call using a call-back
@@ -998,7 +998,7 @@ func Uncompress2(dest *Bytef, destLen *ULongf, source *Bytef, sourceLen *ULong) 
 
 type GzFileS struct {
 	Have c.Uint
-	Next *int8
+	Next *c.Char
 	Pos  os.OffT
 }
 type GzFile *GzFileS
@@ -1041,7 +1041,7 @@ ZEXTERN gzFile ZEXPORT gzopen(const char *path, const char *mode);
    file could not be opened.
 */
 //go:linkname Gzdopen C.gzdopen
-func Gzdopen(fd c.Int, mode *int8) GzFile
+func Gzdopen(fd c.Int, mode *c.Char) GzFile
 
 /*
      Associate a gzFile with the file descriptor fd.  File descriptors are
@@ -1172,7 +1172,7 @@ func Gzfwrite(buf Voidpc, size ZSizeT, nitems ZSizeT, file GzFile) ZSizeT
    is returned, and the error state is set to Z_STREAM_ERROR.
 */
 //go:linkname Gzprintf C.gzprintf
-func Gzprintf(file GzFile, format *int8, __llgo_va_list ...interface{}) c.Int
+func Gzprintf(file GzFile, format *c.Char, __llgo_va_list ...interface{}) c.Int
 
 /*
      Convert, format, compress, and write the arguments (...) to file under
@@ -1188,7 +1188,7 @@ func Gzprintf(file GzFile, format *int8, __llgo_va_list ...interface{}) c.Int
    This can be determined using zlibCompileFlags().
 */
 //go:linkname Gzputs C.gzputs
-func Gzputs(file GzFile, s *int8) c.Int
+func Gzputs(file GzFile, s *c.Char) c.Int
 
 /*
      Compress and write the given null-terminated string s to file, excluding
@@ -1197,7 +1197,7 @@ func Gzputs(file GzFile, s *int8) c.Int
      gzputs returns the number of characters written, or -1 in case of error.
 */
 //go:linkname Gzgets C.gzgets
-func Gzgets(file GzFile, buf *int8, len c.Int) *int8
+func Gzgets(file GzFile, buf *c.Char, len c.Int) *c.Char
 
 /*
      Read and decompress bytes from file into buf, until len-1 characters are
@@ -1343,7 +1343,7 @@ func GzcloseW(file GzFile) c.Int
    zlib library.
 */
 //go:linkname Gzerror C.gzerror
-func Gzerror(file GzFile, errnum *c.Int) *int8
+func Gzerror(file GzFile, errnum *c.Int) *c.Char
 
 /*
      Return the error message for the last error which occurred on file.
@@ -1447,25 +1447,25 @@ func (recv_ ULong) Crc32CombineOp(crc2 ULong, op ULong) ULong {
  * and the compiler's view of z_stream:
  */
 //go:linkname DeflateInit_ C.deflateInit_
-func DeflateInit_(strm ZStreamp, level c.Int, version *int8, stream_size c.Int) c.Int
+func DeflateInit_(strm ZStreamp, level c.Int, version *c.Char, stream_size c.Int) c.Int
 
 //go:linkname InflateInit_ C.inflateInit_
-func InflateInit_(strm ZStreamp, version *int8, stream_size c.Int) c.Int
+func InflateInit_(strm ZStreamp, version *c.Char, stream_size c.Int) c.Int
 
 //go:linkname DeflateInit2_ C.deflateInit2_
-func DeflateInit2_(strm ZStreamp, level c.Int, method c.Int, windowBits c.Int, memLevel c.Int, strategy c.Int, version *int8, stream_size c.Int) c.Int
+func DeflateInit2_(strm ZStreamp, level c.Int, method c.Int, windowBits c.Int, memLevel c.Int, strategy c.Int, version *c.Char, stream_size c.Int) c.Int
 
 //go:linkname InflateInit2_ C.inflateInit2_
-func InflateInit2_(strm ZStreamp, windowBits c.Int, version *int8, stream_size c.Int) c.Int
+func InflateInit2_(strm ZStreamp, windowBits c.Int, version *c.Char, stream_size c.Int) c.Int
 
 //go:linkname InflateBackInit_ C.inflateBackInit_
-func InflateBackInit_(strm ZStreamp, windowBits c.Int, window *int8, version *int8, stream_size c.Int) c.Int
+func InflateBackInit_(strm ZStreamp, windowBits c.Int, window *c.Char, version *c.Char, stream_size c.Int) c.Int
 
 //go:linkname Gzgetc_ C.gzgetc_
 func Gzgetc_(file GzFile) c.Int
 
 //go:linkname Gzopen C.gzopen
-func Gzopen(*int8, *int8) GzFile
+func Gzopen(*c.Char, *c.Char) GzFile
 
 //go:linkname Gzseek C.gzseek
 func Gzseek(GzFile, os.OffT, c.Int) os.OffT
@@ -1491,7 +1491,7 @@ func Crc32CombineGen(os.OffT) ULong
 
 /* undocumented functions */
 //go:linkname ZError C.zError
-func ZError(c.Int) *int8
+func ZError(c.Int) *c.Char
 
 //go:linkname InflateSyncPoint C.inflateSyncPoint
 func InflateSyncPoint(ZStreamp) c.Int
@@ -1515,4 +1515,4 @@ func InflateResetKeep(ZStreamp) c.Int
 func DeflateResetKeep(ZStreamp) c.Int
 
 //go:linkname Gzvprintf C.gzvprintf
-func Gzvprintf(file GzFile, format *int8, va unsafe.Pointer) c.Int
+func Gzvprintf(file GzFile, format *c.Char, va c.VaList) c.Int

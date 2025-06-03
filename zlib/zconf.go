@@ -1,23 +1,23 @@
 package zlib
 
 import (
-	"github.com/goplus/llgo/c"
-	"unsafe"
+	"github.com/goplus/lib/c"
+	_ "unsafe"
 )
 
 const MAX_MEM_LEVEL = 9
 const MAX_WBITS = 15
 
-type ZSizeT uintptr
-type Byte int8
+type ZSizeT c.SizeT
+type Byte c.Char
 type UInt c.Uint
 type ULong c.Ulong
 type Bytef Byte
-type Charf int8
+type Charf c.Char
 type Intf c.Int
 type UIntf UInt
 type ULongf ULong
-type Voidpc unsafe.Pointer
-type Voidpf unsafe.Pointer
-type Voidp unsafe.Pointer
+type Voidpc c.Pointer
+type Voidpf c.Pointer
+type Voidp c.Pointer
 type ZCrcT c.Uint

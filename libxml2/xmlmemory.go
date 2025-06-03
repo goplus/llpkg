@@ -1,21 +1,21 @@
 package libxml2
 
 import (
-	"github.com/goplus/llgo/c"
-	"unsafe"
+	"github.com/goplus/lib/c"
+	_ "unsafe"
 )
 
 // llgo:type C
-type FreeFunc func(unsafe.Pointer)
+type FreeFunc func(c.Pointer)
 
 // llgo:type C
-type MallocFunc func(uintptr) unsafe.Pointer
+type MallocFunc func(c.SizeT) c.Pointer
 
 // llgo:type C
-type ReallocFunc func(unsafe.Pointer, uintptr) unsafe.Pointer
+type ReallocFunc func(c.Pointer, c.SizeT) c.Pointer
 
 // llgo:type C
-type StrdupFunc func(*int8) *int8
+type StrdupFunc func(*c.Char) *c.Char
 
 /*
  * The way to overload the existing functions.
@@ -50,7 +50,7 @@ func CleanupMemory()
  * These are specific to the XML debug memory wrapper.
  */
 //go:linkname MemSize C.xmlMemSize
-func MemSize(ptr unsafe.Pointer) uintptr
+func MemSize(ptr c.Pointer) c.SizeT
 
 //go:linkname MemUsed C.xmlMemUsed
 func MemUsed() c.Int
@@ -71,25 +71,25 @@ func MemShow(fp *c.FILE, nr c.Int)
 func MemoryDump()
 
 //go:linkname MemMalloc C.xmlMemMalloc
-func MemMalloc(size uintptr) unsafe.Pointer
+func MemMalloc(size c.SizeT) c.Pointer
 
 //go:linkname MemRealloc C.xmlMemRealloc
-func MemRealloc(ptr unsafe.Pointer, size uintptr) unsafe.Pointer
+func MemRealloc(ptr c.Pointer, size c.SizeT) c.Pointer
 
 //go:linkname MemFree C.xmlMemFree
-func MemFree(ptr unsafe.Pointer)
+func MemFree(ptr c.Pointer)
 
 //go:linkname MemoryStrdup C.xmlMemoryStrdup
-func MemoryStrdup(str *int8) *int8
+func MemoryStrdup(str *c.Char) *c.Char
 
 //go:linkname MallocLoc C.xmlMallocLoc
-func MallocLoc(size uintptr, file *int8, line c.Int) unsafe.Pointer
+func MallocLoc(size c.SizeT, file *c.Char, line c.Int) c.Pointer
 
 //go:linkname ReallocLoc C.xmlReallocLoc
-func ReallocLoc(ptr unsafe.Pointer, size uintptr, file *int8, line c.Int) unsafe.Pointer
+func ReallocLoc(ptr c.Pointer, size c.SizeT, file *c.Char, line c.Int) c.Pointer
 
 //go:linkname MallocAtomicLoc C.xmlMallocAtomicLoc
-func MallocAtomicLoc(size uintptr, file *int8, line c.Int) unsafe.Pointer
+func MallocAtomicLoc(size c.SizeT, file *c.Char, line c.Int) c.Pointer
 
 //go:linkname MemStrdupLoc C.xmlMemStrdupLoc
-func MemStrdupLoc(str *int8, file *int8, line c.Int) *int8
+func MemStrdupLoc(str *c.Char, file *c.Char, line c.Int) *c.Char

@@ -1,8 +1,8 @@
 package libxml2
 
 import (
-	"github.com/goplus/llgo/c"
-	"unsafe"
+	"github.com/goplus/lib/c"
+	_ "unsafe"
 )
 
 type X_xmlAutomata struct {
@@ -36,25 +36,25 @@ func AutomataSetFinalState(am AutomataPtr, state AutomataStatePtr) c.Int
 func AutomataNewState(am AutomataPtr) AutomataStatePtr
 
 //go:linkname AutomataNewTransition C.xmlAutomataNewTransition
-func AutomataNewTransition(am AutomataPtr, from AutomataStatePtr, to AutomataStatePtr, token *Char, data unsafe.Pointer) AutomataStatePtr
+func AutomataNewTransition(am AutomataPtr, from AutomataStatePtr, to AutomataStatePtr, token *Char, data c.Pointer) AutomataStatePtr
 
 //go:linkname AutomataNewTransition2 C.xmlAutomataNewTransition2
-func AutomataNewTransition2(am AutomataPtr, from AutomataStatePtr, to AutomataStatePtr, token *Char, token2 *Char, data unsafe.Pointer) AutomataStatePtr
+func AutomataNewTransition2(am AutomataPtr, from AutomataStatePtr, to AutomataStatePtr, token *Char, token2 *Char, data c.Pointer) AutomataStatePtr
 
 //go:linkname AutomataNewNegTrans C.xmlAutomataNewNegTrans
-func AutomataNewNegTrans(am AutomataPtr, from AutomataStatePtr, to AutomataStatePtr, token *Char, token2 *Char, data unsafe.Pointer) AutomataStatePtr
+func AutomataNewNegTrans(am AutomataPtr, from AutomataStatePtr, to AutomataStatePtr, token *Char, token2 *Char, data c.Pointer) AutomataStatePtr
 
 //go:linkname AutomataNewCountTrans C.xmlAutomataNewCountTrans
-func AutomataNewCountTrans(am AutomataPtr, from AutomataStatePtr, to AutomataStatePtr, token *Char, min c.Int, max c.Int, data unsafe.Pointer) AutomataStatePtr
+func AutomataNewCountTrans(am AutomataPtr, from AutomataStatePtr, to AutomataStatePtr, token *Char, min c.Int, max c.Int, data c.Pointer) AutomataStatePtr
 
 //go:linkname AutomataNewCountTrans2 C.xmlAutomataNewCountTrans2
-func AutomataNewCountTrans2(am AutomataPtr, from AutomataStatePtr, to AutomataStatePtr, token *Char, token2 *Char, min c.Int, max c.Int, data unsafe.Pointer) AutomataStatePtr
+func AutomataNewCountTrans2(am AutomataPtr, from AutomataStatePtr, to AutomataStatePtr, token *Char, token2 *Char, min c.Int, max c.Int, data c.Pointer) AutomataStatePtr
 
 //go:linkname AutomataNewOnceTrans C.xmlAutomataNewOnceTrans
-func AutomataNewOnceTrans(am AutomataPtr, from AutomataStatePtr, to AutomataStatePtr, token *Char, min c.Int, max c.Int, data unsafe.Pointer) AutomataStatePtr
+func AutomataNewOnceTrans(am AutomataPtr, from AutomataStatePtr, to AutomataStatePtr, token *Char, min c.Int, max c.Int, data c.Pointer) AutomataStatePtr
 
 //go:linkname AutomataNewOnceTrans2 C.xmlAutomataNewOnceTrans2
-func AutomataNewOnceTrans2(am AutomataPtr, from AutomataStatePtr, to AutomataStatePtr, token *Char, token2 *Char, min c.Int, max c.Int, data unsafe.Pointer) AutomataStatePtr
+func AutomataNewOnceTrans2(am AutomataPtr, from AutomataStatePtr, to AutomataStatePtr, token *Char, token2 *Char, min c.Int, max c.Int, data c.Pointer) AutomataStatePtr
 
 //go:linkname AutomataNewAllTrans C.xmlAutomataNewAllTrans
 func AutomataNewAllTrans(am AutomataPtr, from AutomataStatePtr, to AutomataStatePtr, lax c.Int) AutomataStatePtr

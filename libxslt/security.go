@@ -1,7 +1,7 @@
 package libxslt
 
 import (
-	"github.com/goplus/llgo/c"
+	"github.com/goplus/lib/c"
 	"github.com/goplus/llpkg/libxml2"
 	_ "unsafe"
 )
@@ -14,15 +14,15 @@ type SecurityPrefsPtr *SecurityPrefs
 type SecurityOption c.Int
 
 const (
-	SECPREFREADFILE        SecurityOption = 1
-	SECPREFWRITEFILE       SecurityOption = 2
-	SECPREFCREATEDIRECTORY SecurityOption = 3
-	SECPREFREADNETWORK     SecurityOption = 4
-	SECPREFWRITENETWORK    SecurityOption = 5
+	SECPREF_READ_FILE        SecurityOption = 1
+	SECPREF_WRITE_FILE       SecurityOption = 2
+	SECPREF_CREATE_DIRECTORY SecurityOption = 3
+	SECPREF_READ_NETWORK     SecurityOption = 4
+	SECPREF_WRITE_NETWORK    SecurityOption = 5
 )
 
 // llgo:type C
-type SecurityCheck func(SecurityPrefsPtr, TransformContextPtr, *int8) c.Int
+type SecurityCheck func(SecurityPrefsPtr, TransformContextPtr, *c.Char) c.Int
 
 /*
  * Module interfaces
@@ -49,10 +49,10 @@ func GetDefaultSecurityPrefs() SecurityPrefsPtr
 func SetCtxtSecurityPrefs(sec SecurityPrefsPtr, ctxt TransformContextPtr) c.Int
 
 //go:linkname SecurityAllow C.xsltSecurityAllow
-func SecurityAllow(sec SecurityPrefsPtr, ctxt TransformContextPtr, value *int8) c.Int
+func SecurityAllow(sec SecurityPrefsPtr, ctxt TransformContextPtr, value *c.Char) c.Int
 
 //go:linkname SecurityForbid C.xsltSecurityForbid
-func SecurityForbid(sec SecurityPrefsPtr, ctxt TransformContextPtr, value *int8) c.Int
+func SecurityForbid(sec SecurityPrefsPtr, ctxt TransformContextPtr, value *c.Char) c.Int
 
 /*
  * internal interfaces

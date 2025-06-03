@@ -1,13 +1,13 @@
 package libxslt
 
 import (
-	"github.com/goplus/llgo/c"
+	"github.com/goplus/lib/c"
 	"github.com/goplus/llpkg/libxml2"
-	"unsafe"
+	_ "unsafe"
 )
 
 //go:linkname XPathFunctionLookup C.xsltXPathFunctionLookup
-func XPathFunctionLookup(vctxt unsafe.Pointer, name *libxml2.Char, ns_uri *libxml2.Char) libxml2.XPathFunction
+func XPathFunctionLookup(vctxt c.Pointer, name *libxml2.Char, ns_uri *libxml2.Char) libxml2.XPathFunction
 
 /*
  * Interfaces for the functions implementations.
