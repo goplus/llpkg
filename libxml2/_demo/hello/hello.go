@@ -10,7 +10,7 @@ import (
 
 func main() {
 	libxml2.InitParser()
-	xml := "<?xml version='1.0'?><root><person><name>Alice</name><age>25</age></person></root>"
+	xml := "<?xml version='1.0'?><root><person><name>Alice1</name><age>25</age></person></root>"
 	doc := libxml2.ReadMemory((*int8)(unsafe.Pointer(unsafe.StringData(xml))), c.Int(len(xml)), nil, nil, 0)
 	if doc == nil {
 		panic("Failed to parse XML")
