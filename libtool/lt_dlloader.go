@@ -5,7 +5,7 @@ import (
 	_ "unsafe"
 )
 
-const LT_DLLOADER_H = 1
+const DLLOADER_H = 1
 
 type Dlloader c.Pointer
 type Module c.Pointer
@@ -33,8 +33,8 @@ type DlloaderExit func(UserData) c.Int
 type DlloaderPriority c.Int
 
 const (
-	LT_DLLOADER_PREPEND DlloaderPriority = 0
-	LT_DLLOADER_APPEND  DlloaderPriority = 1
+	DLLOADER_PREPEND DlloaderPriority = 0
+	DLLOADER_APPEND  DlloaderPriority = 1
 )
 
 /*
