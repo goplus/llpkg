@@ -1,15 +1,15 @@
 package libtool
 
 import (
-	"github.com/goplus/llgo/c"
-	"unsafe"
+	"github.com/goplus/lib/c"
+	_ "unsafe"
 )
 
 const LT_DLLOADER_H = 1
 
-type Dlloader unsafe.Pointer
-type Module unsafe.Pointer
-type UserData unsafe.Pointer
+type Dlloader c.Pointer
+type Module c.Pointer
+type UserData c.Pointer
 
 type Advise struct {
 	Unused [8]uint8
@@ -17,13 +17,13 @@ type Advise struct {
 type Dladvise *Advise
 
 // llgo:type C
-type ModuleOpen func(UserData, *int8, Dladvise) Module
+type ModuleOpen func(UserData, *c.Char, Dladvise) Module
 
 // llgo:type C
 type ModuleClose func(UserData, Module) c.Int
 
 // llgo:type C
-type FindSym func(UserData, Module, *int8) unsafe.Pointer
+type FindSym func(UserData, Module, *c.Char) c.Pointer
 
 // llgo:type C
 type DlloaderInit func(UserData) c.Int
@@ -33,8 +33,8 @@ type DlloaderExit func(UserData) c.Int
 type DlloaderPriority c.Int
 
 const (
-	LTDLLOADERPREPEND DlloaderPriority = 0
-	LTDLLOADERAPPEND  DlloaderPriority = 1
+	LT_DLLOADER_PREPEND DlloaderPriority = 0
+	LT_DLLOADER_APPEND  DlloaderPriority = 1
 )
 
 /*
@@ -43,13 +43,13 @@ This structure defines a module loader, as populated by the get_vtable
 	entry point of each loader.
 */
 type Dlvtable struct {
-	Name         *int8
-	SymPrefix    *int8
-	ModuleOpen   *unsafe.Pointer
-	ModuleClose  *unsafe.Pointer
-	FindSym      *unsafe.Pointer
-	DlloaderInit *unsafe.Pointer
-	DlloaderExit *unsafe.Pointer
+	Name         *c.Char
+	SymPrefix    *c.Char
+	ModuleOpen   *c.Pointer
+	ModuleClose  *c.Pointer
+	FindSym      *c.Pointer
+	DlloaderInit *c.Pointer
+	DlloaderExit *c.Pointer
 	DlloaderData UserData
 	Priority     DlloaderPriority
 }
@@ -63,10 +63,10 @@ func (recv_ *Dlvtable) DlloaderAdd() c.Int {
 func DlloaderNext(loader Dlloader) Dlloader
 
 //go:linkname DlloaderRemove C.lt_dlloader_remove
-func DlloaderRemove(name *int8) *Dlvtable
+func DlloaderRemove(name *c.Char) *Dlvtable
 
 //go:linkname DlloaderFind C.lt_dlloader_find
-func DlloaderFind(name *int8) *Dlvtable
+func DlloaderFind(name *c.Char) *Dlvtable
 
 //go:linkname DlloaderGet C.lt_dlloader_get
 func DlloaderGet(loader Dlloader) *Dlvtable

@@ -1,8 +1,8 @@
 package libtool
 
 import (
-	"github.com/goplus/llgo/c"
-	"unsafe"
+	"github.com/goplus/lib/c"
+	_ "unsafe"
 )
 
 const LTDL_H = 1
@@ -21,19 +21,19 @@ func Dlexit() c.Int
 
 /* Module search path manipulation.  */
 //go:linkname Dladdsearchdir C.lt_dladdsearchdir
-func Dladdsearchdir(search_dir *int8) c.Int
+func Dladdsearchdir(search_dir *c.Char) c.Int
 
 //go:linkname Dlinsertsearchdir C.lt_dlinsertsearchdir
-func Dlinsertsearchdir(before *int8, search_dir *int8) c.Int
+func Dlinsertsearchdir(before *c.Char, search_dir *c.Char) c.Int
 
 //go:linkname Dlsetsearchpath C.lt_dlsetsearchpath
-func Dlsetsearchpath(search_path *int8) c.Int
+func Dlsetsearchpath(search_path *c.Char) c.Int
 
 //go:linkname Dlgetsearchpath C.lt_dlgetsearchpath
-func Dlgetsearchpath() *int8
+func Dlgetsearchpath() *c.Char
 
 //go:linkname Dlforeachfile C.lt_dlforeachfile
-func Dlforeachfile(search_path *int8, func_ func(*int8, unsafe.Pointer) c.Int, data unsafe.Pointer) c.Int
+func Dlforeachfile(search_path *c.Char, func_ func(*c.Char, c.Pointer) c.Int, data c.Pointer) c.Int
 
 /* User module loading advisors.  */
 //go:linkname DladviseInit C.lt_dladvise_init
@@ -59,19 +59,19 @@ func DladvisePreload(advise *Dladvise) c.Int
 
 /* Portable libltdl versions of the system dlopen() API. */
 //go:linkname Dlopen C.lt_dlopen
-func Dlopen(filename *int8) Dlhandle
+func Dlopen(filename *c.Char) Dlhandle
 
 //go:linkname Dlopenext C.lt_dlopenext
-func Dlopenext(filename *int8) Dlhandle
+func Dlopenext(filename *c.Char) Dlhandle
 
 //go:linkname Dlopenadvise C.lt_dlopenadvise
-func Dlopenadvise(filename *int8, advise Dladvise) Dlhandle
+func Dlopenadvise(filename *c.Char, advise Dladvise) Dlhandle
 
 //go:linkname Dlsym C.lt_dlsym
-func Dlsym(handle Dlhandle, name *int8) unsafe.Pointer
+func Dlsym(handle Dlhandle, name *c.Char) c.Pointer
 
 //go:linkname Dlerror C.lt_dlerror
-func Dlerror() *int8
+func Dlerror() *c.Char
 
 //go:linkname Dlclose C.lt_dlclose
 func Dlclose(handle Dlhandle) c.Int
@@ -82,8 +82,8 @@ A preopened symbol. Arrays of this type comprise the exported
 	symbols for a dlpreopened module.
 */
 type Dlsymlist struct {
-	Name    *int8
-	Address unsafe.Pointer
+	Name    *c.Char
+	Address c.Pointer
 }
 
 // llgo:type C
@@ -100,30 +100,30 @@ func (recv_ *Dlsymlist) DlpreloadDefault() c.Int {
 }
 
 //go:linkname DlpreloadOpen C.lt_dlpreload_open
-func DlpreloadOpen(originator *int8, func_ DlpreloadCallbackFunc) c.Int
+func DlpreloadOpen(originator *c.Char, func_ DlpreloadCallbackFunc) c.Int
 
-type DlinterfaceId unsafe.Pointer
+type DlinterfaceId c.Pointer
 
 // llgo:type C
-type DlhandleInterface func(Dlhandle, *int8) c.Int
+type DlhandleInterface func(Dlhandle, *c.Char) c.Int
 
 //go:linkname DlinterfaceRegister C.lt_dlinterface_register
-func DlinterfaceRegister(id_string *int8, iface DlhandleInterface) DlinterfaceId
+func DlinterfaceRegister(id_string *c.Char, iface DlhandleInterface) DlinterfaceId
 
 //go:linkname DlinterfaceFree C.lt_dlinterface_free
 func DlinterfaceFree(key DlinterfaceId)
 
 //go:linkname DlcallerSetData C.lt_dlcaller_set_data
-func DlcallerSetData(key DlinterfaceId, handle Dlhandle, data unsafe.Pointer) unsafe.Pointer
+func DlcallerSetData(key DlinterfaceId, handle Dlhandle, data c.Pointer) c.Pointer
 
 //go:linkname DlcallerGetData C.lt_dlcaller_get_data
-func DlcallerGetData(key DlinterfaceId, handle Dlhandle) unsafe.Pointer
+func DlcallerGetData(key DlinterfaceId, handle Dlhandle) c.Pointer
 
 /* Read only information pertaining to a loaded module. */
 
 type Dlinfo struct {
-	Filename    *int8
-	Name        *int8
+	Filename    *c.Char
+	Name        *c.Char
 	RefCount    c.Int
 	IsResident  c.Uint
 	IsSymglobal c.Uint
@@ -137,10 +137,10 @@ func Dlgetinfo(handle Dlhandle) *Dlinfo
 func DlhandleIterate(iface DlinterfaceId, place Dlhandle) Dlhandle
 
 //go:linkname DlhandleFetch C.lt_dlhandle_fetch
-func DlhandleFetch(iface DlinterfaceId, module_name *int8) Dlhandle
+func DlhandleFetch(iface DlinterfaceId, module_name *c.Char) Dlhandle
 
 //go:linkname DlhandleMap C.lt_dlhandle_map
-func DlhandleMap(iface DlinterfaceId, func_ func(Dlhandle, unsafe.Pointer) c.Int, data unsafe.Pointer) c.Int
+func DlhandleMap(iface DlinterfaceId, func_ func(Dlhandle, c.Pointer) c.Int, data c.Pointer) c.Int
 
 /* Deprecated module residency management API. */
 //go:linkname Dlmakeresident C.lt_dlmakeresident
