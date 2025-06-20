@@ -45,11 +45,11 @@ This structure defines a module loader, as populated by the get_vtable
 type Dlvtable struct {
 	Name         *c.Char
 	SymPrefix    *c.Char
-	ModuleOpen   *c.Pointer
-	ModuleClose  *c.Pointer
-	FindSym      *c.Pointer
-	DlloaderInit *c.Pointer
-	DlloaderExit *c.Pointer
+	ModuleOpen   *ModuleOpen
+	ModuleClose  *ModuleClose
+	FindSym      *FindSym
+	DlloaderInit *DlloaderInit
+	DlloaderExit *DlloaderExit
 	DlloaderData UserData
 	Priority     DlloaderPriority
 }
