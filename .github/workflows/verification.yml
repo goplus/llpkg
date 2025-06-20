@@ -71,10 +71,13 @@ jobs:
             libc++-${{matrix.llvm}}-dev \
             pkg-config libgc-dev libssl-dev zlib1g-dev libffi-dev libuv1-dev
           echo "/usr/lib/llvm-${{matrix.llvm}}/bin" >> $GITHUB_PATH
-      - name: Set up Conan
+      - name: Pre setup Conan
+        if: startsWith(matrix.os, 'ubuntu')
         run: |
           sudo apt install -y python3
           python3 -m pip install conan
+      - name: Set up Conan
+        run: |
           conan profile detect
       - name: Setup LLGo
         working-directory: .llgo
