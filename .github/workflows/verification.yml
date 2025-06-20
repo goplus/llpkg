@@ -23,6 +23,7 @@ jobs:
           - macos-latest
           - ubuntu-24.04
           - ubuntu-24.04-arm
+        llvm: [19]
         llgo: [e68355d94f9f9ec17caae6e0d397bd55f8c5ec33]
         llcppg: [v0.6.0]
 
@@ -45,28 +46,35 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
-          go-version: 1.23.x
+          go: 1.23.x
       - name: Set up Tool
         run: |
           go install -v github.com/goplus/llpkgstore/cmd/llpkgstore@latest
       - name: Install dependencies
         if: startsWith(matrix.os, 'macos')
         run: |
-          brew install llvm@19 bdw-gc openssl libffi libuv cmake cjson conan lld@19
+          brew install llvm@${{matrix.llvm}} bdw-gc openssl libffi libuv cmake conan lld@${{matrix.llvm}}
           brew link --force libffi
-          echo "$(brew --prefix llvm@19)/bin" >> $GITHUB_PATH
-          echo "$(brew --prefix lld@19)/bin" >> $GITHUB_PATH
+          echo "$(brew --prefix llvm@${{matrix.llvm}})/bin" >> $GITHUB_PATH
+          echo "$(brew --prefix lld@${{matrix.llvm}})/bin" >> $GITHUB_PATH
       - name: Install dependencies
         if: startsWith(matrix.os, 'ubuntu')
         run: |
           sudo apt-get update
-          echo "deb http://apt.llvm.org/$(lsb_release -cs)/ llvm-toolchain-$(lsb_release -cs)-19 main" | sudo tee /etc/apt/sources.list.d/llvm.list
+          echo "deb http://apt.llvm.org/$(lsb_release -cs)/ llvm-toolchain-$(lsb_release -cs)-${{matrix.llvm}} main" | sudo tee /etc/apt/sources.list.d/llvm.list
           wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
-          sudo apt-get install -y python3 libcjson-dev python3-pip llvm-19-dev libuv1-dev clang-19 libunwind-dev libclang-19-dev lld-19 cmake pkg-config libgc-dev libssl-dev zlib1g-dev libffi-dev libcjson-dev
-          echo "/usr/lib/llvm-19/bin" >> $GITHUB_PATH
-          python3 -m pip install conan
+          sudo apt-get install -y llvm-${{matrix.llvm}}-dev \
+            clang-${{matrix.llvm}} \
+            libclang-${{matrix.llvm}}-dev \
+            lld-${{matrix.llvm}} \
+            libunwind-${{matrix.llvm}}-dev \
+            libc++-${{matrix.llvm}}-dev \
+            pkg-config libgc-dev libssl-dev zlib1g-dev libffi-dev libuv1-dev
+          echo "/usr/lib/llvm-${{matrix.llvm}}/bin" >> $GITHUB_PATH
       - name: Set up Conan
         run: |
+          sudo apt install -y python3
+          python3 -m pip install conan
           conan profile detect
       - name: Setup LLGo
         working-directory: .llgo
