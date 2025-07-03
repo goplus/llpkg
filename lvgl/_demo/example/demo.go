@@ -9,13 +9,13 @@ import (
 
 func main() {
 	// Initialize LVGL
-	lvgl.LvInit()
-	disp := lvgl.LvSdlWindowCreate(480, 320)
-	lvgl.LvSdlMouseCreate()
-	lvgl.LvSdlKeyboardCreate()
+	lvgl.Init()
+	disp := lvgl.SdlWindowCreate(480, 320)
+	lvgl.SdlMouseCreate()
+	lvgl.SdlKeyboardCreate()
 
-	disp.LvSdlWindowSetZoom(1.0)
-	disp.LvSdlWindowSetTitle(c.Str("Profile Page"))
+	disp.SdlWindowSetZoom(1.0)
+	disp.SdlWindowSetTitle(c.Str("Profile Page"))
 
 	//lv_example_style_1() // 背景
 	//lv_example_style_2() // 渐变 -- 有问题
@@ -29,7 +29,7 @@ func main() {
 	//lv_example_anim_1() // 动画
 	// Main event loop
 	for {
-		lvgl.LvTimerHandler()
+		lvgl.TimerHandler()
 		time.Sleep(time.Millisecond * 5)
 	}
 }
