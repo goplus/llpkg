@@ -1,0 +1,325 @@
+[{
+		"mangle":	"pcre16_assign_jit_stack",
+		"c++":	"pcre16_assign_jit_stack(pcre16_extra *, pcre16_jit_callback, void *)",
+		"go":	"(*Extra).AssignJitStack__1"
+	}, {
+		"mangle":	"pcre16_compile",
+		"c++":	"pcre16_compile(const unsigned short *, int, const char **, int *, const unsigned char *)",
+		"go":	"Compile__1"
+	}, {
+		"mangle":	"pcre16_compile2",
+		"c++":	"pcre16_compile2(const unsigned short *, int, int *, const char **, int *, const unsigned char *)",
+		"go":	"Compile2__1"
+	}, {
+		"mangle":	"pcre16_config",
+		"c++":	"pcre16_config(int, void *)",
+		"go":	"Config__1"
+	}, {
+		"mangle":	"pcre16_copy_named_substring",
+		"c++":	"pcre16_copy_named_substring(const pcre16 *, const unsigned short *, int *, int, const unsigned short *, unsigned short *, int)",
+		"go":	"(*Pcre16).CopyNamedSubstring"
+	}, {
+		"mangle":	"pcre16_copy_substring",
+		"c++":	"pcre16_copy_substring(const unsigned short *, int *, int, int, unsigned short *, int)",
+		"go":	"CopySubstring__1"
+	}, {
+		"mangle":	"pcre16_dfa_exec",
+		"c++":	"pcre16_dfa_exec(const pcre16 *, const pcre16_extra *, const unsigned short *, int, int, int, int *, int, int *, int)",
+		"go":	"(*Pcre16).DfaExec"
+	}, {
+		"mangle":	"pcre16_exec",
+		"c++":	"pcre16_exec(const pcre16 *, const pcre16_extra *, const unsigned short *, int, int, int, int *, int)",
+		"go":	"(*Pcre16).Exec"
+	}, {
+		"mangle":	"pcre16_free_study",
+		"c++":	"pcre16_free_study(pcre16_extra *)",
+		"go":	"(*Extra).FreeStudy__1"
+	}, {
+		"mangle":	"pcre16_free_substring",
+		"c++":	"pcre16_free_substring(const unsigned short *)",
+		"go":	"FreeSubstring__1"
+	}, {
+		"mangle":	"pcre16_free_substring_list",
+		"c++":	"pcre16_free_substring_list(const unsigned short **)",
+		"go":	"FreeSubstringList__1"
+	}, {
+		"mangle":	"pcre16_fullinfo",
+		"c++":	"pcre16_fullinfo(const pcre16 *, const pcre16_extra *, int, void *)",
+		"go":	"(*Pcre16).Fullinfo"
+	}, {
+		"mangle":	"pcre16_get_named_substring",
+		"c++":	"pcre16_get_named_substring(const pcre16 *, const unsigned short *, int *, int, const unsigned short *, const unsigned short **)",
+		"go":	"(*Pcre16).GetNamedSubstring"
+	}, {
+		"mangle":	"pcre16_get_stringnumber",
+		"c++":	"pcre16_get_stringnumber(const pcre16 *, const unsigned short *)",
+		"go":	"(*Pcre16).GetStringnumber"
+	}, {
+		"mangle":	"pcre16_get_stringtable_entries",
+		"c++":	"pcre16_get_stringtable_entries(const pcre16 *, const unsigned short *, unsigned short **, unsigned short **)",
+		"go":	"(*Pcre16).GetStringtableEntries"
+	}, {
+		"mangle":	"pcre16_get_substring",
+		"c++":	"pcre16_get_substring(const unsigned short *, int *, int, int, const unsigned short **)",
+		"go":	"GetSubstring__1"
+	}, {
+		"mangle":	"pcre16_get_substring_list",
+		"c++":	"pcre16_get_substring_list(const unsigned short *, int *, int, const unsigned short ***)",
+		"go":	"GetSubstringList__1"
+	}, {
+		"mangle":	"pcre16_jit_free_unused_memory",
+		"c++":	"pcre16_jit_free_unused_memory()",
+		"go":	"JitFreeUnusedMemory__1"
+	}, {
+		"mangle":	"pcre16_jit_stack_alloc",
+		"c++":	"pcre16_jit_stack_alloc(int, int)",
+		"go":	"JitStackAlloc__1"
+	}, {
+		"mangle":	"pcre16_jit_stack_free",
+		"c++":	"pcre16_jit_stack_free(pcre16_jit_stack *)",
+		"go":	"(*JitStack).JitStackFree__1"
+	}, {
+		"mangle":	"pcre16_maketables",
+		"c++":	"pcre16_maketables()",
+		"go":	"Maketables__1"
+	}, {
+		"mangle":	"pcre16_pattern_to_host_byte_order",
+		"c++":	"pcre16_pattern_to_host_byte_order(pcre16 *, pcre16_extra *, const unsigned char *)",
+		"go":	"(*Pcre16).PatternToHostByteOrder"
+	}, {
+		"mangle":	"pcre16_refcount",
+		"c++":	"pcre16_refcount(pcre16 *, int)",
+		"go":	"(*Pcre16).Refcount"
+	}, {
+		"mangle":	"pcre16_study",
+		"c++":	"pcre16_study(const pcre16 *, int, const char **)",
+		"go":	"(*Pcre16).Study"
+	}, {
+		"mangle":	"pcre16_utf16_to_host_byte_order",
+		"c++":	"pcre16_utf16_to_host_byte_order(unsigned short *, const unsigned short *, int, int *, int)",
+		"go":	"Utf16ToHostByteOrder"
+	}, {
+		"mangle":	"pcre16_version",
+		"c++":	"pcre16_version()",
+		"go":	"Version__1"
+	}, {
+		"mangle":	"pcre32_assign_jit_stack",
+		"c++":	"pcre32_assign_jit_stack(pcre32_extra *, pcre32_jit_callback, void *)",
+		"go":	"(*Extra).AssignJitStack__2"
+	}, {
+		"mangle":	"pcre32_compile",
+		"c++":	"pcre32_compile(const unsigned int *, int, const char **, int *, const unsigned char *)",
+		"go":	"Compile__2"
+	}, {
+		"mangle":	"pcre32_compile2",
+		"c++":	"pcre32_compile2(const unsigned int *, int, int *, const char **, int *, const unsigned char *)",
+		"go":	"Compile2__2"
+	}, {
+		"mangle":	"pcre32_config",
+		"c++":	"pcre32_config(int, void *)",
+		"go":	"Config__2"
+	}, {
+		"mangle":	"pcre32_copy_named_substring",
+		"c++":	"pcre32_copy_named_substring(const pcre32 *, const unsigned int *, int *, int, const unsigned int *, unsigned int *, int)",
+		"go":	"(*Pcre32).CopyNamedSubstring"
+	}, {
+		"mangle":	"pcre32_copy_substring",
+		"c++":	"pcre32_copy_substring(const unsigned int *, int *, int, int, unsigned int *, int)",
+		"go":	"CopySubstring__2"
+	}, {
+		"mangle":	"pcre32_dfa_exec",
+		"c++":	"pcre32_dfa_exec(const pcre32 *, const pcre32_extra *, const unsigned int *, int, int, int, int *, int, int *, int)",
+		"go":	"(*Pcre32).DfaExec"
+	}, {
+		"mangle":	"pcre32_exec",
+		"c++":	"pcre32_exec(const pcre32 *, const pcre32_extra *, const unsigned int *, int, int, int, int *, int)",
+		"go":	"(*Pcre32).Exec"
+	}, {
+		"mangle":	"pcre32_free_study",
+		"c++":	"pcre32_free_study(pcre32_extra *)",
+		"go":	"(*Extra).FreeStudy__2"
+	}, {
+		"mangle":	"pcre32_free_substring",
+		"c++":	"pcre32_free_substring(const unsigned int *)",
+		"go":	"FreeSubstring__2"
+	}, {
+		"mangle":	"pcre32_free_substring_list",
+		"c++":	"pcre32_free_substring_list(const unsigned int **)",
+		"go":	"FreeSubstringList__2"
+	}, {
+		"mangle":	"pcre32_fullinfo",
+		"c++":	"pcre32_fullinfo(const pcre32 *, const pcre32_extra *, int, void *)",
+		"go":	"(*Pcre32).Fullinfo"
+	}, {
+		"mangle":	"pcre32_get_named_substring",
+		"c++":	"pcre32_get_named_substring(const pcre32 *, const unsigned int *, int *, int, const unsigned int *, const unsigned int **)",
+		"go":	"(*Pcre32).GetNamedSubstring"
+	}, {
+		"mangle":	"pcre32_get_stringnumber",
+		"c++":	"pcre32_get_stringnumber(const pcre32 *, const unsigned int *)",
+		"go":	"(*Pcre32).GetStringnumber"
+	}, {
+		"mangle":	"pcre32_get_stringtable_entries",
+		"c++":	"pcre32_get_stringtable_entries(const pcre32 *, const unsigned int *, unsigned int **, unsigned int **)",
+		"go":	"(*Pcre32).GetStringtableEntries"
+	}, {
+		"mangle":	"pcre32_get_substring",
+		"c++":	"pcre32_get_substring(const unsigned int *, int *, int, int, const unsigned int **)",
+		"go":	"GetSubstring__2"
+	}, {
+		"mangle":	"pcre32_get_substring_list",
+		"c++":	"pcre32_get_substring_list(const unsigned int *, int *, int, const unsigned int ***)",
+		"go":	"GetSubstringList__2"
+	}, {
+		"mangle":	"pcre32_jit_free_unused_memory",
+		"c++":	"pcre32_jit_free_unused_memory()",
+		"go":	"JitFreeUnusedMemory__2"
+	}, {
+		"mangle":	"pcre32_jit_stack_alloc",
+		"c++":	"pcre32_jit_stack_alloc(int, int)",
+		"go":	"JitStackAlloc__2"
+	}, {
+		"mangle":	"pcre32_jit_stack_free",
+		"c++":	"pcre32_jit_stack_free(pcre32_jit_stack *)",
+		"go":	"(*JitStack).JitStackFree__2"
+	}, {
+		"mangle":	"pcre32_maketables",
+		"c++":	"pcre32_maketables()",
+		"go":	"Maketables__2"
+	}, {
+		"mangle":	"pcre32_pattern_to_host_byte_order",
+		"c++":	"pcre32_pattern_to_host_byte_order(pcre32 *, pcre32_extra *, const unsigned char *)",
+		"go":	"(*Pcre32).PatternToHostByteOrder"
+	}, {
+		"mangle":	"pcre32_refcount",
+		"c++":	"pcre32_refcount(pcre32 *, int)",
+		"go":	"(*Pcre32).Refcount"
+	}, {
+		"mangle":	"pcre32_study",
+		"c++":	"pcre32_study(const pcre32 *, int, const char **)",
+		"go":	"(*Pcre32).Study"
+	}, {
+		"mangle":	"pcre32_utf32_to_host_byte_order",
+		"c++":	"pcre32_utf32_to_host_byte_order(unsigned int *, const unsigned int *, int, int *, int)",
+		"go":	"Utf32ToHostByteOrder"
+	}, {
+		"mangle":	"pcre32_version",
+		"c++":	"pcre32_version()",
+		"go":	"Version__2"
+	}, {
+		"mangle":	"pcre_assign_jit_stack",
+		"c++":	"pcre_assign_jit_stack(pcre_extra *, pcre_jit_callback, void *)",
+		"go":	"(*Extra).AssignJitStack"
+	}, {
+		"mangle":	"pcre_compile",
+		"c++":	"pcre_compile(const char *, int, const char **, int *, const unsigned char *)",
+		"go":	"Compile"
+	}, {
+		"mangle":	"pcre_compile2",
+		"c++":	"pcre_compile2(const char *, int, int *, const char **, int *, const unsigned char *)",
+		"go":	"Compile2"
+	}, {
+		"mangle":	"pcre_config",
+		"c++":	"pcre_config(int, void *)",
+		"go":	"Config"
+	}, {
+		"mangle":	"pcre_copy_named_substring",
+		"c++":	"pcre_copy_named_substring(const pcre *, const char *, int *, int, const char *, char *, int)",
+		"go":	"(*Pcre).CopyNamedSubstring"
+	}, {
+		"mangle":	"pcre_copy_substring",
+		"c++":	"pcre_copy_substring(const char *, int *, int, int, char *, int)",
+		"go":	"CopySubstring"
+	}, {
+		"mangle":	"pcre_dfa_exec",
+		"c++":	"pcre_dfa_exec(const pcre *, const pcre_extra *, const char *, int, int, int, int *, int, int *, int)",
+		"go":	"(*Pcre).DfaExec"
+	}, {
+		"mangle":	"pcre_exec",
+		"c++":	"pcre_exec(const pcre *, const pcre_extra *, const char *, int, int, int, int *, int)",
+		"go":	"(*Pcre).Exec"
+	}, {
+		"mangle":	"pcre_free_study",
+		"c++":	"pcre_free_study(pcre_extra *)",
+		"go":	"(*Extra).FreeStudy"
+	}, {
+		"mangle":	"pcre_free_substring",
+		"c++":	"pcre_free_substring(const char *)",
+		"go":	"FreeSubstring"
+	}, {
+		"mangle":	"pcre_free_substring_list",
+		"c++":	"pcre_free_substring_list(const char **)",
+		"go":	"FreeSubstringList"
+	}, {
+		"mangle":	"pcre_fullinfo",
+		"c++":	"pcre_fullinfo(const pcre *, const pcre_extra *, int, void *)",
+		"go":	"(*Pcre).Fullinfo"
+	}, {
+		"mangle":	"pcre_get_named_substring",
+		"c++":	"pcre_get_named_substring(const pcre *, const char *, int *, int, const char *, const char **)",
+		"go":	"(*Pcre).GetNamedSubstring"
+	}, {
+		"mangle":	"pcre_get_stringnumber",
+		"c++":	"pcre_get_stringnumber(const pcre *, const char *)",
+		"go":	"(*Pcre).GetStringnumber"
+	}, {
+		"mangle":	"pcre_get_stringtable_entries",
+		"c++":	"pcre_get_stringtable_entries(const pcre *, const char *, char **, char **)",
+		"go":	"(*Pcre).GetStringtableEntries"
+	}, {
+		"mangle":	"pcre_get_substring",
+		"c++":	"pcre_get_substring(const char *, int *, int, int, const char **)",
+		"go":	"GetSubstring"
+	}, {
+		"mangle":	"pcre_get_substring_list",
+		"c++":	"pcre_get_substring_list(const char *, int *, int, const char ***)",
+		"go":	"GetSubstringList"
+	}, {
+		"mangle":	"pcre_jit_free_unused_memory",
+		"c++":	"pcre_jit_free_unused_memory()",
+		"go":	"JitFreeUnusedMemory"
+	}, {
+		"mangle":	"pcre_jit_stack_alloc",
+		"c++":	"pcre_jit_stack_alloc(int, int)",
+		"go":	"JitStackAlloc"
+	}, {
+		"mangle":	"pcre_jit_stack_free",
+		"c++":	"pcre_jit_stack_free(pcre_jit_stack *)",
+		"go":	"(*JitStack).JitStackFree"
+	}, {
+		"mangle":	"pcre_maketables",
+		"c++":	"pcre_maketables()",
+		"go":	"Maketables"
+	}, {
+		"mangle":	"pcre_pattern_to_host_byte_order",
+		"c++":	"pcre_pattern_to_host_byte_order(pcre *, pcre_extra *, const unsigned char *)",
+		"go":	"(*Pcre).PatternToHostByteOrder"
+	}, {
+		"mangle":	"pcre_refcount",
+		"c++":	"pcre_refcount(pcre *, int)",
+		"go":	"(*Pcre).Refcount"
+	}, {
+		"mangle":	"pcre_study",
+		"c++":	"pcre_study(const pcre *, int, const char **)",
+		"go":	"(*Pcre).Study"
+	}, {
+		"mangle":	"pcre_version",
+		"c++":	"pcre_version()",
+		"go":	"Version"
+	}, {
+		"mangle":	"regcomp",
+		"c++":	"regcomp(regex_t *, const char *, int)",
+		"go":	"(*RegexT).Regcomp"
+	}, {
+		"mangle":	"regerror",
+		"c++":	"regerror(int, const regex_t *, char *, size_t)",
+		"go":	"Regerror"
+	}, {
+		"mangle":	"regexec",
+		"c++":	"regexec(const regex_t *, const char *, size_t, regmatch_t *, int)",
+		"go":	"(*RegexT).Regexec"
+	}, {
+		"mangle":	"regfree",
+		"c++":	"regfree(regex_t *)",
+		"go":	"(*RegexT).Regfree"
+	}]
