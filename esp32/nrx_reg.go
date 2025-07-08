@@ -1,0 +1,20 @@
+package freertos
+
+import _ "unsafe"
+
+const NRX_CHAN_EST_FORCE_PU_V = 1
+const NRX_CHAN_EST_FORCE_PU_S = 7
+const NRX_CHAN_EST_FORCE_PD_V = 1
+const NRX_CHAN_EST_FORCE_PD_S = 6
+const NRX_RX_ROT_FORCE_PU_V = 1
+const NRX_RX_ROT_FORCE_PU_S = 5
+const NRX_RX_ROT_FORCE_PD_V = 1
+const NRX_RX_ROT_FORCE_PD_S = 4
+const NRX_VIT_FORCE_PU_V = 1
+const NRX_VIT_FORCE_PU_S = 3
+const NRX_VIT_FORCE_PD_V = 1
+const NRX_VIT_FORCE_PD_S = 2
+const NRX_DEMAP_FORCE_PU_V = 1
+const NRX_DEMAP_FORCE_PU_S = 1
+const NRX_DEMAP_FORCE_PD_V = 1
+const NRX_DEMAP_FORCE_PD_S = 0

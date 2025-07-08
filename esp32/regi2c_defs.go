@@ -1,0 +1,9 @@
+package freertos
+
+import _ "unsafe"
+
+const I2C_MST_ANA_CONF0_REG = 0x6000E040
+const ANA_CONFIG_REG = 0x6000E044
+const ANA_CONFIG2_REG = 0x6000E048
+const REGI2C_ANA_CALI_PD_WORKAROUND = 1
+const REGI2C_ANA_CALI_BYTE_NUM = 8

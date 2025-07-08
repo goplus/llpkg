@@ -1,0 +1,8 @@
+package freertos
+
+import _ "unsafe"
+
+const SOC_MPU_CONFIGURABLE_REGIONS_SUPPORTED = 0
+const SOC_MPU_REGIONS_MAX_NUM = 8
+const SOC_MPU_REGION_RO_SUPPORTED = 0
+const SOC_MPU_REGION_WO_SUPPORTED = 0

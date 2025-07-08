@@ -1,0 +1,8 @@
+package freertos
+
+import _ "unsafe"
+
+const XCHAL_CACHEATTR_ALL_BYPASS = 0x22222222
+const XCHAL_FCA_ENAMASK = 0x003A
+const XCHAL_LCA_ENAMASK = 0x0033
+const XCHAL_SCA_ENAMASK = 0x0033

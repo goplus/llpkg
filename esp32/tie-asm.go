@@ -1,0 +1,19 @@
+package freertos
+
+import _ "unsafe"
+
+const XTHAL_SAS_TIE = 0x0001
+const XTHAL_SAS_OPT = 0x0002
+const XTHAL_SAS_ANYOT = 0x0003
+const XTHAL_SAS_NOCC = 0x0004
+const XTHAL_SAS_CC = 0x0008
+const XTHAL_SAS_ANYCC = 0x000C
+const XTHAL_SAS_CALR = 0x0010
+const XTHAL_SAS_CALE = 0x0020
+const XTHAL_SAS_GLOB = 0x0040
+const XTHAL_SAS_ANYABI = 0x0070
+const XTHAL_SAS_ALL = 0xFFFF
+const XCHAL_NCP_NUM_ATMPS = 1
+const XCHAL_CP0_NUM_ATMPS = 1
+const XCHAL_CP3_NUM_ATMPS = 1
+const XCHAL_SA_NUM_ATMPS = 1

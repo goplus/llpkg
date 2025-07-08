@@ -1,0 +1,22 @@
+package freertos
+
+import (
+	"github.com/goplus/lib/c"
+	_ "unsafe"
+)
+
+const MCPWM_LL_MAX_GROUP_PRESCALE = 256
+const MCPWM_LL_MAX_TIMER_PRESCALE = 256
+const MCPWM_LL_MAX_CARRIER_PRESCALE = 16
+const MCPWM_LL_MAX_CARRIER_ONESHOT = 16
+const MCPWM_LL_MAX_CAPTURE_PRESCALE = 256
+const MCPWM_LL_MAX_CAPTURE_TIMER_PRESCALE = 1
+const MCPWM_LL_MAX_DEAD_DELAY = 65536
+const MCPWM_LL_MAX_COUNT_VALUE = 65536
+
+type McpwmLlDeadtimeClockSrcT c.Int
+
+const (
+	MCPWM_LL_DEADTIME_CLK_SRC_GROUP McpwmLlDeadtimeClockSrcT = 0
+	MCPWM_LL_DEADTIME_CLK_SRC_TIMER McpwmLlDeadtimeClockSrcT = 1
+)
