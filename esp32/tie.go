@@ -1,0 +1,41 @@
+package freertos
+
+import _ "unsafe"
+
+const XCHAL_CP_NUM = 2
+const XCHAL_CP_MAX = 4
+const XCHAL_CP_MASK = 0x09
+const XCHAL_CP_PORT_MASK = 0x00
+const XCHAL_CP0_NAME = "FPU"
+const XCHAL_CP0_SA_SIZE = 72
+const XCHAL_CP0_SA_ALIGN = 4
+const XCHAL_CP_ID_FPU = 0
+const XCHAL_CP3_NAME = "cop_ai"
+const XCHAL_CP3_SA_SIZE = 208
+const XCHAL_CP3_SA_ALIGN = 16
+const XCHAL_CP_ID_COP_AI = 3
+const XCHAL_CP1_SA_SIZE = 0
+const XCHAL_CP1_SA_ALIGN = 1
+const XCHAL_CP2_SA_SIZE = 0
+const XCHAL_CP2_SA_ALIGN = 1
+const XCHAL_CP4_SA_SIZE = 0
+const XCHAL_CP4_SA_ALIGN = 1
+const XCHAL_CP5_SA_SIZE = 0
+const XCHAL_CP5_SA_ALIGN = 1
+const XCHAL_CP6_SA_SIZE = 0
+const XCHAL_CP6_SA_ALIGN = 1
+const XCHAL_CP7_SA_SIZE = 0
+const XCHAL_CP7_SA_ALIGN = 1
+const XCHAL_NCP_SA_SIZE = 36
+const XCHAL_NCP_SA_ALIGN = 4
+const XCHAL_TOTAL_SA_SIZE = 336
+const XCHAL_TOTAL_SA_ALIGN = 16
+const XCHAL_NCP_SA_NUM = 9
+const XCHAL_CP0_SA_NUM = 18
+const XCHAL_CP1_SA_NUM = 0
+const XCHAL_CP2_SA_NUM = 0
+const XCHAL_CP3_SA_NUM = 26
+const XCHAL_CP4_SA_NUM = 0
+const XCHAL_CP5_SA_NUM = 0
+const XCHAL_CP6_SA_NUM = 0
+const XCHAL_CP7_SA_NUM = 0
