@@ -15,7 +15,10 @@ sqlite3_context Context
 sqlite3_destructor_type DestructorType
 sqlite3_file File
 sqlite3_filename Filename
+sqlite3_index_constraint IndexConstraint
+sqlite3_index_constraint_usage IndexConstraintUsage
 sqlite3_index_info IndexInfo
+sqlite3_index_orderby IndexOrderby
 sqlite3_int64 Int64
 sqlite3_io_methods IoMethods
 sqlite3_loadext_entry LoadextEntry
