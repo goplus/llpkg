@@ -43,6 +43,12 @@ jobs:
           repository: 'goplus/llcppg'
           path: .llcppg
           ref: ${{matrix.llcppg}}
+      - name: Check out LLPyg
+        uses: actions/checkout@v4
+        with:
+          repository: 'goplus/llgo'
+          path: .llpyg
+          ref: ${{matrix.llgo}}
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
@@ -74,8 +80,12 @@ jobs:
       - name: Pre setup Conan
         if: startsWith(matrix.os, 'ubuntu')
         run: |
-          sudo apt install -y python3
+          sudo apt install -y python3 python3-pip
           python3 -m pip install conan
+      - name: Setup Python
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install pydump pysigfetch
       - name: Set up Conan
         run: |
           conan profile detect
@@ -95,6 +105,10 @@ jobs:
           go install github.com/goplus/llcppg/cmd/llcppcfg@${{matrix.llcppg}}
           go install github.com/goplus/llcppg/cmd/gogensig@${{matrix.llcppg}}
           go install github.com/goplus/llcppg/cmd/llcppg@${{matrix.llcppg}}
+      - name: Setup LLPyg
+        working-directory: .llpyg
+        run: |
+          llgo install ./chore/llpyg/llpyg
       - name: Get changed files
         id: changed-files
         uses: tj-actions/changed-files@v45
