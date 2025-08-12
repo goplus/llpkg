@@ -49,7 +49,7 @@ jobs:
           go-version: 1.23.x
       - name: Set up Tool
         run: |
-          go install -v github.com/goplus/llpkgstore/cmd/llpkgstore@latest
+          go install -v https://github.com/PengPengPeng717/llpkgstore.git
       - name: Install dependencies
         if: startsWith(matrix.os, 'macos')
         run: |
