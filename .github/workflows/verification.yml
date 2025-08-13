@@ -14,7 +14,7 @@ on:
       - '.gitignore'
 
 jobs:
-  llcppg-verification:
+  llpkg-verification:
     name: Verify Go Module
     strategy:
       matrix:
@@ -52,10 +52,10 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
-          go-version: 1.23.x
+          go-version: 1.24.x
       - name: Set up Tool
         run: |
-          go install -v github.com/goplus/llpkgstore/cmd/llpkgstore@latest
+          go install -v github.com/PengPengPeng717/llpkgstore/cmd/llpkgstore@latest
       - name: Install dependencies
         if: startsWith(matrix.os, 'macos')
         run: |
@@ -77,15 +77,17 @@ jobs:
             libc++-${{matrix.llvm}}-dev \
             pkg-config libgc-dev libssl-dev zlib1g-dev libffi-dev libuv1-dev
           echo "/usr/lib/llvm-${{matrix.llvm}}/bin" >> $GITHUB_PATH
-      - name: Pre setup Conan
+      - name: Pre setup Python and Conan
         if: startsWith(matrix.os, 'ubuntu')
         run: |
           sudo apt install -y python3 python3-pip
-          python3 -m pip install conan
-      - name: Setup Python
+          python3 -m pip install --upgrade pip
+          python3 -m pip install conan pydump pysigfetch
+      - name: Pre setup Python and Conan
+        if: startsWith(matrix.os, 'macos')
         run: |
           python3 -m pip install --upgrade pip
-          python3 -m pip install pydump pysigfetch
+          python3 -m pip install conan pydump pysigfetch
       - name: Set up Conan
         run: |
           conan profile detect
@@ -97,7 +99,7 @@ jobs:
           echo "LLGO_ROOT=$LLGO_ROOT" >> $GITHUB_ENV
           # https://github.com/goplus/llgo/issues/1135
           echo "LLGO_RPATH_CHANGE=ON" >> $GITHUB_ENV
-      - name: Setup LLCppg
+      - name: Setup LLCppg (for C/C++ packages)
         working-directory: .llcppg
         run: |
           llgo install ./_xtool/llcppsymg
@@ -105,10 +107,15 @@ jobs:
           go install github.com/goplus/llcppg/cmd/llcppcfg@${{matrix.llcppg}}
           go install github.com/goplus/llcppg/cmd/gogensig@${{matrix.llcppg}}
           go install github.com/goplus/llcppg/cmd/llcppg@${{matrix.llcppg}}
-      - name: Setup LLPyg
-        working-directory: .llpyg
+      - name: Setup LLPyg (for Python packages)
+        working-directory: .llgo
         run: |
           llgo install ./chore/llpyg/llpyg
+          llgo install ./chore/llpygcfg/llpygcfg
+      - name: Set up Python environment
+        run: |
+          echo "PYTHONPATH=/usr/local/lib/python3.12/site-packages:/usr/lib/python3.12/site-packages" >> $GITHUB_ENV
+          echo "GOTOOLCHAIN=go1.24.5" >> $GITHUB_ENV
       - name: Get changed files
         id: changed-files
         uses: tj-actions/changed-files@v45
