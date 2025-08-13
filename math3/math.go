@@ -5,7 +5,7 @@ import (
 	_ "unsafe"
 )
 
-const LLGoPackage = "py.math"
+//const LLGoPackage = "py.math"
 // Return the arc cosine (measured in radians) of x.
 //
 // The result is between 0 and pi.
