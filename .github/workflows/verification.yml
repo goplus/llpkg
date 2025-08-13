@@ -86,8 +86,8 @@ jobs:
       - name: Pre setup Python and Conan
         if: startsWith(matrix.os, 'macos')
         run: |
-          python3 -m pip install --upgrade pip
-          python3 -m pip install conan pydump pysigfetch
+          python3 -m pip install --upgrade pip --break-system-packages
+          python3 -m pip install conan pydump pysigfetch --break-system-packages
       - name: Set up Conan
         run: |
           conan profile detect
