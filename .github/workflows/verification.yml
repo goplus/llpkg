@@ -110,6 +110,9 @@ jobs:
         run: |
           echo "PYTHONPATH=/usr/local/lib/python3.12/site-packages:/usr/lib/python3.12/site-packages" >> $GITHUB_ENV
           echo "GOTOOLCHAIN=go1.24.5" >> $GITHUB_ENV
+      - name: Install Python dependencies
+        run: |
+          python3 -m pip install numpy==1.26.4
       - name: Get changed files
         id: changed-files
         uses: tj-actions/changed-files@v45
