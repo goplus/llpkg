@@ -43,12 +43,6 @@ jobs:
           repository: 'goplus/llcppg'
           path: .llcppg
           ref: ${{matrix.llcppg}}
-      - name: Check out LLPyg
-        uses: actions/checkout@v4
-        with:
-          repository: 'goplus/llgo'
-          path: .llpyg
-          ref: ${{matrix.llgo}}
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
