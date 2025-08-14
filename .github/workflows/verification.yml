@@ -115,6 +115,7 @@ jobs:
         uses: tj-actions/changed-files@v45
       - name: Checkout to website
         uses: actions/checkout@v4
+        continue-on-error: true
         with:
           ref: website
           path: .website
