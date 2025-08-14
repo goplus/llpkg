@@ -105,8 +105,8 @@ jobs:
       - name: Setup LLPyg (for Python packages)
         working-directory: .llgo
         run: |
-          llgo install ./chore/llpyg/llpyg
-          llgo install ./chore/llpygcfg/llpygcfg
+          go install -v ./chore/llpyg/llpyg
+          go install -v ./chore/llpygcfg/llpygcfg
       - name: Set up Python environment
         run: |
           echo "PYTHONPATH=/usr/local/lib/python3.12/site-packages:/usr/lib/python3.12/site-packages" >> $GITHUB_ENV
