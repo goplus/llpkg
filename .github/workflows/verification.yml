@@ -113,18 +113,6 @@ jobs:
       - name: Get changed files
         id: changed-files
         uses: tj-actions/changed-files@v45
-      - name: Checkout to website
-        uses: actions/checkout@v4
-        continue-on-error: true
-        with:
-          ref: website
-          path: .website
-      - name: Copy llpkgstore.json to root
-        continue-on-error: true
-        run: |
-          ls .website .website/public
-          cp .website/public/llpkgstore.json .
-          rm -rf .website
       - name: Verification & Prebuilt
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
