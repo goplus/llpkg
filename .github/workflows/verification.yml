@@ -82,12 +82,14 @@ jobs:
         run: |
           sudo apt install -y python3 python3-pip
           python3 -m pip install --upgrade pip
-          python3 -m pip install conan pydump pysigfetch
+          python3 -m pip install conan pydump
+          go install github.com/goplus/hdq/chore/pysigfetch@v0.8.1
       - name: Pre setup Python and Conan
         if: startsWith(matrix.os, 'macos')
         run: |
           python3 -m pip install --upgrade pip --break-system-packages
-          python3 -m pip install conan pydump pysigfetch --break-system-packages
+          python3 -m pip install conan pydump --break-system-packages
+          go install github.com/goplus/hdq/chore/pysigfetch@v0.8.1
       - name: Set up Conan
         run: |
           conan profile detect
