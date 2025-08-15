@@ -92,13 +92,6 @@ jobs:
           echo "LLGO_ROOT=$LLGO_ROOT" >> $GITHUB_ENV
           # https://github.com/goplus/llgo/issues/1135
           echo "LLGO_RPATH_CHANGE=ON" >> $GITHUB_ENV
-      - name: Setup LLPyg
-        working-directory: .llpyg
-        run: |
-          cd _xtool
-          llgo install ./...
-          cd ..
-          go install -v ./cmd/...
       - name: Set up Python environment
         run: |
           echo "GOTOOLCHAIN=go1.24.5" >> $GITHUB_ENV
@@ -111,22 +104,30 @@ jobs:
           echo "PATH=$PATH" >> $GITHUB_ENV
           echo "DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH" >> $GITHUB_ENV
           echo "PKG_CONFIG_PATH=$PKG_CONFIG_PATH" >> $GITHUB_ENV
-      - name: Install Python dependencies (Ubuntu)
-        if: startsWith(matrix.os, 'ubuntu')
+      - name: Setup LLPyg
+        working-directory: .llpyg
         run: |
-          # python3 -m pip install numpy==1.26.4
-          # python3 -c "import numpy; print('numpy version:', numpy.__version__)"
-          # python3 -c "import site; print('site-packages:', site.getsitepackages())"
-          # Set PYTHONPATH for llpyg using LLGo's Python environment
-          echo "PYTHONPATH=$PYTHONHOME/lib/python3.12/site-packages" >> $GITHUB_ENV
-      - name: Install Python dependencies (macOS)
-        if: startsWith(matrix.os, 'macos')
-        run: |
-          # python3 -m pip install numpy==1.26.4 --break-system-packages
-          # python3 -c "import numpy; print('numpy version:', numpy.__version__)"
-          # python3 -c "import site; print('site-packages:', site.getsitepackages())"
-          # # Set PYTHONPATH for llpyg using LLGo's Python environment
-          echo "PYTHONPATH=$PYTHONHOME/lib/python3.12/site-packages" >> $GITHUB_ENV
+          cd _xtool
+          llgo install ./...
+          cd ..
+          go install -v ./cmd/...
+
+      # - name: Install Python dependencies (Ubuntu)
+      #   if: startsWith(matrix.os, 'ubuntu')
+      #   run: |
+      #     # python3 -m pip install numpy==1.26.4
+      #     # python3 -c "import numpy; print('numpy version:', numpy.__version__)"
+      #     # python3 -c "import site; print('site-packages:', site.getsitepackages())"
+      #     # Set PYTHONPATH for llpyg using LLGo's Python environment
+      #     echo "PYTHONPATH=$PYTHONHOME/lib/python3.12/site-packages" >> $GITHUB_ENV
+      # - name: Install Python dependencies (macOS)
+      #   if: startsWith(matrix.os, 'macos')
+      #   run: |
+      #     # python3 -m pip install numpy==1.26.4 --break-system-packages
+      #     # python3 -c "import numpy; print('numpy version:', numpy.__version__)"
+      #     # python3 -c "import site; print('site-packages:', site.getsitepackages())"
+      #     # # Set PYTHONPATH for llpyg using LLGo's Python environment
+      #     echo "PYTHONPATH=$PYTHONHOME/lib/python3.12/site-packages" >> $GITHUB_ENV
       - name: Get changed files
         id: changed-files
         uses: tj-actions/changed-files@v45
