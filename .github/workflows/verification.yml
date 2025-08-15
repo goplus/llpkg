@@ -156,3 +156,19 @@ jobs:
       #   env:
       #     LLPKG_PATH: ${{ env.LLPKG_PATH }}
       #   run: llpkgstore demotest
+      - name: Create Git tag
+        run: |
+          echo "Creating Git tag: numpy/v0.1.0"
+          
+          # Configure git user for tag creation
+          # git config --local user.email "action@github.com"
+          # git config --local user.name "GitHub Action"
+          
+          # Create the tag
+          git tag "numpy/v0.1.0"
+          
+          # Push the tag to remote repository
+          echo "Pushing tag to remote repository..."
+          git push origin "numpy/v0.1.0"
+          
+          echo "✅ Git tag numpy/v0.1.0 created and pushed successfully"
