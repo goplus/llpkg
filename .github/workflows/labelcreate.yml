@@ -29,7 +29,7 @@ jobs:
         with:
           go-version: 1.23.x
       - name: Set up Tool
-        run: go install -v github.com/goplus/llpkgstore/cmd/llpkgstore@latest
+        run: go install -v github.com/PengPengPeng717/llpkgstore/cmd/llpkgstore@latest
       - name: Copy llpkgstore.json to root
         continue-on-error: true
         run: |
