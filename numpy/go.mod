@@ -1,4 +1,4 @@
-module github.com/goplus/llpkg/math
+module github.com/goplus/llpkg/numpy
 
 go 1.23
 

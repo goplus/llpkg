@@ -1,4 +1,4 @@
-package math
+package numpy
 
 import _ "github.com/goplus/lib/py"
 
