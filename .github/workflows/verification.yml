@@ -40,7 +40,7 @@ jobs:
         with:
           repository: 'toaction/llpyg'
           path: .llpyg
-          ref: feat/llpyg_v2
+          ref: feat/llpyg_v3
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
