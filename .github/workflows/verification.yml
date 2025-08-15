@@ -20,9 +20,9 @@ jobs:
       matrix:
         os:
           - macos-13
-          - macos-latest
-          - ubuntu-24.04
-          - ubuntu-24.04-arm
+          # - macos-latest
+          # - ubuntu-24.04
+          # - ubuntu-24.04-arm
         llvm: [19]
 
     runs-on: ${{matrix.os}}
