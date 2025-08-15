@@ -128,10 +128,21 @@ jobs:
       - name: Get changed files
         id: changed-files
         uses: tj-actions/changed-files@v45
+        with:
+          files: |
+            **/llpkg.cfg
+            **/llpyg.cfg
+            **/llcppg.cfg
+            **/*.go
+      - name: Debug changed files
+        run: |
+          echo "Changed files: ${{ steps.changed-files.outputs.all_changed_files }}"
+          echo "Any changed: ${{ steps.changed-files.outputs.any_changed }}"
+          echo "All changed: ${{ steps.changed-files.outputs.all_changed }}"
       - name: Verification & Prebuilt
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
+          ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files || 'numpy/llpkg.cfg numpy/llpyg.cfg' }}
         run: llpkgstore verification
       - name: Run demotest process
         env:
