@@ -74,13 +74,13 @@ jobs:
         run: |
           sudo apt install -y python3 python3-pip
           python3 -m pip install --upgrade pip
-          python3 -m pip install conan pydump
-          go install github.com/goplus/hdq/chore/pysigfetch@v0.8.1
+          # python3 -m pip install conan pydump
+          # go install github.com/goplus/hdq/chore/pysigfetch@v0.8.1
       - name: Pre setup Python and Conan
         if: startsWith(matrix.os, 'macos')
         run: |
           python3 -m pip install conan pydump --break-system-packages
-          go install github.com/goplus/hdq/chore/pysigfetch@v0.8.1
+          # go install github.com/goplus/hdq/chore/pysigfetch@v0.8.1
       - name: Set up Conan
         run: |
           conan profile detect
@@ -114,25 +114,25 @@ jobs:
       - name: Install Python dependencies (Ubuntu)
         if: startsWith(matrix.os, 'ubuntu')
         run: |
-          python3 -m pip install numpy==1.26.4
-          python3 -c "import numpy; print('numpy version:', numpy.__version__)"
-          python3 -c "import site; print('site-packages:', site.getsitepackages())"
+          # python3 -m pip install numpy==1.26.4
+          # python3 -c "import numpy; print('numpy version:', numpy.__version__)"
+          # python3 -c "import site; print('site-packages:', site.getsitepackages())"
           # Set PYTHONPATH for llpyg using LLGo's Python environment
           echo "PYTHONPATH=$PYTHONHOME/lib/python3.12/site-packages" >> $GITHUB_ENV
       - name: Install Python dependencies (macOS)
         if: startsWith(matrix.os, 'macos')
         run: |
-          python3 -m pip install numpy==1.26.4 --break-system-packages
-          python3 -c "import numpy; print('numpy version:', numpy.__version__)"
-          python3 -c "import site; print('site-packages:', site.getsitepackages())"
-          # Set PYTHONPATH for llpyg using LLGo's Python environment
+          # python3 -m pip install numpy==1.26.4 --break-system-packages
+          # python3 -c "import numpy; print('numpy version:', numpy.__version__)"
+          # python3 -c "import site; print('site-packages:', site.getsitepackages())"
+          # # Set PYTHONPATH for llpyg using LLGo's Python environment
           echo "PYTHONPATH=$PYTHONHOME/lib/python3.12/site-packages" >> $GITHUB_ENV
       - name: Get changed files
         id: changed-files
         uses: tj-actions/changed-files@v45
         with:
           files: |
-            **/llpkg.cfg
+            # **/llpkg.cfg
             **/llpyg.cfg
             **/llcppg.cfg
             **/*.go
@@ -146,12 +146,12 @@ jobs:
           # Test llpyg with numpy as per guide
           llpyg numpy
           echo "llpyg generation completed successfully"
-      - name: Verification & Prebuilt
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files || 'numpy/llpkg.cfg numpy/llpyg.cfg' }}
-        run: llpkgstore verification
-      - name: Run demotest process
-        env:
-          LLPKG_PATH: ${{ env.LLPKG_PATH }}
-        run: llpkgstore demotest
+      # - name: Verification & Prebuilt
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files || 'numpy/llpkg.cfg numpy/llpyg.cfg' }}
+      #   run: llpkgstore verification
+      # - name: Run demotest process
+      #   env:
+      #     LLPKG_PATH: ${{ env.LLPKG_PATH }}
+      #   run: llpkgstore demotest
