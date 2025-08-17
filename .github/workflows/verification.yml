@@ -34,13 +34,13 @@ jobs:
         with:
           repository: '1351914167/llgo'
           path: .llgo
-          ref: go_get_v1
+          ref: presentation
       - name: Check out LLPyg
         uses: actions/checkout@v4
         with:
           repository: 'toaction/llpyg'
           path: .llpyg
-          ref: feat/llpyg_v3
+          ref: presentation
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
