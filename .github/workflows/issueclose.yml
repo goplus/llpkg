@@ -18,9 +18,9 @@ jobs:
         uses: actions/setup-go@v4
         with:
           go-version: 1.23.x
-      - name: Set up Tool
-        run: go install -v github.com/PengPengPeng717/llpkgstore/cmd/llpkgstore@latest
-      - name: Run cleaner process
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: llpkgstore issueclose
+      # - name: Set up Tool
+      #   run: go install -v github.com/PengPengPeng717/llpkgstore/cmd/llpkgstore@latest
+      # - name: Run cleaner process
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   run: llpkgstore issueclose

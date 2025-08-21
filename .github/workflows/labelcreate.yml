@@ -11,34 +11,34 @@ on:
 jobs:
   maintenance:
     runs-on: ubuntu-latest
-    if: startsWith(github.event.label.name, 'branch:release-branch.')
-    steps:
-      - name: Checkout to website
-        uses: actions/checkout@v4
-        with:
-          ref: website
-          path: .website
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          ref: main
-          path: .main
-          fetch-depth: 0
-      - name: Set up Go
-        uses: actions/setup-go@v4
-        with:
-          go-version: 1.23.x
-      - name: Set up Tool
-        run: go install -v github.com/PengPengPeng717/llpkgstore/cmd/llpkgstore@latest
-      - name: Copy llpkgstore.json to root
-        continue-on-error: true
-        run: |
-          # ignore error
-          ls .website .website/public
-          cp .website/public/llpkgstore.json .main
-          rm -rf .website
-      - name: Run maintenance process
-        working-directory: .main
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: llpkgstore labelcreate -l "${{ github.event.label.name }}"
+    # if: startsWith(github.event.label.name, 'branch:release-branch.')
+    # steps:
+    #   - name: Checkout to website
+    #     uses: actions/checkout@v4
+    #     with:
+    #       ref: website
+    #       path: .website
+    #   - name: Checkout
+    #     uses: actions/checkout@v4
+    #     with:
+    #       ref: main
+    #       path: .main
+    #       fetch-depth: 0
+    #   - name: Set up Go
+    #     uses: actions/setup-go@v4
+    #     with:
+    #       go-version: 1.23.x
+    #   - name: Set up Tool
+    #     run: go install -v github.com/PengPengPeng717/llpkgstore/cmd/llpkgstore@latest
+    #   - name: Copy llpkgstore.json to root
+    #     continue-on-error: true
+    #     run: |
+    #       # ignore error
+    #       ls .website .website/public
+    #       cp .website/public/llpkgstore.json .main
+    #       rm -rf .website
+    #   - name: Run maintenance process
+    #     working-directory: .main
+    #     env:
+    #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #     run: llpkgstore labelcreate -l "${{ github.event.label.name }}"

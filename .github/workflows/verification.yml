@@ -34,7 +34,7 @@ jobs:
         with:
           repository: '1351914167/llgo'
           path: .llgo
-          ref: presentation
+          ref: get_pip
       - name: Check out LLPyg
         uses: actions/checkout@v4
         with:
@@ -47,7 +47,7 @@ jobs:
           go-version: 1.24.x
       - name: Set up Tool
         run: |
-          go install -v github.com/PengPengPeng717/llpkgstore/cmd/llpkgstore@latest
+          go install -v github.com/PengPengPeng717/llpkgstore/cmd/llpkgstore@8_21
       - name: Install dependencies
         if: startsWith(matrix.os, 'macos')
         run: |
@@ -55,27 +55,27 @@ jobs:
           brew link --force libffi
           echo "$(brew --prefix llvm@${{matrix.llvm}})/bin" >> $GITHUB_PATH
           echo "$(brew --prefix lld@${{matrix.llvm}})/bin" >> $GITHUB_PATH
-      - name: Install dependencies
-        if: startsWith(matrix.os, 'ubuntu')
-        run: |
-          sudo apt-get update
-          echo "deb http://apt.llvm.org/$(lsb_release -cs)/ llvm-toolchain-$(lsb_release -cs)-${{matrix.llvm}} main" | sudo tee /etc/apt/sources.list.d/llvm.list
-          wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
-          sudo apt-get install -y llvm-${{matrix.llvm}}-dev \
-            clang-${{matrix.llvm}} \
-            libclang-${{matrix.llvm}}-dev \
-            lld-${{matrix.llvm}} \
-            libunwind-${{matrix.llvm}}-dev \
-            libc++-${{matrix.llvm}}-dev \
-            pkg-config libgc-dev libssl-dev zlib1g-dev libffi-dev libuv1-dev
-          echo "/usr/lib/llvm-${{matrix.llvm}}/bin" >> $GITHUB_PATH
-      - name: Pre setup Python and Conan
-        if: startsWith(matrix.os, 'ubuntu')
-        run: |
-          sudo apt install -y python3 python3-pip
-          python3 -m pip install --upgrade pip
-          # python3 -m pip install conan pydump
-          # go install github.com/goplus/hdq/chore/pysigfetch@v0.8.1
+      # - name: Install dependencies
+      #   if: startsWith(matrix.os, 'ubuntu')
+      #   run: |
+      #     sudo apt-get update
+      #     echo "deb http://apt.llvm.org/$(lsb_release -cs)/ llvm-toolchain-$(lsb_release -cs)-${{matrix.llvm}} main" | sudo tee /etc/apt/sources.list.d/llvm.list
+      #     wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
+      #     sudo apt-get install -y llvm-${{matrix.llvm}}-dev \
+      #       clang-${{matrix.llvm}} \
+      #       libclang-${{matrix.llvm}}-dev \
+      #       lld-${{matrix.llvm}} \
+      #       libunwind-${{matrix.llvm}}-dev \
+      #       libc++-${{matrix.llvm}}-dev \
+      #       pkg-config libgc-dev libssl-dev zlib1g-dev libffi-dev libuv1-dev
+      #     echo "/usr/lib/llvm-${{matrix.llvm}}/bin" >> $GITHUB_PATH
+      # - name: Pre setup Python and Conan
+      #   if: startsWith(matrix.os, 'ubuntu')
+      #   run: |
+      #     sudo apt install -y python3 python3-pip
+      #     python3 -m pip install --upgrade pip
+      #     # python3 -m pip install conan pydump
+      #     # go install github.com/goplus/hdq/chore/pysigfetch@v0.8.1
       - name: Pre setup Python and Conan
         if: startsWith(matrix.os, 'macos')
         run: |
@@ -87,9 +87,12 @@ jobs:
       - name: Setup LLGo
         working-directory: .llgo
         run: |
-          ./install.sh
-          export LLGO_ROOT=$(pwd)
+          go install -v ./cmd/...
+          export LLGO_ROOT=$PWD
           echo "LLGO_ROOT=$LLGO_ROOT" >> $GITHUB_ENV
+          # ./install.sh
+          # export LLGO_ROOT=$(pwd)
+          # echo "LLGO_ROOT=$LLGO_ROOT" >> $GITHUB_ENV
           # https://github.com/goplus/llgo/issues/1135
           echo "LLGO_RPATH_CHANGE=ON" >> $GITHUB_ENV
       - name: Set up Python environment
@@ -147,15 +150,15 @@ jobs:
           # Test llpyg with numpy as per guide
           llpyg numpy
           echo "llpyg generation completed successfully"
-      # - name: Verification & Prebuilt
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #     ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files || 'numpy/llpkg.cfg numpy/llpyg.cfg' }}
-      #   run: llpkgstore verification
-      # - name: Run demotest process
-      #   env:
-      #     LLPKG_PATH: ${{ env.LLPKG_PATH }}
-      #   run: llpkgstore demotest
+      - name: Verification & Prebuilt
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files || 'numpy/llpkg.cfg numpy/llpyg.cfg' }}
+        run: llpkgstore verification
+      - name: Run demotest process
+        env:
+          LLPKG_PATH: ${{ env.LLPKG_PATH }}
+        run: llpkgstore demotest
       - name: Create Git tag
         run: |
           echo "Creating Git tag: numpy/v0.1.0"

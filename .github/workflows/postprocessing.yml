@@ -23,119 +23,119 @@ jobs:
       matrix:
         os:
           - macos-13
-          - macos-latest
-          - ubuntu-24.04
-          - ubuntu-24.04-arm
+          # - macos-latest
+          # - ubuntu-24.04
+          # - ubuntu-24.04-arm
     runs-on: ${{matrix.os}}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Set up Go
-        uses: actions/setup-go@v4
-        with:
-          go-version: 1.23.x
-      - name: Set up Tool
-        run: go install -v github.com/PengPengPeng717/llpkgstore/cmd/llpkgstore@latest
-      - name: Install dependencies
-        if: startsWith(matrix.os, 'macos')
-        run: |
-          brew update
-          brew install cmake conan cjson
-      - name: Install dependencies
-        if: startsWith(matrix.os, 'ubuntu')
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y cmake python3 python3-pip pkg-config
-          python3 -m pip install conan
-      - name: Set up Conan
-        run: conan profile detect
-      - name: Run release process
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: llpkgstore release
-      - name: Upload binary file to artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{env.BIN_FILENAME}}
-          path: ${{env.BIN_PATH}}
-          retention-days: 1
-  post-processing:
-    runs-on: ubuntu-latest
-    needs: [release-binary-files]
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          ref: main
-          path: .main
-      - name: Set up Go
-        uses: actions/setup-go@v4
-        with:
-          go-version: 1.23.x
-      - name: Set up Tool
-        run: go install -v github.com/PengPengPeng717/llpkgstore/cmd/llpkgstore@latest
-      - name: Checkout to website
-        uses: actions/checkout@v4
-        with:
-          ref: website
-          path: .website
-      - name: Copy llpkgstore.json to root
-        continue-on-error: true
-        run: |
-          ls .website .website/public
-          cp .website/public/llpkgstore.json .main
-          rm -rf .website
-      - name: Run post-processing process
-        working-directory: .main
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: llpkgstore postprocessing
-      - name: Checkout website branch
-        uses: actions/checkout@v4
-        with:
-            ref: website
-            path: .website
-      - name: Move llpkgstore.json to website
-        run: mv .main/llpkgstore.json .website/public
-      - name: Commit and push changes
-        working-directory: .website
-        run: |
-            git config --local user.email "action@github.com"
-            git config --local user.name "GitHub Action"
-            git add public/llpkgstore.json
-            git commit -m "Update llpkgstore.json"
-            git push
-  build-and-upload:
-    runs-on: ubuntu-latest
-    needs: [post-processing]
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          ref: website
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 23.8.0
-      - run: corepack enable
-      - name: Install Dependencies
-        uses: borales/actions-yarn@v4
-        with:
-          cmd: install
-      - name: Build
-        uses: borales/actions-yarn@v4
-        with:
-          cmd: build
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: 'dist'
-  deploy:
-    needs: build-and-upload
-    runs-on: ubuntu-latest
-    permissions:
-      pages: write
-      id-token: write
+    # steps:
+      # - name: Checkout
+      #   uses: actions/checkout@v4
+      # - name: Set up Go
+      #   uses: actions/setup-go@v4
+      #   with:
+      #     go-version: 1.23.x
+      # - name: Set up Tool
+      #   run: go install -v github.com/PengPengPeng717/llpkgstore/cmd/llpkgstore@latest
+      # - name: Install dependencies
+      #   if: startsWith(matrix.os, 'macos')
+      #   run: |
+      #     brew update
+      #     brew install cmake conan cjson
+      # - name: Install dependencies
+      #   if: startsWith(matrix.os, 'ubuntu')
+      #   run: |
+      #     sudo apt-get update
+      #     sudo apt-get install -y cmake python3 python3-pip pkg-config
+      #     python3 -m pip install conan
+      # - name: Set up Conan
+      #   run: conan profile detect
+      # - name: Run release process
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   run: llpkgstore release
+      # - name: Upload binary file to artifact
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: ${{env.BIN_FILENAME}}
+      #     path: ${{env.BIN_PATH}}
+      #     retention-days: 1
+  # post-processing:
+    # runs-on: ubuntu-latest
+    # needs: [release-binary-files]
+    # steps:
+    #   - name: Checkout
+    #     uses: actions/checkout@v4
+    #     with:
+    #       ref: main
+    #       path: .main
+    #   - name: Set up Go
+    #     uses: actions/setup-go@v4
+    #     with:
+    #       go-version: 1.23.x
+    #   - name: Set up Tool
+    #     run: go install -v github.com/PengPengPeng717/llpkgstore/cmd/llpkgstore@latest
+    #   - name: Checkout to website
+    #     uses: actions/checkout@v4
+    #     with:
+    #       ref: website
+    #       path: .website
+    #   - name: Copy llpkgstore.json to root
+    #     continue-on-error: true
+    #     run: |
+    #       ls .website .website/public
+    #       cp .website/public/llpkgstore.json .main
+    #       rm -rf .website
+    #   - name: Run post-processing process
+    #     working-directory: .main
+    #     env:
+    #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #     run: llpkgstore postprocessing
+    #   - name: Checkout website branch
+    #     uses: actions/checkout@v4
+    #     with:
+    #         ref: website
+    #         path: .website
+    #   - name: Move llpkgstore.json to website
+    #     run: mv .main/llpkgstore.json .website/public
+    #   - name: Commit and push changes
+    #     working-directory: .website
+    #     run: |
+    #         git config --local user.email "action@github.com"
+    #         git config --local user.name "GitHub Action"
+    #         git add public/llpkgstore.json
+    #         git commit -m "Update llpkgstore.json"
+    #         git push
+  # build-and-upload:
+  #   runs-on: ubuntu-latest
+  #   needs: [post-processing]
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
+  #       with:
+  #         ref: website
+  #     - name: Setup Node.js
+  #       uses: actions/setup-node@v3
+  #       with:
+  #         node-version: 23.8.0
+  #     - run: corepack enable
+  #     - name: Install Dependencies
+  #       uses: borales/actions-yarn@v4
+  #       with:
+  #         cmd: install
+  #     - name: Build
+  #       uses: borales/actions-yarn@v4
+  #       with:
+  #         cmd: build
+  #     - name: Upload artifact
+  #       uses: actions/upload-pages-artifact@v3
+  #       with:
+  #         path: 'dist'
+  # deploy:
+  #   needs: build-and-upload
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     pages: write
+  #     id-token: write
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
