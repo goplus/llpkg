@@ -47,15 +47,14 @@ jobs:
           go-version: 1.24.x
       - name: Set up Tool
         run: |
-          git clone https://github.com/PengPengPeng717/llpkgstore.git
-          cd llpkgstore
-          git checkout 8_21
-          # 临时修改 go.mod 中的模块路径
-          sed -i '' 's|module github.com/goplus/llpkgstore|module github.com/PengPengPeng717/llpkgstore|' go.mod
-          go install -v ./cmd/llpkgstore
+              git clone https://github.com/PengPengPeng717/llpkgstore.git
+              cd llpkgstore
+              git checkout 8_21
+              go build -o llpkgstore ./cmd/llpkgstore
+              sudo mv llpkgstore /usr/local/bin/
       # - name: Set up Tool
       #   run: |
-      #     go install -v github.com/PengPengPeng717/llpkgstore/cmd/llpkgstore@8_21
+      #     go install -v github.com/PengPengPeng717/llpkgstore/cmd/llpkgstore@v0.9.0
       - name: Install dependencies
         if: startsWith(matrix.os, 'macos')
         run: |
