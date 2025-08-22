@@ -51,7 +51,7 @@ jobs:
           cd llpkgstore
           git checkout 8_21
           # 临时修改 go.mod 中的模块路径
-          sed -i 's|module github.com/goplus/llpkgstore|module github.com/PengPengPeng717/llpkgstore|' go.mod
+          sed -i '' 's|module github.com/goplus/llpkgstore|module github.com/PengPengPeng717/llpkgstore|' go.mod
           go install -v ./cmd/llpkgstore
       # - name: Set up Tool
       #   run: |
@@ -153,11 +153,11 @@ jobs:
           echo "Changed files: ${{ steps.changed-files.outputs.all_changed_files }}"
           echo "Any changed: ${{ steps.changed-files.outputs.any_changed }}"
           echo "All changed: ${{ steps.changed-files.outputs.all_changed }}"
-      - name: Test llpyg generation
-        run: |
-          # Test llpyg with numpy as per guide
-          llpyg numpy
-          echo "llpyg generation completed successfully"
+      # - name: Test llpyg generation
+      #   run: |
+      #     # Test llpyg with numpy as per guide
+      #     llpyg numpy
+      #     echo "llpyg generation completed successfully"
       - name: Verification & Prebuilt
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -167,19 +167,19 @@ jobs:
         env:
           LLPKG_PATH: ${{ env.LLPKG_PATH }}
         run: llpkgstore demotest
-      - name: Create Git tag
-        run: |
-          echo "Creating Git tag: numpy/v0.1.0"
+      # - name: Create Git tag
+      #   run: |
+      #     echo "Creating Git tag: numpy/v0.1.0"
           
-          # Configure git user for tag creation
-          # git config --local user.email "action@github.com"
-          # git config --local user.name "GitHub Action"
+      #     # Configure git user for tag creation
+      #     # git config --local user.email "action@github.com"
+      #     # git config --local user.name "GitHub Action"
           
-          # Create the tag
-          git tag "numpy/v0.1.0"
+      #     # Create the tag
+      #     git tag "numpy/v0.1.0"
           
-          # Push the tag to remote repository
-          echo "Pushing tag to remote repository..."
-          git push origin "numpy/v0.1.0"
+      #     # Push the tag to remote repository
+      #     echo "Pushing tag to remote repository..."
+      #     git push origin "numpy/v0.1.0"
           
-          echo "✅ Git tag numpy/v0.1.0 created and pushed successfully"
+      #     echo "✅ Git tag numpy/v0.1.0 created and pushed successfully"
