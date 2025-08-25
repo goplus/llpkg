@@ -14,12 +14,54 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Check out LLGo
+        uses: actions/checkout@v4
+        with:
+          repository: '1351914167/llgo'
+          path: .llgo
+          ref: get_pip
+      - name: Check out LLPyg
+        uses: actions/checkout@v4
+        with:
+          repository: 'toaction/llpyg'
+          path: .llpyg
+          ref: feat/v1
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
-          go-version: 1.23.x
+          go-version: 1.24.x
       - name: Set up Tool
-        run: go install -v github.com/PengPengPeng717/llpkgstore/cmd/llpkgstore@latest
+        run: |
+          git clone https://github.com/PengPengPeng717/llpkgstore.git
+          cd llpkgstore
+          git checkout 8_21
+          go build -o llpkgstore ./cmd/llpkgstore
+          sudo mv llpkgstore /usr/local/bin/
+      - name: Setup LLGo
+        working-directory: .llgo
+        run: |
+          go install -v ./cmd/...
+          export LLGO_ROOT=$PWD
+          echo "LLGO_ROOT=$LLGO_ROOT" >> $GITHUB_ENV
+          echo "LLGO_RPATH_CHANGE=ON" >> $GITHUB_ENV
+      - name: Set up Python environment
+        run: |
+          echo "GOTOOLCHAIN=go1.24.5" >> $GITHUB_ENV
+          export PYTHONHOME=$LLGO_ROOT/python
+          export PATH=$PYTHONHOME/bin:$PATH
+          export DYLD_LIBRARY_PATH=$PYTHONHOME/lib
+          export PKG_CONFIG_PATH=$PYTHONHOME/lib/pkgconfig
+          echo "PYTHONHOME=$PYTHONHOME" >> $GITHUB_ENV
+          echo "PATH=$PATH" >> $GITHUB_ENV
+          echo "DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH" >> $GITHUB_ENV
+          echo "PKG_CONFIG_PATH=$PKG_CONFIG_PATH" >> $GITHUB_ENV
+      - name: Setup LLPyg
+        working-directory: .llpyg
+        run: |
+          cd _xtool
+          llgo install ./...
+          cd ..
+          go install -v ./cmd/...
       - name: Run cleaner process
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
