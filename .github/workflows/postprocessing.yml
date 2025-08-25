@@ -218,18 +218,31 @@ jobs:
         with:
           node-version: 23.8.0
       - run: corepack enable
+      - name: Check for package.json
+        run: |
+          if [ ! -f "package.json" ]; then
+            echo "package.json not found in website branch, skipping build"
+            exit 0
+          fi
       - name: Install Dependencies
+        if: hashFiles('package.json') != ''
         uses: borales/actions-yarn@v4
         with:
           cmd: install
       - name: Build
+        if: hashFiles('package.json') != ''
         uses: borales/actions-yarn@v4
         with:
           cmd: build
       - name: Upload artifact
+        if: hashFiles('package.json') != ''
         uses: actions/upload-pages-artifact@v3
         with:
           path: 'dist'
+      - name: Skip build (no package.json)
+        if: hashFiles('package.json') == ''
+        run: |
+          echo "No package.json found in website branch, skipping build and upload"
   deploy:
     needs: build-and-upload
     runs-on: ubuntu-latest
