@@ -108,8 +108,8 @@ jobs:
       - name: Upload binary file to artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{env.BIN_FILENAME}}
-          path: ${{env.BIN_PATH}}
+          name: ${{env.BIN_FILENAME || 'llpkg-binary'}}
+          path: ${{env.BIN_PATH || './dist'}}
           retention-days: 1
   post-processing:
     runs-on: ubuntu-latest
