@@ -56,10 +56,10 @@ jobs:
       - name: Install dependencies
         if: startsWith(matrix.os, 'macos')
         run: |
-          # brew install llvm@19 bdw-gc openssl libffi libuv cmake conan lld@19
-          # brew link --force libffi
-          # echo "$(brew --prefix llvm@19)/bin" >> $GITHUB_PATH
-          # echo "$(brew --prefix lld@19)/bin" >> $GITHUB_PATH
+          brew install llvm@19 bdw-gc openssl libffi libuv cmake conan lld@19
+          brew link --force libffi
+          echo "$(brew --prefix llvm@19)/bin" >> $GITHUB_PATH
+          echo "$(brew --prefix lld@19)/bin" >> $GITHUB_PATH
           echo "Skipping C++ dependencies for Python-only build"
       # - name: Install dependencies
       #   if: startsWith(matrix.os, 'ubuntu')
