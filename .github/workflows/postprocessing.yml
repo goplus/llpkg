@@ -105,11 +105,31 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: llpkgstore release
+      - name: Resolve artifact path
+        shell: bash
+        run: |
+          set -euo pipefail
+          # If llpkgstore didn't export BIN_PATH/BIN_FILENAME, try to discover them.
+          if [ -z "${BIN_PATH:-}" ]; then
+            # Search common artifact patterns (zip/tar.gz) within workspace
+            BIN_PATH=$(find . -maxdepth 5 -type f \( -name "*.tar.gz" -o -name "*.zip" -o -name "*.tgz" \) | head -n1 || true)
+            if [ -n "${BIN_PATH}" ]; then
+              echo "BIN_PATH=${BIN_PATH}" >> $GITHUB_ENV
+            fi
+          fi
+          if [ -z "${BIN_FILENAME:-}" ] && [ -n "${BIN_PATH:-}" ]; then
+            BIN_FILENAME=$(basename "${BIN_PATH}")
+            echo "BIN_FILENAME=${BIN_FILENAME}" >> $GITHUB_ENV
+          fi
+          # Final guardrails for upload step
+          if [ -z "${BIN_PATH:-}" ]; then
+            echo "::warning::BIN_PATH is empty; upload-artifact 'path' would be missing. Please ensure llpkgstore release sets BIN_PATH or adjust search patterns."
+          fi
       - name: Upload binary file to artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{env.BIN_FILENAME}}
-          path: ${{env.BIN_PATH}}
+          name: ${{ env.BIN_FILENAME || 'artifact' }}
+          path: ${{ env.BIN_PATH }}
           retention-days: 1
   post-processing:
     runs-on: ubuntu-latest
@@ -140,7 +160,7 @@ jobs:
         run: |
           git clone https://github.com/PengPengPeng717/llpkgstore.git
           cd llpkgstore
-          git checkout 8_21
+          git checkout 8_25
           go build -o llpkgstore ./cmd/llpkgstore
           sudo mv llpkgstore /usr/local/bin/
       - name: Setup LLGo
