@@ -136,6 +136,18 @@ jobs:
         uses: actions/setup-go@v4
         with:
           go-version: 1.24.x
+      - name: Install GitHub CLI
+        run: |
+          type -p curl >/dev/null || (sudo apt update && sudo apt install curl -y)
+          curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
+          && sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
+          && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+          && sudo apt update \
+          && sudo apt install gh -y
+      - name: Configure GitHub CLI
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
+          gh auth status
       - name: Set up Tool
         run: |
           git clone https://github.com/PengPengPeng717/llpkgstore.git
@@ -174,69 +186,81 @@ jobs:
         with:
           ref: website
           path: .website
-      - name: Copy llpkgstore.json to root
-        continue-on-error: true
-        run: |
-          ls .website .website/public
-          cp .website/public/llpkgstore.json .main
-          rm -rf .website
-      - name: Run post-processing process
-        working-directory: .main
+      - name: Run post-processing process for each package
+        working-directory: .website
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: llpkgstore postprocessing
-      - name: Checkout website branch
+        run: |
+          # Find all directories that contain llpkg.cfg files
+          for dir in */; do
+            if [ -d "$dir" ] && [ -f "$dir/llpkg.cfg" ]; then
+              echo "Processing package in directory: $dir"
+              cd "$dir"
+              # Check if this is a Python package
+              if grep -q '"type": "python"' llpkg.cfg; then
+                echo "Found Python package: $dir"
+                llpkgstore postprocessing
+              else
+                echo "Skipping non-Python package: $dir"
+              fi
+              cd ..
+            fi
+          done
+  build-and-upload:
+    runs-on: ubuntu-latest
+    needs: [post-processing]
+    steps:
+      - name: Checkout code
         uses: actions/checkout@v4
         with:
-            ref: website
-            path: .website
-      - name: Move llpkgstore.json to website
-        run: mv .main/llpkgstore.json .website/public
-      - name: Commit and push changes
-        working-directory: .website
+          ref: website
+      # - name: Setup Node.js
+      #   uses: actions/setup-node@v3
+      #   with:
+      #     node-version: 23.8.0
+      # - run: corepack enable
+      # - name: Check for package.json
+      #   run: |
+      #     if [ ! -f "package.json" ]; then
+      #       echo "package.json not found in website branch, skipping build"
+      #       exit 0
+      #     fi
+      # - name: Install Dependencies
+      #   if: hashFiles('package.json') != ''
+      #   uses: borales/actions-yarn@v4
+      #   with:
+      #     cmd: install
+      # - name: Build
+      #   if: hashFiles('package.json') != ''
+      #   uses: borales/actions-yarn@v4
+      #   with:
+      #     cmd: build
+      # - name: Upload artifact
+      #   if: hashFiles('package.json') != ''
+      #   uses: actions/upload-pages-artifact@v3
+      #   with:
+      #     path: 'dist'
+      # - name: Skip build (no package.json)
+      #   if: hashFiles('package.json') == ''
+      #   run: |
+      #     echo "No package.json found in website branch, skipping build and upload"
+      - name: Skip website build (Go package focus)
         run: |
-            git config --local user.email "action@github.com"
-            git config --local user.name "GitHub Action"
-            git add public/llpkgstore.json
-            # Check if there are changes to commit
-            if git diff --staged --quiet; then
-              echo "No changes to commit in llpkgstore.json"
-            else
-              git commit -m "Update llpkgstore.json"
-              git push
-            fi
-  # build-and-upload:
-  #   runs-on: ubuntu-latest
-  #   needs: [post-processing]
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v4
-  #       with:
-  #         ref: website
-  #     - name: Setup Node.js
-  #       uses: actions/setup-node@v3
-  #       with:
-  #           node-version: 23.8.0
-  #     - run: corepack enable
-  #     - name: Install Dependencies
-  #       uses: borales/actions-yarn@v4
-  #       with:
-  #           cmd: install
-  #     - name: Build
-  #       uses: borales/actions-yarn@v4
-  #       with:
-  #           cmd: build
-  #     - name: Upload artifact
-  #       uses: actions/upload-pages-artifact@v3
-  #       with:
-  #           path: 'dist'
-  # deploy:
-  #   needs: build-and-upload
-  #   runs-on: ubuntu-latest
-  #   permissions:
-  #     pages: write
-  #     id-token: write
-  #   steps:
-  #     - name: Deploy to GitHub Pages
-  #       id: deployment
-  #       uses: actions/deploy-pages@v4
+          echo "Skipping website build - focusing on Go package release"
+          echo "Go package has been released to GitHub repository"
+          echo "Users can now use: llgo get github.com/${{ github.repository }}/[package-name]@v0.0.1"
+  deploy:
+    needs: build-and-upload
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    steps:
+      # - name: Deploy to GitHub Pages
+      #   id: deployment
+      #   uses: actions/deploy-pages@v4
+      - name: Skip website deployment (Go package focus)
+        run: |
+          echo "Skipping website deployment - focusing on Go package release"
+          echo "Go package has been successfully released to GitHub repository"
+          echo "Users can now use: llgo get github.com/${{ github.repository }}/[package-name]@v0.0.1"
