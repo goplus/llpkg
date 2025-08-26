@@ -186,11 +186,6 @@ jobs:
         with:
           ref: website
           path: .website
-      - name: Copy llpkgstore.json to root
-        continue-on-error: true
-        run: |
-          ls .website .website/public
-          cp .website/public/llpkgstore.json .main
       - name: Run post-processing process for each package
         working-directory: .website
         env:
@@ -211,26 +206,6 @@ jobs:
               cd ..
             fi
           done
-      - name: Checkout website branch
-        uses: actions/checkout@v4
-        with:
-            ref: website
-            path: .website
-      - name: Move llpkgstore.json to website
-        run: mv .main/llpkgstore.json .website/public
-      - name: Commit and push changes
-        working-directory: .website
-        run: |
-            git config --local user.email "action@github.com"
-            git config --local user.name "GitHub Action"
-            git add public/llpkgstore.json
-            # Check if there are changes to commit
-            if git diff --staged --quiet; then
-              echo "No changes to commit in llpkgstore.json"
-            else
-              git commit -m "Update llpkgstore.json"
-              git push
-            fi
   build-and-upload:
     runs-on: ubuntu-latest
     needs: [post-processing]
