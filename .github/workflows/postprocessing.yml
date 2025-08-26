@@ -191,12 +191,26 @@ jobs:
         run: |
           ls .website .website/public
           cp .website/public/llpkgstore.json .main
-          rm -rf .website
-      - name: Run post-processing process
-        working-directory: .main
+      - name: Run post-processing process for each package
+        working-directory: .website
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: llpkgstore postprocessing
+        run: |
+          # Find all directories that contain llpkg.cfg files
+          for dir in */; do
+            if [ -d "$dir" ] && [ -f "$dir/llpkg.cfg" ]; then
+              echo "Processing package in directory: $dir"
+              cd "$dir"
+              # Check if this is a Python package
+              if grep -q '"type": "python"' llpkg.cfg; then
+                echo "Found Python package: $dir"
+                llpkgstore postprocessing
+              else
+                echo "Skipping non-Python package: $dir"
+              fi
+              cd ..
+            fi
+          done
       - name: Checkout website branch
         uses: actions/checkout@v4
         with:
