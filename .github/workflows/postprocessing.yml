@@ -1,0 +1,266 @@
+name: Post-processing
+
+# don't limit to main branch
+# consider maintenance branch
+on:
+  push:
+    branches:
+      - 'release-branch.**'
+      - main
+    paths-ignore:
+      - '.github/**'
+      - LICENSE
+      - README.md
+      - '.gitignore'
+
+concurrency:
+  group: ${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  release-binary-files:
+    strategy:
+      matrix:
+        os:
+          - macos-13
+          # - macos-latest
+          # - ubuntu-24.04
+          # - ubuntu-24.04-arm
+    runs-on: ${{matrix.os}}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Check out LLGo
+        uses: actions/checkout@v4
+        with:
+          repository: '1351914167/llgo'
+          path: .llgo
+          ref: get_pip
+      - name: Check out LLPyg
+        uses: actions/checkout@v4
+        with:
+          repository: 'toaction/llpyg'
+          path: .llpyg
+          ref: feat/v1
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: 1.24.x
+      - name: Set up Tool
+        run: |
+          git clone https://github.com/PengPengPeng717/llpkgstore.git
+          cd llpkgstore
+          # git checkout 8_21
+          git checkout post
+          go build -o llpkgstore ./cmd/llpkgstore
+          sudo mv llpkgstore /usr/local/bin/
+      - name: Install dependencies
+        if: startsWith(matrix.os, 'macos')
+        run: |
+          brew install llvm@19 bdw-gc openssl libffi libuv cmake conan lld@19
+          brew link --force libffi
+          echo "$(brew --prefix llvm@19)/bin" >> $GITHUB_PATH
+          echo "$(brew --prefix lld@19)/bin" >> $GITHUB_PATH
+          echo "Skipping C++ dependencies for Python-only build"
+      # - name: Install dependencies
+      #   if: startsWith(matrix.os, 'ubuntu')
+      #   run: |
+      #     # sudo apt-get update
+      #     # sudo apt-get install -y cmake python3 python3-pip pkg-config
+      #     # python3 -m pip install conan
+      #     echo "Skipping C++ dependencies for Python-only build"
+      - name: Pre setup Python and Conan
+        if: startsWith(matrix.os, 'macos')
+        run: |
+          # python3 -m pip install conan pydump --break-system-packages
+          echo "Skipping Conan setup for Python-only build"
+      - name: Setup LLGo
+        working-directory: .llgo
+        run: |
+          go install -v ./cmd/...
+          export LLGO_ROOT=$PWD
+          echo "LLGO_ROOT=$LLGO_ROOT" >> $GITHUB_ENV
+          echo "LLGO_RPATH_CHANGE=ON" >> $GITHUB_ENV
+      - name: Set up Python environment
+        run: |
+          echo "GOTOOLCHAIN=go1.24.5" >> $GITHUB_ENV
+          export PYTHONHOME=$LLGO_ROOT/python
+          export PATH=$PYTHONHOME/bin:$PATH
+          export DYLD_LIBRARY_PATH=$PYTHONHOME/lib
+          export PKG_CONFIG_PATH=$PYTHONHOME/lib/pkgconfig
+          echo "PYTHONHOME=$PYTHONHOME" >> $GITHUB_ENV
+          echo "PATH=$PATH" >> $GITHUB_ENV
+          echo "DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH" >> $GITHUB_ENV
+          echo "PKG_CONFIG_PATH=$PKG_CONFIG_PATH" >> $GITHUB_ENV
+      - name: Setup LLPyg
+        working-directory: .llpyg
+        run: |
+          cd _xtool
+          llgo install ./...
+          cd ..
+          go install -v ./cmd/...
+      # - name: Set up Conan
+      #   run: conan profile detect
+      - name: Run release process
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: llpkgstore release
+      - name: Upload binary file to artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{env.BIN_FILENAME || 'llpkg-binary'}}
+          path: ${{env.BIN_PATH || './dist'}}
+          retention-days: 1
+  post-processing:
+    runs-on: ubuntu-latest
+    needs: [release-binary-files]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: .main
+      # - name: Check out LLGo
+      #   uses: actions/checkout@v4
+      #   with:
+      #     repository: '1351914167/llgo'
+      #     path: .llgo
+      #     ref: get_pip
+      # - name: Check out LLPyg
+      #   uses: actions/checkout@v4
+      #   with:
+      #     repository: 'toaction/llpyg'
+      #     path: .llpyg
+      #     ref: feat/v1
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: 1.24.x
+      - name: Install GitHub CLI
+        run: |
+          type -p curl >/dev/null || (sudo apt update && sudo apt install curl -y)
+          curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
+          && sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
+          && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+          && sudo apt update \
+          && sudo apt install gh -y
+      - name: Configure GitHub CLI
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
+          gh auth status
+      - name: Set up Tool
+        run: |
+          git clone https://github.com/PengPengPeng717/llpkgstore.git
+          cd llpkgstore
+          # git checkout 8_21
+          git checkout post
+          go build -o llpkgstore ./cmd/llpkgstore
+          sudo mv llpkgstore /usr/local/bin/
+      # - name: Setup LLGo
+      #   working-directory: .llgo
+      #   run: |
+      #     go install -v ./cmd/...
+      #     export LLGO_ROOT=$PWD
+      #     echo "LLGO_ROOT=$LLGO_ROOT" >> $GITHUB_ENV
+      #     echo "LLGO_RPATH_CHANGE=ON" >> $GITHUB_ENV
+      # - name: Set up Python environment
+      #   run: |
+      #     echo "GOTOOLCHAIN=go1.24.5" >> $GITHUB_ENV
+      #     export PYTHONHOME=$LLGO_ROOT/python
+      #     export PATH=$PYTHONHOME/bin:$PATH
+      #     export DYLD_LIBRARY_PATH=$PYTHONHOME/lib
+      #     export PKG_CONFIG_PATH=$PYTHONHOME/lib/pkgconfig
+      #     echo "PYTHONHOME=$PYTHONHOME" >> $GITHUB_ENV
+      #     echo "PATH=$PATH" >> $GITHUB_ENV
+      #     echo "DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH" >> $GITHUB_ENV
+      #     echo "PKG_CONFIG_PATH=$PKG_CONFIG_PATH" >> $GITHUB_ENV
+      # - name: Setup LLPyg
+      #   working-directory: .llpyg
+      #   run: |
+      #     cd _xtool
+      #     llgo install ./...
+      #     cd ..
+      #     go install -v ./cmd/...
+      - name: Checkout to website
+        uses: actions/checkout@v4
+        with:
+          ref: website
+          path: .website
+      - name: Run post-processing process for each package
+        working-directory: .website
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Find all directories that contain llpkg.cfg files
+          for dir in */; do
+            if [ -d "$dir" ] && [ -f "$dir/llpkg.cfg" ]; then
+              echo "Processing package in directory: $dir"
+              cd "$dir"
+              # Check if this is a Python package
+              if grep -q '"type": "python"' llpkg.cfg; then
+                echo "Found Python package: $dir"
+                llpkgstore postprocessing
+              else
+                echo "Skipping non-Python package: $dir"
+              fi
+              cd ..
+            fi
+          done
+  build-and-upload:
+    runs-on: ubuntu-latest
+    needs: [post-processing]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: website
+      # - name: Setup Node.js
+      #   uses: actions/setup-node@v3
+      #   with:
+      #     node-version: 23.8.0
+      # - run: corepack enable
+      # - name: Check for package.json
+      #   run: |
+      #     if [ ! -f "package.json" ]; then
+      #       echo "package.json not found in website branch, skipping build"
+      #       exit 0
+      #     fi
+      # - name: Install Dependencies
+      #   if: hashFiles('package.json') != ''
+      #   uses: borales/actions-yarn@v4
+      #   with:
+      #     cmd: install
+      # - name: Build
+      #   if: hashFiles('package.json') != ''
+      #   uses: borales/actions-yarn@v4
+      #   with:
+      #     cmd: build
+      # - name: Upload artifact
+      #   if: hashFiles('package.json') != ''
+      #   uses: actions/upload-pages-artifact@v3
+      #   with:
+      #     path: 'dist'
+      # - name: Skip build (no package.json)
+      #   if: hashFiles('package.json') == ''
+      #   run: |
+      #     echo "No package.json found in website branch, skipping build and upload"
+      - name: Skip website build (Go package focus)
+        run: |
+          echo "Skipping website build - focusing on Go package release"
+          echo "Go package has been released to GitHub repository"
+          echo "Users can now use: llgo get github.com/${{ github.repository }}/[package-name]@v0.0.1"
+  deploy:
+    needs: build-and-upload
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    steps:
+      # - name: Deploy to GitHub Pages
+      #   id: deployment
+      #   uses: actions/deploy-pages@v4
+      - name: Skip website deployment (Go package focus)
+        run: |
+          echo "Skipping website deployment - focusing on Go package release"
+          echo "Go package has been successfully released to GitHub repository"
+          echo "Users can now use: llgo get github.com/${{ github.repository }}/[package-name]@v0.0.1"
