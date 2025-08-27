@@ -248,7 +248,7 @@ jobs:
         run: |
           echo "Skipping website build - focusing on Go package release"
           echo "Go package has been released to GitHub repository"
-          echo "Users can now use: llgo get github.com/${{ github.repository }}/[package-name]@v0.0.1"
+          # echo "Users can now use: llgo get github.com/${{ github.repository }}/[package-name]@v0.0.1"
   deploy:
     needs: build-and-upload
     runs-on: ubuntu-latest
@@ -263,4 +263,4 @@ jobs:
         run: |
           echo "Skipping website deployment - focusing on Go package release"
           echo "Go package has been successfully released to GitHub repository"
-          echo "Users can now use: llgo get github.com/${{ github.repository }}/[package-name]@v0.0.1"
+          # echo "Users can now use: llgo get github.com/${{ github.repository }}/[package-name]@v0.0.1"
