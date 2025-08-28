@@ -111,6 +111,7 @@ jobs:
           name: ${{env.BIN_FILENAME || 'llpkg-binary'}}
           path: ${{env.BIN_PATH || './dist'}}
           retention-days: 1
+
   post-processing:
     runs-on: ubuntu-latest
     needs: [release-binary-files]
@@ -165,72 +166,38 @@ jobs:
       #     echo "LLGO_RPATH_CHANGE=ON" >> $GITHUB_ENV
       # - name: Set up Python environment
       #   run: |
-      #     echo "GOTOOLCHAIN=go1.24.5" >> $GITHUB_ENV
-      #     export PYTHONHOME=$LLGO_ROOT/python
-      #     export PATH=$PYTHONHOME/bin:$PATH
-      #     export DYLD_LIBRARY_PATH=$PYTHONHOME/lib
-      #     export PKG_CONFIG_PATH=$PYTHONHOME/lib/pkgconfig
-      #     echo "PYTHONHOME=$PYTHONHOME" >> $GITHUB_ENV
-      #     echo "PATH=$PATH" >> $GITHUB_ENV
-      #     echo "DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH" >> $GITHUB_ENV
-      #     echo "PKG_CONFIG_PATH=$PKG_CONFIG_PATH" >> $GITHUB_ENV
-      # - name: Setup LLPyg
-      #   working-directory: .llpyg
-      #   run: |
-      #     cd _xtool
-      #     llgo install ./...
-      #     cd ..
-      #     go install -v ./cmd/...
-      - name: Checkout to website
-        uses: actions/checkout@v4
-        with:
-          ref: website
-          path: .website
-          fetch-depth: 0  # 获取完整历史
-      - name: Fetch all branches
-        working-directory: .website
-        run: |
-          git fetch origin main:main
-          # git fetch origin 27n5:27n5
-          echo "Available branches:"
-          git branch -a
-      - name: Run post-processing process for each package
-        working-directory: .website
+      #     # Find all directories that contain llpkg.cfg files
+      #     for dir in */; do
+      #       if [ -d "$dir" ] && [ -f "$dir/llpkg.cfg" ]; then
+      #         echo "Processing package in directory: $dir"
+      #         cd "$dir"
+      #         # Check if this is a Python package
+      #         if grep -q '"type": "python"' llpkg.cfg; then
+      #           echo "Found Python package: $dir"
+      #           # 设置环境变量指向 main 目录，让 postprocessing 从那里获取版本
+      #           export MAIN_DIR="../../.main"
+      #           echo "MAIN_DIR=$MAIN_DIR" >> $GITHUB_ENV
+      #           llpkgstore postprocessing
+      #         else
+      #           echo "Skipping non-Python package: $dir"
+      #         fi
+      #         cd ..
+      #       fi
+      #     done
+      - name: Run post-processing process
+        working-directory: .main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          # Find all directories that contain llpkg.cfg files
-          for dir in */; do
-            if [ -d "$dir" ] && [ -f "$dir/llpkg.cfg" ]; then
-              echo "Processing package in directory: $dir"
-              cd "$dir"
-              # Check if this is a Python package
-              if grep -q '"type": "python"' llpkg.cfg; then
-                echo "Found Python package: $dir"
-                # 设置环境变量指向 main 目录，让 postprocessing 从那里获取版本
-                export MAIN_DIR="../../.main"
-                echo "MAIN_DIR=$MAIN_DIR" >> $GITHUB_ENV
-                llpkgstore postprocessing
-              else
-                echo "Skipping non-Python package: $dir"
-              fi
-              cd ..
-            fi
-          done
-  build-and-upload:
-    runs-on: ubuntu-latest
-    needs: [post-processing]
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          ref: website
-      # - name: Setup Node.js
-      #   uses: actions/setup-node@v3
+        run: llpkgstore postprocessing
+      # - name: Checkout website branch
+      #   uses: actions/checkout@v4
       #   with:
-      #     node-version: 23.8.0
-      # - run: corepack enable
-      # - name: Check for package.json
+      #       ref: website
+      #       path: .website
+      # - name: Move llpkgstore.json to website
+      #   run: mv .main/llpkgstore.json .website/public
+      # - name: Commit and push changes
+      #   working-directory: .website
       #   run: |
       #     if [ ! -f "package.json" ]; then
       #       echo "package.json not found in website branch, skipping build"
