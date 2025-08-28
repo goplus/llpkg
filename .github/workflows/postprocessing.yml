@@ -194,33 +194,38 @@ jobs:
       #     # git fetch origin 27n5:27n5
       #     echo "Available branches:"
       #     git branch -a
+      # - name: Run post-processing process
+      #   working-directory: .main
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   run: llpkgstore postprocessing
       - name: Run post-processing process for each package
-      working-directory: .main
-      env:
+        working-directory: .main
+        env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: llpkgstore postprocessing 
-        # working-directory: .website
-        # env:
-        #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        # run: |
-        #   # Find all directories that contain llpkg.cfg files
-        #   for dir in */; do
-        #     if [ -d "$dir" ] && [ -f "$dir/llpkg.cfg" ]; then
-        #       echo "Processing package in directory: $dir"
-        #       cd "$dir"
-        #       # Check if this is a Python package
-        #       if grep -q '"type": "python"' llpkg.cfg; then
-        #         echo "Found Python package: $dir"
-        #         # 设置环境变量指向 main 目录，让 postprocessing 从那里获取版本
-        #         export MAIN_DIR="../../.main"
-        #         echo "MAIN_DIR=$MAIN_DIR" >> $GITHUB_ENV
-        #         llpkgstore postprocessing
-        #       else
-        #         echo "Skipping non-Python package: $dir"
-        #       fi
-        #       cd ..
-        #     fi
-        #   done
+        run: llpkgstore postprocessing
+      # working-directory: .website
+      # env:
+      #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # run: |
+      #   # Find all directories that contain llpkg.cfg files
+      #   for dir in */; do
+      #     if [ -d "$dir" ] && [ -f "$dir/llpkg.cfg" ]; then
+      #       echo "Processing package in directory: $dir"
+      #       cd "$dir"
+      #       # Check if this is a Python package
+      #       if grep -q '"type": "python"' llpkg.cfg; then
+      #         echo "Found Python package: $dir"
+      #         # 设置环境变量指向 main 目录，让 postprocessing 从那里获取版本
+      #         export MAIN_DIR="../../.main"
+      #         echo "MAIN_DIR=$MAIN_DIR" >> $GITHUB_ENV
+      #         llpkgstore postprocessing
+      #       else
+      #         echo "Skipping non-Python package: $dir"
+      #       fi
+      #       cd ..
+      #     fi
+      #   done
   # build-and-upload:
   #   runs-on: ubuntu-latest
   #   needs: [post-processing]
