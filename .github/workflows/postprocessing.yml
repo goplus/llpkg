@@ -150,6 +150,25 @@ jobs:
         run: |
           echo "Current branch: $(git branch --show-current)"
           echo "Current commit: $(git log -1 --pretty=format:%s)"
+          
+          # 从 commit 消息中提取源分支名
+          COMMIT_MSG=$(git log -1 --pretty=format:%s)
+          if [[ $COMMIT_MSG =~ Merge\ pull\ request.*from\ PengPengPeng717/([^[:space:]]+) ]]; then
+            SOURCE_BRANCH="${BASH_REMATCH[1]}"
+            echo "Detected source branch from commit message: $SOURCE_BRANCH"
+            
+            # 切换到源分支
+            echo "Switching to source branch: $SOURCE_BRANCH"
+            git fetch origin $SOURCE_BRANCH:$SOURCE_BRANCH
+            git checkout $SOURCE_BRANCH
+            echo "Switched to branch: $(git branch --show-current)"
+          else
+            echo "Could not detect source branch from commit message: $COMMIT_MSG"
+          fi
+          
+          echo "Final branch: $(git branch --show-current)"
+          echo "Final commit: $(git log -1 --pretty=format:%s)"
+          
           # 查找所有包含 llpkg.cfg 的目录
           for dir in */; do
             if [ -d "$dir" ] && [ -f "$dir/llpkg.cfg" ]; then
