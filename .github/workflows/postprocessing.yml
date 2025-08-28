@@ -115,10 +115,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: [release-binary-files]
     steps:
-      - name: Checkout
+      - name: Checkout current branch
         uses: actions/checkout@v4
         with:
-          ref: main
+          # 不指定 ref，使用当前触发 CI 的分支
           path: .main
       # - name: Check out LLGo
       #   uses: actions/checkout@v4
@@ -199,11 +199,28 @@ jobs:
       #   env:
       #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       #   run: llpkgstore postprocessing
-      - name: Run post-processing process for each package
+      - name: Find and process Python packages
         working-directory: .main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: llpkgstore postprocessing
+        run: |
+          echo "Current branch: $(git branch --show-current)"
+          echo "Current commit: $(git log -1 --pretty=format:%s)"
+          # 查找所有包含 llpkg.cfg 的目录
+          for dir in */; do
+            if [ -d "$dir" ] && [ -f "$dir/llpkg.cfg" ]; then
+              echo "Processing package in directory: $dir"
+              cd "$dir"
+              # 检查是否是 Python 包
+              if grep -q '"type": "python"' llpkg.cfg; then
+                echo "Found Python package: $dir"
+                llpkgstore postprocessing
+              else
+                echo "Skipping non-Python package: $dir"
+              fi
+              cd ..
+            fi
+          done
       # working-directory: .website
       # env:
       #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
