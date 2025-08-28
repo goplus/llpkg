@@ -120,18 +120,6 @@ jobs:
         with:
           # 不指定 ref，使用当前触发 CI 的分支
           path: .main
-      # - name: Check out LLGo
-      #   uses: actions/checkout@v4
-      #   with:
-      #     repository: '1351914167/llgo'
-      #     path: .llgo
-      #     ref: get_pip
-      # - name: Check out LLPyg
-      #   uses: actions/checkout@v4
-      #   with:
-      #     repository: 'toaction/llpyg'
-      #     path: .llpyg
-      #     ref: feat/v1
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
@@ -152,53 +140,9 @@ jobs:
         run: |
           git clone https://github.com/PengPengPeng717/llpkgstore.git
           cd llpkgstore
-          # git checkout 8_21
           git checkout post
           go build -o llpkgstore ./cmd/llpkgstore
           sudo mv llpkgstore /usr/local/bin/
-      # - name: Setup LLGo
-      #   working-directory: .llgo
-      #   run: |
-      #     go install -v ./cmd/...
-      #     export LLGO_ROOT=$PWD
-      #     echo "LLGO_ROOT=$LLGO_ROOT" >> $GITHUB_ENV
-      #     echo "LLGO_RPATH_CHANGE=ON" >> $GITHUB_ENV
-      # - name: Set up Python environment
-      #   run: |
-      #     echo "GOTOOLCHAIN=go1.24.5" >> $GITHUB_ENV
-      #     export PYTHONHOME=$LLGO_ROOT/python
-      #     export PATH=$PYTHONHOME/bin:$PATH
-      #     export DYLD_LIBRARY_PATH=$PYTHONHOME/lib
-      #     export PKG_CONFIG_PATH=$PYTHONHOME/lib/pkgconfig
-      #     echo "PYTHONHOME=$PYTHONHOME" >> $GITHUB_ENV
-      #     echo "PATH=$PATH" >> $GITHUB_ENV
-      #     echo "DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH" >> $GITHUB_ENV
-      #     echo "PKG_CONFIG_PATH=$PKG_CONFIG_PATH" >> $GITHUB_ENV
-      # - name: Setup LLPyg
-      #   working-directory: .llpyg
-      #   run: |
-      #     cd _xtool
-      #     llgo install ./...
-      #     cd ..
-      #     go install -v ./cmd/...
-      # - name: Checkout to website
-      #   uses: actions/checkout@v4
-      #   with:
-      #     ref: website
-      #     path: .website
-      #     fetch-depth: 0  # 获取完整历史
-      # - name: Fetch all branches
-      #   working-directory: .website
-      #   run: |
-      #     git fetch origin main:main
-      #     # git fetch origin 27n5:27n5
-      #     echo "Available branches:"
-      #     git branch -a
-      # - name: Run post-processing process
-      #   working-directory: .main
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   run: llpkgstore postprocessing
       - name: Find and process Python packages
         working-directory: .main
         env:
@@ -221,28 +165,6 @@ jobs:
               cd ..
             fi
           done
-      # working-directory: .website
-      # env:
-      #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      # run: |
-      #   # Find all directories that contain llpkg.cfg files
-      #   for dir in */; do
-      #     if [ -d "$dir" ] && [ -f "$dir/llpkg.cfg" ]; then
-      #       echo "Processing package in directory: $dir"
-      #       cd "$dir"
-      #       # Check if this is a Python package
-      #       if grep -q '"type": "python"' llpkg.cfg; then
-      #         echo "Found Python package: $dir"
-      #         # 设置环境变量指向 main 目录，让 postprocessing 从那里获取版本
-      #         export MAIN_DIR="../../.main"
-      #         echo "MAIN_DIR=$MAIN_DIR" >> $GITHUB_ENV
-      #         llpkgstore postprocessing
-      #       else
-      #         echo "Skipping non-Python package: $dir"
-      #       fi
-      #       cd ..
-      #     fi
-      #   done
   # build-and-upload:
   #   runs-on: ubuntu-latest
   #   needs: [post-processing]
