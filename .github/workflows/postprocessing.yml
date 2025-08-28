@@ -118,7 +118,7 @@ jobs:
       - name: Checkout current branch
         uses: actions/checkout@v4
         with:
-          # 不指定 ref，使用当前触发 CI 的分支
+          ref: ${{ github.head_ref || github.ref_name }}  # 明确指定触发 CI 的分支
           path: .main
       - name: Set up Go
         uses: actions/setup-go@v4
@@ -164,8 +164,7 @@ jobs:
               fi
               cd ..
             fi
-          done
-  # build-and-upload:
+          done  # build-and-upload:
   #   runs-on: ubuntu-latest
   #   needs: [post-processing]
   #   steps:
