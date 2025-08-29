@@ -51,7 +51,8 @@ jobs:
           git clone https://github.com/PengPengPeng717/llpkgstore.git
           cd llpkgstore
           # git checkout 8_21
-          git checkout post
+          # git checkout post
+          git checkout llpyg_modify
           go build -o llpkgstore ./cmd/llpkgstore
           sudo mv llpkgstore /usr/local/bin/
       - name: Install dependencies
