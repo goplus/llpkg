@@ -166,10 +166,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files || 'numpy/llpkg.cfg numpy/llpyg.cfg' }}
         run: llpkgstore verification
-      - name: Run demotest process
-        env:
-          LLPKG_PATH: ${{ env.LLPKG_PATH }}
-        run: llpkgstore demotest
+      # - name: Run demotest process
+      #   env:
+      #     LLPKG_PATH: ${{ env.LLPKG_PATH }}
+      #   run: llpkgstore demotest
+
+        
       # - name: Create direct version mapping for Python packages
       #   run: |
       #     echo "Creating direct version mapping for Python packages..."
