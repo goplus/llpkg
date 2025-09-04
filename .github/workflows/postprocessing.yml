@@ -181,7 +181,8 @@ jobs:
               echo "Processing package in directory: $dir"
               # cd "$dir"
               # 检查是否是 Python 包
-              if grep -q '"type": "python"' llpkg.cfg; then
+              # if grep -q '"type": "python"' llpkg.cfg; then
+              if grep -q '"type": "python"' "$dir/llpkg.cfg"; then
                 echo "Found Python package: $dir"
                 llpkgstore postprocessing
               else
