@@ -199,14 +199,9 @@ jobs:
                 echo "Current directory: $(pwd)"
                 echo "Directory contents:"
                 ls -la
-                echo "About to run: llpkgstore postprocessing in $dir"
+                echo "About to run: llpkgstore postprocessing from root directory"
                 echo "=== End Before ==="
-                cd "$dir"
-                echo "Switched to directory: $(pwd)"
-                echo "Directory contents:"
-                ls -la
                 llpkgstore postprocessing
-                cd ..
               else
                 echo "Skipping non-Python package: $dir"
               fi
