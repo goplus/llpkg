@@ -179,7 +179,7 @@ jobs:
           for dir in */; do
             if [ -d "$dir" ] && [ -f "$dir/llpkg.cfg" ]; then
               echo "Processing package in directory: $dir"
-              cd "$dir"
+              # cd "$dir"
               # 检查是否是 Python 包
               if grep -q '"type": "python"' llpkg.cfg; then
                 echo "Found Python package: $dir"
@@ -187,7 +187,7 @@ jobs:
               else
                 echo "Skipping non-Python package: $dir"
               fi
-              cd ..
+              # cd ..
             fi
           done  # build-and-upload:
   #   runs-on: ubuntu-latest
