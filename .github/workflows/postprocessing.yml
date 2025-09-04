@@ -175,6 +175,17 @@ jobs:
           echo "Final branch: $(git branch --show-current)"
           echo "Final commit: $(git log -1 --pretty=format:%s)"
           
+          # 调试信息：打印当前路径和文件结构
+          echo "=== Debug Information ==="
+          echo "Current working directory: $(pwd)"
+          echo "Directory contents:"
+          ls -la
+          echo "Tabulate directory contents:"
+          ls -la tabulate/ || echo "Tabulate directory not found"
+          echo "Looking for llpkg.cfg files:"
+          find . -name "llpkg.cfg" -type f
+          echo "=== End Debug ==="
+          
           # 查找所有包含 llpkg.cfg 的目录
           for dir in */; do
             if [ -d "$dir" ] && [ -f "$dir/llpkg.cfg" ]; then
@@ -184,6 +195,12 @@ jobs:
               # if grep -q '"type": "python"' llpkg.cfg; then
               if grep -q '"type": "python"' "$dir/llpkg.cfg"; then
                 echo "Found Python package: $dir"
+                echo "=== Before llpkgstore postprocessing ==="
+                echo "Current directory: $(pwd)"
+                echo "Directory contents:"
+                ls -la
+                echo "About to run: llpkgstore postprocessing"
+                echo "=== End Before ==="
                 llpkgstore postprocessing
               else
                 echo "Skipping non-Python package: $dir"
