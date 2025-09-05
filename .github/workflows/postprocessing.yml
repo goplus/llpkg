@@ -192,22 +192,31 @@ jobs:
           for dir in */; do
             if [ -d "$dir" ] && [ -f "$dir/llpkg.cfg" ]; then
               echo "Processing package in directory: $dir"
-              # cd "$dir"
               # 检查是否是 Python 包
-              # if grep -q '"type": "python"' llpkg.cfg; then
               if grep -q '"type": "python"' "$dir/llpkg.cfg"; then
                 echo "Found Python package: $dir"
                 echo "=== Before llpkgstore postprocessing ==="
                 echo "Current directory: $(pwd)"
                 echo "Directory contents:"
                 ls -la
-                echo "About to run: llpkgstore postprocessing from root directory"
+                echo "Switching to package directory: $dir"
+                cd "$dir"
+                echo "New working directory: $(pwd)"
+                echo "Directory contents:"
+                ls -la
+                echo "About to run: llpkgstore postprocessing from package directory"
                 echo "=== End Before ==="
                 llpkgstore postprocessing
+                echo "=== After llpkgstore postprocessing ==="
+                echo "Current directory: $(pwd)"
+                echo "Directory contents:"
+                ls -la
+                echo "=== End After ==="
+                cd ..
+                echo "Returned to root directory: $(pwd)"
               else
                 echo "Skipping non-Python package: $dir"
               fi
-              # cd ..
             fi
           done  # build-and-upload:
   #   runs-on: ubuntu-latest
