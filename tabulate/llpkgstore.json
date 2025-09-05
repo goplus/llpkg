@@ -1,0 +1,14 @@
+{
+  "packages": {
+    "tabulate": {
+      "versions": [
+        {
+          "python": "0.9.0",
+          "go": [
+            "v9.0.0"
+          ]
+        }
+      ]
+    }
+  }
+}
