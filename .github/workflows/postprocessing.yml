@@ -201,12 +201,7 @@ jobs:
                 echo "Current directory: $(pwd)"
                 echo "Directory contents:"
                 ls -la
-                echo "Switching to package directory: $dir"
-                cd "$dir"
-                echo "New working directory: $(pwd)"
-                echo "Directory contents:"
-                ls -la
-                echo "About to run: llpkgstore postprocessing from package directory"
+                echo "About to run: llpkgstore postprocessing from root directory (same as C++)"
                 echo "=== End Before ==="
                 llpkgstore postprocessing
                 echo "=== After llpkgstore postprocessing ==="
@@ -214,8 +209,6 @@ jobs:
                 echo "Directory contents:"
                 ls -la
                 echo "=== End After ==="
-                cd ..
-                echo "Returned to root directory: $(pwd)"
               else
                 echo "Skipping non-Python package: $dir"
               fi
