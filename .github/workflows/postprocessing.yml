@@ -53,7 +53,8 @@ jobs:
           # git checkout 8_21
           # git checkout post
           # git checkout llpyg_modify
-          git checkout llpkgstore_doc
+          # git checkout llpkgstore_doc
+          git checkout 95_modify
           go build -o llpkgstore ./cmd/llpkgstore
           sudo mv llpkgstore /usr/local/bin/
       - name: Install dependencies
@@ -145,7 +146,8 @@ jobs:
         run: |
           git clone https://github.com/PengPengPeng717/llpkgstore.git
           cd llpkgstore
-          git checkout llpkgstore_doc
+          git checkout 95_modify
+          # git checkout llpkgstore_doc
           # git checkout post
           go build -o llpkgstore ./cmd/llpkgstore
           sudo mv llpkgstore /usr/local/bin/
