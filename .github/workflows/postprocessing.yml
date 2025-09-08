@@ -184,24 +184,53 @@ jobs:
           echo "Current working directory: $(pwd)"
           echo "Directory contents:"
           ls -la
-          echo "Tabulate directory contents:"
-          ls -la tabulate/ || echo "Tabulate directory not found"
-          echo "Looking for llpkg.cfg files:"
-          find . -name "llpkg.cfg" -type f
           echo "=== End Debug ==="
           
-          # 查找所有包含 llpkg.cfg 的目录
-          for dir in */; do
-            if [ -d "$dir" ] && [ -f "$dir/llpkg.cfg" ]; then
-              echo "Processing package in directory: $dir"
+          # 获取当前提交中修改的包目录
+          echo "=== Finding modified packages ==="
+          MODIFIED_PACKAGES=""
+          
+          # 检查是否是合并提交
+          if git log -1 --pretty=format:%P | grep -q " "; then
+            echo "This is a merge commit, checking changes from merge base"
+            # 对于合并提交，比较与main分支的差异
+            BASE_COMMIT=$(git merge-base HEAD main)
+            echo "Base commit: $BASE_COMMIT"
+            MODIFIED_PACKAGES=$(git diff --name-only $BASE_COMMIT HEAD | grep -E '^[^/]+/' | cut -d'/' -f1 | sort -u)
+          else
+            echo "This is a regular commit, checking changes from previous commit"
+            # 对于普通提交，比较与前一个提交的差异
+            MODIFIED_PACKAGES=$(git diff --name-only HEAD~1 HEAD | grep -E '^[^/]+/' | cut -d'/' -f1 | sort -u)
+          fi
+          
+          echo "Modified packages: $MODIFIED_PACKAGES"
+          
+          if [ -z "$MODIFIED_PACKAGES" ]; then
+            echo "No package directories were modified in this commit"
+            echo "Checking if this is a release commit by looking for 'Release-as:' in commit message"
+            COMMIT_MSG=$(git log -1 --pretty=format:%s)
+            if [[ $COMMIT_MSG =~ Release-as:\ ([^/]+)/ ]]; then
+              PACKAGE_NAME="${BASH_REMATCH[1]}"
+              echo "Found release commit for package: $PACKAGE_NAME"
+              MODIFIED_PACKAGES="$PACKAGE_NAME"
+            else
+              echo "No release commit detected, skipping postprocessing"
+              exit 0
+            fi
+          fi
+          
+          # 处理修改的包
+          for package in $MODIFIED_PACKAGES; do
+            if [ -d "$package" ] && [ -f "$package/llpkg.cfg" ]; then
+              echo "Processing modified package: $package"
               # 检查是否是 Python 包
-              if grep -q '"type": "python"' "$dir/llpkg.cfg"; then
-                echo "Found Python package: $dir"
+              if grep -q '"type": "python"' "$package/llpkg.cfg"; then
+                echo "Found Python package: $package"
                 echo "=== Before llpkgstore postprocessing ==="
                 echo "Current directory: $(pwd)"
                 echo "Directory contents:"
                 ls -la
-                echo "About to run: llpkgstore postprocessing from root directory (same as C++)"
+                echo "About to run: llpkgstore postprocessing from root directory"
                 echo "=== End Before ==="
                 llpkgstore postprocessing
                 echo "=== After llpkgstore postprocessing ==="
@@ -210,8 +239,10 @@ jobs:
                 ls -la
                 echo "=== End After ==="
               else
-                echo "Skipping non-Python package: $dir"
+                echo "Skipping non-Python package: $package"
               fi
+            else
+              echo "Package directory $package not found or missing llpkg.cfg"
             fi
           done  # build-and-upload:
   #   runs-on: ubuntu-latest
