@@ -111,7 +111,7 @@ jobs:
       - name: Run release process
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: llpkgstore release
+        run: l
       - name: Upload binary file to artifact
         uses: actions/upload-artifact@v4
         with:
