@@ -347,23 +347,29 @@ jobs:
               
               if [ -n "$PACKAGE_DIR" ]; then
                 echo "Processing package from directory: $PACKAGE_DIR"
+                
+                # 进入包目录执行llpkgstore postprocessing命令
                 echo "=== Before llpkgstore postprocessing ==="
                 echo "Current directory: $(pwd)"
-                echo "Directory contents:"
-                ls -la
-                echo "About to run: llpkgstore postprocessing from root directory"
+                echo "About to run: llpkgstore postprocessing from package directory: $PACKAGE_DIR"
                 echo "=== End Before ==="
-                llpkgstore postprocessing
+                
+                # 进入包目录执行命令
+                (cd "$PACKAGE_DIR" && llpkgstore postprocessing)
+                
                 echo "=== After llpkgstore postprocessing ==="
                 echo "Current directory: $(pwd)"
-                echo "Directory contents:"
-                ls -la
                 echo "=== End After ==="
                 
                 # 为Python包创建Python_package目录结构
                 echo "Creating Python_package directory structure"
                 mkdir -p Python_package
-                if [ -f "llpkgstore.json" ]; then
+                
+                # 检查llpkgstore.json是否在包目录下生成
+                if [ -f "$PACKAGE_DIR/llpkgstore.json" ]; then
+                  cp "$PACKAGE_DIR/llpkgstore.json" Python_package/
+                  echo "Copied llpkgstore.json from $PACKAGE_DIR to Python_package/"
+                elif [ -f "llpkgstore.json" ]; then
                   cp llpkgstore.json Python_package/
                   echo "Copied llpkgstore.json to Python_package/"
                 fi
