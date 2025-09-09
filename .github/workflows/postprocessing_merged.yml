@@ -332,9 +332,22 @@ jobs:
           echo "C++ packages: $CPP_PACKAGES"
           
           # 第二阶段：根据包类型执行不同的处理逻辑
+          # 首先检查commit消息中指定的包
+          COMMIT_MSG=$(git log -1 --pretty=format:%s)
+          TARGET_PACKAGE=""
+          if echo "$COMMIT_MSG" | grep -q "Release-as:"; then
+            TARGET_PACKAGE=$(echo "$COMMIT_MSG" | sed 's/Release-as: \([^/]*\)\/.*/\1/')
+            echo "Commit message specifies target package: $TARGET_PACKAGE"
+          fi
+          
           if [ -n "$PYTHON_PACKAGES" ]; then
             echo "=== Processing Python packages ==="
             for package in $PYTHON_PACKAGES; do
+              # 如果commit消息指定了特定包，只处理该包
+              if [ -n "$TARGET_PACKAGE" ] && [ "$package" != "$TARGET_PACKAGE" ]; then
+                echo "Skipping $package because commit message specifies $TARGET_PACKAGE"
+                continue
+              fi
               echo "Processing Python package: $package"
               
               # 确定包目录位置
@@ -401,6 +414,11 @@ jobs:
           if [ -n "$CPP_PACKAGES" ]; then
             echo "=== Processing C++ packages ==="
             for package in $CPP_PACKAGES; do
+              # 如果commit消息指定了特定包，只处理该包
+              if [ -n "$TARGET_PACKAGE" ] && [ "$package" != "$TARGET_PACKAGE" ]; then
+                echo "Skipping $package because commit message specifies $TARGET_PACKAGE"
+                continue
+              fi
               echo "Processing C++ package: $package"
               echo "=== Before llpkgstore postprocessing ==="
               echo "Current directory: $(pwd)"
