@@ -224,7 +224,16 @@ jobs:
             if [[ $COMMIT_MSG =~ Release-as:\ ([^/]+)/ ]]; then
               PACKAGE_NAME="${BASH_REMATCH[1]}"
               echo "Found release commit for package: $PACKAGE_NAME"
-              MODIFIED_PACKAGES="$PACKAGE_NAME"
+              # 验证包目录是否存在
+              if [ -d "$PACKAGE_NAME" ] && [ -f "$PACKAGE_NAME/llpkg.cfg" ]; then
+                MODIFIED_PACKAGES="$PACKAGE_NAME"
+                echo "Package directory $PACKAGE_NAME exists and is valid"
+              else
+                echo "Package directory $PACKAGE_NAME not found or missing llpkg.cfg"
+                echo "Available directories:"
+                ls -la | grep "^d" | awk '{print $9}' | grep -v "^\.$\|^\.\.$\|^\.git$\|^\.github$\|^public$\|^Python_package$"
+                exit 0
+              fi
             else
               echo "No release commit detected, skipping postprocessing"
               exit 0
