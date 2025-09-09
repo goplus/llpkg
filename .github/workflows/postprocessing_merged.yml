@@ -370,16 +370,18 @@ jobs:
                 ln -s "$PACKAGE_DIR" "$package"
                 echo "Created symlink: $package -> $PACKAGE_DIR"
                 
-                # 进入包目录执行llpkgstore postprocessing命令
+                # 在根目录执行llpkgstore postprocessing命令（符号链接已创建）
                 echo "=== Before llpkgstore postprocessing ==="
                 echo "Current directory: $(pwd)"
-                echo "About to run: llpkgstore postprocessing from package directory: $PACKAGE_DIR"
-                echo "Directory structure:"
+                echo "About to run: llpkgstore postprocessing from root directory"
+                echo "Symlink structure:"
                 ls -la "$package"
+                echo "Checking if llpkg.cfg is accessible via symlink:"
+                ls -la "$package/llpkg.cfg"
                 echo "=== End Before ==="
                 
-                # 进入包目录执行命令
-                (cd "$PACKAGE_DIR" && llpkgstore postprocessing)
+                # 在根目录执行命令（llpkgstore会通过符号链接找到正确的llpkg.cfg）
+                llpkgstore postprocessing
                 
                 echo "=== After llpkgstore postprocessing ==="
                 echo "Current directory: $(pwd)"
