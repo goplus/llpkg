@@ -268,6 +268,26 @@ jobs:
             fi
           done
           
+          # 如果过滤后没有包，检查是否是Python_package目录被修改
+          if [ -z "$FILTERED_PACKAGES" ]; then
+            echo "No packages found after filtering, checking if Python_package directory was modified"
+            if echo "$MODIFIED_PACKAGES" | grep -q "Python_package"; then
+              echo "Python_package directory was modified, checking for packages inside"
+              # 检查Python_package目录下的所有包
+              if [ -d "Python_package" ]; then
+                for subdir in Python_package/*/; do
+                  if [ -d "$subdir" ]; then
+                    package_name=$(basename "$subdir")
+                    if [ -f "$subdir/llpkg.cfg" ]; then
+                      FILTERED_PACKAGES="$FILTERED_PACKAGES $package_name"
+                      echo "Found package in Python_package: $package_name"
+                    fi
+                  fi
+                done
+              fi
+            fi
+          fi
+          
           MODIFIED_PACKAGES="$FILTERED_PACKAGES"
           echo "Filtered packages: $MODIFIED_PACKAGES"
           
