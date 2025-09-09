@@ -348,10 +348,21 @@ jobs:
               if [ -n "$PACKAGE_DIR" ]; then
                 echo "Processing package from directory: $PACKAGE_DIR"
                 
+                # 为llpkgstore创建正确的目录结构
+                # llpkgstore从commit消息中提取包名，然后寻找 {包名}/llpkg.cfg
+                echo "Creating symlink for llpkgstore to find the correct package directory"
+                if [ -d "$package" ]; then
+                  rm -rf "$package"
+                fi
+                ln -s "$PACKAGE_DIR" "$package"
+                echo "Created symlink: $package -> $PACKAGE_DIR"
+                
                 # 进入包目录执行llpkgstore postprocessing命令
                 echo "=== Before llpkgstore postprocessing ==="
                 echo "Current directory: $(pwd)"
                 echo "About to run: llpkgstore postprocessing from package directory: $PACKAGE_DIR"
+                echo "Directory structure:"
+                ls -la "$package"
                 echo "=== End Before ==="
                 
                 # 进入包目录执行命令
