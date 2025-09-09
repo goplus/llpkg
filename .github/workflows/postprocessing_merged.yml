@@ -224,14 +224,23 @@ jobs:
             if [[ $COMMIT_MSG =~ Release-as:\ ([^/]+)/ ]]; then
               PACKAGE_NAME="${BASH_REMATCH[1]}"
               echo "Found release commit for package: $PACKAGE_NAME"
-              # 验证包目录是否存在
+              # 验证包目录是否存在（检查根目录和Python_package目录）
               if [ -d "$PACKAGE_NAME" ] && [ -f "$PACKAGE_NAME/llpkg.cfg" ]; then
                 MODIFIED_PACKAGES="$PACKAGE_NAME"
-                echo "Package directory $PACKAGE_NAME exists and is valid"
+                echo "Package directory $PACKAGE_NAME exists and is valid in root"
+              elif [ -d "Python_package/$PACKAGE_NAME" ] && [ -f "Python_package/$PACKAGE_NAME/llpkg.cfg" ]; then
+                MODIFIED_PACKAGES="$PACKAGE_NAME"
+                echo "Package directory $PACKAGE_NAME exists and is valid in Python_package"
               else
                 echo "Package directory $PACKAGE_NAME not found or missing llpkg.cfg"
-                echo "Available directories:"
+                echo "Available directories in root:"
                 ls -la | grep "^d" | awk '{print $9}' | grep -v "^\.$\|^\.\.$\|^\.git$\|^\.github$\|^public$\|^Python_package$"
+                echo "Available directories in Python_package:"
+                if [ -d "Python_package" ]; then
+                  ls -la Python_package/ | grep "^d" | awk '{print $9}' | grep -v "^\.$\|^\.\.$"
+                else
+                  echo "Python_package directory does not exist"
+                fi
                 exit 0
               fi
             else
@@ -269,11 +278,21 @@ jobs:
           # 第一阶段：扫描所有修改的包，检测包类型
           echo "=== Scanning package types ==="
           for package in $MODIFIED_PACKAGES; do
+            # 检查包目录位置（根目录或Python_package目录）
+            PACKAGE_DIR=""
             if [ -d "$package" ] && [ -f "$package/llpkg.cfg" ]; then
-              echo "Checking package: $package"
+              PACKAGE_DIR="$package"
+              echo "Found package $package in root directory"
+            elif [ -d "Python_package/$package" ] && [ -f "Python_package/$package/llpkg.cfg" ]; then
+              PACKAGE_DIR="Python_package/$package"
+              echo "Found package $package in Python_package directory"
+            fi
+            
+            if [ -n "$PACKAGE_DIR" ]; then
+              echo "Checking package: $package (at $PACKAGE_DIR)"
               
               # 检查llpkg.cfg中的type字段
-              PACKAGE_TYPE=$(grep -o '"type":\s*"[^"]*"' "$package/llpkg.cfg" | cut -d'"' -f4 || echo "")
+              PACKAGE_TYPE=$(grep -o '"type":\s*"[^"]*"' "$PACKAGE_DIR/llpkg.cfg" | cut -d'"' -f4 || echo "")
               echo "Package $package type detected: ${PACKAGE_TYPE:-'C++ (default)'}"
               
               if [ "$PACKAGE_TYPE" = "python" ]; then
@@ -297,33 +316,47 @@ jobs:
             echo "=== Processing Python packages ==="
             for package in $PYTHON_PACKAGES; do
               echo "Processing Python package: $package"
-              echo "=== Before llpkgstore postprocessing ==="
-              echo "Current directory: $(pwd)"
-              echo "Directory contents:"
-              ls -la
-              echo "About to run: llpkgstore postprocessing from root directory"
-              echo "=== End Before ==="
-              llpkgstore postprocessing
-              echo "=== After llpkgstore postprocessing ==="
-              echo "Current directory: $(pwd)"
-              echo "Directory contents:"
-              ls -la
-              echo "=== End After ==="
               
-              # 为Python包创建Python_package目录结构
-              echo "Creating Python_package directory structure"
-              mkdir -p Python_package
-              if [ -f "llpkgstore.json" ]; then
-                cp llpkgstore.json Python_package/
-                echo "Copied llpkgstore.json to Python_package/"
+              # 确定包目录位置
+              PACKAGE_DIR=""
+              if [ -d "$package" ] && [ -f "$package/llpkg.cfg" ]; then
+                PACKAGE_DIR="$package"
+              elif [ -d "Python_package/$package" ] && [ -f "Python_package/$package/llpkg.cfg" ]; then
+                PACKAGE_DIR="Python_package/$package"
               fi
               
-              # 为Python包创建专门的目录结构
-              echo "Setting up Python package directory structure"
-              mkdir -p Python_package/$package
-              if [ -d "$package" ]; then
-                cp -r "$package"/* Python_package/$package/ 2>/dev/null || echo "No files to copy for $package"
-                echo "Copied $package files to Python_package/$package/"
+              if [ -n "$PACKAGE_DIR" ]; then
+                echo "Processing package from directory: $PACKAGE_DIR"
+                echo "=== Before llpkgstore postprocessing ==="
+                echo "Current directory: $(pwd)"
+                echo "Directory contents:"
+                ls -la
+                echo "About to run: llpkgstore postprocessing from root directory"
+                echo "=== End Before ==="
+                llpkgstore postprocessing
+                echo "=== After llpkgstore postprocessing ==="
+                echo "Current directory: $(pwd)"
+                echo "Directory contents:"
+                ls -la
+                echo "=== End After ==="
+                
+                # 为Python包创建Python_package目录结构
+                echo "Creating Python_package directory structure"
+                mkdir -p Python_package
+                if [ -f "llpkgstore.json" ]; then
+                  cp llpkgstore.json Python_package/
+                  echo "Copied llpkgstore.json to Python_package/"
+                fi
+                
+                # 为Python包创建专门的目录结构
+                echo "Setting up Python package directory structure"
+                mkdir -p Python_package/$package
+                if [ -d "$PACKAGE_DIR" ]; then
+                  cp -r "$PACKAGE_DIR"/* Python_package/$package/ 2>/dev/null || echo "No files to copy for $package"
+                  echo "Copied $package files to Python_package/$package/"
+                fi
+              else
+                echo "Package directory $package not found, skipping processing"
               fi
             done
           fi
