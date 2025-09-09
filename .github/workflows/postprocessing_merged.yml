@@ -231,6 +231,28 @@ jobs:
             fi
           fi
           
+          # 过滤掉非包目录（如Python_package、.github等）
+          echo "=== Filtering package directories ==="
+          FILTERED_PACKAGES=""
+          for package in $MODIFIED_PACKAGES; do
+            # 跳过已知的非包目录
+            if [[ "$package" =~ ^(Python_package|\.github|\.git|public|\.DS_Store)$ ]]; then
+              echo "Skipping non-package directory: $package"
+              continue
+            fi
+            
+            # 检查是否是有效的包目录
+            if [ -d "$package" ] && [ -f "$package/llpkg.cfg" ]; then
+              FILTERED_PACKAGES="$FILTERED_PACKAGES $package"
+              echo "Valid package directory: $package"
+            else
+              echo "Invalid package directory (missing llpkg.cfg): $package"
+            fi
+          done
+          
+          MODIFIED_PACKAGES="$FILTERED_PACKAGES"
+          echo "Filtered packages: $MODIFIED_PACKAGES"
+          
           # 初始化包类型数组
           PYTHON_PACKAGES=""
           CPP_PACKAGES=""
@@ -331,14 +353,14 @@ jobs:
           else
             echo "No llpkgstore.json found for C++ packages"
           fi
-      - name: Commit and push changes (for C++ packages)
-        working-directory: .website
-        run: |
-            git config --local user.email "action@github.com"
-            git config --local user.name "GitHub Action"
-            git add public/llpkgstore.json
-            git commit -m "Update llpkgstore.json" || echo "No changes to commit"
-            git push
+    #   - name: Commit and push changes (for C++ packages)
+    #     working-directory: .website
+    #     run: |
+    #         git config --local user.email "action@github.com"
+    #         git config --local user.name "GitHub Action"
+    #         git add public/llpkgstore.json
+    #         git commit -m "Update llpkgstore.json" || echo "No changes to commit"
+    #         git push
       - name: Handle Python packages upload
         working-directory: .main
         run: |
