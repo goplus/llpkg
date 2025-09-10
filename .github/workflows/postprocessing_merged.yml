@@ -226,22 +226,22 @@ jobs:
             if [[ $COMMIT_MSG =~ Release-as:\ ([^/]+)/ ]]; then
               PACKAGE_NAME="${BASH_REMATCH[1]}"
               echo "Found release commit for package: $PACKAGE_NAME"
-              # 验证包目录是否存在（检查根目录和Python_package目录）
+              # 验证包目录是否存在（检查根目录和py目录）
               if [ -d "$PACKAGE_NAME" ] && [ -f "$PACKAGE_NAME/llpkg.cfg" ]; then
                 MODIFIED_PACKAGES="$PACKAGE_NAME"
                 echo "Package directory $PACKAGE_NAME exists and is valid in root"
-              elif [ -d "Python_package/$PACKAGE_NAME" ] && [ -f "Python_package/$PACKAGE_NAME/llpkg.cfg" ]; then
+              elif [ -d "py/$PACKAGE_NAME" ] && [ -f "py/$PACKAGE_NAME/llpkg.cfg" ]; then
                 MODIFIED_PACKAGES="$PACKAGE_NAME"
-                echo "Package directory $PACKAGE_NAME exists and is valid in Python_package"
+                echo "Package directory $PACKAGE_NAME exists and is valid in py"
               else
                 echo "Package directory $PACKAGE_NAME not found or missing llpkg.cfg"
                 echo "Available directories in root:"
-                ls -la | grep "^d" | awk '{print $9}' | grep -v "^\.$\|^\.\.$\|^\.git$\|^\.github$\|^public$\|^Python_package$"
-                echo "Available directories in Python_package:"
-                if [ -d "Python_package" ]; then
-                  ls -la Python_package/ | grep "^d" | awk '{print $9}' | grep -v "^\.$\|^\.\.$"
+                ls -la | grep "^d" | awk '{print $9}' | grep -v "^\.$\|^\.\.$\|^\.git$\|^\.github$\|^public$\|^py$"
+                echo "Available directories in py:"
+                if [ -d "py" ]; then
+                  ls -la py/ | grep "^d" | awk '{print $9}' | grep -v "^\.$\|^\.\.$"
                 else
-                  echo "Python_package directory does not exist"
+                  echo "py directory does not exist"
                 fi
                 exit 0
               fi
@@ -251,12 +251,12 @@ jobs:
             fi
           fi
           
-          # 过滤掉非包目录（如Python_package、.github等）
+          # 过滤掉非包目录（如py、.github等）
           echo "=== Filtering package directories ==="
           FILTERED_PACKAGES=""
           for package in $MODIFIED_PACKAGES; do
             # 跳过已知的非包目录
-            if [[ "$package" =~ ^(Python_package|\.github|\.git|public|\.DS_Store)$ ]]; then
+            if [[ "$package" =~ ^(py|\.github|\.git|public|\.DS_Store)$ ]]; then
               echo "Skipping non-package directory: $package"
               continue
             fi
@@ -270,19 +270,19 @@ jobs:
             fi
           done
           
-          # 如果过滤后没有包，检查是否是Python_package目录被修改
+          # 如果过滤后没有包，检查是否是py目录被修改
           if [ -z "$FILTERED_PACKAGES" ]; then
-            echo "No packages found after filtering, checking if Python_package directory was modified"
-            if echo "$MODIFIED_PACKAGES" | grep -q "Python_package"; then
-              echo "Python_package directory was modified, checking for packages inside"
-              # 检查Python_package目录下的所有包
-              if [ -d "Python_package" ]; then
-                for subdir in Python_package/*/; do
+            echo "No packages found after filtering, checking if py directory was modified"
+            if echo "$MODIFIED_PACKAGES" | grep -q "py"; then
+              echo "py directory was modified, checking for packages inside"
+              # 检查py目录下的所有包
+              if [ -d "py" ]; then
+                for subdir in py/*/; do
                   if [ -d "$subdir" ]; then
                     package_name=$(basename "$subdir")
                     if [ -f "$subdir/llpkg.cfg" ]; then
                       FILTERED_PACKAGES="$FILTERED_PACKAGES $package_name"
-                      echo "Found package in Python_package: $package_name"
+                      echo "Found package in py: $package_name"
                     fi
                   fi
                 done
@@ -300,14 +300,14 @@ jobs:
           # 第一阶段：扫描所有修改的包，检测包类型
           echo "=== Scanning package types ==="
           for package in $MODIFIED_PACKAGES; do
-            # 检查包目录位置（根目录或Python_package目录）
+            # 检查包目录位置（根目录或py目录）
             PACKAGE_DIR=""
             if [ -d "$package" ] && [ -f "$package/llpkg.cfg" ]; then
               PACKAGE_DIR="$package"
               echo "Found package $package in root directory"
-            elif [ -d "Python_package/$package" ] && [ -f "Python_package/$package/llpkg.cfg" ]; then
-              PACKAGE_DIR="Python_package/$package"
-              echo "Found package $package in Python_package directory"
+            elif [ -d "py/$package" ] && [ -f "py/$package/llpkg.cfg" ]; then
+              PACKAGE_DIR="py/$package"
+              echo "Found package $package in py directory"
             fi
             
             if [ -n "$PACKAGE_DIR" ]; then
@@ -356,8 +356,8 @@ jobs:
               PACKAGE_DIR=""
               if [ -d "$package" ] && [ -f "$package/llpkg.cfg" ]; then
                 PACKAGE_DIR="$package"
-              elif [ -d "Python_package/$package" ] && [ -f "Python_package/$package/llpkg.cfg" ]; then
-                PACKAGE_DIR="Python_package/$package"
+              elif [ -d "py/$package" ] && [ -f "py/$package/llpkg.cfg" ]; then
+                PACKAGE_DIR="py/$package"
               fi
               
               if [ -n "$PACKAGE_DIR" ]; then
@@ -389,19 +389,19 @@ jobs:
                 echo "Current directory: $(pwd)"
                 echo "=== End After ==="
                 
-                # 为Python包创建Python_package目录结构
-                echo "Creating Python_package directory structure"
-                mkdir -p Python_package
+                # 为Python包创建py目录结构
+                echo "Creating py directory structure"
+                mkdir -p py
                 
                 # Python包不再维护llpkgstore.json，跳过相关处理
                 echo "Skipping llpkgstore.json processing for Python package: $package"
                 
                 # 为Python包创建专门的目录结构
                 echo "Setting up Python package directory structure"
-                mkdir -p Python_package/$package
+                mkdir -p py/$package
                 if [ -d "$PACKAGE_DIR" ]; then
-                  cp -r "$PACKAGE_DIR"/* Python_package/$package/ 2>/dev/null || echo "No files to copy for $package"
-                  echo "Copied $package files to Python_package/$package/"
+                  cp -r "$PACKAGE_DIR"/* py/$package/ 2>/dev/null || echo "No files to copy for $package"
+                  echo "Copied $package files to py/$package/"
                 fi
               else
                 echo "Package directory $package not found, skipping processing"
@@ -459,10 +459,10 @@ jobs:
       - name: Handle Python packages upload
         working-directory: .main
         run: |
-          if [ -d "Python_package" ]; then
+          if [ -d "py" ]; then
             echo "=== Processing Python packages for upload ==="
-            echo "Python_package directory contents:"
-            ls -la Python_package/
+            echo "py directory contents:"
+            ls -la py/
             
             # Python包不再维护llpkgstore.json，直接处理包文件
             echo "Processing Python packages for upload (no llpkgstore.json required)"
@@ -471,9 +471,9 @@ jobs:
             # 例如：上传到专门的Python包存储位置
             echo "Python packages processed and ready for upload"
             echo "Python package structure:"
-            find Python_package/ -type f -name "*.go" -o -name "*.cfg" | head -10
+            find py/ -type f -name "*.go" -o -name "*.cfg" | head -10
           else
-            echo "No Python_package directory found"
+            echo "No py directory found"
           fi
 #   build-and-upload:
 #     runs-on: ubuntu-latest
