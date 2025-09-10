@@ -391,14 +391,8 @@ jobs:
                 echo "Creating Python_package directory structure"
                 mkdir -p Python_package
                 
-                # 检查llpkgstore.json是否在包目录下生成
-                if [ -f "$PACKAGE_DIR/llpkgstore.json" ]; then
-                  cp "$PACKAGE_DIR/llpkgstore.json" Python_package/
-                  echo "Copied llpkgstore.json from $PACKAGE_DIR to Python_package/"
-                elif [ -f "llpkgstore.json" ]; then
-                  cp llpkgstore.json Python_package/
-                  echo "Copied llpkgstore.json to Python_package/"
-                fi
+                # Python包不再维护llpkgstore.json，跳过相关处理
+                echo "Skipping llpkgstore.json processing for Python package: $package"
                 
                 # 为Python包创建专门的目录结构
                 echo "Setting up Python package directory structure"
@@ -468,18 +462,14 @@ jobs:
             echo "Python_package directory contents:"
             ls -la Python_package/
             
-            # 检查是否有Python包需要上传
-            if [ -f "Python_package/llpkgstore.json" ]; then
-              echo "Found Python package llpkgstore.json"
-              
-              # 这里可以添加Python包的上传逻辑
-              # 例如：上传到专门的Python包存储位置
-              echo "Python packages processed and ready for upload"
-              echo "Python package structure:"
-              find Python_package/ -type f -name "*.json" -o -name "*.go" -o -name "*.cfg" | head -10
-            else
-              echo "No Python packages found to upload"
-            fi
+            # Python包不再维护llpkgstore.json，直接处理包文件
+            echo "Processing Python packages for upload (no llpkgstore.json required)"
+            
+            # 这里可以添加Python包的上传逻辑
+            # 例如：上传到专门的Python包存储位置
+            echo "Python packages processed and ready for upload"
+            echo "Python package structure:"
+            find Python_package/ -type f -name "*.go" -o -name "*.cfg" | head -10
           else
             echo "No Python_package directory found"
           fi
