@@ -50,7 +50,8 @@ jobs:
         run: |
           git clone https://github.com/PengPengPeng717/llpkgstore.git
           cd llpkgstore
-          git checkout version
+          # git checkout version
+          git checkout v2
           go build -o llpkgstore ./cmd/llpkgstore
           sudo mv llpkgstore /usr/local/bin/
       - name: Install dependencies (macOS)
@@ -151,7 +152,8 @@ jobs:
         run: |
           git clone https://github.com/PengPengPeng717/llpkgstore.git
           cd llpkgstore
-          git checkout version
+          # git checkout version
+          git checkout v2
           go build -o llpkgstore ./cmd/llpkgstore
           sudo mv llpkgstore /usr/local/bin/
       - name: Checkout to website (for C++ packages)
