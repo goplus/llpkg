@@ -169,14 +169,11 @@ jobs:
           echo "Directory contents:"
           ls -la
           
-          # 获取修改的文件列表
-          CHANGED_FILES="${{ steps.changed-files.outputs.all_changed_files }}"
-          echo "Changed files: $CHANGED_FILES"
-          
           # 初始化包列表
-          PACKAGES_TO_VERIFY=""
+          PYTHON_PACKAGES=""
+          CPP_PACKAGES=""
           
-          # 检查根目录下的包
+          # 检查根目录下的C++包
           echo "=== Checking root directory packages ==="
           for dir in */; do
             if [ -d "$dir" ] && [ -f "$dir/llpkg.cfg" ]; then
@@ -184,7 +181,7 @@ jobs:
               # 跳过非包目录
               if [[ ! "$package_name" =~ ^(py|\.github|\.git|public|\.DS_Store)$ ]]; then
                 echo "Found package in root: $package_name"
-                PACKAGES_TO_VERIFY="$PACKAGES_TO_VERIFY $package_name"
+                CPP_PACKAGES="$CPP_PACKAGES $package_name"
               fi
             fi
           done
@@ -193,47 +190,18 @@ jobs:
           echo "=== Checking py directory packages ==="
           if [ -d "py" ]; then
             for subdir in py/*/; do
-              if [ -d "$subdir" ]; then
+              if [ -d "$subdir" ] && [ -f "$subdir/llpkg.cfg" ]; then
                 package_name=$(basename "$subdir")
-                if [ -f "$subdir/llpkg.cfg" ]; then
-                  echo "Found Python package in py: $package_name"
-                  PACKAGES_TO_VERIFY="$PACKAGES_TO_VERIFY $package_name"
-                fi
+                echo "Found Python package in py: $package_name"
+                PYTHON_PACKAGES="$PYTHON_PACKAGES $package_name"
               fi
             done
           else
             echo "py directory does not exist"
           fi
           
-          echo "=== Package Type Detection ==="
-          PYTHON_PACKAGES=""
-          CPP_PACKAGES=""
-          
-          for package in $PACKAGES_TO_VERIFY; do
-            # 检查包目录位置
-            PACKAGE_DIR=""
-            if [ -d "$package" ] && [ -f "$package/llpkg.cfg" ]; then
-              PACKAGE_DIR="$package"
-              echo "Checking package $package in root directory"
-            elif [ -d "py/$package" ] && [ -f "py/$package/llpkg.cfg" ]; then
-              PACKAGE_DIR="py/$package"
-              echo "Checking package $package in py directory"
-            fi
-            
-            if [ -n "$PACKAGE_DIR" ]; then
-              # 检查包类型
-              PACKAGE_TYPE=$(grep -o '"type":\s*"[^"]*"' "$PACKAGE_DIR/llpkg.cfg" | cut -d'"' -f4 || echo "")
-              echo "Package $package type: ${PACKAGE_TYPE:-'C++ (default)'}"
-              
-              if [ "$PACKAGE_TYPE" = "python" ]; then
-                PYTHON_PACKAGES="$PYTHON_PACKAGES $package"
-                echo "Added $package to Python packages list"
-              else
-                CPP_PACKAGES="$CPP_PACKAGES $package"
-                echo "Added $package to C++ packages list"
-              fi
-            fi
-          done
+          # 合并所有包列表
+          PACKAGES_TO_VERIFY="$CPP_PACKAGES $PYTHON_PACKAGES"
           
           echo "=== Package Summary ==="
           echo "Python packages: $PYTHON_PACKAGES"
@@ -274,47 +242,3 @@ jobs:
       #   env:
       #     LLPKG_PATH: ${{ env.LLPKG_PATH }}
       #   run: llpkgstore demotest
-
-        
-      # - name: Create direct version mapping for Python packages
-      #   run: |
-      #     echo "Creating direct version mapping for Python packages..."
-      #     echo "Python packages will be mapped directly: numpy@1.26.4 → v1.26.4"
-          
-      #     # 检查当前目录的 Python 包
-      #     if [ -f "llpkg.cfg" ]; then
-      #       PACKAGE_TYPE=$(grep -o '"type": *"[^"]*"' llpkg.cfg | cut -d'"' -f4)
-      #       if [ "$PACKAGE_TYPE" = "python" ]; then
-      #         PACKAGE_NAME=$(grep -o '"name": *"[^"]*"' llpkg.cfg | cut -d'"' -f4)
-      #         PACKAGE_VERSION=$(grep -o '"version": *"[^"]*"' llpkg.cfg | cut -d'"' -f4)
-      #         echo "Detected Python package: $PACKAGE_NAME@$PACKAGE_VERSION → v$PACKAGE_VERSION"
-      #       fi
-      #     fi
-          
-      #     # 检查子目录的 Python 包
-      #     for dir in */; do
-      #       if [ -d "$dir" ] && [ -f "$dir/llpkg.cfg" ]; then
-      #         PACKAGE_TYPE=$(grep -o '"type": *"[^"]*"' "$dir/llpkg.cfg" | cut -d'"' -f4)
-      #         if [ "$PACKAGE_TYPE" = "python" ]; then
-      #           PACKAGE_NAME=$(grep -o '"name": *"[^"]*"' "$dir/llpkg.cfg" | cut -d'"' -f4)
-      #           PACKAGE_VERSION=$(grep -o '"version": *"[^"]*"' "$dir/llpkg.cfg" | cut -d'"' -f4)
-      #           echo "Detected Python package in $dir: $PACKAGE_NAME@$PACKAGE_VERSION → v$PACKAGE_VERSION"
-      #         fi
-      #       fi
-      #     done
-      # - name: Create Git tag
-      #   run: |
-      #     echo "Creating Git tag: numpy/v0.1.0"
-          
-      #     # Configure git user for tag creation
-      #     # git config --local user.email "action@github.com"
-      #     # git config --local user.name "GitHub Action"
-          
-      #     # Create the tag
-      #     git tag "numpy/v0.1.0"
-          
-      #     # Push the tag to remote repository
-      #     echo "Pushing tag to remote repository..."
-      #     git push origin "numpy/v0.1.0"
-          
-      #     echo "✅ Git tag numpy/v0.1.0 created and pushed successfully"
