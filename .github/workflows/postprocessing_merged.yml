@@ -183,6 +183,9 @@ jobs:
             git fetch origin $SOURCE_BRANCH:$SOURCE_BRANCH
             git checkout $SOURCE_BRANCH
             echo "Switched to branch: $(git branch --show-current)"
+            # 切换到源分支后，重新获取commit消息
+            COMMIT_MSG=$(git log -1 --pretty=format:%s)
+            echo "Updated commit message after branch switch: $COMMIT_MSG"
           fi
           
           # 获取修改的包目录
