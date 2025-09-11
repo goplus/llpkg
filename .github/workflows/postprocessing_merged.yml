@@ -279,47 +279,72 @@ jobs:
           if [ -n "$PYTHON_PACKAGES" ]; then
             echo "=== Processing Python packages ==="
             
-            # 为所有Python包创建符号链接
-            for package in $PYTHON_PACKAGES; do
-              if [ -d "$package" ]; then
-                rm -rf "$package"
+            # 如果有目标包，只处理目标包；否则处理所有Python包
+            if [ -n "$TARGET_PACKAGE" ]; then
+              echo "Target package specified: $TARGET_PACKAGE"
+              # 检查目标包是否在Python包列表中
+              if echo "$PYTHON_PACKAGES" | grep -q "$TARGET_PACKAGE"; then
+                PACKAGES_TO_PROCESS="$TARGET_PACKAGE"
+              else
+                echo "Target package $TARGET_PACKAGE not found in Python packages, skipping"
+                PACKAGES_TO_PROCESS=""
               fi
-              ln -s "py/$package" "$package"
-              echo "Created symlink: $package -> py/$package"
-            done
+            else
+              echo "No target package specified, processing all Python packages"
+              PACKAGES_TO_PROCESS="$PYTHON_PACKAGES"
+            fi
             
-            # 处理每个包
-            for package in $PYTHON_PACKAGES; do
-              if [ -n "$TARGET_PACKAGE" ] && [ "$package" != "$TARGET_PACKAGE" ]; then
-                echo "Skipping $package (target: $TARGET_PACKAGE)"
-                continue
-              fi
+            if [ -n "$PACKAGES_TO_PROCESS" ]; then
+              # 为要处理的包创建符号链接
+              for package in $PACKAGES_TO_PROCESS; do
+                if [ -d "$package" ]; then
+                  rm -rf "$package"
+                fi
+                ln -s "py/$package" "$package"
+                echo "Created symlink: $package -> py/$package"
+              done
               
-              echo "Processing Python package: $package"
-              
-              # 执行postprocessing
-              llpkgstore postprocessing
-              
-              # 设置Python包目录结构
-              mkdir -p py/$package
-              if [ -d "py/$package" ]; then
-                cp -r "py/$package"/* py/$package/ 2>/dev/null || echo "No files to copy for $package"
-              fi
-            done
+              # 处理每个包
+              for package in $PACKAGES_TO_PROCESS; do
+                echo "Processing Python package: $package"
+                
+                # 执行postprocessing
+                llpkgstore postprocessing
+                
+                # 设置Python包目录结构
+                mkdir -p py/$package
+                if [ -d "py/$package" ]; then
+                  cp -r "py/$package"/* py/$package/ 2>/dev/null || echo "No files to copy for $package"
+                fi
+              done
+            fi
           fi
           
           # 处理C++包
           if [ -n "$CPP_PACKAGES" ]; then
             echo "=== Processing C++ packages ==="
-            for package in $CPP_PACKAGES; do
-              if [ -n "$TARGET_PACKAGE" ] && [ "$package" != "$TARGET_PACKAGE" ]; then
-                echo "Skipping $package (target: $TARGET_PACKAGE)"
-                continue
+            
+            # 如果有目标包，只处理目标包；否则处理所有C++包
+            if [ -n "$TARGET_PACKAGE" ]; then
+              echo "Target package specified: $TARGET_PACKAGE"
+              # 检查目标包是否在C++包列表中
+              if echo "$CPP_PACKAGES" | grep -q "$TARGET_PACKAGE"; then
+                PACKAGES_TO_PROCESS="$TARGET_PACKAGE"
+              else
+                echo "Target package $TARGET_PACKAGE not found in C++ packages, skipping"
+                PACKAGES_TO_PROCESS=""
               fi
-              
-              echo "Processing C++ package: $package"
-              llpkgstore postprocessing
-            done
+            else
+              echo "No target package specified, processing all C++ packages"
+              PACKAGES_TO_PROCESS="$CPP_PACKAGES"
+            fi
+            
+            if [ -n "$PACKAGES_TO_PROCESS" ]; then
+              for package in $PACKAGES_TO_PROCESS; do
+                echo "Processing C++ package: $package"
+                llpkgstore postprocessing
+              done
+            fi
           fi
       - name: Checkout website branch (for C++ packages)
         uses: actions/checkout@v4
