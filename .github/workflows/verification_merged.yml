@@ -1,0 +1,288 @@
+name: Verify Go Module
+
+# don't limit to main branch
+# consider maintenance branch
+on:
+  pull_request:
+    branches:
+      - 'release-branch.**'
+      - main
+    paths-ignore:
+      - '.github/**'
+      - LICENSE
+      - README.md
+      - '.gitignore'
+
+jobs:
+  llpkg-verification:
+    name: Verify Go Module
+    strategy:
+      matrix:
+        os:
+          - macos-13
+          # - macos-latest
+          # - ubuntu-24.04
+          # - ubuntu-24.04-arm
+        llvm: [19]
+
+    runs-on: ${{matrix.os}}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Check out LLGo (for Python packages)
+        uses: actions/checkout@v4
+        with:
+          repository: '1351914167/llgo'
+          path: .llgo
+          ref: get_pip
+      - name: Check out LLPyg (for Python packages)
+        uses: actions/checkout@v4
+        with:
+          repository: 'toaction/llpyg'
+          path: .llpyg
+          ref: feat/v1
+      - name: Check out LLCppg (for C++ packages)
+        uses: actions/checkout@v4
+        with:
+          repository: 'goplus/llcppg'
+          path: .llcppg
+          ref: v0.7.3
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: 1.24.x
+      - name: Set up Tool
+        run: |
+          git clone https://github.com/PengPengPeng717/llpkgstore.git
+          cd llpkgstore
+          git checkout v2
+          go build -o llpkgstore ./cmd/llpkgstore
+          sudo mv llpkgstore /usr/local/bin/
+      - name: Install dependencies (macOS)
+        if: startsWith(matrix.os, 'macos')
+        run: |
+          # 先卸载可能冲突的cmake
+          brew uninstall cmake --ignore-dependencies || true
+          # 安装依赖包
+          brew install llvm@${{matrix.llvm}} bdw-gc openssl libffi libuv cmake conan lld@${{matrix.llvm}}
+          brew link --force libffi
+          echo "$(brew --prefix llvm@${{matrix.llvm}})/bin" >> $GITHUB_PATH
+          echo "$(brew --prefix lld@${{matrix.llvm}})/bin" >> $GITHUB_PATH
+          echo "Dependencies installed for both Python and C++ packages"
+      # - name: Install dependencies (Ubuntu)
+      #   if: startsWith(matrix.os, 'ubuntu')
+      #   run: |
+      #     sudo apt-get update
+      #     echo "deb http://apt.llvm.org/$(lsb_release -cs)/ llvm-toolchain-$(lsb_release -cs)-${{matrix.llvm}} main" | sudo tee /etc/apt/sources.list.d/llvm.list
+      #     wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
+      #     sudo apt-get install -y llvm-${{matrix.llvm}}-dev \
+      #       clang-${{matrix.llvm}} \
+      #       libclang-${{matrix.llvm}}-dev \
+      #       lld-${{matrix.llvm}} \
+      #       libunwind-${{matrix.llvm}}-dev \
+      #       libc++-${{matrix.llvm}}-dev \
+      #       pkg-config libgc-dev libssl-dev zlib1g-dev libffi-dev libuv1-dev
+      #     echo "/usr/lib/llvm-${{matrix.llvm}}/bin" >> $GITHUB_PATH
+      - name: Pre setup Python and Conan (for Python packages)
+        if: startsWith(matrix.os, 'macos')
+        run: |
+          python3 -m pip install conan pydump --break-system-packages
+          echo "Python dependencies installed for Python packages"
+      - name: Pre setup Conan (for C++ packages)
+        if: startsWith(matrix.os, 'macos')
+        run: |
+          # 临时恢复系统Python环境用于Conan
+          if [ -n "$ORIGINAL_PYTHONHOME" ]; then
+            export PYTHONHOME="$ORIGINAL_PYTHONHOME"
+          else
+            unset PYTHONHOME
+          fi
+          # 恢复原始PATH，但保留必要的工具路径
+          export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
+          echo "Using system Python for Conan: $(which python3 || which python)"
+          conan profile detect
+      - name: Setup LLGo (for Python packages)
+        working-directory: .llgo
+        run: |
+          go install -v ./cmd/...
+          export LLGO_ROOT=$PWD
+          echo "LLGO_ROOT=$LLGO_ROOT" >> $GITHUB_ENV
+          echo "LLGO_RPATH_CHANGE=ON" >> $GITHUB_ENV
+      - name: Set up Python environment (for Python packages)
+        run: |
+          echo "GOTOOLCHAIN=go1.24.5" >> $GITHUB_ENV
+          # 保存原始Python环境变量
+          echo "ORIGINAL_PYTHONHOME=$PYTHONHOME" >> $GITHUB_ENV
+          echo "ORIGINAL_PATH=$PATH" >> $GITHUB_ENV
+          # 设置LLGo Python环境
+          export PYTHONHOME=$LLGO_ROOT/python
+          export PATH=$PYTHONHOME/bin:$PATH
+          export DYLD_LIBRARY_PATH=$PYTHONHOME/lib
+          export PKG_CONFIG_PATH=$PYTHONHOME/lib/pkgconfig
+          echo "PYTHONHOME=$PYTHONHOME" >> $GITHUB_ENV
+          echo "PATH=$PATH" >> $GITHUB_ENV
+          echo "DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH" >> $GITHUB_ENV
+          echo "PKG_CONFIG_PATH=$PKG_CONFIG_PATH" >> $GITHUB_ENV
+      - name: Setup LLPyg (for Python packages)
+        working-directory: .llpyg
+        run: |
+          cd _xtool
+          llgo install ./...
+          cd ..
+          go install -v ./cmd/...
+      - name: Setup LLCppg (for C++ packages)
+        working-directory: .llcppg
+        run: |
+          llgo install ./_xtool/llcppsymg
+          llgo install ./_xtool/llcppsigfetch
+          go install github.com/goplus/llcppg/cmd/llcppcfg@v0.7.3
+          go install github.com/goplus/llcppg/cmd/gogensig@v0.7.3
+          go install github.com/goplus/llcppg/cmd/llcppg@v0.7.3
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v45
+        with:
+          files: |
+            **/llpkg.cfg
+            **/llpyg.cfg
+            **/llcppg.cfg
+            **/*.go
+      - name: Debug changed files
+        run: |
+          echo "Changed files: ${{ steps.changed-files.outputs.all_changed_files }}"
+          echo "Any changed: ${{ steps.changed-files.outputs.any_changed }}"
+          echo "All changed: ${{ steps.changed-files.outputs.all_changed }}"
+      
+      - name: Detect package types and prepare for verification
+        run: |
+          echo "=== Package Type Detection and Preparation ==="
+          echo "Current working directory: $(pwd)"
+          echo "Directory contents:"
+          ls -la
+          
+          # 初始化包列表
+          PYTHON_PACKAGES=""
+          CPP_PACKAGES=""
+          
+          # 检查根目录下的包
+          echo "=== Checking root directory packages ==="
+          for dir in */; do
+            if [ -d "$dir" ] && [ -f "$dir/llpkg.cfg" ]; then
+              package_name=$(basename "$dir")
+              # 跳过非包目录
+              if [[ ! "$package_name" =~ ^(py|\.github|\.git|public|\.DS_Store)$ ]]; then
+                echo "Found package in root: $package_name"
+                # 检查包类型
+                PACKAGE_TYPE=$(grep -o '"type":\s*"[^"]*"' "$dir/llpkg.cfg" | cut -d'"' -f4 || echo "")
+                if [ "$PACKAGE_TYPE" = "python" ]; then
+                  echo "  -> Python package"
+                  PYTHON_PACKAGES="$PYTHON_PACKAGES $package_name"
+                else
+                  echo "  -> C++ package (default)"
+                  CPP_PACKAGES="$CPP_PACKAGES $package_name"
+                fi
+              fi
+            fi
+          done
+          
+          # 检查py目录下的Python包
+          echo "=== Checking py directory packages ==="
+          if [ -d "py" ]; then
+            for subdir in py/*/; do
+              if [ -d "$subdir" ] && [ -f "$subdir/llpkg.cfg" ]; then
+                package_name=$(basename "$subdir")
+                echo "Found Python package in py: $package_name"
+                # 验证确实是Python包
+                PACKAGE_TYPE=$(grep -o '"type":\s*"[^"]*"' "$subdir/llpkg.cfg" | cut -d'"' -f4 || echo "")
+                if [ "$PACKAGE_TYPE" = "python" ]; then
+                  echo "  -> Confirmed Python package"
+                  PYTHON_PACKAGES="$PYTHON_PACKAGES $package_name"
+                else
+                  echo "  -> Warning: Package in py/ but not marked as python type"
+                fi
+              fi
+            done
+          else
+            echo "py directory does not exist"
+          fi
+          
+          # 合并所有包列表
+          PACKAGES_TO_VERIFY="$CPP_PACKAGES $PYTHON_PACKAGES"
+          
+          echo "=== Package Summary ==="
+          echo "Python packages: $PYTHON_PACKAGES"
+          echo "C++ packages: $CPP_PACKAGES"
+          echo "All packages to verify: $PACKAGES_TO_VERIFY"
+          
+          # 设置环境变量供后续步骤使用
+          echo "PACKAGES_TO_VERIFY=$PACKAGES_TO_VERIFY" >> $GITHUB_ENV
+          echo "PYTHON_PACKAGES=$PYTHON_PACKAGES" >> $GITHUB_ENV
+          echo "CPP_PACKAGES=$CPP_PACKAGES" >> $GITHUB_ENV
+          
+          # 为Python包创建符号链接以便llpkgstore verification能够找到
+          if [ -n "$PYTHON_PACKAGES" ]; then
+            echo "=== Creating symlinks for Python packages ==="
+            for package in $PYTHON_PACKAGES; do
+              if [ -d "py/$package" ]; then
+                echo "Creating symlink for Python package: $package"
+                if [ -d "$package" ]; then
+                  rm -rf "$package"
+                fi
+                ln -s "py/$package" "$package"
+                echo "Created symlink: $package -> py/$package"
+              fi
+            done
+          fi
+          
+          echo "=== Final directory structure ==="
+          ls -la
+          echo "=== Package verification preparation completed ==="
+      
+      - name: Checkout to website (for C++ packages)
+        uses: actions/checkout@v4
+        with:
+          ref: website
+          path: .website
+      - name: Copy llpkgstore.json to root (for C++ packages)
+        continue-on-error: true
+        run: |
+          ls .website .website/public
+          cp .website/public/llpkgstore.json .
+          rm -rf .website
+      
+      - name: Verification & Prebuilt
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "Starting verification for packages: $PACKAGES_TO_VERIFY"
+          echo "Python packages: $PYTHON_PACKAGES"
+          echo "C++ packages: $CPP_PACKAGES"
+          
+          # 根据包类型执行相应的验证逻辑
+          if [ -n "$PYTHON_PACKAGES" ]; then
+            echo "=== Verifying Python packages ==="
+            echo "Using Python environment for verification"
+            # Python包验证使用LLGo Python环境
+            llpkgstore verification
+          fi
+          
+          if [ -n "$CPP_PACKAGES" ]; then
+            echo "=== Verifying C++ packages ==="
+            echo "Using C++ environment for verification"
+            # C++包验证使用系统环境
+            # 临时恢复系统Python环境用于C++包验证
+            if [ -n "$ORIGINAL_PYTHONHOME" ]; then
+              export PYTHONHOME="$ORIGINAL_PYTHONHOME"
+            else
+              unset PYTHONHOME
+            fi
+            # 恢复原始PATH，但保留必要的工具路径
+            export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
+            llpkgstore verification
+          fi
+          
+          echo "=== Verification completed ==="
+      # - name: Run demotest process
+      #   env:
+      #     LLPKG_PATH: ${{ env.LLPKG_PATH }}
+      #   run: llpkgstore demotest
