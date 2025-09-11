@@ -278,6 +278,17 @@ jobs:
           # 处理Python包
           if [ -n "$PYTHON_PACKAGES" ]; then
             echo "=== Processing Python packages ==="
+            
+            # 为所有Python包创建符号链接
+            for package in $PYTHON_PACKAGES; do
+              if [ -d "$package" ]; then
+                rm -rf "$package"
+              fi
+              ln -s "py/$package" "$package"
+              echo "Created symlink: $package -> py/$package"
+            done
+            
+            # 处理每个包
             for package in $PYTHON_PACKAGES; do
               if [ -n "$TARGET_PACKAGE" ] && [ "$package" != "$TARGET_PACKAGE" ]; then
                 echo "Skipping $package (target: $TARGET_PACKAGE)"
@@ -285,22 +296,14 @@ jobs:
               fi
               
               echo "Processing Python package: $package"
-              PACKAGE_DIR="py/$package"
-              
-              # 创建符号链接
-              if [ -d "$package" ]; then
-                rm -rf "$package"
-              fi
-              ln -s "$PACKAGE_DIR" "$package"
-              echo "Created symlink: $package -> $PACKAGE_DIR"
               
               # 执行postprocessing
               llpkgstore postprocessing
               
               # 设置Python包目录结构
               mkdir -p py/$package
-              if [ -d "$PACKAGE_DIR" ]; then
-                cp -r "$PACKAGE_DIR"/* py/$package/ 2>/dev/null || echo "No files to copy for $package"
+              if [ -d "py/$package" ]; then
+                cp -r "py/$package"/* py/$package/ 2>/dev/null || echo "No files to copy for $package"
               fi
             done
           fi
