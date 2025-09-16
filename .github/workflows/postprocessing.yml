@@ -209,6 +209,12 @@ jobs:
             if [ -d "$dir" ] && [ -f "$dir/llpkg.cfg" ]; then
               package_name=$(basename "$dir")
               if [[ ! "$package_name" =~ ^(py|\.github|\.git|public|\.DS_Store)$ ]]; then
+                # 检查是否是符号链接
+                if [ -L "$dir" ]; then
+                  # 符号链接，跳过（这些是Python包的符号链接）
+                  echo "Skipping symlink: $package_name"
+                  continue
+                fi
                 PACKAGE_TYPE=$(grep -o '"type":\s*"[^"]*"' "$dir/llpkg.cfg" | cut -d'"' -f4 || echo "")
                 if [ "$PACKAGE_TYPE" = "python" ]; then
                   PYTHON_PACKAGES="$PYTHON_PACKAGES $package_name"
@@ -253,8 +259,10 @@ jobs:
               fi
               ln -s "py/$package" "$package"
               
-              # 执行postprocessing
+              # 执行postprocessing（在包目录中运行）
+              cd "$package"
               llpkgstore postprocessing
+              cd ..
             done
           fi
           
@@ -272,7 +280,10 @@ jobs:
             # 处理C++包
             for package in $PACKAGES_TO_PROCESS; do
               echo "Processing C++ package: $package"
+              # 执行postprocessing（在包目录中运行）
+              cd "$package"
               llpkgstore postprocessing
+              cd ..
             done
           fi
       - name: Checkout website branch (for C++ packages)
