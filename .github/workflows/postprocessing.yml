@@ -259,10 +259,8 @@ jobs:
               fi
               ln -s "py/$package" "$package"
               
-              # 执行postprocessing（在包目录中运行）
-              cd "$package"
+              # 执行postprocessing（在根目录中运行，让llpkgstore自己处理包目录查找）
               llpkgstore postprocessing
-              cd ..
             done
           fi
           
@@ -280,10 +278,8 @@ jobs:
             # 处理C++包
             for package in $PACKAGES_TO_PROCESS; do
               echo "Processing C++ package: $package"
-              # 执行postprocessing（在包目录中运行）
-              cd "$package"
+              # 执行postprocessing（在根目录中运行，让llpkgstore自己处理包目录查找）
               llpkgstore postprocessing
-              cd ..
             done
           fi
       - name: Checkout website branch (for C++ packages)
