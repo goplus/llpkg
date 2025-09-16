@@ -1,3 +1,4 @@
+anch
 name: Verify Go Module
 
 # don't limit to main branch
@@ -55,7 +56,7 @@ jobs:
         run: |
           git clone https://github.com/PengPengPeng717/llpkgstore.git
           cd llpkgstore
-          git checkout v2
+          git checkout v3
           go build -o llpkgstore ./cmd/llpkgstore
           sudo mv llpkgstore /usr/local/bin/
       - name: Install dependencies (macOS)

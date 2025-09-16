@@ -51,7 +51,8 @@ jobs:
           git clone https://github.com/PengPengPeng717/llpkgstore.git
           cd llpkgstore
           # git checkout version
-          git checkout v2
+          # git checkout v2
+          git checkout v3
           go build -o llpkgstore ./cmd/llpkgstore
           sudo mv llpkgstore /usr/local/bin/
       - name: Install dependencies (macOS)
@@ -153,7 +154,8 @@ jobs:
           git clone https://github.com/PengPengPeng717/llpkgstore.git
           cd llpkgstore
           # git checkout version
-          git checkout v2
+          # git checkout v2
+          git checkout v3
           go build -o llpkgstore ./cmd/llpkgstore
           sudo mv llpkgstore /usr/local/bin/
       - name: Checkout to website (for C++ packages)
@@ -188,88 +190,8 @@ jobs:
             echo "Updated commit message after branch switch: $COMMIT_MSG"
           fi
           
-          # 获取修改的包目录
-          echo "=== Finding modified packages ==="
-          if git log -1 --pretty=format:%P | grep -q " "; then
-            # 合并提交：比较与main分支的差异
-            BASE_COMMIT=$(git merge-base HEAD main)
-            MODIFIED_PACKAGES=$(git diff --name-only $BASE_COMMIT HEAD | grep -E '^[^/]+/' | cut -d'/' -f1 | sort -u)
-          else
-            # 普通提交：比较与前一个提交的差异
-            MODIFIED_PACKAGES=$(git diff --name-only HEAD~1 HEAD | grep -E '^[^/]+/' | cut -d'/' -f1 | sort -u)
-          fi
-          
-          # 如果没有修改的包，检查是否是release提交
-          if [ -z "$MODIFIED_PACKAGES" ]; then
-            if [[ $COMMIT_MSG =~ Release-as:\ ([^/]+)/ ]]; then
-              PACKAGE_NAME="${BASH_REMATCH[1]}"
-              echo "Found release commit for package: $PACKAGE_NAME"
-              # 验证包目录是否存在
-              if [ -d "$PACKAGE_NAME" ] && [ -f "$PACKAGE_NAME/llpkg.cfg" ]; then
-                MODIFIED_PACKAGES="$PACKAGE_NAME"
-              elif [ -d "py/$PACKAGE_NAME" ] && [ -f "py/$PACKAGE_NAME/llpkg.cfg" ]; then
-                MODIFIED_PACKAGES="$PACKAGE_NAME"
-              else
-                echo "Package directory $PACKAGE_NAME not found, skipping postprocessing"
-                exit 0
-              fi
-            else
-              echo "No release commit detected, skipping postprocessing"
-              exit 0
-            fi
-          fi
-          
-          # 过滤非包目录并检查py目录
-          FILTERED_PACKAGES=""
-          for package in $MODIFIED_PACKAGES; do
-            if [[ "$package" =~ ^(py|\.github|\.git|public|\.DS_Store)$ ]]; then
-              continue
-            fi
-            if [ -d "$package" ] && [ -f "$package/llpkg.cfg" ]; then
-              FILTERED_PACKAGES="$FILTERED_PACKAGES $package"
-            fi
-          done
-          
-          # 如果py目录被修改，检查py目录下的包
-          if [ -z "$FILTERED_PACKAGES" ] && echo "$MODIFIED_PACKAGES" | grep -q "py"; then
-            if [ -d "py" ]; then
-              for subdir in py/*/; do
-                if [ -d "$subdir" ] && [ -f "$subdir/llpkg.cfg" ]; then
-                  package_name=$(basename "$subdir")
-                  FILTERED_PACKAGES="$FILTERED_PACKAGES $package_name"
-                fi
-              done
-            fi
-          fi
-          
-          MODIFIED_PACKAGES="$FILTERED_PACKAGES"
-          echo "Packages to process: $MODIFIED_PACKAGES"
-          
-          # 分类包类型
-          PYTHON_PACKAGES=""
-          CPP_PACKAGES=""
-          
-          for package in $MODIFIED_PACKAGES; do
-            # 检查包目录位置
-            if [ -d "$package" ] && [ -f "$package/llpkg.cfg" ]; then
-              PACKAGE_DIR="$package"
-            elif [ -d "py/$package" ] && [ -f "py/$package/llpkg.cfg" ]; then
-              PACKAGE_DIR="py/$package"
-            else
-              continue
-            fi
-            
-            # 检查包类型
-            PACKAGE_TYPE=$(grep -o '"type":\s*"[^"]*"' "$PACKAGE_DIR/llpkg.cfg" | cut -d'"' -f4 || echo "")
-            if [ "$PACKAGE_TYPE" = "python" ]; then
-              PYTHON_PACKAGES="$PYTHON_PACKAGES $package"
-            else
-              CPP_PACKAGES="$CPP_PACKAGES $package"
-            fi
-          done
-          
-          echo "Python packages: $PYTHON_PACKAGES"
-          echo "C++ packages: $CPP_PACKAGES"
+          # 简化的包检测逻辑
+          echo "=== Detecting packages to process ==="
           
           # 获取目标包（从commit消息）
           TARGET_PACKAGE=""
@@ -278,76 +200,80 @@ jobs:
             echo "Target package from commit: $TARGET_PACKAGE"
           fi
           
+          # 检测所有包
+          PYTHON_PACKAGES=""
+          CPP_PACKAGES=""
+          
+          # 检查根目录下的包
+          for dir in */; do
+            if [ -d "$dir" ] && [ -f "$dir/llpkg.cfg" ]; then
+              package_name=$(basename "$dir")
+              if [[ ! "$package_name" =~ ^(py|\.github|\.git|public|\.DS_Store)$ ]]; then
+                PACKAGE_TYPE=$(grep -o '"type":\s*"[^"]*"' "$dir/llpkg.cfg" | cut -d'"' -f4 || echo "")
+                if [ "$PACKAGE_TYPE" = "python" ]; then
+                  PYTHON_PACKAGES="$PYTHON_PACKAGES $package_name"
+                else
+                  CPP_PACKAGES="$CPP_PACKAGES $package_name"
+                fi
+              fi
+            fi
+          done
+          
+          # 检查py目录下的包
+          if [ -d "py" ]; then
+            for subdir in py/*/; do
+              if [ -d "$subdir" ] && [ -f "$subdir/llpkg.cfg" ]; then
+                package_name=$(basename "$subdir")
+                PYTHON_PACKAGES="$PYTHON_PACKAGES $package_name"
+              fi
+            done
+          fi
+          
+          echo "Python packages: $PYTHON_PACKAGES"
+          echo "C++ packages: $CPP_PACKAGES"
+          
           # 处理Python包
           if [ -n "$PYTHON_PACKAGES" ]; then
             echo "=== Processing Python packages ==="
             
-            # 如果有目标包，只处理目标包；否则处理所有Python包
-            if [ -n "$TARGET_PACKAGE" ]; then
-              echo "Target package specified: $TARGET_PACKAGE"
-              # 检查目标包是否在Python包列表中
-              if echo "$PYTHON_PACKAGES" | grep -q "$TARGET_PACKAGE"; then
-                PACKAGES_TO_PROCESS="$TARGET_PACKAGE"
-              else
-                echo "Target package $TARGET_PACKAGE not found in Python packages, skipping"
-                PACKAGES_TO_PROCESS=""
-              fi
+            # 确定要处理的包
+            if [ -n "$TARGET_PACKAGE" ] && echo "$PYTHON_PACKAGES" | grep -q "$TARGET_PACKAGE"; then
+              PACKAGES_TO_PROCESS="$TARGET_PACKAGE"
             else
-              echo "No target package specified, processing all Python packages"
               PACKAGES_TO_PROCESS="$PYTHON_PACKAGES"
             fi
             
-            if [ -n "$PACKAGES_TO_PROCESS" ]; then
-              # 为要处理的包创建符号链接
-              for package in $PACKAGES_TO_PROCESS; do
-                if [ -d "$package" ]; then
-                  rm -rf "$package"
-                fi
-                ln -s "py/$package" "$package"
-                echo "Created symlink: $package -> py/$package"
-              done
+            # 为Python包创建符号链接并处理
+            for package in $PACKAGES_TO_PROCESS; do
+              echo "Processing Python package: $package"
               
-              # 处理每个包
-              for package in $PACKAGES_TO_PROCESS; do
-                echo "Processing Python package: $package"
-                
-                # 执行postprocessing
-                llpkgstore postprocessing
-                
-                # 设置Python包目录结构
-                mkdir -p py/$package
-                if [ -d "py/$package" ]; then
-                  cp -r "py/$package"/* py/$package/ 2>/dev/null || echo "No files to copy for $package"
-                fi
-              done
-            fi
+              # 创建符号链接
+              if [ -d "$package" ]; then
+                rm -rf "$package"
+              fi
+              ln -s "py/$package" "$package"
+              
+              # 执行postprocessing
+              llpkgstore postprocessing
+            done
           fi
           
           # 处理C++包
           if [ -n "$CPP_PACKAGES" ]; then
             echo "=== Processing C++ packages ==="
             
-            # 如果有目标包，只处理目标包；否则处理所有C++包
-            if [ -n "$TARGET_PACKAGE" ]; then
-              echo "Target package specified: $TARGET_PACKAGE"
-              # 检查目标包是否在C++包列表中
-              if echo "$CPP_PACKAGES" | grep -q "$TARGET_PACKAGE"; then
-                PACKAGES_TO_PROCESS="$TARGET_PACKAGE"
-              else
-                echo "Target package $TARGET_PACKAGE not found in C++ packages, skipping"
-                PACKAGES_TO_PROCESS=""
-              fi
+            # 确定要处理的包
+            if [ -n "$TARGET_PACKAGE" ] && echo "$CPP_PACKAGES" | grep -q "$TARGET_PACKAGE"; then
+              PACKAGES_TO_PROCESS="$TARGET_PACKAGE"
             else
-              echo "No target package specified, processing all C++ packages"
               PACKAGES_TO_PROCESS="$CPP_PACKAGES"
             fi
             
-            if [ -n "$PACKAGES_TO_PROCESS" ]; then
-              for package in $PACKAGES_TO_PROCESS; do
-                echo "Processing C++ package: $package"
-                llpkgstore postprocessing
-              done
-            fi
+            # 处理C++包
+            for package in $PACKAGES_TO_PROCESS; do
+              echo "Processing C++ package: $package"
+              llpkgstore postprocessing
+            done
           fi
       - name: Checkout website branch (for C++ packages)
         uses: actions/checkout@v4
@@ -374,18 +300,9 @@ jobs:
         working-directory: .main
         run: |
           if [ -d "py" ]; then
-            echo "=== Processing Python packages for upload ==="
-            echo "py directory contents:"
+            echo "=== Python packages ready for upload ==="
+            echo "Python packages processed (no llpkgstore.json required)"
             ls -la py/
-            
-            # Python包不再维护llpkgstore.json，直接处理包文件
-            echo "Processing Python packages for upload (no llpkgstore.json required)"
-            
-            # 这里可以添加Python包的上传逻辑
-            # 例如：上传到专门的Python包存储位置
-            echo "Python packages processed and ready for upload"
-            echo "Python package structure:"
-            find py/ -type f -name "*.go" -o -name "*.cfg" | head -10
           else
             echo "No py directory found"
           fi

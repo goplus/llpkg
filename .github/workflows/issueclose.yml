@@ -34,7 +34,7 @@ jobs:
         run: |
           git clone https://github.com/PengPengPeng717/llpkgstore.git
           cd llpkgstore
-          git checkout 8_21
+          git checkout v3
           go build -o llpkgstore ./cmd/llpkgstore
           sudo mv llpkgstore /usr/local/bin/
       - name: Setup LLGo
