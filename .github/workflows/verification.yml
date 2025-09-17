@@ -282,7 +282,7 @@ jobs:
           fi
           
           echo "=== Verification completed ==="
-      # - name: Run demotest process
-      #   env:
-      #     LLPKG_PATH: ${{ env.LLPKG_PATH }}
-      #   run: llpkgstore demotest
+      - name: Run demotest process
+        env:
+          LLPKG_PATH: ${{ env.LLPKG_PATH }}
+        run: llpkgstore demotest
