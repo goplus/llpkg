@@ -23,32 +23,97 @@ jobs:
       matrix:
         os:
           - macos-13
-          - macos-latest
-          - ubuntu-24.04
-          - ubuntu-24.04-arm
+        #   - macos-latest
+        #   - ubuntu-24.04
+        #   - ubuntu-24.04-arm
     runs-on: ${{matrix.os}}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Check out LLGo (for Python packages)
+        uses: actions/checkout@v4
+        with:
+          repository: '1351914167/llgo'
+          path: .llgo
+          ref: get_pip
+      - name: Check out LLPyg (for Python packages)
+        uses: actions/checkout@v4
+        with:
+          repository: 'toaction/llpyg'
+          path: .llpyg
+          ref: feat/v1
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
-          go-version: 1.23.x
+          go-version: 1.24.x
       - name: Set up Tool
-        run: go install -v github.com/goplus/llpkgstore/cmd/llpkgstore@latest
-      - name: Install dependencies
+        run: |
+          git clone https://github.com/PengPengPeng717/llpkgstore.git
+          cd llpkgstore
+          # git checkout version
+          # git checkout v2
+          git checkout v3
+          go build -o llpkgstore ./cmd/llpkgstore
+          sudo mv llpkgstore /usr/local/bin/
+      - name: Install dependencies (macOS)
         if: startsWith(matrix.os, 'macos')
         run: |
-          brew update
-          brew install cmake conan cjson
-      - name: Install dependencies
-        if: startsWith(matrix.os, 'ubuntu')
+          # 先卸载可能冲突的cmake
+          brew uninstall cmake --ignore-dependencies || true
+          # 安装依赖包
+          brew install llvm@19 bdw-gc openssl libffi libuv cmake conan lld@19
+          brew link --force libffi
+          echo "$(brew --prefix llvm@19)/bin" >> $GITHUB_PATH
+          echo "$(brew --prefix lld@19)/bin" >> $GITHUB_PATH
+          echo "Dependencies installed for both Python and C++ packages"
+    #   - name: Install dependencies (Ubuntu)
+    #     if: startsWith(matrix.os, 'ubuntu')
+    #     run: |
+    #       sudo apt-get update
+    #       sudo apt-get install -y cmake python3 python3-pip pkg-config
+    #       python3 -m pip install conan
+    #       echo "Dependencies installed for both Python and C++ packages"
+      - name: Setup LLGo (for Python packages)
+        working-directory: .llgo
         run: |
-          sudo apt-get update
-          sudo apt-get install -y cmake python3 python3-pip pkg-config
-          python3 -m pip install conan
-      - name: Set up Conan
-        run: conan profile detect
+          go install -v ./cmd/...
+          export LLGO_ROOT=$PWD
+          echo "LLGO_ROOT=$LLGO_ROOT" >> $GITHUB_ENV
+          echo "LLGO_RPATH_CHANGE=ON" >> $GITHUB_ENV
+      - name: Set up Python environment (for Python packages)
+        run: |
+          echo "GOTOOLCHAIN=go1.24.5" >> $GITHUB_ENV
+          # 保存原始Python环境变量
+          echo "ORIGINAL_PYTHONHOME=$PYTHONHOME" >> $GITHUB_ENV
+          echo "ORIGINAL_PATH=$PATH" >> $GITHUB_ENV
+          # 设置LLGo Python环境
+          export PYTHONHOME=$LLGO_ROOT/python
+          export PATH=$PYTHONHOME/bin:$PATH
+          export DYLD_LIBRARY_PATH=$PYTHONHOME/lib
+          export PKG_CONFIG_PATH=$PYTHONHOME/lib/pkgconfig
+          echo "PYTHONHOME=$PYTHONHOME" >> $GITHUB_ENV
+          echo "PATH=$PATH" >> $GITHUB_ENV
+          echo "DYLD_LIBRARY_PATH=$DYLD_LIBRARY_PATH" >> $GITHUB_ENV
+          echo "PKG_CONFIG_PATH=$PKG_CONFIG_PATH" >> $GITHUB_ENV
+      - name: Setup LLPyg (for Python packages)
+        working-directory: .llpyg
+        run: |
+          cd _xtool
+          llgo install ./...
+          cd ..
+          go install -v ./cmd/...
+      - name: Set up Conan (for C++ packages)
+        run: |
+          # 临时恢复系统Python环境用于Conan
+          if [ -n "$ORIGINAL_PYTHONHOME" ]; then
+            export PYTHONHOME="$ORIGINAL_PYTHONHOME"
+          else
+            unset PYTHONHOME
+          fi
+          # 恢复原始PATH，但保留必要的工具路径
+          export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
+          echo "Using system Python for Conan: $(which python3 || which python)"
+          conan profile detect
       - name: Run release process
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -56,87 +121,225 @@ jobs:
       - name: Upload binary file to artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{env.BIN_FILENAME}}
-          path: ${{env.BIN_PATH}}
+          name: ${{env.BIN_FILENAME || 'llpkg-binary'}}
+          path: ${{env.BIN_PATH || './dist'}}
           retention-days: 1
   post-processing:
     runs-on: ubuntu-latest
     needs: [release-binary-files]
     steps:
-      - name: Checkout
+      - name: Checkout current branch
         uses: actions/checkout@v4
         with:
-          ref: main
+          ref: ${{ github.head_ref || github.ref_name }}
           path: .main
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
-          go-version: 1.23.x
+          go-version: 1.24.x
+      - name: Install GitHub CLI
+        run: |
+          type -p curl >/dev/null || (sudo apt update && sudo apt install curl -y)
+          curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
+          && sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
+          && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+          && sudo apt update \
+          && sudo apt install gh -y
+      - name: Configure GitHub CLI
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
+          gh auth status
       - name: Set up Tool
-        run: go install -v github.com/goplus/llpkgstore/cmd/llpkgstore@latest
-      - name: Checkout to website
+        run: |
+          git clone https://github.com/PengPengPeng717/llpkgstore.git
+          cd llpkgstore
+          # git checkout version
+          # git checkout v2
+          git checkout v3
+          go build -o llpkgstore ./cmd/llpkgstore
+          sudo mv llpkgstore /usr/local/bin/
+      - name: Checkout to website (for C++ packages)
         uses: actions/checkout@v4
         with:
           ref: website
           path: .website
-      - name: Copy llpkgstore.json to root
+      - name: Copy llpkgstore.json to root (for C++ packages)
         continue-on-error: true
         run: |
           ls .website .website/public
           cp .website/public/llpkgstore.json .main
           rm -rf .website
-      - name: Run post-processing process
+      - name: Detect package types and process accordingly
         working-directory: .main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: llpkgstore postprocessing
-      - name: Checkout website branch
+        run: |
+          echo "Current branch: $(git branch --show-current)"
+          echo "Current commit: $(git log -1 --pretty=format:%s)"
+          
+          # 从 commit 消息中提取源分支名并切换
+          COMMIT_MSG=$(git log -1 --pretty=format:%s)
+          if [[ $COMMIT_MSG =~ Merge\ pull\ request.*from\ PengPengPeng717/([^[:space:]]+) ]]; then
+            SOURCE_BRANCH="${BASH_REMATCH[1]}"
+            echo "Detected source branch from commit message: $SOURCE_BRANCH"
+            git fetch origin $SOURCE_BRANCH:$SOURCE_BRANCH
+            git checkout $SOURCE_BRANCH
+            echo "Switched to branch: $(git branch --show-current)"
+            # 切换到源分支后，重新获取commit消息
+            COMMIT_MSG=$(git log -1 --pretty=format:%s)
+            echo "Updated commit message after branch switch: $COMMIT_MSG"
+          fi
+          
+          # 简化的包检测逻辑
+          echo "=== Detecting packages to process ==="
+          
+          # 获取目标包（从commit消息）
+          TARGET_PACKAGE=""
+          if echo "$COMMIT_MSG" | grep -q "Release-as:"; then
+            TARGET_PACKAGE=$(echo "$COMMIT_MSG" | sed 's/Release-as: \([^/]*\)\/.*/\1/')
+            echo "Target package from commit: $TARGET_PACKAGE"
+          fi
+          
+          # 检测所有包
+          PYTHON_PACKAGES=""
+          CPP_PACKAGES=""
+          
+          # 检查根目录下的包
+          for dir in */; do
+            if [ -d "$dir" ] && [ -f "$dir/llpkg.cfg" ]; then
+              package_name=$(basename "$dir")
+              if [[ ! "$package_name" =~ ^(py|\.github|\.git|public|\.DS_Store)$ ]]; then
+                # 检查是否是符号链接
+                if [ -L "$dir" ]; then
+                  # 符号链接，跳过（这些是Python包的符号链接）
+                  echo "Skipping symlink: $package_name"
+                  continue
+                fi
+                PACKAGE_TYPE=$(grep -o '"type":\s*"[^"]*"' "$dir/llpkg.cfg" | cut -d'"' -f4 || echo "")
+                if [ "$PACKAGE_TYPE" = "python" ]; then
+                  PYTHON_PACKAGES="$PYTHON_PACKAGES $package_name"
+                else
+                  CPP_PACKAGES="$CPP_PACKAGES $package_name"
+                fi
+              fi
+            fi
+          done
+          
+          # 检查py目录下的包
+          if [ -d "py" ]; then
+            for subdir in py/*/; do
+              if [ -d "$subdir" ] && [ -f "$subdir/llpkg.cfg" ]; then
+                package_name=$(basename "$subdir")
+                PYTHON_PACKAGES="$PYTHON_PACKAGES $package_name"
+              fi
+            done
+          fi
+          
+          echo "Python packages: $PYTHON_PACKAGES"
+          echo "C++ packages: $CPP_PACKAGES"
+          
+          # 处理Python包（只有当目标包是Python包时才处理）
+          if [ -n "$PYTHON_PACKAGES" ] && [ -n "$TARGET_PACKAGE" ] && echo "$PYTHON_PACKAGES" | grep -q "$TARGET_PACKAGE"; then
+            echo "=== Processing Python packages ==="
+            echo "Target package $TARGET_PACKAGE is a Python package, processing it"
+            
+            # 为Python包创建符号链接并处理
+            echo "Processing Python package: $TARGET_PACKAGE"
+            
+            # 创建符号链接
+            if [ -d "$TARGET_PACKAGE" ]; then
+              rm -rf "$TARGET_PACKAGE"
+            fi
+            ln -s "py/$TARGET_PACKAGE" "$TARGET_PACKAGE"
+            
+            # 执行postprocessing（在根目录中运行，让llpkgstore自己处理包目录查找）
+            llpkgstore postprocessing
+            
+            # 清理符号链接，避免影响后续包的处理
+            rm -f "$TARGET_PACKAGE"
+          elif [ -n "$PYTHON_PACKAGES" ]; then
+            echo "=== Skipping Python packages ==="
+            echo "Target package is not a Python package, skipping Python package processing"
+            echo "Available Python packages: $PYTHON_PACKAGES"
+          fi
+          
+          # 处理C++包（只有当目标包是C++包时才处理）
+          if [ -n "$CPP_PACKAGES" ] && [ -n "$TARGET_PACKAGE" ] && echo "$CPP_PACKAGES" | grep -q "$TARGET_PACKAGE"; then
+            echo "=== Processing C++ packages ==="
+            echo "Target package $TARGET_PACKAGE is a C++ package, processing it"
+            
+            # 处理目标C++包
+            echo "Processing C++ package: $TARGET_PACKAGE"
+            # 执行postprocessing（在根目录中运行，让llpkgstore自己处理包目录查找）
+            llpkgstore postprocessing
+          elif [ -n "$CPP_PACKAGES" ]; then
+            echo "=== Skipping C++ packages ==="
+            echo "Target package is not a C++ package, skipping C++ package processing"
+            echo "Available C++ packages: $CPP_PACKAGES"
+          fi
+      - name: Checkout website branch (for C++ packages)
         uses: actions/checkout@v4
         with:
             ref: website
             path: .website
-      - name: Move llpkgstore.json to website
-        run: mv .main/llpkgstore.json .website/public
-      - name: Commit and push changes
-        working-directory: .website
+      - name: Move llpkgstore.json to website (for C++ packages)
         run: |
-            git config --local user.email "action@github.com"
-            git config --local user.name "GitHub Action"
-            git add public/llpkgstore.json
-            git commit -m "Update llpkgstore.json"
-            git push
-  build-and-upload:
-    runs-on: ubuntu-latest
-    needs: [post-processing]
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          ref: website
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 23.8.0
-      - run: corepack enable
-      - name: Install Dependencies
-        uses: borales/actions-yarn@v4
-        with:
-          cmd: install
-      - name: Build
-        uses: borales/actions-yarn@v4
-        with:
-          cmd: build
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: 'dist'
-  deploy:
-    needs: build-and-upload
-    runs-on: ubuntu-latest
-    permissions:
-      pages: write
-      id-token: write
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          if [ -f ".main/llpkgstore.json" ]; then
+            mv .main/llpkgstore.json .website/public
+            echo "Moved llpkgstore.json to website for C++ packages"
+          else
+            echo "No llpkgstore.json found for C++ packages"
+          fi
+    #   - name: Commit and push changes (for C++ packages)
+    #     working-directory: .website
+    #     run: |
+    #         git config --local user.email "action@github.com"
+    #         git config --local user.name "GitHub Action"
+    #         git add public/llpkgstore.json
+    #         git commit -m "Update llpkgstore.json" || echo "No changes to commit"
+    #         git push
+      - name: Handle Python packages upload
+        working-directory: .main
+        run: |
+          if [ -d "py" ]; then
+            echo "=== Python packages ready for upload ==="
+            echo "Python packages processed (no llpkgstore.json required)"
+            ls -la py/
+          else
+            echo "No py directory found"
+          fi
+#   build-and-upload:
+#     runs-on: ubuntu-latest
+#     needs: [post-processing]
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v4
+#         with:
+#           ref: website
+#       - name: Setup Node.js
+#         uses: actions/setup-node@v3
+#         with:
+#           node-version: 23.8.0
+#       - run: corepack enable
+#       - name: Install Dependencies
+#         uses: borales/actions-yarn@v4
+#         with:
+#           cmd: install
+#       - name: Build
+#         uses: borales/actions-yarn@v4
+#         with:
+#           cmd: build
+#       - name: Upload artifact
+#         uses: actions/upload-pages-artifact@v3
+#         with:
+#           path: 'dist'
+#   deploy:
+#     needs: build-and-upload
+#     runs-on: ubuntu-latest
+#     permissions:
+#       pages: write
+#       id-token: write
+#     steps:
+#       - name: Deploy to GitHub Pages
+#         id: deployment
+#         uses: actions/deploy-pages@v4
