@@ -238,29 +238,33 @@ jobs:
           echo "Python packages: $PYTHON_PACKAGES"
           echo "C++ packages: $CPP_PACKAGES"
           
-          # 处理Python包（只有当目标包是Python包时才处理）
-          if [ -n "$PYTHON_PACKAGES" ] && [ -n "$TARGET_PACKAGE" ] && echo "$PYTHON_PACKAGES" | grep -q "$TARGET_PACKAGE"; then
+          # 处理Python包
+          if [ -n "$PYTHON_PACKAGES" ]; then
             echo "=== Processing Python packages ==="
-            echo "Target package $TARGET_PACKAGE is a Python package, processing it"
+            
+            # 确定要处理的包
+            if [ -n "$TARGET_PACKAGE" ] && echo "$PYTHON_PACKAGES" | grep -q "$TARGET_PACKAGE"; then
+              PACKAGES_TO_PROCESS="$TARGET_PACKAGE"
+            else
+              PACKAGES_TO_PROCESS="$PYTHON_PACKAGES"
+            fi
             
             # 为Python包创建符号链接并处理
-            echo "Processing Python package: $TARGET_PACKAGE"
-            
-            # 创建符号链接
-            if [ -d "$TARGET_PACKAGE" ]; then
-              rm -rf "$TARGET_PACKAGE"
-            fi
-            ln -s "py/$TARGET_PACKAGE" "$TARGET_PACKAGE"
-            
-            # 执行postprocessing（在根目录中运行，让llpkgstore自己处理包目录查找）
-            llpkgstore postprocessing
-            
-            # 清理符号链接，避免影响后续包的处理
-            rm -f "$TARGET_PACKAGE"
-          elif [ -n "$PYTHON_PACKAGES" ]; then
-            echo "=== Skipping Python packages ==="
-            echo "Target package is not a Python package, skipping Python package processing"
-            echo "Available Python packages: $PYTHON_PACKAGES"
+            for package in $PACKAGES_TO_PROCESS; do
+              echo "Processing Python package: $package"
+              
+              # 创建符号链接
+              if [ -d "$package" ]; then
+                rm -rf "$package"
+              fi
+              ln -s "py/$package" "$package"
+              
+              # 执行postprocessing（在根目录中运行，让llpkgstore自己处理包目录查找）
+              llpkgstore postprocessing
+              
+              # 清理符号链接，避免影响后续包的处理
+              rm -f "$package"
+            done
           fi
           
           # 处理C++包（只有当目标包是C++包时才处理）
