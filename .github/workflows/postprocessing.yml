@@ -261,26 +261,25 @@ jobs:
               
               # 执行postprocessing（在根目录中运行，让llpkgstore自己处理包目录查找）
               llpkgstore postprocessing
+              
+              # 清理符号链接，避免影响后续包的处理
+              rm -f "$package"
             done
           fi
           
-          # 处理C++包
-          if [ -n "$CPP_PACKAGES" ]; then
+          # 处理C++包（只有当目标包是C++包时才处理）
+          if [ -n "$CPP_PACKAGES" ] && [ -n "$TARGET_PACKAGE" ] && echo "$CPP_PACKAGES" | grep -q "$TARGET_PACKAGE"; then
             echo "=== Processing C++ packages ==="
+            echo "Target package $TARGET_PACKAGE is a C++ package, processing it"
             
-            # 确定要处理的包
-            if [ -n "$TARGET_PACKAGE" ] && echo "$CPP_PACKAGES" | grep -q "$TARGET_PACKAGE"; then
-              PACKAGES_TO_PROCESS="$TARGET_PACKAGE"
-            else
-              PACKAGES_TO_PROCESS="$CPP_PACKAGES"
-            fi
-            
-            # 处理C++包
-            for package in $PACKAGES_TO_PROCESS; do
-              echo "Processing C++ package: $package"
-              # 执行postprocessing（在根目录中运行，让llpkgstore自己处理包目录查找）
-              llpkgstore postprocessing
-            done
+            # 处理目标C++包
+            echo "Processing C++ package: $TARGET_PACKAGE"
+            # 执行postprocessing（在根目录中运行，让llpkgstore自己处理包目录查找）
+            llpkgstore postprocessing
+          elif [ -n "$CPP_PACKAGES" ]; then
+            echo "=== Skipping C++ packages ==="
+            echo "Target package is not a C++ package, skipping C++ package processing"
+            echo "Available C++ packages: $CPP_PACKAGES"
           fi
       - name: Checkout website branch (for C++ packages)
         uses: actions/checkout@v4
